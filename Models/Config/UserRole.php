@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models\Config;
+
+use Illuminate\Database\Eloquent\Model;
+
+class UserRole extends Model
+{
+    //
+    protected $table = 'config_user_role';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'functions',
+    ];
+}
