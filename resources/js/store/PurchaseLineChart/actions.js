@@ -1,0 +1,40 @@
+// import axios from "axios";
+import router from "../../router";
+import axios from "../../utils/myAxios";
+import * as types from "./mutation-types";
+
+const endpoint = "/api/statistics/chart/purchaseline/";
+const name = "chart/purchaseline";
+
+export default {
+    [`${name}/get`]({ commit, dispatch }, payload) {
+        return new Promise((resolve, reject) => {
+            axios
+                .get(`${endpoint}get`, payload)
+                .then(function(response) {
+                    if (!response.data.error && "data" in response.data) {
+                        let res = response.data;
+                        commit(types.FETCH_PURCHASELINE_SUCCESS, res);
+                        resolve(res);
+                    } else {
+                        reject(response);
+                    }
+                })
+                .catch(function(error) {
+                    let status = error.response.status;
+                    switch (status) {
+                        case 401:
+                            dispatch("snackbar/show", {
+                                color: "success",
+                                text: i18n.t("snackbar.fail.token")
+                            });
+                            dispatch("auth/logout");
+                            router.push({ name: "Login" });
+                            break;
+                    }
+                    // commit(types.FETCH_EMPLOYEES_FAILURE);
+                    reject(error);
+                });
+        });
+    }
+};

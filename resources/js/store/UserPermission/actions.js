@@ -1,0 +1,83 @@
+// import axios from "axios";
+import queryString from "query-string";
+import { i18n } from "../../plugins";
+import router from "../../router";
+import axios from "../../utils/myAxios";
+import * as types from "./mutation-types";
+
+const endpoint = "/api/user/permission/";
+const name = "user/permission";
+
+export default {
+    [`${name}/get`]({ commit, dispatch }, payload) {
+        let query = queryString.stringify(payload);
+        return new Promise((resolve, reject) => {
+            axios
+                .get(`${endpoint}get?${query}`)
+                .then(function(response) {
+                    if (!response.data.error && "data" in response.data) {
+                        let res = response.data;
+                        commit(types.FETCH_PERMISSION_SUCCESS, res);
+                        resolve(res);
+                    } else {
+                        reject(response);
+                    }
+                })
+                .catch(function(error) {
+                    let status = error.response.status;
+                    switch (status) {
+                        case 401:
+                            dispatch("snackbar/show", {
+                                color: "success",
+                                text: i18n.t("snackbar.fail.token")
+                            });
+                            dispatch("auth/logout");
+                            router.push({ name: "Login" });
+                            break;
+                    }
+                    // commit(types.FETCH_EMPLOYEES_FAILURE);
+                    reject(error);
+                });
+        });
+    },
+    [`${name}/update`]({ commit, dispatch }, payload) {
+        return new Promise((resolve, reject) => {
+            axios
+                .post(`${endpoint}update`, payload)
+                .then(function(response) {
+                    if (!response.data.error && "data" in response.data) {
+                        dispatch("snackbar/show", {
+                            color: "success",
+                            text: i18n.t("snackbar.success.updated")
+                        });
+                        let res = response.data;
+                        resolve(res);
+                    } else {
+                        dispatch("snackbar/show", {
+                            color: "error",
+                            text: i18n.t("snackbar.fail.update")
+                        });
+                        reject(response);
+                    }
+                })
+                .catch(function(error) {
+                    let status = error.response.status;
+                    switch (status) {
+                        case 401:
+                            dispatch("snackbar/show", {
+                                color: "success",
+                                text: i18n.t("snackbar.fail.token")
+                            });
+                            dispatch("auth/logout");
+                            router.push({ name: "Login" });
+                            break;
+                    }
+                    dispatch("snackbar/show", {
+                        color: "error",
+                        text: i18n.t("snackbar.fail.update")
+                    });
+                    reject(error);
+                });
+        });
+    }
+};
