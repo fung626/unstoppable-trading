@@ -39,7 +39,7 @@ const PurchaseDetails = () => import("../pages/purchase/PurchaseDetails");
 const StockTake = () => import("../pages/purchase/StockTake");
 
 // Shipping
-const Shipping = () => import("../pages/shipping/shipping");
+const Shipping = () => import("../pages/shipping/Shipping");
 const CreateShipping = () => import("../pages/shipping/CreateShipping");
 const ShippingDetails = () => import("../pages/shipping/ShippingDetails");
 
