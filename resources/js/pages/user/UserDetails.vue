@@ -15,6 +15,10 @@
                             <UserForm :id="this.$route.params.id"></UserForm>
                         </CTab>
                         <CTab
+                            v-if="
+                                $store.getters.isAdmin &&
+                                    data.role === 'EMPLOYEE'
+                            "
                             :title="tab.values[1].toUpperCase()"
                             :active="tab.index === 1 ? true : false"
                         >
@@ -54,6 +58,8 @@ export default {
     },
     data() {
         return {
+            loading: false,
+            data: {},
             tab: {
                 values: [
                     this.$t("info"),
@@ -64,8 +70,31 @@ export default {
             }
         };
     },
+    mounted() {
+        this.fetch();
+    },
     methods: {
-        activeTabUpdated(index) {}
+        activeTabUpdated(index) {},
+        fetch() {
+            let self = this;
+            if (self.loading) {
+                return;
+            }
+            self.loading = true;
+            let data = {
+                id: self.$route.params.id
+            };
+            this.$store
+                .dispatch("user/details", data)
+                .then(response => {
+                    self.data = response.data;
+                    self.loading = false;
+                    // console.log(response);
+                })
+                .catch(error => {
+                    self.loading = false;
+                });
+        }
     }
 };
 </script>

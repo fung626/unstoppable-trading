@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserCollection;
-use App\Models\User\Employees;
+use App\Models\User\Employee;
 use App\Models\User\Users;
 use App\Mylibs\MyPhpOffice;
 use App\Mylibs\Role;
@@ -45,7 +45,7 @@ class UserController extends Controller
                 'email' => request('email'),
                 'password' => bcrypt($password),
             ]);
-            Employees::create([
+            Employee::create([
                 'user_id' => $user_id,
             ]);
         } catch (\Exception $e) {

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\User\Employees;
+use App\Models\User\Employee;
+use App\Models\User\Users;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Validator;
@@ -13,12 +15,17 @@ class EmployeeController extends Controller
     //
     public function get(Request $request)
     {
-        $query = Employees::where(['user_id' => request('id')]);
-        $result = $query->first();
+        $result = Employee::where(['user_id' => request('id')])->first();
         if (!$result) {
-            $result = Employees::create([
-                'user_id' => request('id'),
-            ]);
+            $user = Users::where(['user_id' => request('id')]);
+            if ($user->role === 'EMPLOYEE') {
+                $result = Employee::create([
+                    'user_id' => request('id'),
+                    'employee_contribution' => $user->role === 'EMPLOYEE' ? 5 : null,
+                    'employer_contribution' => $user->role === 'EMPLOYEE' ? 5 : null,
+                    'joined_at' => Carbon::today(),
+                ]);
+            }
         }
         $response = config('response.common.success');
         $response['data'] = $result;
@@ -30,7 +37,7 @@ class EmployeeController extends Controller
         $validator = Validator::make($request->all(), [
             'id' => 'required|string|exists:users,id',
             'joined_at' => 'required|date_format:Y-m-d',
-            'left_at' => 'required|date_format:Y-m-d',
+            'left_at' => 'nullable|date_format:Y-m-d',
         ]);
 
         if ($validator->fails()) {
@@ -41,7 +48,7 @@ class EmployeeController extends Controller
         // $user = Auth::user();
 
         try {
-            Employees::where([
+            Employee::where([
                 'user_id' => request('id'),
             ])->update([
                 'salary' => request('salary'),
@@ -57,7 +64,7 @@ class EmployeeController extends Controller
         }
         // dd($user);
         $response = config('response.common.success');
-        $response['data'] = Employees::where([
+        $response['data'] = Employee::where([
             'user_id' => request('id'),
         ])->first();
         return response()->json($response, 200);

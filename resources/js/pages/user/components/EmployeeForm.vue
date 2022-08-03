@@ -45,15 +45,6 @@
                         ></v-text-field>
                     </c-col>
                 </v-row>
-                <v-text-field
-                    v-model="formData.joined_at"
-                    :label="$t('joinedat')"
-                    :error="errors.joined_at ? true : false"
-                    :error-messages="errors.joined_at"
-                    outlined
-                    dense
-                    clearable
-                ></v-text-field>
                 <v-menu v-model="datepicker.joinedat.menu" min-width="auto">
                     <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -105,14 +96,6 @@
 </template>
 <script>
 //
-
-function formatAsCurrency(value, dec) {
-    dec = dec || 0;
-    if (value === null) {
-        return 0;
-    }
-    return "" + value.toFixed(dec).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-}
 
 export default {
     name: "EmployeeForm",

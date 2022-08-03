@@ -6,7 +6,7 @@
             color="cyan"
         ></v-progress-linear>
         <CCardBody>
-            <div class="d-flex">
+            <div class="d-flex flex-wrap">
                 <div v-for="(_, key) in formData.items" v-bind:key="`${key}`">
                     <div v-if="formData.user.role === 'ADMIN'" class="p-2">
                         <v-switch
