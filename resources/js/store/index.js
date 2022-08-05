@@ -24,11 +24,13 @@ import PurchaseInvoice from "./PurchaseInvoice";
 import PurchaseLineChart from "./PurchaseLineChart";
 import PurchaseStockTake from "./PurchaseStockTake";
 import SalesReport from "./SalesReport";
+import SalesReportStockChart from "./SalesReportStockChart";
 import Supplier from "./Supplier";
 import UIAlert from "./UI/Alert";
 import UISidebar from "./UI/Sidebar";
 import UISnackbar from "./UI/Snackbar";
 import User from "./User";
+import UserDuty from "./UserDuty";
 import UserEmployee from "./UserEmployee";
 import UserEvent from "./UserEvent";
 import UserPermission from "./UserPermission";
@@ -49,9 +51,10 @@ export default new Vuex.Store({
         exchangeRate: ExchangeRate,
         profile: Profile,
         user: User,
+        ["user/duty"]: UserDuty,
         ["user/employee"]: UserEmployee,
-        ["user/permission"]: UserPermission,
         ["user/event"]: UserEvent,
+        ["user/permission"]: UserPermission,
         goods: Goods,
         ["goods/item"]: GoodsItem,
         ["goods/content"]: GoodsContent,
@@ -65,7 +68,8 @@ export default new Vuex.Store({
         ["goods/shipping/available/shipping/item"]: GoodsShipAvailableShippingItems,
         ["goods/shipping/alteration"]: GoodsShippingAlteration,
         ["goods/stock"]: GoodsStock,
-        ["salesreport"]: SalesReport,
+        salesreport: SalesReport,
+        ["salesreport/stockchart"]: SalesReportStockChart,
         category: Category,
         supplier: Supplier,
         warehouse: Warehouse,

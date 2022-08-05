@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Goods\Stocks as StocksCollection;
 use App\Models\Goods\Item;
+use App\Models\User\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -19,7 +20,7 @@ class TestController extends Controller
 
     public function get(Request $request)
     {
-        return response()->json(json_encode(config('constant.roles')[1]['permissions']), 200);
+        dd(Users::get()->toArray());
     }
 
     public function post(Request $request)

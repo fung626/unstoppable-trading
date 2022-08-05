@@ -42,9 +42,29 @@ class Users extends Authenticatable
         'password', 'remember_token', 'transaction_password',
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'is_admin',
+        'is_employee',
+    ];
+
     public function sendWelcomeNotification(\Carbon\Carbon $validUntil, $password)
     {
         $this->notify(new MyWelcomeNotification($validUntil, $password));
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return $this->role === 'ADMIN';
+    }
+
+    public function getIsEmployeeAttribute()
+    {
+        return $this->role === 'EMPLOYEE';
     }
 
     public function employee()

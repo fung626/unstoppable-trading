@@ -28,6 +28,8 @@ const i18n = new VueI18n({
             },
             login: "Login",
             logout: "Logout",
+            prev: "Prev",
+            next: "Next",
             forgotpassword: "Forgot Password",
             oldpassword: "Old Password",
             newpassword: "New Password",
@@ -119,8 +121,10 @@ const i18n = new VueI18n({
             employee: "Employee",
             EMPLOYEE: "EMPLOYEE",
             employer: "employer",
+            duty: "Duty",
+            dutylist: "Duty List",
             mpf: {
-                contribution: "Contribution"
+                contribution: " MPF Contribution"
             },
             traffic: "Traffic",
             joinedat: "Joined at",
@@ -128,6 +132,8 @@ const i18n = new VueI18n({
             exchangerate: "Exchange Rate",
             averageinventory: "Average Inventory",
             inventoryturnover: "Inventory Turnover",
+            inventorychange: "Inventory Change",
+            daysinventoryoutstanding: "Days Inventory Outstanding",
             lastthreemonths: "Last Three Months",
             purchasestatus: {
                 pending: "Pending",
@@ -205,6 +211,8 @@ const i18n = new VueI18n({
             },
             login: "登入",
             logout: "登出",
+            prev: "上一個",
+            next: "下一個",
             forgotpassword: "忘記密碼",
             oldpassword: "舊密碼",
             newpassword: "新密碼",
@@ -297,8 +305,10 @@ const i18n = new VueI18n({
             employee: "員工",
             EMPLOYEE: "員工",
             employer: "雇主",
+            duty: "更",
+            dutylist: "更表",
             mpf: {
-                contribution: "供款"
+                contribution: " MPF 供款"
             },
             traffic: "流量",
             joinedat: "加入日期",
@@ -306,6 +316,8 @@ const i18n = new VueI18n({
             exchangerate: "匯率",
             averageinventory: "平均庫存",
             inventoryturnover: "存貨周轉率",
+            inventorychange: "庫存變化",
+            daysinventoryoutstanding: "存貨周轉天數",
             lastthreemonths: "過去三個月",
             purchasestatus: {
                 pending: "待確定",

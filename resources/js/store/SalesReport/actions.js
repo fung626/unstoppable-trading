@@ -15,7 +15,7 @@ export default {
                 .then(function(response) {
                     if (!response.data.error && "data" in response.data) {
                         let res = response.data;
-                        commit(types.FETCH_SALES_REPORT_SUCCESS, res);
+                        commit(types.FETCH_SALESREPORT_SUCCESS, res);
                         resolve(res);
                     } else {
                         reject(response);
@@ -45,7 +45,7 @@ export default {
                 .then(function(response) {
                     if (!response.data.error && "data" in response.data) {
                         let res = response.data;
-                        commit(types.FETCH_DAILY_SALES_REPORT_SUCCESS, res);
+                        commit(types.FETCH_DAILYSALESREPORT_SUCCESS, res);
                         resolve(res);
                     } else {
                         reject(response);

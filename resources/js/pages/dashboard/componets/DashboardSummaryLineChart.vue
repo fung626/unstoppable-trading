@@ -7,7 +7,7 @@
                 color="cyan"
             ></v-progress-linear>
             <CCardBody>
-                <CRow>
+                <CRow class="p-2">
                     <CCol sm="5">
                         <h4 id="traffic" class="card-title mb-0">
                             {{ $t("traffic") }}
@@ -29,8 +29,8 @@
 </template>
 <script>
 //
-import { mapState } from "vuex";
 import { CChartLine } from "@coreui/vue-chartjs";
+import { mapState } from "vuex";
 
 export default {
     name: "DashboardSummaryLineChart",

@@ -1,0 +1,1 @@
+export const FETCH_DUTY_SUCCESS = "FETCH_DUTY_SUCCESS";

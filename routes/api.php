@@ -66,6 +66,8 @@ Route::group(['namespace' => 'API\SalesReport', 'middleware' => ['auth:api', 'sc
     Route::get('get', ['uses' => 'SalesReportController@get']);
     Route::get('average/inventory/get', ['uses' => 'AverageInventoryController@get']);
     Route::get('inventory/turnover/get', ['uses' => 'InventoryTurnoverController@get']);
+
+    Route::get('stockchart/get', ['uses' => 'StockChartController@get']);
 });
 
 Route::group(['namespace' => 'API\User', 'middleware' => ['auth:api', 'scopes:user', 'localization'], 'prefix' => 'user'], function () {
@@ -83,6 +85,16 @@ Route::group(['namespace' => 'API\User', 'middleware' => ['auth:api', 'scopes:us
     // permission
     Route::get('permission/get', ['uses' => 'PermissionController@get']);
     Route::post('permission/update', ['uses' => 'PermissionController@update']);
+    // duty
+    Route::post('duty/create', ['uses' => 'DutyController@create']);
+    Route::post('duty/update', ['uses' => 'DutyController@update']);
+    // password
+    Route::post('profile/password/update', ['uses' => 'PasswordController@post']);
+});
+
+Route::group(['namespace' => 'API\User', 'middleware' => ['auth:api', 'localization'], 'prefix' => 'user'], function () {
+    // duty
+    Route::post('duty/get', ['uses' => 'DutyController@get']);
     // password
     Route::post('profile/password/update', ['uses' => 'PasswordController@post']);
 });

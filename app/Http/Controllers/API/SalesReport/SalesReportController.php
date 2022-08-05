@@ -17,10 +17,14 @@ class SalesReportController extends Controller
         $to = Carbon::now();
         $average = SalesReport::averageInventory($from, $to);
         $turnover = SalesReport::inventoryTurnover($from, $to);
+        $change = SalesReport::change();
+        $DIO = SalesReport::DIO();
         $response = config('response.common.success');
         $response['data'] = [
             'average_inventory' => Common::formatPrice($average),
             'inventory_turnover' => Common::formatPrice($turnover),
+            'inventory_change' => Common::formatPrice($change),
+            'inventory_dio' => Common::formatPrice($DIO),
         ];
         return response()->json($response, 200);
     }

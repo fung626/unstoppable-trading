@@ -38,6 +38,7 @@
             </CCol>
         </CRow>
         <DashboardSummaryLineChart />
+        <DutyCalendar />
         <ExchangeRate />
         <CRow>
             <CCol md="12">
@@ -86,18 +87,20 @@
 
 <script>
 import { mapState } from "vuex";
-import DashboardSummaryLineChart from "./componets/DashboardSummaryLineChart";
-import PurchaseTable from "./componets/PurchaseTable";
-import ScannerDialog from "../../components/ScannerDialog";
 import { ExchangeRate } from "../../components";
+import ScannerDialog from "../../components/ScannerDialog";
+import DashboardSummaryLineChart from "./componets/DashboardSummaryLineChart";
+import DutyCalendar from "./componets/DutyCalendar";
+import PurchaseTable from "./componets/PurchaseTable";
 
 export default {
     name: "Dashboard",
     components: {
-        DashboardSummaryLineChart,
-        PurchaseTable,
+        ExchangeRate,
         ScannerDialog,
-        ExchangeRate
+        DashboardSummaryLineChart,
+        DutyCalendar,
+        PurchaseTable
     },
     computed: {
         ...mapState(["dashboard"]),
