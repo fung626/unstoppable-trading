@@ -37,6 +37,7 @@
     "Admin": "管理員",
     "Admins": "管理員",
     "Role": "權限",
+    "Create": "新增",
     "Update": "更新",
     "Delete": "刪除",
     "Add": "新增",
@@ -90,6 +91,8 @@
     "Client": "客戶",
     "Altered": "已更改",
     "Return": "退貨",
+    "Start": "開始",
+    "End": "結束",
     "Updated at": "更新日期",
     "Created at": "新增日期",
     "Actions": "功能"

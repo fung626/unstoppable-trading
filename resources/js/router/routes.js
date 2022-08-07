@@ -24,6 +24,11 @@ const User = () => import("../pages/user/User");
 const CreateUser = () => import("../pages/user/CreateUser");
 const UserDetails = () => import("../pages/user/UserDetails");
 
+// Duty
+const Duty = () => import("../pages/duty/Duty");
+const CreateDuty = () => import("../pages/duty/CreateDuty");
+const DutyDetails = () => import("../pages/duty/DutyDetails");
+
 // Goods
 const Goods = () => import("../pages/goods/Goods");
 const CreateGoods = () => import("../pages/goods/CreateGoods");
@@ -136,6 +141,35 @@ export default ({ authGuard, guestGuard }) => [
                             meta: { label: i18n.t("details") },
                             name: "UserDetails",
                             component: UserDetails
+                        }
+                    ]
+                },
+                {
+                    path: "duty",
+                    meta: { label: i18n.t("duty") },
+                    component: {
+                        render(c) {
+                            return c("router-view");
+                        }
+                    },
+                    children: [
+                        {
+                            path: "",
+                            meta: { label: i18n.t("table") },
+                            name: "Duty",
+                            component: Duty
+                        },
+                        {
+                            path: "create/:userId?",
+                            meta: { label: i18n.t("create") },
+                            name: "CreateDuty",
+                            component: CreateDuty
+                        },
+                        {
+                            path: "details/:id",
+                            meta: { label: i18n.t("details") },
+                            name: "DutyDetails",
+                            component: DutyDetails
                         }
                     ]
                 },

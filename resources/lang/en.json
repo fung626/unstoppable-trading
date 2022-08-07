@@ -37,6 +37,7 @@
     "Admin": "Admin",
     "Admins": "Admins",
     "Role": "Role",
+    "Create": "Create",
     "Update": "Update",
     "Delete": "Delete",
     "Add": "Add",
@@ -90,6 +91,8 @@
     "Client": "Client",
     "Altered": "Altered",
     "Return": "Return",
+    "Start": "Start",
+    "End": "End",
     "Updated at": "Updated at",
     "Created at": "Created at",
     "Actions": "Actions"

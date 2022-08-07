@@ -75,6 +75,7 @@ Route::group(['namespace' => 'API\User', 'middleware' => ['auth:api', 'scopes:us
     Route::post('update', ['uses' => 'UserController@update']);
     Route::post('get', ['uses' => 'UserController@get']);
     Route::get('details', ['uses' => 'UserController@details']);
+    Route::post('delete', ['uses' => 'UserController@delete']);
     Route::post('export', ['uses' => 'UserController@export']);
     // profile
     Route::get('profile/get', ['uses' => 'ProfileController@get']);
@@ -86,15 +87,19 @@ Route::group(['namespace' => 'API\User', 'middleware' => ['auth:api', 'scopes:us
     Route::get('permission/get', ['uses' => 'PermissionController@get']);
     Route::post('permission/update', ['uses' => 'PermissionController@update']);
     // duty
-    Route::post('duty/create', ['uses' => 'DutyController@create']);
+    Route::post('duty/create', ['uses' => 'DutyController@post']);
     Route::post('duty/update', ['uses' => 'DutyController@update']);
+    Route::post('duty/get', ['uses' => 'DutyController@get']);
+    Route::get('duty/details', ['uses' => 'DutyController@details']);
+    Route::post('duty/delete', ['uses' => 'DutyController@delete']);
+    Route::post('duty/export', ['uses' => 'DutyController@export']);
     // password
     Route::post('profile/password/update', ['uses' => 'PasswordController@post']);
 });
 
 Route::group(['namespace' => 'API\User', 'middleware' => ['auth:api', 'localization'], 'prefix' => 'user'], function () {
     // duty
-    Route::post('duty/get', ['uses' => 'DutyController@get']);
+    Route::post('duty/calendar/get', ['uses' => 'DutyCalendarController@get']);
     // password
     Route::post('profile/password/update', ['uses' => 'PasswordController@post']);
 });

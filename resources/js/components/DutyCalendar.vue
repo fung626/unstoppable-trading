@@ -1,5 +1,5 @@
 <template>
-    <CCard>
+    <CCard v-if="allowed">
         <v-progress-linear
             :active="loading"
             indeterminate
@@ -15,20 +15,10 @@
             </CRow>
             <CRow class="p-2">
                 <CCol sm="3">
-                    <CButton
-                        @click="prev"
-                        color="primary"
-                        :disabled="loading"
-                        size="sm"
-                    >
+                    <CButton @click="prev" color="primary" :disabled="loading">
                         {{ "＜ PREV" }}
                     </CButton>
-                    <CButton
-                        @click="next"
-                        color="primary"
-                        :disabled="loading"
-                        size="sm"
-                    >
+                    <CButton @click="next" color="primary" :disabled="loading">
                         {{ "NEXT ＞" }}
                     </CButton>
                 </CCol>
@@ -36,7 +26,8 @@
                     <v-select
                         v-model="type"
                         :items="types"
-                        :item-text="item => $t(item)"
+                        item-text="name"
+                        item-value="value"
                         outlined
                         dense
                     ></v-select>
@@ -59,30 +50,35 @@
 //
 import moment from "moment";
 import { mapState } from "vuex";
+import { calendarTypes } from "../constants";
 
 export default {
     name: "DutyCalendar",
+    props: {
+        userId: null
+    },
     components: {},
     computed: {
-        ...mapState(["user/duty"]),
+        ...mapState(["user/duty/calendar"]),
         events() {
-            let data = this["user/duty"].data;
             let temp = [];
-            // moment().format('dddd');
-            for (const item of data) {
-                let format = "hh:mm";
-                let name = item["user"]["name"];
-                let start = new Date(item["start"]);
-                let end = new Date(item["end"]);
-                temp.push({
-                    name: `${moment(start).format(format)} - ${moment(
-                        end
-                    ).format(format)} ${name} `,
-                    start: start,
-                    end: end,
-                    color: "cyan",
-                    timed: false
-                });
+            if (this["user/duty/calendar"]) {
+                let data = this["user/duty/calendar"].data;
+                for (const item of data) {
+                    let format = "H:mm";
+                    let name = item["user"] ? item["user"]["name"] : "";
+                    let start = new Date(item["start"]);
+                    let end = new Date(item["end"]);
+                    temp.push({
+                        name: `${moment(start).format(format)} - ${moment(
+                            end
+                        ).format(format)} ${name} `,
+                        start: start,
+                        end: end,
+                        color: "cyan",
+                        timed: false
+                    });
+                }
             }
             return temp;
         }
@@ -91,7 +87,7 @@ export default {
         return {
             loading: false,
             type: "month",
-            types: ["month", "week", "day", "4 days"],
+            types: calendarTypes,
             mode: "stack",
             modes: ["stack", "column"],
             weekday: [0, 1, 2, 3, 4, 5, 6],
@@ -114,11 +110,12 @@ export default {
             }
             self.loading = true;
             let data = {
+                user_id: this.userId,
                 from: start.date,
                 to: end.date
             };
             this.$store
-                .dispatch("user/duty/get", data)
+                .dispatch("user/duty/calendar/get", data)
                 .then(response => {
                     self.loading = false;
                 })
@@ -131,6 +128,15 @@ export default {
         },
         next() {
             this.$refs.calendar.next();
+        },
+        allowed() {
+            if (this.$store.getters.isAdmin) {
+                return true;
+            }
+            if (this.$store.getters.authUser.id === this.userId) {
+                return true;
+            }
+            return false;
         }
     }
 };

@@ -21,6 +21,8 @@ export default {
         return state.user?.role === "EMPLOYEE";
     },
     permissions(state) {
-        return state.user?.permission.items;
+        return state.user?.permission?.items
+            ? state.user?.permission?.items
+            : [];
     }
 };

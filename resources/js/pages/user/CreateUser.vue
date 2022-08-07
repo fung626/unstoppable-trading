@@ -39,19 +39,6 @@
                         ></v-text-field>
                     </c-col>
                 </v-row>
-                <v-text-field
-                    v-model="password"
-                    :label="$t('password')"
-                    :append-icon="passwordVisible ? 'mdi-eye' : 'mdi-eye-off'"
-                    :type="passwordVisible ? 'text' : 'password'"
-                    @click:append="passwordVisible = !passwordVisible"
-                    :error="errors.password ? true : false"
-                    :error-messages="errors.password"
-                    required
-                    outlined
-                    dense
-                    clearable
-                ></v-text-field>
                 <v-select
                     v-model="role"
                     :items="roles"
@@ -128,6 +115,13 @@ export default {
 </script>
 
 <style scoped>
+.v-select {
+    font-size: 1em;
+    font-weight: 100;
+}
+.v-text-field--outlined >>> fieldset {
+    border-color: #ccc;
+}
 .v-text-field >>> input {
     font-size: 0.8em;
     font-weight: 100;

@@ -30,6 +30,8 @@ const i18n = new VueI18n({
             logout: "Logout",
             prev: "Prev",
             next: "Next",
+            start: "Start",
+            end: "End",
             forgotpassword: "Forgot Password",
             oldpassword: "Old Password",
             newpassword: "New Password",
@@ -123,6 +125,11 @@ const i18n = new VueI18n({
             employer: "employer",
             duty: "Duty",
             dutylist: "Duty List",
+            calendar: {
+                month: "Month",
+                week: "Week",
+                day: "Day"
+            },
             mpf: {
                 contribution: " MPF Contribution"
             },
@@ -213,6 +220,8 @@ const i18n = new VueI18n({
             logout: "登出",
             prev: "上一個",
             next: "下一個",
+            start: "開始",
+            end: "結束",
             forgotpassword: "忘記密碼",
             oldpassword: "舊密碼",
             newpassword: "新密碼",
@@ -307,6 +316,11 @@ const i18n = new VueI18n({
             employer: "雇主",
             duty: "更",
             dutylist: "更表",
+            calendar: {
+                month: "月",
+                week: "星期",
+                day: "日"
+            },
             mpf: {
                 contribution: " MPF 供款"
             },

@@ -30,6 +30,12 @@ export default [
             },
             {
                 _name: "CSidebarNavItem",
+                name: i18n.t("duty"),
+                to: "/duty",
+                icon: "cil-view-quilt"
+            },
+            {
+                _name: "CSidebarNavItem",
                 name: i18n.t("goods"),
                 to: "/goods",
                 icon: "cil-square"

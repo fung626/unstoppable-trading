@@ -102,7 +102,23 @@ class UserController extends Controller
 
     public function get(Request $request)
     {
-        $query = Users::when($request->filled(['search']), function ($query) {
+
+        $validator = Validator::make($request->all(), [
+            'role' => 'nullable|in:' . implode(',', Role::getRoles()),
+        ]);
+
+        if ($validator->fails()) {
+            $response = config('response.common.fail.parameter');
+            $response['data'] = $validator->errors();
+            return response()->json($response, 400);
+        }
+
+        $query = Users::when($request->filled(['role']), function ($query) {
+            $role = trim(request('role'));
+            return $query->where(function ($query) use ($role) {
+                $query->where('role', $role);
+            });
+        })->when($request->filled(['search']), function ($query) {
             $keyword = trim(request('search'));
             return $query->where(function ($query) use ($keyword) {
                 $query->where('id', 'like', '%' . $keyword . '%')
@@ -157,6 +173,33 @@ class UserController extends Controller
         $result = $query->first();
         $response['data'] = $result;
         return response()->json($response, 200);
+    }
+
+    public function delete(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:users,id',
+        ]);
+
+        if ($validator->fails()) {
+            $response = config('response.common.fail.parameter');
+            $response['data'] = $validator->errors();
+            return response()->json($response, 400);
+        }
+
+        try {
+            Users::where(['id' => request('id')])->delete();
+        } catch (\Illuminate\Database\QueryException $e) {
+            Log::error($e->getMessage());
+            // $errorInfo = $e->errorInfo;
+            $response = config('response.common.fail.database');
+            $response['msg'] = $e->getMessage();
+            return response()->json($response, 500);
+        }
+
+        $response = config('response.common.success');
+        return response()->json($response, 200);
+
     }
 
     public function export(Request $request)

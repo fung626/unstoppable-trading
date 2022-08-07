@@ -15,6 +15,8 @@ class Duty extends Model
      * @var array
      */
     protected $fillable = [
+        'user_id',
+        'date',
         'start',
         'end',
     ];

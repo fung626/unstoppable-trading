@@ -1,3 +1,4 @@
+import calendarTypes from "./calendarTypes";
 import config from "./config";
 import countryCodes from "./countryCodes";
 import currencies from "./currencies";
@@ -9,10 +10,11 @@ import goodsSizes from "./goods/sizes";
 import goodsTypes from "./goods/types";
 import moment from "./moment";
 import purchaseStatus from "./purchaseStatus";
-import shipStatus from "./shipStatus";
 import roles from "./roles";
+import shipStatus from "./shipStatus";
 
 export {
+    calendarTypes,
     config,
     countryCodes,
     currencies,

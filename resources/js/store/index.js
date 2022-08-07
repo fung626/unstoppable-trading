@@ -31,6 +31,7 @@ import UISidebar from "./UI/Sidebar";
 import UISnackbar from "./UI/Snackbar";
 import User from "./User";
 import UserDuty from "./UserDuty";
+import UserDutyCalendar from "./UserDutyCalendar";
 import UserEmployee from "./UserEmployee";
 import UserEvent from "./UserEvent";
 import UserPermission from "./UserPermission";
@@ -52,6 +53,7 @@ export default new Vuex.Store({
         profile: Profile,
         user: User,
         ["user/duty"]: UserDuty,
+        ["user/duty/calendar"]: UserDutyCalendar,
         ["user/employee"]: UserEmployee,
         ["user/event"]: UserEvent,
         ["user/permission"]: UserPermission,

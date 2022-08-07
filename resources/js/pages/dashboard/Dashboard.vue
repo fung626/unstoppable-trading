@@ -88,10 +88,10 @@
 <script>
 import { mapState } from "vuex";
 import { ExchangeRate } from "../../components";
+import DutyCalendar from "../../components/DutyCalendar";
 import ScannerDialog from "../../components/ScannerDialog";
-import DashboardSummaryLineChart from "./componets/DashboardSummaryLineChart";
-import DutyCalendar from "./componets/DutyCalendar";
-import PurchaseTable from "./componets/PurchaseTable";
+import DashboardSummaryLineChart from "./components/DashboardSummaryLineChart";
+import PurchaseTable from "./components/PurchaseTable";
 
 export default {
     name: "Dashboard",
