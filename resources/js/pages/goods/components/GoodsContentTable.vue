@@ -126,8 +126,8 @@
 </template>
 <script>
 //
-import { Dialog } from "../../../components";
-import { goodsDefaults } from "../../../constants";
+import { Dialog } from "@/components";
+import { goodsDefaults } from "@/constants";
 import { v4 as uuidv4 } from "uuid";
 
 export default {

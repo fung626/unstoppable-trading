@@ -185,9 +185,9 @@
 </template>
 <script>
 //
+import { Dialog } from "@/components";
+import { goodsSizes } from "@/constants";
 import { mapState } from "vuex";
-import { Dialog } from "../../../components";
-import { goodsSizes } from "../../../constants";
 import ShippingReturnDialog from "./ShippingReturnDialog";
 
 export default {

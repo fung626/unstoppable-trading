@@ -17,8 +17,8 @@
                     dense
                     clearable
                 ></v-text-field>
-                <v-row>
-                    <c-col md="6" sm="6">
+                <CRow>
+                    <CCol md="6" sm="6">
                         <v-text-field
                             v-model="formData.name"
                             :label="$t('name')"
@@ -30,8 +30,8 @@
                             clearable
                             maxlength="45"
                         ></v-text-field>
-                    </c-col>
-                    <c-col md="6" sm="6">
+                    </CCol>
+                    <CCol md="6" sm="6">
                         <v-text-field
                             v-model="formData.contact"
                             :label="$t('contact')"
@@ -43,10 +43,10 @@
                             clearable
                             maxlength="45"
                         ></v-text-field>
-                    </c-col>
-                </v-row>
-                <v-row>
-                    <c-col md="2" sm="2">
+                    </CCol>
+                </CRow>
+                <CRow>
+                    <CCol md="2" sm="2">
                         <v-select
                             v-model="formData.phone_country_code"
                             :items="countryCodes"
@@ -59,8 +59,8 @@
                             outlined
                             dense
                         ></v-select>
-                    </c-col>
-                    <c-col md="10" sm="10">
+                    </CCol>
+                    <CCol md="10" sm="10">
                         <v-text-field
                             v-model="formData.phone"
                             :label="$t('phone')"
@@ -71,8 +71,8 @@
                             dense
                             clearable
                         ></v-text-field>
-                    </c-col>
-                </v-row>
+                    </CCol>
+                </CRow>
                 <v-text-field
                     v-model="formData.email"
                     :label="$t('email')"
@@ -123,7 +123,7 @@
 </template>
 <script>
 //
-import { countryCodes, currencies } from "../../../constants";
+import { countryCodes, currencies } from "@/constants";
 
 export default {
     name: "ClientForm",

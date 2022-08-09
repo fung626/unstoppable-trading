@@ -1,91 +1,154 @@
 <template>
-    <CRow>
-        <CCol>
-            <CCard class="p-2">
-                <CCardBody>
-                    <CTabs
-                        variant="pills"
-                        @update:activeTab="index => activeTabUpdated(index)"
+    <div>
+        <DutyCalendar v-if="formData.user.id" :userId="formData.user.id" />
+        <CCard class="p-4">
+            <v-progress-linear
+                :active="fetchLoading"
+                indeterminate
+                color="cyan"
+            ></v-progress-linear>
+            <CCardBody>
+                <h4>{{ $t("details") }}</h4>
+                <hr />
+                <form>
+                    <v-text-field
+                        v-model="formData.user.name"
+                        :label="$t('user')"
+                        outlined
+                        dense
+                        disabled
+                    ></v-text-field>
+                    <v-menu
+                        v-model="dateMenu"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="auto"
                     >
-                        <CTab
-                            :title="tab.values[0].toUpperCase()"
-                            :active="tab.index === 0 ? true : false"
-                        >
-                            <hr />
-                            <UserForm :id="this.$route.params.id"></UserForm>
-                        </CTab>
-                        <CTab
-                            v-if="
-                                $store.getters.isAdmin &&
-                                    data.role === 'EMPLOYEE'
-                            "
-                            :title="tab.values[1].toUpperCase()"
-                            :active="tab.index === 1 ? true : false"
-                        >
-                            <hr />
-                            <EmployeeForm
-                                :id="this.$route.params.id"
-                            ></EmployeeForm>
-                        </CTab>
-                        <CTab
-                            v-if="$store.getters.isAdmin"
-                            :title="tab.values[2].toUpperCase()"
-                            :active="tab.index === 2 ? true : false"
-                        >
-                            <hr />
-                            <PermissionForm
-                                :id="this.$route.params.id"
-                            ></PermissionForm>
-                        </CTab>
-                    </CTabs>
-                </CCardBody>
-            </CCard>
-        </CCol>
-    </CRow>
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                                v-model="formData.date"
+                                :label="$t('date')"
+                                outlined
+                                dense
+                                clearable
+                                readonly
+                                v-bind="attrs"
+                                v-on="on"
+                                :error="errors.date ? true : false"
+                                :error-messages="errors.date"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker
+                            v-model="formData.date"
+                            @input="dateMenu = false"
+                        ></v-date-picker>
+                    </v-menu>
+                    <CRow>
+                        <CCol md="6" sm="6">
+                            <v-text-field
+                                v-model="formData.formatted_start"
+                                :label="$t('start')"
+                                :error="errors.formatted_start ? true : false"
+                                :error-messages="errors.formatted_start"
+                                type="time"
+                                outlined
+                                dense
+                                clearable
+                            ></v-text-field>
+                        </CCol>
+                        <CCol md="6" sm="6">
+                            <v-text-field
+                                v-model="formData.formatted_end"
+                                :label="$t('end')"
+                                :error="errors.formatted_end ? true : false"
+                                :error-messages="errors.formatted_end"
+                                type="time"
+                                required
+                                outlined
+                                dense
+                                clearable
+                            ></v-text-field>
+                        </CCol>
+                    </CRow>
+                    <CButton
+                        @click="update"
+                        color="primary"
+                        class="px-4"
+                        :disabled="!formData.editable"
+                    >
+                        {{ $t("button.update") }}
+                        <v-progress-circular
+                            v-if="updateLoading"
+                            indeterminate
+                            color="primary"
+                            :size="15"
+                        ></v-progress-circular>
+                    </CButton>
+                </form>
+            </CCardBody>
+        </CCard>
+    </div>
 </template>
 <script>
-//
+import { DutyCalendar } from "@/components";
 
 export default {
     name: "DutyDetails",
-    components: {},
+    components: {
+        DutyCalendar
+    },
     data() {
         return {
-            loading: false,
-            data: {},
-            tab: {
-                values: [
-                    this.$t("info"),
-                    this.$t("employee"),
-                    this.$t("permission")
-                ],
-                index: 0
-            }
+            formData: {
+                user: {}
+            },
+            errors: {},
+            dateMenu: false,
+            fetchLoading: false,
+            updateLoading: false
         };
     },
     mounted() {
         this.fetch();
     },
     methods: {
-        activeTabUpdated(index) {},
         fetch() {
             let self = this;
-            if (self.loading) {
+            if (self.fetchLoading) {
                 return;
             }
-            self.loading = true;
+            self.fetchLoading = true;
             let data = {
                 id: self.$route.params.id
             };
             this.$store
-                .dispatch("user/details", data)
+                .dispatch("user/duty/details", data)
                 .then(response => {
-                    self.data = response.data;
-                    self.loading = false;
+                    // console.log(response.data);
+                    self.formData = JSON.parse(JSON.stringify(response.data));
+                    self.fetchLoading = false;
+                })
+                .catch(error => {
+                    self.fetchLoading = false;
+                });
+        },
+        update() {
+            let self = this;
+            if (self.updateLoading) {
+                return;
+            }
+            self.updateLoading = true;
+            this.$store
+                .dispatch("user/duty/update", self.formData)
+                .then(response => {
+                    self.formData = JSON.parse(JSON.stringify(response.data));
+                    self.updateLoading = false;
                     // console.log(response);
                 })
                 .catch(error => {
-                    self.loading = false;
+                    self.updateLoading = false;
                 });
         }
     }

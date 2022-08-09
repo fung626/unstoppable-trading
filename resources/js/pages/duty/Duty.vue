@@ -75,7 +75,7 @@
 </template>
 <script>
 //
-import { Dialog, DutyCalendar } from "../../components";
+import { Dialog, DutyCalendar } from "@/components";
 
 export default {
     name: "Duty",

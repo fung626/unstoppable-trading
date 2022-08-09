@@ -99,7 +99,7 @@
 </template>
 <script>
 //
-import { Dialog } from "../../../components";
+import { Dialog } from "@/components";
 
 export default {
     name: "ShippingTable",

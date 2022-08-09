@@ -76,8 +76,8 @@
 </template>
 <script>
 //
+import { Dialog } from "@/components";
 import { mapState } from "vuex";
-import { Dialog } from "../../components";
 
 export default {
     name: "Supplier",

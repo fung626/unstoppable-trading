@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 use App\Models\User\Users;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Duty extends Model
@@ -19,7 +20,37 @@ class Duty extends Model
         'date',
         'start',
         'end',
+        'editable',
     ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'formatted_start',
+        'formatted_end',
+    ];
+
+    protected $casts = [
+        'editable' => 'boolean',
+    ];
+
+    public function getFormattedStartAttribute()
+    {
+        return Carbon::parse($this->start)->format('H:i');
+    }
+
+    public function getFormattedEndAttribute()
+    {
+        return Carbon::parse($this->end)->format('H:i');
+    }
+
+    public function getEditableAttribute()
+    {
+        return $this->attributes['editable'] === 1;
+    }
 
     public function user()
     {

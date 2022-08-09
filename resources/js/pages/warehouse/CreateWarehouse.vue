@@ -14,8 +14,8 @@
                     dense
                     clearable
                 ></v-text-field>
-                <v-row>
-                    <c-col md="6" sm="6">
+                <CRow>
+                    <CCol md="6" sm="6">
                         <v-text-field
                             v-model="shelf"
                             :label="$t('shelf')"
@@ -25,8 +25,8 @@
                             dense
                             clearable
                         ></v-text-field>
-                    </c-col>
-                    <c-col md="6" sm="6">
+                    </CCol>
+                    <CCol md="6" sm="6">
                         <v-text-field
                             v-model="segment"
                             :label="$t('segment')"
@@ -36,8 +36,8 @@
                             dense
                             clearable
                         ></v-text-field>
-                    </c-col>
-                </v-row>
+                    </CCol>
+                </CRow>
                 <v-text-field
                     v-model="description"
                     :label="$t('description')"

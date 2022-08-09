@@ -14,27 +14,68 @@
                 </CCol>
             </CRow>
             <CRow class="p-2">
-                <CCol sm="3">
-                    <CButton @click="prev" color="primary" :disabled="loading">
-                        {{ "＜ PREV" }}
-                    </CButton>
-                    <CButton @click="next" color="primary" :disabled="loading">
-                        {{ "NEXT ＞" }}
+                <CCol class="d-block d-md-none" sm="12">
+                    <div class="d-flex justify-content-end">
+                        <CButtonGroup>
+                            <CButton
+                                v-for="t in types"
+                                :key="t.value"
+                                :color="t.value === type ? 'primary' : 'light'"
+                                :disabled="loading"
+                                @click="onTypeClick(t)"
+                            >
+                                {{ t.name }}
+                            </CButton>
+                        </CButtonGroup>
+                    </div>
+                </CCol>
+                <CCol class="d-block d-md-none" sm="12">
+                    <div class="d-flex justify-content-between">
+                        <CButton
+                            @click="prev"
+                            color="light"
+                            :disabled="loading"
+                        >
+                            <v-icon>mdi-chevron-left</v-icon>
+                        </CButton>
+                        <CButton
+                            @click="next"
+                            color="light"
+                            :disabled="loading"
+                        >
+                            <v-icon>mdi-chevron-right</v-icon>
+                        </CButton>
+                    </div>
+                </CCol>
+            </CRow>
+            <CRow class="p-2">
+                <CCol class="d-none d-md-block" sm="1">
+                    <CButton @click="prev" color="light" :disabled="loading">
+                        <v-icon>mdi-chevron-left</v-icon>
                     </CButton>
                 </CCol>
-                <CCol sm="9">
-                    <v-select
-                        v-model="type"
-                        :items="types"
-                        item-text="name"
-                        item-value="value"
-                        outlined
-                        dense
-                    ></v-select>
+                <CCol class="d-none d-md-block text-right" sm="10">
+                    <CButtonGroup>
+                        <CButton
+                            v-for="t in types"
+                            :key="t.value"
+                            :color="t.value === type ? 'primary' : 'light'"
+                            :disabled="loading"
+                            @click="onTypeClick(t)"
+                        >
+                            {{ t.name }}
+                        </CButton>
+                    </CButtonGroup>
+                </CCol>
+                <CCol class="d-none d-md-block text-right" sm="1">
+                    <CButton @click="next" color="light" :disabled="loading">
+                        <v-icon>mdi-chevron-right</v-icon>
+                    </CButton>
                 </CCol>
             </CRow>
             <v-calendar
                 ref="calendar"
+                v-model="focus"
                 :weekdays="weekday"
                 :type="type"
                 :events="events"
@@ -48,9 +89,9 @@
 
 <script>
 //
+import { calendarTypes } from "@/constants";
 import moment from "moment";
 import { mapState } from "vuex";
-import { calendarTypes } from "../constants";
 
 export default {
     name: "DutyCalendar",
@@ -86,6 +127,7 @@ export default {
     data() {
         return {
             loading: false,
+            focus: "",
             type: "month",
             types: calendarTypes,
             mode: "stack",
@@ -124,10 +166,17 @@ export default {
                 });
         },
         prev() {
+            // console.log(this.$refs);
             this.$refs.calendar.prev();
         },
         next() {
+            // console.log(this.$refs);
             this.$refs.calendar.next();
+        },
+        onTypeClick(type) {
+            this.type = type.value;
+            // console.log(this.type);
+            // this.$forceUpdate();
         },
         allowed() {
             if (this.$store.getters.isAdmin) {

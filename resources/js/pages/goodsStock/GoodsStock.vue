@@ -224,8 +224,8 @@
 </template>
 <script>
 //
+import { CreateShipDialog } from "@/components";
 import { mapState } from "vuex";
-import { CreateShipDialog } from "../../components";
 
 export default {
     name: "GoodsStock",

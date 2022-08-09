@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { goodsSizes } from "../../../constants";
+import { goodsSizes } from "@/constants";
 
 export default {
     name: "CreateShipDialog",

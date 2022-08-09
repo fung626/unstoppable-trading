@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { countryCodes } from "../../constants";
+import { countryCodes } from "@/constants";
 
 export default {
     name: "CreateCategory",

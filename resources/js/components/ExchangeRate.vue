@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { currencies } from "../constants";
+import { currencies } from "@/constants";
 
 export default {
     name: "ExchangeRate",

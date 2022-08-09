@@ -17,8 +17,8 @@
                     dense
                     clearable
                 ></v-text-field>
-                <v-row>
-                    <c-col md="6" sm="6">
+                <CRow>
+                    <CCol md="6" sm="6">
                         <v-text-field
                             v-model="formData.employer_contribution"
                             :label="
@@ -30,8 +30,8 @@
                             dense
                             clearable
                         ></v-text-field>
-                    </c-col>
-                    <c-col md="6" sm="6">
+                    </CCol>
+                    <CCol md="6" sm="6">
                         <v-text-field
                             v-model="formData.employee_contribution"
                             :label="
@@ -43,8 +43,8 @@
                             dense
                             clearable
                         ></v-text-field>
-                    </c-col>
-                </v-row>
+                    </CCol>
+                </CRow>
                 <v-menu v-model="datepicker.joinedat.menu" min-width="auto">
                     <template v-slot:activator="{ on, attrs }">
                         <v-text-field

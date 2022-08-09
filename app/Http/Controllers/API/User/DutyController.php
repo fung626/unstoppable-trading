@@ -102,8 +102,8 @@ class DutyController extends Controller
         $validator = Validator::make($request->all(), [
             'id' => 'required|exists:user_duties,id',
             'date' => 'required|date_format:Y-m-d',
-            'start' => 'required|date_format:H:i',
-            'end' => 'required|date_format:H:i|after:start',
+            'formatted_start' => 'required|date_format:H:i',
+            'formatted_end' => 'required|date_format:H:i|after:formatted_start',
         ]);
 
         if ($validator->fails()) {
@@ -116,12 +116,12 @@ class DutyController extends Controller
             'id' => request('id'),
         ])->update([
             'date' => request('date'),
-            'start' => request('date') . ' ' . request('start'),
-            'end' => request('date') . ' ' . request('end'),
+            'start' => request('date') . ' ' . request('formatted_start'),
+            'end' => request('date') . ' ' . request('formatted_end'),
         ]);
 
         $response = config('response.common.success');
-        $response['data'] = Duty::where(['id' => request('id')])->first();
+        $response['data'] = Duty::with(['user'])->where(['id' => request('id')])->first();
         return response()->json($response, 200);
     }
 

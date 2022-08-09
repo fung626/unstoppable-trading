@@ -60,8 +60,8 @@
                                 :error="errors['to_contact'] ? true : false"
                                 :error-messages="errors['to_contact']"
                             ></v-text-field>
-                            <v-row>
-                                <c-col md="2" sm="2">
+                            <CRow>
+                                <CCol md="2" sm="2">
                                     <v-select
                                         v-model="phoneCountryCode"
                                         :items="countryCodes"
@@ -72,8 +72,8 @@
                                         outlined
                                         dense
                                     ></v-select>
-                                </c-col>
-                                <c-col md="10" sm="10">
+                                </CCol>
+                                <CCol md="10" sm="10">
                                     <v-text-field
                                         v-model="phone"
                                         :label="$t('phone')"
@@ -86,10 +86,10 @@
                                         "
                                         :error-messages="errors['to_phone']"
                                     ></v-text-field>
-                                </c-col>
-                            </v-row>
-                            <v-row>
-                                <c-col md="2" sm="2">
+                                </CCol>
+                            </CRow>
+                            <CRow>
+                                <CCol md="2" sm="2">
                                     <v-select
                                         v-model="faxCountryCode"
                                         :items="countryCodes"
@@ -100,8 +100,8 @@
                                         outlined
                                         dense
                                     ></v-select>
-                                </c-col>
-                                <c-col md="10" sm="10">
+                                </CCol>
+                                <CCol md="10" sm="10">
                                     <v-text-field
                                         v-model="fax"
                                         :label="$t('fax')"
@@ -110,8 +110,8 @@
                                         dense
                                         clearable
                                     ></v-text-field>
-                                </c-col>
-                            </v-row>
+                                </CCol>
+                            </CRow>
                             <v-text-field
                                 v-model="email"
                                 :label="$t('email')"
@@ -338,13 +338,13 @@
 
 <script>
 //
-import { isMobile } from "react-device-detect";
 import {
-    goodsSizes,
     countryCodes,
-    purchaseStatus,
-    currencies
-} from "../../constants";
+    currencies,
+    goodsSizes,
+    purchaseStatus
+} from "@/constants";
+import { isMobile } from "react-device-detect";
 import { mapState } from "vuex";
 import CreatePurchaseDialog from "./components/CreatePurchaseDialog";
 

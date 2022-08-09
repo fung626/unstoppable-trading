@@ -52,8 +52,8 @@
 </template>
 
 <script>
+import { goodsSizes } from "@/constants";
 import { StreamBarcodeReader } from "vue-barcode-reader";
-import { goodsSizes } from "../../../constants";
 
 export default {
     name: "StockTakeDialog",

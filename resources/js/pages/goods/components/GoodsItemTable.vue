@@ -143,13 +143,8 @@
 </template>
 <script>
 //
-import {
-    goodsDefaults,
-    goodsCups,
-    goodsColors,
-    goodsSizes
-} from "../../../constants";
-import { Dialog } from "../../../components";
+import { Dialog } from "@/components";
+import { goodsColors, goodsCups, goodsDefaults, goodsSizes } from "@/constants";
 import { v4 as uuidv4 } from "uuid";
 import ShippingDialog from "./ShippingDialog";
 

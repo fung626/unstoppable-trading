@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { Snackbar } from "../../components";
+import { Snackbar } from "@/components";
 
 export default {
     name: "ResetPassword",

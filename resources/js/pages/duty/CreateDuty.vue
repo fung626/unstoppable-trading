@@ -50,8 +50,8 @@
                             @input="dateMenu = false"
                         ></v-date-picker>
                     </v-menu>
-                    <v-row>
-                        <c-col md="6" sm="6">
+                    <CRow>
+                        <CCol md="6" sm="6">
                             <v-text-field
                                 v-model="start"
                                 :label="$t('start')"
@@ -62,8 +62,8 @@
                                 dense
                                 clearable
                             ></v-text-field>
-                        </c-col>
-                        <c-col md="6" sm="6">
+                        </CCol>
+                        <CCol md="6" sm="6">
                             <v-text-field
                                 v-model="end"
                                 :label="$t('end')"
@@ -75,8 +75,8 @@
                                 dense
                                 clearable
                             ></v-text-field>
-                        </c-col>
-                    </v-row>
+                        </CCol>
+                    </CRow>
                     <CButton @click="submit" color="primary" class="px-4">
                         {{ $t("button.submit") }}
                         <v-progress-circular
@@ -93,7 +93,8 @@
 </template>
 
 <script>
-import { DutyCalendar } from "../../components";
+import { DutyCalendar } from "@/components";
+
 export default {
     name: "CreateDuty",
     components: {

@@ -41,7 +41,7 @@
 </template>
 <script>
 //
-import { roles } from "../../../constants";
+import { roles } from "@/constants";
 
 export default {
     name: "PermissionForm",

@@ -86,10 +86,8 @@
 </template>
 
 <script>
+import { DutyCalendar, ExchangeRate, ScannerDialog } from "@/components";
 import { mapState } from "vuex";
-import { ExchangeRate } from "../../components";
-import DutyCalendar from "../../components/DutyCalendar";
-import ScannerDialog from "../../components/ScannerDialog";
 import DashboardSummaryLineChart from "./components/DashboardSummaryLineChart";
 import PurchaseTable from "./components/PurchaseTable";
 

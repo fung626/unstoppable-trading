@@ -168,8 +168,8 @@
 
 <script>
 //
-import { goodsSizes } from "../../constants";
-import { Dialog } from "../../components";
+import { Dialog } from "@/components";
+import { goodsSizes } from "@/constants";
 import Dashboard from "../dashboard/Dashboard.vue";
 import StockTakeDialog from "./components/StockTakeDialog";
 

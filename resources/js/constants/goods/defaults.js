@@ -1,5 +1,5 @@
+import { i18n } from "@/plugins";
 import { v4 as uuidv4 } from "uuid";
-import { i18n } from "../../plugins";
 
 const defaults = {
     item: {

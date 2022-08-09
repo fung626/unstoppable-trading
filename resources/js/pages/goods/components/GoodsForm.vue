@@ -29,8 +29,8 @@
                     dense
                     clearable
                 ></v-text-field>
-                <v-row>
-                    <c-col md="3" sm="3">
+                <CRow>
+                    <CCol md="3" sm="3">
                         <v-text-field
                             v-model="formData.cost_price"
                             :error="errors.cost_price ? true : false"
@@ -42,8 +42,8 @@
                             dense
                             clearable
                         ></v-text-field>
-                    </c-col>
-                    <c-col md="3" sm="3">
+                    </CCol>
+                    <CCol md="3" sm="3">
                         <v-text-field
                             v-model="formData.wholesale_price"
                             :error="errors.wholesale_price ? true : false"
@@ -55,8 +55,8 @@
                             dense
                             clearable
                         ></v-text-field>
-                    </c-col>
-                    <c-col md="3" sm="3">
+                    </CCol>
+                    <CCol md="3" sm="3">
                         <v-text-field
                             v-model="formData.retail_price"
                             :error="errors.retail_price ? true : false"
@@ -68,8 +68,8 @@
                             dense
                             clearable
                         ></v-text-field>
-                    </c-col>
-                    <c-col md="3" sm="3">
+                    </CCol>
+                    <CCol md="3" sm="3">
                         <v-select
                             v-model="formData.type"
                             :items="goodsTypes"
@@ -83,8 +83,8 @@
                             outlined
                             dense
                         ></v-select>
-                    </c-col>
-                </v-row>
+                    </CCol>
+                </CRow>
                 <v-autocomplete
                     v-model="formData.supplier"
                     :items="supplier.items"
@@ -168,7 +168,7 @@
 </template>
 <script>
 //
-import { goodsTypes } from "../../../constants";
+import { goodsTypes } from "@/constants";
 
 export default {
     name: "GoodsForm",

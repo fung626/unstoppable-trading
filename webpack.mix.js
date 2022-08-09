@@ -20,7 +20,8 @@ mix.options({
         extensions: ["*", ".js", ".json", ".vue"],
         modules: [path.resolve("./node_modules")],
         alias: {
-            "@": path.join(__dirname, "./resources/js")
+            "@": path.resolve(__dirname, "resources/js"),
+            "~": path.resolve(__dirname, "resources/sass/")
         }
     },
     module: {

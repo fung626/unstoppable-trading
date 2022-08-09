@@ -73,8 +73,8 @@
                         :error="errors['client_contact'] ? true : false"
                         :error-messages="errors['client_contact']"
                     ></v-text-field>
-                    <v-row>
-                        <c-col md="2" sm="2">
+                    <CRow>
+                        <CCol md="2" sm="2">
                             <v-select
                                 v-model="phoneCountryCode"
                                 :items="countryCodes"
@@ -93,8 +93,8 @@
                                     errors['client_phone_country_code']
                                 "
                             ></v-select>
-                        </c-col>
-                        <c-col md="10" sm="10">
+                        </CCol>
+                        <CCol md="10" sm="10">
                             <v-text-field
                                 v-model="phone"
                                 :label="$t('phone')"
@@ -105,8 +105,8 @@
                                 :error="errors['client_phone'] ? true : false"
                                 :error-messages="errors['client_phone']"
                             ></v-text-field>
-                        </c-col>
-                    </v-row>
+                        </CCol>
+                    </CRow>
                     <v-text-field
                         v-model="email"
                         :label="$t('email')"
@@ -320,14 +320,9 @@
 </template>
 <script>
 //
+import { Dialog, ScannerDialog } from "@/components";
+import { countryCodes, currencies, goodsSizes, shipStatus } from "@/constants";
 import { mapState } from "vuex";
-import { Dialog, ScannerDialog } from "../../components";
-import {
-    countryCodes,
-    currencies,
-    goodsSizes,
-    shipStatus
-} from "../../constants";
 
 export default {
     name: "CreateShipping",

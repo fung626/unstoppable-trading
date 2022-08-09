@@ -73,8 +73,8 @@
 
 <script>
 //
+import { Snackbar } from "@/components";
 import { mapActions } from "vuex";
-import { Snackbar } from "../../components";
 
 export default {
     name: "Login",

@@ -36,8 +36,8 @@
                     dense
                     clearable
                 ></v-text-field>
-                <v-row>
-                    <c-col md="2" sm="2">
+                <CRow>
+                    <CCol md="2" sm="2">
                         <v-select
                             v-model="formData.phone_country_code"
                             :items="countryCodes"
@@ -50,8 +50,8 @@
                             outlined
                             dense
                         ></v-select>
-                    </c-col>
-                    <c-col md="10" sm="10">
+                    </CCol>
+                    <CCol md="10" sm="10">
                         <v-text-field
                             v-model="formData.phone"
                             :label="$t('phone')"
@@ -62,10 +62,10 @@
                             dense
                             clearable
                         ></v-text-field>
-                    </c-col>
-                </v-row>
-                <v-row>
-                    <c-col md="2" sm="2">
+                    </CCol>
+                </CRow>
+                <CRow>
+                    <CCol md="2" sm="2">
                         <v-select
                             v-model="formData.fax_country_code"
                             :items="countryCodes"
@@ -76,8 +76,8 @@
                             outlined
                             dense
                         ></v-select>
-                    </c-col>
-                    <c-col md="10" sm="10">
+                    </CCol>
+                    <CCol md="10" sm="10">
                         <v-text-field
                             v-model="formData.fax"
                             :label="$t('fax')"
@@ -86,8 +86,8 @@
                             dense
                             clearable
                         ></v-text-field>
-                    </c-col>
-                </v-row>
+                    </CCol>
+                </CRow>
                 <v-text-field
                     v-model="formData.email"
                     :error="errors.email ? true : false"
@@ -134,7 +134,7 @@
 </template>
 <script>
 //
-import { countryCodes, currencies } from "../../../constants";
+import { countryCodes, currencies } from "@/constants";
 
 export default {
     name: "SupplierForm",

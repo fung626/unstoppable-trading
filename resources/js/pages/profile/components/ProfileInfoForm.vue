@@ -17,8 +17,8 @@
                     dense
                     clearable
                 ></v-text-field>
-                <v-row>
-                    <c-col md="6" sm="6">
+                <CRow>
+                    <CCol md="6" sm="6">
                         <v-text-field
                             v-model="formData.phone"
                             :error="errors.phone ? true : false"
@@ -28,8 +28,8 @@
                             dense
                             clearable
                         ></v-text-field>
-                    </c-col>
-                    <c-col md="6" sm="6">
+                    </CCol>
+                    <CCol md="6" sm="6">
                         <v-text-field
                             v-model="formData.email"
                             :label="$t('email')"
@@ -40,8 +40,8 @@
                             dense
                             clearable
                         ></v-text-field>
-                    </c-col>
-                </v-row>
+                    </CCol>
+                </CRow>
                 <v-select
                     v-model="formData.role"
                     :items="roles"
@@ -84,8 +84,8 @@
 </template>
 <script>
 //
+import { roles } from "@/constants";
 import { mapState } from "vuex";
-import { roles } from "../../../constants";
 
 export default {
     name: "ProfileInfoForm",

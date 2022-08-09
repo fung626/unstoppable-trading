@@ -25,8 +25,8 @@
                     dense
                     clearable
                 ></v-text-field>
-                <v-row>
-                    <c-col md="3" sm="3">
+                <CRow>
+                    <CCol md="3" sm="3">
                         <v-text-field
                             v-model="costprice"
                             :label="$t('price.cost')"
@@ -36,8 +36,8 @@
                             dense
                             clearable
                         ></v-text-field>
-                    </c-col>
-                    <c-col md="3" sm="3">
+                    </CCol>
+                    <CCol md="3" sm="3">
                         <v-text-field
                             v-model="wholesaleprice"
                             :label="$t('price.wholesale')"
@@ -47,8 +47,8 @@
                             dense
                             clearable
                         ></v-text-field>
-                    </c-col>
-                    <c-col md="3" sm="3">
+                    </CCol>
+                    <CCol md="3" sm="3">
                         <v-text-field
                             v-model="retailprice"
                             :label="$t('price.retail')"
@@ -58,8 +58,8 @@
                             dense
                             clearable
                         ></v-text-field>
-                    </c-col>
-                    <c-col md="3" sm="3">
+                    </CCol>
+                    <CCol md="3" sm="3">
                         <v-select
                             v-model="type"
                             :items="goodsTypes"
@@ -71,8 +71,8 @@
                             outlined
                             dense
                         ></v-select>
-                    </c-col>
-                </v-row>
+                    </CCol>
+                </CRow>
                 <v-autocomplete
                     v-model="supplier"
                     :items="autocomplete.supplier.items"
@@ -312,13 +312,8 @@
 </template>
 
 <script>
+import { goodsColors, goodsCups, goodsSizes, goodsTypes } from "@/constants";
 import { v4 as uuidv4 } from "uuid";
-import {
-    goodsTypes,
-    goodsCups,
-    goodsColors,
-    goodsSizes
-} from "../../constants";
 
 export default {
     name: "CreateGoods",
