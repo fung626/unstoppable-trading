@@ -45,7 +45,7 @@ class DutyCollection extends ResourceCollection
                         'title' => __("Delete"),
                         'color' => "danger",
                         'type' => "Delete",
-                        'disabled' => false,
+                        'disabled' => $item->editable ? false : true,
                     ],
                 ],
             ];

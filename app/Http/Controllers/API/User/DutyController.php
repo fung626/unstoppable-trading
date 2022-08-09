@@ -90,6 +90,7 @@ class DutyController extends Controller
             'date' => request('date'),
             'start' => request('date') . ' ' . request('start'),
             'end' => request('date') . ' ' . request('end'),
+            'editable' => true,
         ]);
 
         $response = config('response.common.success');
