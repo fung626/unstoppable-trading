@@ -203,6 +203,12 @@ const i18n = new VueI18n({
             error: {
                 exceedstockunit: "Exceed stock unit",
                 camera: "Device not compatible"
+            },
+            hint: {
+                duty: {
+                    date:
+                        "You may select multi date to create more than one duty with same time range"
+                }
             }
         },
         tc: {
@@ -394,6 +400,11 @@ const i18n = new VueI18n({
             error: {
                 exceedstockunit: "超出庫存數量",
                 camera: "設備不兼容"
+            },
+            hint: {
+                duty: {
+                    date: "您可以選擇多個日期以新增多個擁有相同時間的更"
+                }
             }
         }
     }

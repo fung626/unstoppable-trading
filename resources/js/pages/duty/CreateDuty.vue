@@ -33,7 +33,7 @@
                     >
                         <template v-slot:activator="{ on, attrs }">
                             <v-text-field
-                                v-model="date"
+                                v-model="datesText"
                                 :label="$t('date')"
                                 outlined
                                 dense
@@ -41,13 +41,16 @@
                                 readonly
                                 v-bind="attrs"
                                 v-on="on"
-                                :error="errors.date ? true : false"
-                                :error-messages="errors.date"
+                                :error="errors.dates ? true : false"
+                                :error-messages="errors.dates"
+                                :hint="$t('hint.duty.date')"
+                                persistent-hint
                             ></v-text-field>
                         </template>
                         <v-date-picker
-                            v-model="date"
-                            @input="dateMenu = false"
+                            v-model="dates"
+                            :min="new Date().toISOString().slice(0, 10)"
+                            range
                         ></v-date-picker>
                     </v-menu>
                     <CRow>
@@ -100,11 +103,30 @@ export default {
     components: {
         DutyCalendar
     },
+    computed: {
+        datesText() {
+            if (this.dates.length === 1) {
+                return this.dates;
+            }
+            if (this.dates.length > 1) {
+                let f = new Date(this.dates[0]);
+                let t = new Date(this.dates[1]);
+                if (f.toDateString() === t.toDateString()) {
+                    return this.dates[0];
+                }
+                let sorted = this.dates.sort(
+                    (a, b) => new Date(a) - new Date(b)
+                );
+                this.dates = sorted;
+                return sorted.join(" － ");
+            }
+        }
+    },
     data() {
         return {
             loading: false,
             user: "",
-            date: "",
+            dates: [],
             start: "",
             end: "",
             errors: {},
@@ -160,7 +182,7 @@ export default {
             self.loading = true;
             let data = {
                 user: self.user,
-                date: self.date,
+                dates: self.dates,
                 start: self.start,
                 end: self.end
             };

@@ -3,6 +3,8 @@
 namespace App\Mylibs;
 
 use Carbon\Carbon;
+use DateInterval;
+use DatePeriod;
 
 class Common
 {
@@ -282,7 +284,7 @@ class Common
     public static function getDatesFromRange($start, $end, $format = 'Y-m-d')
     {
         $array = [];
-        $interval = new DateInterval('P1D');
+        $interval = new \DateInterval('P1D');
 
         $realEnd = new \DateTime($end);
         $realEnd->add($interval);
@@ -317,8 +319,8 @@ class Common
     {
         $start = new \DateTime($start); // Start date
         $end = new \DateTime($end); // Create a datetime object from your Carbon object
-        $interval = \DateInterval::createFromDateString('1 month');
-        $period = new \DatePeriod($start, $interval, $end); // Get a set of date beetween the 2 period
+        $interval = DateInterval::createFromDateString('1 month');
+        $period = new DatePeriod($start, $interval, $end); // Get a set of date beetween the 2 period
 
         $months = [];
         foreach ($period as $dt) {

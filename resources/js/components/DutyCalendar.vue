@@ -49,12 +49,12 @@
                 </CCol>
             </CRow>
             <CRow class="p-2">
-                <CCol class="d-none d-md-block" sm="1">
+                <CCol class="d-none d-md-block" sm="6">
                     <CButton @click="prev" color="light" :disabled="loading">
                         <v-icon>mdi-chevron-left</v-icon>
                     </CButton>
                 </CCol>
-                <CCol class="d-none d-md-block text-right" sm="10">
+                <CCol class="d-none d-md-block text-right" sm="6">
                     <CButtonGroup>
                         <CButton
                             v-for="t in types"
@@ -66,8 +66,6 @@
                             {{ t.name }}
                         </CButton>
                     </CButtonGroup>
-                </CCol>
-                <CCol class="d-none d-md-block text-right" sm="1">
                     <CButton @click="next" color="light" :disabled="loading">
                         <v-icon>mdi-chevron-right</v-icon>
                     </CButton>
@@ -81,8 +79,13 @@
                 :events="events"
                 :event-overlap-mode="mode"
                 :event-overlap-threshold="30"
+                @click:event="showEvent"
                 @change="fetch"
-            ></v-calendar>
+            >
+                <template v-slot:event="{ event }">
+                    {{ event.name }}
+                </template>
+            </v-calendar>
         </CCardBody>
     </CCard>
 </template>
@@ -111,13 +114,13 @@ export default {
                     let start = new Date(item["start"]);
                     let end = new Date(item["end"]);
                     temp.push({
-                        name: `${moment(start).format(format)} - ${moment(
+                        name: ` ${moment(start).format(format)} - ${moment(
                             end
                         ).format(format)} ${name} `,
                         start: start,
                         end: end,
                         color: "cyan",
-                        timed: false
+                        timed: true
                     });
                 }
             }
@@ -138,7 +141,9 @@ export default {
                 { text: "Mon - Sun", value: [1, 2, 3, 4, 5, 6, 0] },
                 { text: "Mon - Fri", value: [1, 2, 3, 4, 5] },
                 { text: "Mon, Wed, Fri", value: [1, 3, 5] }
-            ]
+            ],
+            selectedElement: null,
+            selectedOpen: false
         };
     },
     mounted() {
@@ -165,12 +170,13 @@ export default {
                     self.loading = false;
                 });
         },
+        showEvent({ nativeEvent, event }) {
+            // console.log(event);
+        },
         prev() {
-            // console.log(this.$refs);
             this.$refs.calendar.prev();
         },
         next() {
-            // console.log(this.$refs);
             this.$refs.calendar.next();
         },
         onTypeClick(type) {

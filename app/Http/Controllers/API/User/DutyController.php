@@ -5,9 +5,12 @@ namespace App\Http\Controllers\API\User;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DutyCollection;
 use App\Models\User\Duty;
+use App\Mylibs\Common;
 use App\Mylibs\MyPhpOffice;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Validator;
 
 class DutyController extends Controller
@@ -74,7 +77,7 @@ class DutyController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'user.id' => 'required|exists:users,id',
-            'date' => 'required|date_format:Y-m-d|after_or_equal:today',
+            'dates.*' => 'required|date_format:Y-m-d|after_or_equal:today',
             'start' => 'required|date_format:H:i',
             'end' => 'required|date_format:H:i|after:start',
         ]);
@@ -85,16 +88,53 @@ class DutyController extends Controller
             return response()->json($response, 400);
         }
 
-        $result = Duty::create([
-            'user_id' => request('user')['id'],
-            'date' => request('date'),
-            'start' => request('date') . ' ' . request('start'),
-            'end' => request('date') . ' ' . request('end'),
-            'editable' => true,
-        ]);
+        try {
+            DB::transaction(function () {
+                if (count(request('dates')) === 1) {
+                    $item = request('dates')[0];
+                    Duty::updateOrCreate([
+                        'user_id' => request('user')['id'],
+                        'date' => $item,
+                        'editable' => true,
+                    ], [
+                        'start' => $item . ' ' . request('start'),
+                        'end' => $item . ' ' . request('end'),
+                    ]);
+                } else if (count(request('dates')) > 1) {
+                    $startDate = request('dates')[0];
+                    $endDate = request('dates')[1];
+                    if ($startDate === $endDate) {
+                        $item = $startDate;
+                        Duty::updateOrCreate([
+                            'user_id' => request('user')['id'],
+                            'date' => $item,
+                            'editable' => true,
+                        ], [
+                            'start' => $item . ' ' . request('start'),
+                            'end' => $item . ' ' . request('end'),
+                        ]);
+                    } else {
+                        $range = Common::getDatesFromRange($startDate, $endDate);
+                        foreach ($range as $item) {
+                            Duty::updateOrCreate([
+                                'user_id' => request('user')['id'],
+                                'date' => $item,
+                                'editable' => true,
+                            ], [
+                                'start' => $item . ' ' . request('start'),
+                                'end' => $item . ' ' . request('end'),
+                            ]);
+                        }
+                    }
+                }
+            });
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            $response = config('response.common.fail.database');
+            return response()->json($response, 400);
+        }
 
         $response = config('response.common.success');
-        $response['data'] = $result;
         return response()->json($response, 200);
     }
 
@@ -137,14 +177,21 @@ class DutyController extends Controller
             return response()->json($response, 400);
         }
 
-        try {
-            Duty::where(['id' => request('id')])->delete();
-        } catch (\Illuminate\Database\QueryException $e) {
-            Log::error($e->getMessage());
-            // $errorInfo = $e->errorInfo;
-            $response = config('response.common.fail.database');
-            $response['msg'] = $e->getMessage();
-            return response()->json($response, 500);
+        $duty = Duty::where(['id' => request('id')])->first();
+
+        if ($duty->editable) {
+            try {
+                Duty::where(['id' => request('id')])->delete();
+            } catch (\Illuminate\Database\QueryException $e) {
+                Log::error($e->getMessage());
+                // $errorInfo = $e->errorInfo;
+                $response = config('response.common.fail.database');
+                $response['msg'] = $e->getMessage();
+                return response()->json($response, 500);
+            }
+        } else {
+            $response = config('response.common.fail.parameter');
+            return response()->json($response, 400);
         }
 
         $response = config('response.common.success');

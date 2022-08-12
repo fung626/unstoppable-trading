@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Goods\Stocks as StocksCollection;
 use App\Models\Goods\Item;
-use App\Models\User\Users;
+use App\Mylibs\Common;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -20,7 +20,7 @@ class TestController extends Controller
 
     public function get(Request $request)
     {
-        dd(Users::get()->toArray());
+        dd(Common::getDatesFromRange('2022-08-22', '2022-08-26'));
     }
 
     public function post(Request $request)
