@@ -24,7 +24,10 @@ import PurchaseInvoice from "./PurchaseInvoice";
 import PurchaseLineChart from "./PurchaseLineChart";
 import PurchaseStockTake from "./PurchaseStockTake";
 import SalesReport from "./SalesReport";
+import SalesReportChart from "./SalesReportChart";
 import SalesReportStockChart from "./SalesReportStockChart";
+import SalesReportTopSales from "./SalesReportTopSales";
+import SalesReportTopSocks from "./SalesReportTopSocks";
 import Supplier from "./Supplier";
 import UIAlert from "./UI/Alert";
 import UISidebar from "./UI/Sidebar";
@@ -71,7 +74,10 @@ export default new Vuex.Store({
         ["goods/shipping/alteration"]: GoodsShippingAlteration,
         ["goods/stock"]: GoodsStock,
         salesreport: SalesReport,
+        ["salesreport/chart"]: SalesReportChart,
         ["salesreport/stockchart"]: SalesReportStockChart,
+        ["salesreport/topsales"]: SalesReportTopSales,
+        ["salesreport/topstocks"]: SalesReportTopSocks,
         category: Category,
         supplier: Supplier,
         warehouse: Warehouse,

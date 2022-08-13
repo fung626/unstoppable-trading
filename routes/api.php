@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::group(['namespace' => 'API', 'middleware' => ['localization'], 'prefix' => 'test'], function () {
-    Route::get('get', 'TestController@get');
+    Route::get('get', 'SalesReport\TopStocksController@get');
+    // Route::get('get', 'TestController@get');
     Route::post('post', 'TestController@post');
 });
 
@@ -67,6 +68,10 @@ Route::group(['namespace' => 'API\SalesReport', 'middleware' => ['auth:api', 'sc
     Route::get('average/inventory/get', ['uses' => 'AverageInventoryController@get']);
     Route::get('inventory/turnover/get', ['uses' => 'InventoryTurnoverController@get']);
 
+    Route::get('topsales/get', 'TopSalesController@get');
+    Route::get('topstocks/get', 'TopStocksController@get');
+
+    Route::get('chart/get', ['uses' => 'ChartController@get']);
     Route::get('stockchart/get', ['uses' => 'StockChartController@get']);
 });
 

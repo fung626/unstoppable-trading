@@ -170,12 +170,18 @@ class SalesReport
      * Formula
      * Accounts Receivable Turnover Ratio = ( Cost of Goods Sold (COGS) ) x 365
      **/
-    public static function DIO($priceTag = 'cost_price')
+    public static function DIO($yearAndMonth = false, $priceTag = 'cost_price')
     {
-        $carbon = Carbon::now();
-        $last = $carbon->subMonth()->format('Y-m');
-        $current = $carbon->format('Y-m');
-        $range = [$last, $current];
+        if (!$yearAndMonth) {
+            $carbon = Carbon::now();
+            $from = $carbon->subMonth()->format('Y-m');
+            $to = $carbon->format('Y-m');
+            $range = [$from, $to];
+        } else {
+            $from = Carbon::createFromFormat('Y-m-d', $yearAndMonth . '-01')->addMonth(-1)->format('Y-m');
+            $to = Carbon::createFromFormat('Y-m-d', $yearAndMonth . '-01')->format('Y-m');
+            $range = [$from, $to];
+        }
 
         $index = 0;
         $total = 0;
@@ -216,12 +222,20 @@ class SalesReport
      * Increase = New - Original
      * Change = Increase ÷ Original × 100
      **/
-    public static function change($priceTag = 'cost_price')
+    public static function change($yearAndMonth = false, $priceTag = 'cost_price')
     {
-        $from = Carbon::now()->addMonth(-1)->format('Y-m');
-        $from = explode("-", $from);
-        $to = Carbon::now()->format('Y-m');
-        $to = explode("-", $to);
+        if (!$yearAndMonth) {
+            $from = Carbon::now()->addMonth(-1)->format('Y-m');
+            $from = explode("-", $from);
+            $to = Carbon::now()->format('Y-m');
+            $to = explode("-", $to);
+        } else {
+            $from = Carbon::createFromFormat('Y-m-d', $yearAndMonth . '-01')->addMonth(-1)->format('Y-m');
+            $from = explode("-", $from);
+            $to = Carbon::createFromFormat('Y-m-d', $yearAndMonth . '-01')->format('Y-m');
+            $to = explode("-", $to);
+        }
+
         $original = StockModel::select([DB::raw('COALESCE(SUM(goods_stock.unit * goods.' . $priceTag . '), 0) as sum')])
             ->leftJoin('goods', 'goods.id', '=', 'goods_stock.goods_id')
             ->whereMonth('goods_stock.created_at', $from[1])

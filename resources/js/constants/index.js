@@ -3,6 +3,7 @@ import config from "./config";
 import countryCodes from "./countryCodes";
 import currencies from "./currencies";
 import districts from "./districts";
+import employeeTypes from "./employeeTypes";
 import goodsColors from "./goods/colors";
 import goodsCups from "./goods/cups";
 import goodsDefaults from "./goods/defaults";
@@ -19,6 +20,7 @@ export {
     countryCodes,
     currencies,
     districts,
+    employeeTypes,
     goodsColors,
     goodsCups,
     goodsDefaults,

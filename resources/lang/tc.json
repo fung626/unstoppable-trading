@@ -93,6 +93,10 @@
     "Return": "退貨",
     "Start": "開始",
     "End": "結束",
+    "Last 3 Months Average Inventory Cost": "過去三個月平均庫存成本價",
+    "Last 3 Months Inventory Turnover Cost": "過去三個月存貨周轉率成本價",
+    "Inventory Change": "成本價庫存變化",
+    "DIO": "存貨周轉天數",
     "Updated at": "更新日期",
     "Created at": "新增日期",
     "Actions": "功能"

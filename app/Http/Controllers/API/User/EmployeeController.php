@@ -56,6 +56,7 @@ class EmployeeController extends Controller
                 'employer_contribution' => request('employer_contribution'),
                 'joined_at' => request('joined_at'),
                 'left_at' => request('left_at'),
+                'type' => request('type'),
             ]);
         } catch (\Exception $e) {
             Log::error($e->getMessage());

@@ -13,7 +13,20 @@
                 :height="35"
                 :viewBox="`0 0 ${minimize ? 110 : 556} 134`"
             /> -->
-            <img src="/images/logo.png" width="24" />
+            <img
+                v-if="minimize"
+                src="/images/logo.png"
+                width="52"
+                height="42"
+                style="object-fit: contain;"
+            />
+            <img
+                v-else
+                src="/images/header-logo.png"
+                width="256"
+                height="42"
+                style="object-fit: contain;"
+            />
         </CSidebarBrand>
         <CRenderFunction flat :content-to-render="nav" />
         <CSidebarMinimizer

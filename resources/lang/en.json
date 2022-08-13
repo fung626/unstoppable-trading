@@ -93,6 +93,10 @@
     "Return": "Return",
     "Start": "Start",
     "End": "End",
+    "Last 3 Months Average Inventory Cost": "Last 3 Months Average Inventory Cost",
+    "Last 3 Months Inventory Turnover Cost": "Last 3 Months Inventory Turnover Cost",
+    "Inventory Change": "Inventory Change",
+    "DIO": "DIO",
     "Updated at": "Updated at",
     "Created at": "Created at",
     "Actions": "Actions"

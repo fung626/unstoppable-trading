@@ -22,7 +22,9 @@
                         <v-text-field
                             v-model="formData.employer_contribution"
                             :label="
-                                `${$t('employer')}${$t('mpf.contribution')}`
+                                `${$t('employer')}${$t(
+                                    'mpf.contribution'
+                                )} （％）`
                             "
                             :error="errors.employer_contribution ? true : false"
                             :error-messages="errors.employer_contribution"
@@ -35,7 +37,9 @@
                         <v-text-field
                             v-model="formData.employee_contribution"
                             :label="
-                                `${$t('employee')}${$t('mpf.contribution')}`
+                                `${$t('employee')}${$t(
+                                    'mpf.contribution'
+                                )} （％）`
                             "
                             :error="errors.employee_contribution ? true : false"
                             :error-messages="errors.employee_contribution"
@@ -81,6 +85,16 @@
                         @input="datepicker.leftat.menu = false"
                     ></v-date-picker>
                 </v-menu>
+                <v-select
+                    v-model="formData.type"
+                    :items="employeeTypes"
+                    :label="$t('type')"
+                    item-text="name"
+                    item-value="value"
+                    required
+                    outlined
+                    dense
+                ></v-select>
                 <CButton @click="update" color="primary" class="px-4">
                     {{ $t("button.update") }}
                     <v-progress-circular
@@ -96,6 +110,7 @@
 </template>
 <script>
 //
+import { employeeTypes } from "@/constants";
 
 export default {
     name: "EmployeeForm",
@@ -114,6 +129,7 @@ export default {
                     menu: false
                 }
             },
+            employeeTypes: employeeTypes,
             fetchLoading: false,
             updateLoading: false
         };

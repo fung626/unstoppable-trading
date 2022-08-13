@@ -58,7 +58,7 @@
                         <CRow>
                             <CCol sm="12">
                                 <h4 class="card-title mb-0">
-                                    {{ $t("stock") }} & {{ $t("shipping") }}
+                                    {{ $t("salesreport") }}
                                 </h4>
                                 <div class="small text-medium-emphasis"></div>
                             </CCol>
@@ -68,8 +68,42 @@
                             style="height: 320px; max-height: 320px; margin-top: 40px"
                             :datasets="data.datasets"
                             :labels="data.labels"
-                            :options="data.options"
+                            :options="options"
                         />
+                    </CCardBody>
+                </CCard>
+            </CCol>
+        </CRow>
+        <CRow>
+            <CCol md="12">
+                <CCard class="mb-4">
+                    <CCardBody>
+                        <CRow>
+                            <CCol sm="12">
+                                <h4 class="card-title mb-0">
+                                    {{ $t("topsales") }}
+                                </h4>
+                                <div class="small text-medium-emphasis"></div>
+                            </CCol>
+                        </CRow>
+                        <TopSalesTable />
+                    </CCardBody>
+                </CCard>
+            </CCol>
+        </CRow>
+        <CRow>
+            <CCol md="12">
+                <CCard class="mb-4">
+                    <CCardBody>
+                        <CRow>
+                            <CCol sm="12">
+                                <h4 class="card-title mb-0">
+                                    {{ $t("topstocks") }}
+                                </h4>
+                                <div class="small text-medium-emphasis"></div>
+                            </CCol>
+                        </CRow>
+                        <TopStocksTable />
                     </CCardBody>
                 </CCard>
             </CCol>
@@ -80,22 +114,73 @@
 //
 import { CChartLine } from "@coreui/vue-chartjs";
 import { mapState } from "vuex";
+import TopSalesTable from "./components/TopSalesTable";
+import TopStocksTable from "./components/TopStocksTable";
 
 export default {
     name: "SalesReport",
     props: {},
     components: {
-        CChartLine
+        CChartLine,
+        TopSalesTable,
+        TopStocksTable
     },
     computed: {
-        ...mapState(["salesreport/stockchart"]),
+        ...mapState(["salesreport/chart"]),
         data() {
-            return this["salesreport/stockchart"].data;
+            return JSON.parse(JSON.stringify(this["salesreport/chart"].data));
         }
     },
     data() {
         return {
-            loading: false
+            loading: false,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                tooltips: {
+                    mode: "index"
+                },
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [
+                        {
+                            gridLines: {
+                                drawOnChartArea: false
+                            }
+                        }
+                    ],
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true,
+                                callback: (value, index, values) => {
+                                    return `${Number(
+                                        value
+                                    ).abbreviateAmount()}`;
+                                }
+                            }
+                        }
+                    ]
+                },
+                pan: {
+                    enabled: true,
+                    mode: "x"
+                },
+                zoom: {
+                    enabled: true,
+                    mode: "x"
+                },
+                elements: {
+                    point: {
+                        radius: 0,
+                        hitRadius: 10,
+                        hoverRadius: 4,
+                        hoverBorderWidth: 3
+                    }
+                }
+            }
         };
     },
     mounted() {
@@ -110,7 +195,7 @@ export default {
             let data = {};
             self.loading = true;
             this.$store
-                .dispatch("salesreport/stockchart/get", data)
+                .dispatch("salesreport/chart/get", data)
                 .then(response => {
                     self.loading = false;
                 })
