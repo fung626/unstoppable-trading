@@ -59,15 +59,24 @@
                     {{ updatedAt | moment("dddd, Do MMMM YYYY HH:mm") }}
                 </CCol>
             </CRow>
+            <CRow>
+                <CCol>
+                    <ExchangeRateTable />
+                </CCol>
+            </CRow>
         </CCardBody>
     </CCard>
 </template>
 
 <script>
 import { currencies } from "@/constants";
+import ExchangeRateTable from "./ExchangeRateTable";
 
 export default {
     name: "ExchangeRate",
+    components: {
+        ExchangeRateTable
+    },
     data() {
         return {
             baseAmount: 0,
@@ -125,7 +134,7 @@ export default {
                 symbol: self.symbol
             };
             this.$store
-                .dispatch("exchangerate/get", data)
+                .dispatch("exchangerate/details", data)
                 .then(response => {
                     let res = response.data;
                     self.base = res.base;

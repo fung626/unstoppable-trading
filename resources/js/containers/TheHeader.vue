@@ -18,7 +18,7 @@
         <CMenu />
 
         <CHeaderNav class="mr-4">
-            <TheHeaderDropdownShipping />
+            <TheHeaderDropdownShipping v-if="isPermissionGranted('shipping')" />
             <TheHeaderDropdownAccnt />
         </CHeaderNav>
         <CSubheader class="px-3">
@@ -29,8 +29,8 @@
 
 <script>
 import CMenu from "./Menu";
-import TheHeaderDropdownShipping from "./TheHeaderDropdownShipping";
 import TheHeaderDropdownAccnt from "./TheHeaderDropdownAccnt";
+import TheHeaderDropdownShipping from "./TheHeaderDropdownShipping";
 
 export default {
     name: "TheHeader",
@@ -38,6 +38,11 @@ export default {
         TheHeaderDropdownShipping,
         TheHeaderDropdownAccnt,
         CMenu
+    },
+    methods: {
+        isPermissionGranted(key) {
+            return this.$store.getters.isPermissionGranted(key);
+        }
     }
 };
 </script>

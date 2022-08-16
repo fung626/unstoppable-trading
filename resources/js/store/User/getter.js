@@ -1,5 +1,7 @@
+const name = "user";
+
 export default {
-    employees(state) {
+    [`${name}/data`](state) {
         return state.data;
     }
 };

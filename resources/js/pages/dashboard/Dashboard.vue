@@ -3,7 +3,7 @@
         <!-- <WidgetsDropdown /> -->
         <ScannerDialog ref="scannerDialog" />
         <CRow>
-            <CCol sm="4" lg="4">
+            <CCol v-if="isPermissionGranted('goods')" sm="4" lg="4">
                 <CWidgetIcon
                     :header="`${$t('barcode')}${$t('scanner')}`"
                     :text="`${$t('goods')}${$t('search')}`"
@@ -14,7 +14,7 @@
                     </CButton>
                 </CWidgetIcon>
             </CCol>
-            <CCol sm="4" lg="4">
+            <CCol v-if="isPermissionGranted('shipping')" sm="4" lg="4">
                 <CWidgetIcon
                     :header="`${$t('barcode')}${$t('scanner')}`"
                     :text="`${$t('goods')}${$t('shipping')}`"
@@ -25,7 +25,7 @@
                     </CButton>
                 </CWidgetIcon>
             </CCol>
-            <CCol sm="4" lg="4">
+            <CCol v-if="isPermissionGranted('stocktake')" sm="4" lg="4">
                 <CWidgetIcon
                     :header="`${$t('barcode')}${$t('scanner')}`"
                     :text="`${$t('stocktake')}`"
@@ -37,10 +37,15 @@
                 </CWidgetIcon>
             </CCol>
         </CRow>
-        <DashboardSummaryLineChart />
-        <DutyCalendar />
+        <DashboardSummaryLineChart v-if="$store.getters.isAdmin" />
+        <div v-if="$store.getters.isAdmin">
+            <DutyCalendar />
+        </div>
+        <div v-else>
+            <DutyCalendar :userId="$store.getters.authUser.id" />
+        </div>
         <ExchangeRate />
-        <CRow>
+        <CRow v-if="$store.getters.isAdmin">
             <CCol md="12">
                 <CCard>
                     <CCardBody>
@@ -133,6 +138,9 @@ export default {
                 .catch(error => {
                     self.loading = false;
                 });
+        },
+        isPermissionGranted(key) {
+            return this.$store.getters.isPermissionGranted(key);
         },
         async search() {
             await this.$refs.scannerDialog.open("Search");

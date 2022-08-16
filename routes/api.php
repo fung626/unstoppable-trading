@@ -242,5 +242,7 @@ Route::group(['namespace' => 'API\Statistics\Dashboard', 'middleware' => ['auth:
 });
 
 Route::group(['namespace' => 'API', 'middleware' => ['auth:api', 'localization'], 'prefix' => 'exchangerate'], function () {
+    Route::post('update', ['uses' => 'ExchangeRateController@update']);
     Route::post('get', ['uses' => 'ExchangeRateController@get']);
+    Route::post('details', ['uses' => 'ExchangeRateController@details']);
 });

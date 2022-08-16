@@ -52,7 +52,7 @@ export default new Vuex.Store({
         // API
         dashboard: Dashboard,
         auth: Auth,
-        exchangeRate: ExchangeRate,
+        exchangerate: ExchangeRate,
         profile: Profile,
         user: User,
         ["user/duty"]: UserDuty,
