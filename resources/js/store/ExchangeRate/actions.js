@@ -40,7 +40,7 @@ export default {
     [`${name}/details`]({ commit, dispatch }, payload) {
         return new Promise((resolve, reject) => {
             axios
-                .post(`${endpoint}get`, payload)
+                .post(`${endpoint}details`, payload)
                 .then(function(response) {
                     if (!response.data.error) {
                         let res = response.data;

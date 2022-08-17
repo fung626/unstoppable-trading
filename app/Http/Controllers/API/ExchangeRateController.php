@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ExchangeRateCollection;
 use App\Models\ExchangeRates;
 use Illuminate\Http\Request;
 use Validator;
@@ -40,7 +41,9 @@ class ExchangeRateController extends Controller
     {
         $result = ExchangeRates::get();
         $response = config('response.common.success');
-        $response['data'] = $result;
+        $resource = new ExchangeRateCollection($result);
+        $resource = $resource->resolve();
+        $response['data'] = $resource;
         return response()->json($response, 200);
     }
 
@@ -68,7 +71,6 @@ class ExchangeRateController extends Controller
 
         $response = config('response.common.success');
         $response['data'] = $result;
-
         return response()->json($response, 200);
     }
 

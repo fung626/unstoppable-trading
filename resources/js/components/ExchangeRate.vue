@@ -11,6 +11,7 @@
                 <CCol md="3" sm="3">
                     <v-text-field
                         v-model="baseAmount"
+                        :disabled="loading"
                         type="number"
                         required
                         outlined
@@ -26,6 +27,7 @@
                         item-value="value"
                         :error="errors.base ? true : false"
                         :error-messages="errors.base"
+                        :disabled="loading"
                         outlined
                         dense
                     ></v-select>
@@ -33,6 +35,7 @@
                 <CCol md="3" sm="3">
                     <v-text-field
                         v-model="symbolAmount"
+                        :disabled="loading"
                         type="number"
                         required
                         outlined
@@ -48,14 +51,15 @@
                         item-value="value"
                         :error="errors.symbol ? true : false"
                         :error-messages="errors.symbol"
+                        :disabled="loading"
                         outlined
                         dense
                     ></v-select>
                 </CCol>
             </CRow>
             <CRow v-if="updatedAt">
-                <CCol class="text-right">
-                    {{ $t("updatedat") }}{{ ": " }}
+                <CCol class="text-right text-muted">
+                    {{ `${$t("updatedat")}:` }}
                     {{ updatedAt | moment("dddd, Do MMMM YYYY HH:mm") }}
                 </CCol>
             </CRow>
@@ -80,9 +84,9 @@ export default {
     data() {
         return {
             baseAmount: 0,
+            base: "HKD",
             symbolAmount: 0,
-            base: null,
-            symbol: null,
+            symbol: "TWD",
             rate: 0,
             currencies: currencies,
             updatedAt: null,
@@ -122,6 +126,9 @@ export default {
             this.baseAmount = val / this.rate;
         }
     },
+    mounted() {
+        this.fetch();
+    },
     methods: {
         fetch() {
             let self = this;
@@ -136,7 +143,7 @@ export default {
             this.$store
                 .dispatch("exchangerate/details", data)
                 .then(response => {
-                    let res = response.data;
+                    let res = response.data.data;
                     self.base = res.base;
                     self.symbol = res.symbol;
                     self.rate = res.rate;

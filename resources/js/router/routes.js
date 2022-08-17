@@ -19,6 +19,11 @@ const Dashboard = () => import("../pages/dashboard/Dashboard");
 // SalesReport
 const SalesReport = () => import("../pages/salesReport/SalesReport");
 
+// ExchangeRate
+const ExchangeRate = () => import("../pages/exchangeRate/ExchangeRate");
+const ExchangeRateDetails = () =>
+    import("../pages/exchangeRate/ExchangeRateDetails");
+
 // User
 const User = () => import("../pages/user/User");
 const CreateUser = () => import("../pages/user/CreateUser");
@@ -112,6 +117,29 @@ export default ({ authGuard, guestGuard }) => [
                             meta: { label: i18n.t("home") },
                             name: "SalesReport",
                             component: SalesReport
+                        }
+                    ]
+                },
+                {
+                    path: "exchangerate",
+                    meta: { label: i18n.t("exchangerate") },
+                    component: {
+                        render(c) {
+                            return c("router-view");
+                        }
+                    },
+                    children: [
+                        {
+                            path: "",
+                            meta: { label: i18n.t("table") },
+                            name: "ExchangeRate",
+                            component: ExchangeRate
+                        },
+                        {
+                            path: "details/:base/:symbol",
+                            meta: { label: i18n.t("details") },
+                            name: "ExchangeRateDetails",
+                            component: ExchangeRateDetails
                         }
                     ]
                 },

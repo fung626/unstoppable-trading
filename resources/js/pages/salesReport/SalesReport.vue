@@ -48,30 +48,7 @@
         </CRow>
         <CRow>
             <CCol md="12">
-                <CCard class="mb-4">
-                    <v-progress-linear
-                        :active="loading"
-                        indeterminate
-                        color="cyan"
-                    ></v-progress-linear>
-                    <CCardBody>
-                        <CRow>
-                            <CCol sm="12">
-                                <h4 class="card-title mb-0">
-                                    {{ $t("salesreport") }}
-                                </h4>
-                                <div class="small text-medium-emphasis"></div>
-                            </CCol>
-                        </CRow>
-                        <CChartLine
-                            type="line"
-                            style="height: 320px; max-height: 320px; margin-top: 40px"
-                            :datasets="data.datasets"
-                            :labels="data.labels"
-                            :options="options"
-                        />
-                    </CCardBody>
-                </CCard>
+                <SalesReportLineChart />
             </CCol>
         </CRow>
         <CRow>
@@ -112,75 +89,27 @@
 </template>
 <script>
 //
-import { CChartLine } from "@coreui/vue-chartjs";
 import { mapState } from "vuex";
+import SalesReportLineChart from "./components/SalesReportLineChart";
 import TopSalesTable from "./components/TopSalesTable";
 import TopStocksTable from "./components/TopStocksTable";
 
 export default {
     name: "SalesReport",
-    props: {},
     components: {
-        CChartLine,
+        SalesReportLineChart,
         TopSalesTable,
         TopStocksTable
     },
     computed: {
-        ...mapState(["salesreport/chart"]),
+        ...mapState(["salesreport"]),
         data() {
-            return JSON.parse(JSON.stringify(this["salesreport/chart"].data));
+            return JSON.parse(JSON.stringify(this["salesreport"].data));
         }
     },
     data() {
         return {
-            loading: false,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                tooltips: {
-                    mode: "index"
-                },
-                legend: {
-                    display: false
-                },
-                scales: {
-                    xAxes: [
-                        {
-                            gridLines: {
-                                drawOnChartArea: false
-                            }
-                        }
-                    ],
-                    yAxes: [
-                        {
-                            ticks: {
-                                beginAtZero: true,
-                                callback: (value, index, values) => {
-                                    return `${Number(
-                                        value
-                                    ).abbreviateAmount()}`;
-                                }
-                            }
-                        }
-                    ]
-                },
-                pan: {
-                    enabled: true,
-                    mode: "x"
-                },
-                zoom: {
-                    enabled: true,
-                    mode: "x"
-                },
-                elements: {
-                    point: {
-                        radius: 0,
-                        hitRadius: 10,
-                        hoverRadius: 4,
-                        hoverBorderWidth: 3
-                    }
-                }
-            }
+            loading: false
         };
     },
     mounted() {
@@ -195,7 +124,7 @@ export default {
             let data = {};
             self.loading = true;
             this.$store
-                .dispatch("salesreport/chart/get", data)
+                .dispatch("salesreport/get", data)
                 .then(response => {
                     self.loading = false;
                 })
