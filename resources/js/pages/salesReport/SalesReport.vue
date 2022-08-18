@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <CContainer lg>
         <CRow>
             <CCol col="12" sm="6" lg="6">
                 <CWidgetIcon
@@ -113,7 +113,7 @@
                 </CCard>
             </CCol>
         </CRow>
-    </div>
+    </CContainer>
 </template>
 <script>
 //

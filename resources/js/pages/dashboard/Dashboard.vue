@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <CContainer lg>
         <!-- <WidgetsDropdown /> -->
         <ScannerDialog ref="scannerDialog" />
         <CRow>
@@ -92,7 +92,7 @@
                 </CCard>
             </CCol>
         </CRow>
-    </div>
+    </CContainer>
 </template>
 
 <script>
