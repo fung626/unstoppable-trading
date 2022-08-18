@@ -1,6 +1,39 @@
 <template>
     <div>
         <CRow>
+            <CCol col="12" sm="6" lg="6">
+                <CWidgetIcon
+                    :header="data.last_30days_stock_costs"
+                    :text="
+                        `${$t('lastsomedays', { days: '30' })}${$t(
+                            'stock'
+                        )}${$t('price.cost')}`
+                    "
+                    color="primary"
+                >
+                    <CIcon name="cib-server-fault" width="24" />
+                </CWidgetIcon>
+            </CCol>
+            <CCol col="12" sm="6" lg="6">
+                <CWidgetIcon
+                    :header="data.last_30days_shipping_costs"
+                    :text="
+                        `${$t('lastsomedays', { days: '30' })}${$t(
+                            'shipping'
+                        )}${$t('price.cost')}`
+                    "
+                    color="primary"
+                >
+                    <CIcon name="cib-codeship" width="24" />
+                </CWidgetIcon>
+            </CCol>
+        </CRow>
+        <CRow>
+            <CCol md="12">
+                <SalesReportLineChart />
+            </CCol>
+        </CRow>
+        <CRow>
             <CCol col="12" sm="6" lg="3">
                 <CWidgetIcon
                     :header="data.average_inventory"
@@ -11,7 +44,7 @@
                     "
                     color="primary"
                 >
-                    <CIcon name="cil-calculator" width="24" />
+                    <CIcon name="cil-chart-line" width="24" />
                 </CWidgetIcon>
             </CCol>
             <CCol col="12" sm="6" lg="3">
@@ -24,7 +57,7 @@
                     "
                     color="primary"
                 >
-                    <CIcon name="cil-calculator" width="24" />
+                    <CIcon name="cil-chart-line" width="24" />
                 </CWidgetIcon>
             </CCol>
             <CCol col="12" sm="6" lg="3">
@@ -33,7 +66,7 @@
                     :text="`${$t('price.cost')}${$t('inventorychange')}`"
                     color="primary"
                 >
-                    <CIcon name="cil-calculator" width="24" />
+                    <CIcon name="cil-chart-line" width="24" />
                 </CWidgetIcon>
             </CCol>
             <CCol col="12" sm="6" lg="3">
@@ -42,13 +75,8 @@
                     :text="`${$t('daysinventoryoutstanding')}`"
                     color="primary"
                 >
-                    <CIcon name="cil-calculator" width="24" />
+                    <CIcon name="cil-chart-line" width="24" />
                 </CWidgetIcon>
-            </CCol>
-        </CRow>
-        <CRow>
-            <CCol md="12">
-                <SalesReportLineChart />
             </CCol>
         </CRow>
         <CRow>

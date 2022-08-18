@@ -124,7 +124,7 @@
                     ></v-text-field>
                     <v-select
                         v-model="status"
-                        :items="shipStatus"
+                        :items="shippingStatus"
                         :label="$t('status')"
                         item-text="name"
                         item-value="value"
@@ -321,7 +321,12 @@
 <script>
 //
 import { Dialog, ScannerDialog } from "@/components";
-import { countryCodes, currencies, goodsSizes, shipStatus } from "@/constants";
+import {
+    countryCodes,
+    currencies,
+    goodsSizes,
+    shippingStatus
+} from "@/constants";
 import { mapState } from "vuex";
 
 export default {
@@ -400,7 +405,7 @@ export default {
             errors: {},
             countryCodes: countryCodes,
             currencies: currencies,
-            shipStatus: shipStatus
+            shippingStatus: shippingStatus
         };
     },
     watch: {

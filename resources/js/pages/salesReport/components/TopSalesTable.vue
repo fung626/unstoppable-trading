@@ -30,8 +30,6 @@ import { mapState } from "vuex";
 
 export default {
     name: "TopSalesTable",
-    props: {},
-    components: {},
     computed: {
         ...mapState(["salesreport/topsales"]),
         items() {

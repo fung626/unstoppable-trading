@@ -1,5 +1,6 @@
 <template>
     <div>
+        <StockCalendar stockType="purchase" />
         <Dialog ref="dialog" />
         <CRow class="p-2">
             <CCol md="9" sm="9">
@@ -107,13 +108,14 @@
 </template>
 <script>
 //
-import { Dialog } from "@/components";
+import { Dialog, StockCalendar } from "@/components";
 import { mapState } from "vuex";
 
 export default {
     name: "Purchase",
     components: {
-        Dialog
+        Dialog,
+        StockCalendar
     },
     computed: {
         ...mapState(["goods/purchase"]),

@@ -20,6 +20,7 @@ class Duty extends Model
         'date',
         'start',
         'end',
+        'color',
         'editable',
     ];
 

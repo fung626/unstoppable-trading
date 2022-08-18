@@ -123,13 +123,13 @@ class SalesReport
             if ($index === 0) {
                 $query = StockModel::select([DB::raw('COALESCE(SUM(goods_stock.unit * goods.' . $priceTag . '), 0) as sum')])
                     ->leftJoin('goods', 'goods.id', '=', 'goods_stock.goods_id')
-                    ->where('goods_stock.type', 'SHIP')
+                    ->where('goods_stock.type', 'SHIPPING')
                     ->whereMonth('goods_stock.created_at', $month)
                     ->whereYear('goods_stock.created_at', $year);
             } else {
                 $subquery = StockModel::select([DB::raw('COALESCE(SUM(goods_stock.unit * goods.' . $priceTag . '), 0) as sum')])
                     ->leftJoin('goods', 'goods.id', '=', 'goods_stock.goods_id')
-                    ->where('goods_stock.type', 'SHIP')
+                    ->where('goods_stock.type', 'SHIPPING')
                     ->whereMonth('goods_stock.created_at', $month)
                     ->whereYear('goods_stock.created_at', $year);
                 $query = $query->unionAll($subquery);

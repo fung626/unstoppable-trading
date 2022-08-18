@@ -35,6 +35,10 @@ class Shipping extends Model
         'delivered_status',
     ];
 
+    protected $appends = [
+        'generated_id',
+    ];
+
     public function getGeneratedIdAttribute()
     {
         return $this->client_number . '-' . sprintf('%08d', $this->number);

@@ -46,6 +46,7 @@ const i18n = new VueI18n({
             management: "Management",
             home: "Home",
             dashboard: "Dashboard",
+            default: "Default",
             empty: "Empty",
             more: "More",
             example: "Example",
@@ -122,6 +123,7 @@ const i18n = new VueI18n({
             unit: "Unit",
             scanner: "Scanner",
             search: "Search",
+            quicksearch: "Quick Search",
             admin: "Admin",
             ADMIN: "ADMIN",
             employee: "Employee",
@@ -130,6 +132,7 @@ const i18n = new VueI18n({
             duty: "Duty",
             dutylist: "Duty List",
             calendar: {
+                title: "Calendar",
                 month: "Month",
                 week: "Week",
                 day: "Day"
@@ -147,6 +150,7 @@ const i18n = new VueI18n({
             inventorychange: "Inventory Change",
             daysinventoryoutstanding: "Days Inventory Outstanding",
             lastthreemonths: "Last Three Months",
+            lastsomedays: "Last {days} Days",
             purchasestatus: {
                 pending: "Pending",
                 PENDING: "Pending",
@@ -155,7 +159,7 @@ const i18n = new VueI18n({
                 delivered: "Delivered",
                 DELIVERED: "Delivered"
             },
-            shipstatus: {
+            shippingstatus: {
                 pending: "Pending",
                 PENDING: "Pending",
                 processing: "Processing",
@@ -173,6 +177,7 @@ const i18n = new VueI18n({
             },
             button: {
                 jumpto: "Jump to",
+                details: "Details",
                 submit: "Submit",
                 confirm: "Confirm",
                 update: "update",
@@ -247,6 +252,7 @@ const i18n = new VueI18n({
             management: "管理",
             home: "主頁",
             dashboard: "控制板",
+            default: "預設",
             empty: "空的",
             more: "更多",
             example: "例子",
@@ -324,6 +330,7 @@ const i18n = new VueI18n({
             unit: "數量",
             scanner: "掃描器",
             search: "搜尋",
+            quicksearch: "快速搜尋",
             admin: "管理員",
             ADMIN: "管理員",
             employee: "員工",
@@ -332,6 +339,7 @@ const i18n = new VueI18n({
             duty: "更",
             dutylist: "更表",
             calendar: {
+                title: "日曆",
                 month: "月",
                 week: "星期",
                 day: "日"
@@ -349,6 +357,7 @@ const i18n = new VueI18n({
             inventorychange: "庫存變化",
             daysinventoryoutstanding: "存貨周轉天數",
             lastthreemonths: "過去三個月",
+            lastsomedays: "過去{days}日",
             purchasestatus: {
                 pending: "待確定",
                 PENDING: "待確定",
@@ -357,7 +366,7 @@ const i18n = new VueI18n({
                 delivered: "已交付",
                 DELIVERED: "已交付"
             },
-            shipstatus: {
+            shippingstatus: {
                 pending: "待確定",
                 PENDING: "待確定",
                 processing: "處理中",
@@ -375,6 +384,7 @@ const i18n = new VueI18n({
             },
             button: {
                 jumpto: "跳至",
+                details: "詳細",
                 submit: "提交",
                 confirm: "確定",
                 update: "更新",

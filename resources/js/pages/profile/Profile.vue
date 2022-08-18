@@ -29,8 +29,8 @@
 </template>
 <script>
 //
-import ProfileInfoForm from "./components/ProfileInfoForm";
 import PasswordForm from "./components/PasswordForm";
+import ProfileInfoForm from "./components/ProfileInfoForm";
 
 export default {
     name: "Profile",
@@ -38,7 +38,6 @@ export default {
         ProfileInfoForm,
         PasswordForm
     },
-    props: {},
     data() {
         return {
             tab: {

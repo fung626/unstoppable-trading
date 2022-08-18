@@ -21,13 +21,14 @@ class DutyCollection extends ResourceCollection
                 'user_id' => $item->user_id,
                 'start' => $item->start,
                 'end' => $item->end,
+                'color' => $item->color,
                 'user' => $item->user,
                 'updated_at' => $item->updated_at,
                 'created_at' => $item->created_at,
                 'actions' => [
                     [
                         'key' => 1,
-                        'title' => __("Create"),
+                        'title' => __("Create") . ' ' . __("Duty"),
                         'color' => "info",
                         'type' => "Create",
                         'disabled' => false,

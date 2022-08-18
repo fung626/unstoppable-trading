@@ -47,8 +47,19 @@
                 itemsPerPageOptions: [10, 20, 50, 100]
             }"
         >
-            <template v-slot:[`item.role`]="{ item }">
-                {{ $t(item.role) }}
+            <template v-slot:[`item.color`]="{ item }">
+                <div class="d-flex align-items-center justify-content-center">
+                    {{ $t(item.color) }}
+                    <div
+                        class="mx-2"
+                        :style="{
+                            height: '30px',
+                            width: '30px',
+                            borderRadius: '4px',
+                            backgroundColor: item.color
+                        }"
+                    ></div>
+                </div>
             </template>
             <template v-slot:[`item.created_at`]="{ item }">
                 {{ item.created_at | moment("dddd, Do MMMM YYYY") }}
@@ -83,7 +94,6 @@ export default {
         Dialog,
         DutyCalendar
     },
-    props: {},
     data() {
         return {
             searchText: null,
@@ -101,6 +111,10 @@ export default {
                 { text: this.$t("name"), value: "user.name" },
                 { text: this.$t("start"), value: "start" },
                 { text: this.$t("end"), value: "end" },
+                {
+                    text: `${this.$t("calendar.title")} ${this.$t("color")}`,
+                    value: "color"
+                },
                 { text: this.$t("updatedat"), value: "updated_at" },
                 { text: this.$t("actions"), value: "actions", sortable: false }
             ],

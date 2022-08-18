@@ -315,7 +315,7 @@ class Common
         return $dates;
     }
 
-    public static function getMonthsFromRange($start, $end)
+    public static function getMonthsFromRange($start, $end, $format = 'Y-m')
     {
         $start = new \DateTime($start); // Start date
         $end = new \DateTime($end); // Create a datetime object from your Carbon object
@@ -324,7 +324,7 @@ class Common
 
         $months = [];
         foreach ($period as $dt) {
-            $months[] = $dt->format("Y-m");
+            $months[] = $dt->format($format);
         }
 
         return $months;

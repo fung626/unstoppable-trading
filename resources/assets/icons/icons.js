@@ -5,6 +5,7 @@ import {
     cibCcAmex,
     cibCcMastercard,
     cibCcVisa,
+    cibCodeship,
     cibDribbble,
     cibFacebook,
     cibFlickr,
@@ -15,6 +16,7 @@ import {
     cibPaypal,
     cibPinterest,
     cibReddit,
+    cibServerFault,
     cibStackOverflow,
     cibStripe,
     cibTumblr,
@@ -209,6 +211,8 @@ export const iconsSet = Object.assign(
         cibStripe,
         cibPaypal,
         cibGooglePay,
-        cibCcAmex
+        cibCcAmex,
+        cibCodeship,
+        cibServerFault
     }
 );

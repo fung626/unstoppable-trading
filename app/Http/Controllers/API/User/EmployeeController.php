@@ -54,9 +54,11 @@ class EmployeeController extends Controller
                 'salary' => request('salary'),
                 'employee_contribution' => request('employee_contribution'),
                 'employer_contribution' => request('employer_contribution'),
+                'type' => request('type'),
                 'joined_at' => request('joined_at'),
                 'left_at' => request('left_at'),
-                'type' => request('type'),
+                'annual_leave_days' => request('annual_leave_days'),
+                'duty_default_color' => request('duty_default_color'),
             ]);
         } catch (\Exception $e) {
             Log::error($e->getMessage());

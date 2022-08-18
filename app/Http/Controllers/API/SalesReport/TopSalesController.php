@@ -26,7 +26,7 @@ class TopSalesController extends Controller
             ])
             ->leftJoin('goods', 'goods.id', '=', 'goods_stock.goods_id')
             ->leftJoin('goods_item', 'goods_item.id', '=', 'goods_stock.goods_item_id')
-            ->where('goods_stock.type', 'SHIP')
+            ->where('goods_stock.type', 'SHIPPING')
             ->orderBy('unit', 'DESC')
             ->groupBy('goods_item.id')
             ->get();

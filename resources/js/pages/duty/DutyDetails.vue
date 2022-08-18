@@ -72,6 +72,18 @@
                             ></v-text-field>
                         </CCol>
                     </CRow>
+                    <CRow class="my-4">
+                        <CCol md="12">
+                            {{
+                                `${this.$t("calendar.title")} ${this.$t(
+                                    "color"
+                                )}`
+                            }}
+                        </CCol>
+                        <CCol md="12">
+                            <TextFieldColorPicker v-model="formData.color" />
+                        </CCol>
+                    </CRow>
                     <CButton
                         @click="update"
                         color="primary"
@@ -92,12 +104,13 @@
     </div>
 </template>
 <script>
-import { DutyCalendar } from "@/components";
+import { DutyCalendar, TextFieldColorPicker } from "@/components";
 
 export default {
     name: "DutyDetails",
     components: {
-        DutyCalendar
+        DutyCalendar,
+        TextFieldColorPicker
     },
     data() {
         return {

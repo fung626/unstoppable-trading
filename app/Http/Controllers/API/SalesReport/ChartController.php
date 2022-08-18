@@ -15,6 +15,7 @@ class ChartController extends Controller
     {
         $from = Carbon::now()->addMonth(-12);
         $to = Carbon::now();
+        $labels = Common::getMonthsFromRange($from, $to, 'M Y');
         $range = Common::getMonthsFromRange($from, $to);
         $averages = [];
         $turnovers = [];
@@ -37,7 +38,7 @@ class ChartController extends Controller
 
         $response = config('response.common.success');
         $response['data'] = [
-            'labels' => $range,
+            'labels' => $labels,
             'datasets' => [
                 [
                     'label' => __('Last 3 Months Average Inventory Cost'),

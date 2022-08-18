@@ -37,6 +37,11 @@
                 </CWidgetIcon>
             </CCol>
         </CRow>
+        <CRow>
+            <CCol>
+                <ShippingPurchaseQuickSearch />
+            </CCol>
+        </CRow>
         <DashboardSummaryLineChart v-if="$store.getters.isAdmin" />
         <div v-if="$store.getters.isAdmin">
             <DutyCalendar />
@@ -91,7 +96,12 @@
 </template>
 
 <script>
-import { DutyCalendar, ExchangeRate, ScannerDialog } from "@/components";
+import {
+    DutyCalendar,
+    ExchangeRate,
+    ScannerDialog,
+    ShippingPurchaseQuickSearch
+} from "@/components";
 import { mapState } from "vuex";
 import DashboardSummaryLineChart from "./components/DashboardSummaryLineChart";
 import PurchaseTable from "./components/PurchaseTable";
@@ -99,10 +109,11 @@ import PurchaseTable from "./components/PurchaseTable";
 export default {
     name: "Dashboard",
     components: {
+        DutyCalendar,
         ExchangeRate,
         ScannerDialog,
+        ShippingPurchaseQuickSearch,
         DashboardSummaryLineChart,
-        DutyCalendar,
         PurchaseTable
     },
     computed: {

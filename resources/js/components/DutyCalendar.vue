@@ -119,7 +119,7 @@ export default {
                         ).format(format)} ${name} `,
                         start: start,
                         end: end,
-                        color: "cyan",
+                        color: item.color ? item.color : "cyan",
                         timed: true
                     });
                 }

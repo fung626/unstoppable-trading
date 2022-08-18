@@ -18,7 +18,7 @@ class StockChartController extends Controller
         $range = Common::getMonthsFromRange($from, $to);
 
         $stock = SalesReport::stockLineChart($from, $to, 'cost_price', 'PURCHASE');
-        $shipping = SalesReport::stockLineChart($from, $to, 'cost_price', 'SHIP');
+        $shipping = SalesReport::stockLineChart($from, $to, 'cost_price', 'SHIPPING');
 
         $response = config('response.common.success');
         $response['data'] = [

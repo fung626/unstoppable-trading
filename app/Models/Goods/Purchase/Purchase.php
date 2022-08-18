@@ -41,6 +41,10 @@ class Purchase extends Model
         'date',
     ];
 
+    protected $appends = [
+        'generated_id',
+    ];
+
     public function getGeneratedIdAttribute()
     {
         // Log::debug($this);

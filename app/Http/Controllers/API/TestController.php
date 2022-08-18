@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Goods\Stocks as StocksCollection;
 use App\Models\Goods\Item;
 use App\Mylibs\Common;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class TestController extends Controller
 {
     //
-
     protected $withs = [
         'goods.supplier',
         'goods',
@@ -20,7 +20,10 @@ class TestController extends Controller
 
     public function get(Request $request)
     {
-        dd(Common::getDatesFromRange('2022-08-22', '2022-08-26'));
+        $from = Carbon::now()->addMonth(-6);
+        $to = Carbon::now();
+        $range = Common::getMonthsFromRange($from, $to, 'M Y');
+        dd($range);
     }
 
     public function post(Request $request)

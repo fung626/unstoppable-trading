@@ -80,6 +80,18 @@
                             ></v-text-field>
                         </CCol>
                     </CRow>
+                    <CRow class="g-0 mb-2">
+                        <CCol md="12">
+                            {{
+                                `${this.$t("calendar.title")} ${this.$t(
+                                    "color"
+                                )}`
+                            }}
+                        </CCol>
+                        <CCol md="12">
+                            <TextFieldColorPicker v-model="color" />
+                        </CCol>
+                    </CRow>
                     <CButton @click="submit" color="primary" class="px-4">
                         {{ $t("button.submit") }}
                         <v-progress-circular
@@ -96,12 +108,13 @@
 </template>
 
 <script>
-import { DutyCalendar } from "@/components";
+import { DutyCalendar, TextFieldColorPicker } from "@/components";
 
 export default {
     name: "CreateDuty",
     components: {
-        DutyCalendar
+        DutyCalendar,
+        TextFieldColorPicker
     },
     computed: {
         datesText() {
@@ -129,6 +142,7 @@ export default {
             dates: [],
             start: "",
             end: "",
+            color: "#0D47A1FF",
             errors: {},
             dateMenu: false,
             autocomplete: {
@@ -184,7 +198,8 @@ export default {
                 user: self.user,
                 dates: self.dates,
                 start: self.start,
-                end: self.end
+                end: self.end,
+                color: self.color
             };
             this.$store
                 .dispatch("user/duty/create", data)

@@ -17,7 +17,9 @@ import GoodsShipAvailableShippingItems from "./GoodsShippingAvailableShippingIte
 import GoodsShippingInvoice from "./GoodsShippingInvoice";
 import GoodsShipingMailer from "./GoodsShippingMailer";
 import GoodsShippingPacking from "./GoodsShippingPacking";
+import GoodsShippingPurchaseQuickSearch from "./GoodsShippingPurchaseQuickSearch";
 import GoodsStock from "./GoodsStock";
+import GoodsStockCalendar from "./GoodsStockCalendar";
 import Profile from "./Profile";
 import Purchase from "./Purchase";
 import PurchaseInvoice from "./PurchaseInvoice";
@@ -61,18 +63,20 @@ export default new Vuex.Store({
         ["user/event"]: UserEvent,
         ["user/permission"]: UserPermission,
         goods: Goods,
-        ["goods/item"]: GoodsItem,
         ["goods/content"]: GoodsContent,
-        ["goods/purchase"]: Purchase,
-        ["goods/purchase/invoice"]: PurchaseInvoice,
-        ["goods/purchase/stocktake"]: PurchaseStockTake,
+        ["goods/item"]: GoodsItem,
         ["goods/shipping"]: GoodsShipping,
         ["goods/shipping/packing"]: GoodsShippingPacking,
+        ["goods/shipping/purchase/quicksearch"]: GoodsShippingPurchaseQuickSearch,
         ["goods/shipping/mailer"]: GoodsShipingMailer,
         ["goods/shipping/invoice"]: GoodsShippingInvoice,
         ["goods/shipping/available/shipping/item"]: GoodsShipAvailableShippingItems,
         ["goods/shipping/alteration"]: GoodsShippingAlteration,
         ["goods/stock"]: GoodsStock,
+        ["goods/stock/calendar"]: GoodsStockCalendar,
+        ["goods/purchase"]: Purchase,
+        ["goods/purchase/invoice"]: PurchaseInvoice,
+        ["goods/purchase/stocktake"]: PurchaseStockTake,
         salesreport: SalesReport,
         ["salesreport/chart"]: SalesReportChart,
         ["salesreport/stockchart"]: SalesReportStockChart,

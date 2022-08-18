@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\SalesReport;
 
 use App\Http\Controllers\Controller;
+use App\Models\Goods\Stock\Stock;
 use App\Mylibs\Common;
 use App\Mylibs\SalesReport;
 use Carbon\Carbon;
@@ -21,6 +22,14 @@ class SalesReportController extends Controller
         $DIO = SalesReport::DIO();
         $response = config('response.common.success');
         $response['data'] = [
+            'last_30days_stock_costs' => Common::formatPrice(Stock::where([
+                'type' => 'PURCHASE',
+            ])->whereBetween('created_at', [Carbon::now()->addDay(-30) . " 00:00:00", $to . " 23:59:59"])
+                    ->sum('unit_price')),
+            'last_30days_shipping_costs' => Common::formatPrice(Stock::where([
+                'type' => 'SHIPPING',
+            ])->whereBetween('created_at', [Carbon::now()->addDay(-30) . " 00:00:00", $to . " 23:59:59"])
+                    ->sum('unit_price')),
             'average_inventory' => Common::formatPrice($average),
             'inventory_turnover' => Common::formatPrice($turnover),
             'inventory_change' => Common::formatPrice($change),

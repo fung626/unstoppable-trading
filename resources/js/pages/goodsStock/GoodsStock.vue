@@ -1,6 +1,6 @@
 <template>
     <div>
-        <CreateShipDialog ref="dialog" />
+        <CreateShippingDialog ref="dialog" />
         <CRow class="p-2">
             <CCol md="9" sm="9">
                 <CInput
@@ -224,13 +224,13 @@
 </template>
 <script>
 //
-import { CreateShipDialog } from "@/components";
+import { CreateShippingDialog } from "@/components";
 import { mapState } from "vuex";
 
 export default {
     name: "GoodsStock",
     components: {
-        CreateShipDialog
+        CreateShippingDialog
     },
     computed: {
         ...mapState(["goods/stock"]),

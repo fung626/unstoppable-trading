@@ -99,6 +99,7 @@ class DutyController extends Controller
                     ], [
                         'start' => $item . ' ' . request('start'),
                         'end' => $item . ' ' . request('end'),
+                        'color' => request('color'),
                     ]);
                 } else if (count(request('dates')) > 1) {
                     $startDate = request('dates')[0];
@@ -112,6 +113,7 @@ class DutyController extends Controller
                         ], [
                             'start' => $item . ' ' . request('start'),
                             'end' => $item . ' ' . request('end'),
+                            'color' => request('color'),
                         ]);
                     } else {
                         $range = Common::getDatesFromRange($startDate, $endDate);
@@ -123,6 +125,7 @@ class DutyController extends Controller
                             ], [
                                 'start' => $item . ' ' . request('start'),
                                 'end' => $item . ' ' . request('end'),
+                                'color' => request('color'),
                             ]);
                         }
                     }
@@ -159,6 +162,7 @@ class DutyController extends Controller
             'date' => request('date'),
             'start' => request('date') . ' ' . request('formatted_start'),
             'end' => request('date') . ' ' . request('formatted_end'),
+            'color' => equest('color'),
         ]);
 
         $response = config('response.common.success');

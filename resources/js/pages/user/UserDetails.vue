@@ -2,6 +2,11 @@
     <CRow>
         <CCol>
             <CCard class="p-2">
+                <v-progress-linear
+                    :active="loading"
+                    indeterminate
+                    color="cyan"
+                ></v-progress-linear>
                 <CCardBody>
                     <CTabs
                         variant="pills"
@@ -28,9 +33,22 @@
                             ></EmployeeForm>
                         </CTab>
                         <CTab
-                            v-if="$store.getters.isAdmin"
+                            v-if="
+                                $store.getters.isAdmin &&
+                                    data.role === 'EMPLOYEE'
+                            "
                             :title="tab.values[2].toUpperCase()"
                             :active="tab.index === 2 ? true : false"
+                        >
+                            <hr />
+                            <DutyCalendar
+                                :userId="this.$route.params.id"
+                            ></DutyCalendar>
+                        </CTab>
+                        <CTab
+                            v-if="$store.getters.isAdmin"
+                            :title="tab.values[3].toUpperCase()"
+                            :active="tab.index === 3 ? true : false"
                         >
                             <hr />
                             <PermissionForm
@@ -45,6 +63,7 @@
 </template>
 <script>
 //
+import DutyCalendar from "@/components/DutyCalendar";
 import EmployeeForm from "./components/EmployeeForm";
 import PermissionForm from "./components/PermissionForm";
 import UserForm from "./components/UserForm";
@@ -52,9 +71,10 @@ import UserForm from "./components/UserForm";
 export default {
     name: "UserDetails",
     components: {
-        UserForm,
+        DutyCalendar,
         EmployeeForm,
-        PermissionForm
+        PermissionForm,
+        UserForm
     },
     data() {
         return {
@@ -64,6 +84,7 @@ export default {
                 values: [
                     this.$t("info"),
                     this.$t("employee"),
+                    this.$t("duty"),
                     this.$t("permission")
                 ],
                 index: 0

@@ -81,7 +81,6 @@ export default {
     components: {
         Dialog
     },
-    props: {},
     data() {
         return {
             searchText: null,

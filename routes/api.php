@@ -18,8 +18,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::group(['namespace' => 'API', 'middleware' => ['localization'], 'prefix' => 'test'], function () {
-    Route::get('get', 'SalesReport\TopStocksController@get');
-    // Route::get('get', 'TestController@get');
+    Route::get('get', 'TestController@get');
     Route::post('post', 'TestController@post');
 });
 
@@ -143,6 +142,7 @@ Route::group(['namespace' => 'API\Goods', 'middleware' => ['auth:api', 'scopes:g
     Route::get('details', ['uses' => 'GoodsController@details']);
     Route::post('delete', ['uses' => 'GoodsController@delete']);
     Route::post('export', ['uses' => 'GoodsController@export']);
+    Route::post('shipping/purchase/quicksearch/get', ['uses' => 'ShippingPurchaseQuickSearchController@get']);
 });
 
 Route::get('goods/purchase/items', ['uses' => 'API\Goods\PurchaseController@items']);
@@ -227,6 +227,7 @@ Route::group(['namespace' => 'API\Goods', 'middleware' => ['auth:api', 'scopes:w
 Route::group(['namespace' => 'API\Goods', 'middleware' => ['auth:api', 'scopes:stock', 'localization'], 'prefix' => 'goods/stock'], function () {
     Route::post('get', ['uses' => 'StockController@get']);
     Route::post('export', ['uses' => 'StockController@export']);
+    Route::post('calendar/get', ['uses' => 'StockCalendarController@get']);
 });
 
 Route::group(['namespace' => 'API\Goods', 'middleware' => ['auth:api', 'scopes:goods', 'localization'], 'prefix' => 'goods/barcode'], function () {

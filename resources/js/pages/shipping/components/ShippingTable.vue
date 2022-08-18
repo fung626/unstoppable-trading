@@ -59,7 +59,7 @@
             }"
         >
             <template v-slot:[`item.status`]="{ item }">
-                {{ $t(`shipstatus.${item.status}`) }}
+                {{ $t(`shippingstatus.${item.status}`) }}
             </template>
             <template v-slot:[`item.updated_at`]="{ item }">
                 <div v-if="item.updated_at">

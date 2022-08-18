@@ -63,7 +63,7 @@
 import { goodsSizes } from "@/constants";
 
 export default {
-    name: "CreateShipDialog",
+    name: "CreateShippingDialog",
     data() {
         return {
             id: null,

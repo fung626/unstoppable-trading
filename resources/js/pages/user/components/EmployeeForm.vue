@@ -95,6 +95,20 @@
                     outlined
                     dense
                 ></v-select>
+                <CRow class="g-0 mb-2" v-if="formData.duty_default_color">
+                    <CCol md="12">
+                        {{
+                            `${this.$t("default")} ${this.$t(
+                                "dutylist"
+                            )} ${this.$t("color")}`
+                        }}
+                    </CCol>
+                    <CCol md="12">
+                        <TextFieldColorPicker
+                            v-model="formData.duty_default_color"
+                        />
+                    </CCol>
+                </CRow>
                 <CButton @click="update" color="primary" class="px-4">
                     {{ $t("button.update") }}
                     <v-progress-circular
@@ -110,12 +124,16 @@
 </template>
 <script>
 //
+import { TextFieldColorPicker } from "@/components";
 import { employeeTypes } from "@/constants";
 
 export default {
     name: "EmployeeForm",
     props: {
         id: null
+    },
+    components: {
+        TextFieldColorPicker
     },
     data() {
         return {
@@ -150,7 +168,8 @@ export default {
             this.$store
                 .dispatch("user/employee/get", data)
                 .then(response => {
-                    self.formData = response.data;
+                    self.formData = JSON.parse(JSON.stringify(response.data));
+                    // console.log(self.formData);
                     self.fetchLoading = false;
                 })
                 .catch(error => {
@@ -170,7 +189,7 @@ export default {
             this.$store
                 .dispatch("user/employee/update", data)
                 .then(response => {
-                    self.formData = response.data.data;
+                    self.formData = JSON.parse(JSON.stringify(response.data));
                     self.errors = {};
                     self.updateLoading = false;
                 })

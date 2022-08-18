@@ -23,6 +23,8 @@ class Employee extends Model
         'type',
         'joined_at',
         'left_at',
+        'annual_leave_days',
+        'duty_default_color',
     ];
 
     public function user()

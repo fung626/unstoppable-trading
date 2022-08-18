@@ -12,7 +12,7 @@ import goodsTypes from "./goods/types";
 import moment from "./moment";
 import purchaseStatus from "./purchaseStatus";
 import roles from "./roles";
-import shipStatus from "./shipStatus";
+import shippingStatus from "./shippingStatus";
 
 export {
     calendarTypes,
@@ -28,6 +28,6 @@ export {
     goodsTypes,
     moment,
     purchaseStatus,
-    shipStatus,
+    shippingStatus,
     roles
 };
