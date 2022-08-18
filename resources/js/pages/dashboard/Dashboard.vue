@@ -3,7 +3,7 @@
         <!-- <WidgetsDropdown /> -->
         <ScannerDialog ref="scannerDialog" />
         <CRow>
-            <CCol v-if="isPermissionGranted('goods')" sm="4" lg="4">
+            <CCol v-if="isPermissionGranted('goods')" sm="12" lg="4">
                 <CWidgetIcon
                     :header="`${$t('barcode')}${$t('scanner')}`"
                     :text="`${$t('goods')}${$t('search')}`"
@@ -14,7 +14,7 @@
                     </CButton>
                 </CWidgetIcon>
             </CCol>
-            <CCol v-if="isPermissionGranted('shipping')" sm="4" lg="4">
+            <CCol v-if="isPermissionGranted('shipping')" sm="12" lg="4">
                 <CWidgetIcon
                     :header="`${$t('barcode')}${$t('scanner')}`"
                     :text="`${$t('goods')}${$t('shipping')}`"
@@ -25,7 +25,7 @@
                     </CButton>
                 </CWidgetIcon>
             </CCol>
-            <CCol v-if="isPermissionGranted('stocktake')" sm="4" lg="4">
+            <CCol v-if="isPermissionGranted('stocktake')" sm="12" lg="4">
                 <CWidgetIcon
                     :header="`${$t('barcode')}${$t('scanner')}`"
                     :text="`${$t('stocktake')}`"
