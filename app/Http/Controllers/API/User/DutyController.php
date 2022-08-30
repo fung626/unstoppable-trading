@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\DutyCollection;
+use App\Http\Resources\User\DutyCollection;
 use App\Models\User\Duty;
 use App\Mylibs\Common;
 use App\Mylibs\MyPhpOffice;

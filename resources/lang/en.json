@@ -37,6 +37,8 @@
     "Admin": "Admin",
     "Admins": "Admins",
     "Role": "Role",
+    "Approve": "Approve",
+    "Reject": "Reject",
     "Create": "Create",
     "Update": "Update",
     "Delete": "Delete",

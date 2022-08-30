@@ -90,15 +90,28 @@ Route::group(['namespace' => 'API\User', 'middleware' => ['auth:api', 'scopes:us
     // permission
     Route::get('permission/get', ['uses' => 'PermissionController@get']);
     Route::post('permission/update', ['uses' => 'PermissionController@update']);
-    // duty
-    Route::post('duty/create', ['uses' => 'DutyController@post']);
-    Route::post('duty/update', ['uses' => 'DutyController@update']);
-    Route::post('duty/get', ['uses' => 'DutyController@get']);
-    Route::get('duty/details', ['uses' => 'DutyController@details']);
-    Route::post('duty/delete', ['uses' => 'DutyController@delete']);
-    Route::post('duty/export', ['uses' => 'DutyController@export']);
     // password
     Route::post('profile/password/update', ['uses' => 'PasswordController@post']);
+});
+
+Route::group(['namespace' => 'API\User', 'middleware' => ['auth:api', 'scopes:duty', 'localization'], 'prefix' => 'user/duty'], function () {
+    // duty
+    Route::post('create', ['uses' => 'DutyController@post']);
+    Route::post('update', ['uses' => 'DutyController@update']);
+    Route::post('get', ['uses' => 'DutyController@get']);
+    Route::get('details', ['uses' => 'DutyController@details']);
+    Route::post('delete', ['uses' => 'DutyController@delete']);
+    Route::post('export', ['uses' => 'DutyController@export']);
+});
+
+Route::group(['namespace' => 'API\User', 'middleware' => ['auth:api', 'scopes:leave', 'localization'], 'prefix' => 'user/leave'], function () {
+    // leave
+    Route::post('create', ['uses' => 'DutyController@post']);
+    Route::post('update', ['uses' => 'DutyController@update']);
+    Route::post('get', ['uses' => 'DutyController@get']);
+    Route::get('details', ['uses' => 'DutyController@details']);
+    Route::post('delete', ['uses' => 'DutyController@delete']);
+    Route::post('export', ['uses' => 'DutyController@export']);
 });
 
 Route::group(['namespace' => 'API\User', 'middleware' => ['auth:api', 'localization'], 'prefix' => 'user'], function () {

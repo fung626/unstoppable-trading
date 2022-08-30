@@ -18,10 +18,11 @@
                         dense
                         hide-no-data
                         hide-selected
-                        item-text="name"
+                        :item-text="getItemText"
                         item-value="id"
                         return-object
-                    ></v-autocomplete>
+                    >
+                    </v-autocomplete>
                 </CCol>
                 <CCol md="2" sm="2">
                     <CButton
@@ -99,6 +100,10 @@ export default {
                         break;
                 }
             }
+        },
+        getItemText(item) {
+            // console.log(item);
+            return `${item.name}`;
         }
     }
 };

@@ -13,6 +13,7 @@
                             v-model="formData.items[key]"
                             inset
                             :label="$t(key)"
+                            color="#321fdb"
                             disabled
                         ></v-switch>
                     </div>
@@ -21,6 +22,7 @@
                             v-model="formData.items[key]"
                             inset
                             :label="$t(key)"
+                            color="#321fdb"
                         ></v-switch>
                     </div>
                 </div>
