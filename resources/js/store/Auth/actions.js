@@ -23,7 +23,7 @@ export default {
                         resolve(res);
                     } else {
                         dispatch("snackbar/show", {
-                            color: "success",
+                            color: "error",
                             text: t("snackbar.fail.login"),
                         });
                         reject(response);
@@ -31,7 +31,7 @@ export default {
                 })
                 .catch(function (error) {
                     dispatch("snackbar/show", {
-                        color: "success",
+                        color: "error",
                         text: t("snackbar.fail.login"),
                     });
                     reject(error);
@@ -61,7 +61,7 @@ export default {
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
-                                color: "success",
+                                color: "error",
                                 text: t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
@@ -114,7 +114,7 @@ export default {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
-                            router.push({ name: "Login" });
+                            router.push({ path: "/login" });
                             break;
                     }
                     reject(error);
