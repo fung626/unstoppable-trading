@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserRole extends Model
 {
     //
-    protected $table = 'config_user_role';
+    protected $table = 'config_user_roles';
 
     /**
      * The attributes that are mass assignable.

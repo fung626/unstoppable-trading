@@ -2,15 +2,15 @@
 
 namespace App\Models\Goods;
 
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
     //
-    use Uuid;
+    use HasUuids;
 
-    protected $table = 'category';
+    protected $table = 'categories';
 
     protected $keyType = 'string';
 

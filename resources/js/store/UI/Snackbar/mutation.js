@@ -8,5 +8,5 @@ export default {
     },
     [types.CLOSE](state) {
         state.show = false;
-    }
+    },
 };

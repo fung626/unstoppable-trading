@@ -1,5 +1,5 @@
 <template>
-    <CModal :show.sync="dialog" :centered="true" :title="title">
+    <CModal :visible="dialog" :centered="true" :title="title">
         <div class="mb-4">
             <v-progress-linear
                 :active="loading"
@@ -69,7 +69,7 @@ export default {
         ...mapState(["goods/shipping"]),
         shippingData() {
             return this["goods/shipping"].shippingData;
-        }
+        },
     },
     data() {
         return {
@@ -82,7 +82,7 @@ export default {
             title: null,
             errors: {},
             loading: false,
-            goodsSizes: goodsSizes
+            goodsSizes: goodsSizes,
         };
     },
     methods: {
@@ -92,7 +92,7 @@ export default {
                 return;
             }
             var ids = [];
-            goodsSizes.forEach(size => {
+            goodsSizes.forEach((size) => {
                 if (self.item[size.name]) {
                     ids = [...ids, self.item[size.name].goods_item_id];
                 }
@@ -101,23 +101,23 @@ export default {
                 return;
             }
             let data = {
-                item_ids: ids
+                item_ids: ids,
             };
             self.loading = true;
             this.$store
                 .dispatch("goods/item/get", data)
-                .then(response => {
+                .then((response) => {
                     let res = JSON.parse(JSON.stringify(response.data));
                     self.items = res;
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
         open(item) {
             this.title = `
-            ${this.$t("shipping")}－${item.goods.name}－${item.color}`;
+            ${this.$t("shipping.title")}－${item.goods.name}－${item.color}`;
             this.dialog = true;
             let data = this.shippingData;
             let subData = goodsSizes;
@@ -145,7 +145,7 @@ export default {
                     for (const y of yData) {
                         if (y.id && y.id === i.goods_item_id) {
                             this.$store.dispatch("goods/shipping/add", {
-                                data: { ...y, unit: i.unit }
+                                data: { ...y, unit: i.unit },
                             });
                         }
                     }
@@ -163,7 +163,7 @@ export default {
         clear() {
             this.item = {};
             this.items = [];
-        }
-    }
+        },
+    },
 };
 </script>

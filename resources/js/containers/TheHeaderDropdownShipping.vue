@@ -19,7 +19,7 @@
                 </CHeaderNavLink>
             </template>
             <CDropdownHeader tag="div" class="text-center" color="light">
-                <strong>{{ $t("shipping") }}{{ $t("table") }}</strong>
+                <strong>{{ $t("shipping.title") }}{{ $t("table") }}</strong>
             </CDropdownHeader>
             <div v-if="show()">
                 <CDropdownItem v-for="item in data" :key="item.id">

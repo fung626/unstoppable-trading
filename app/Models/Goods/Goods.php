@@ -8,7 +8,7 @@ use App\Models\Goods\Item;
 use App\Models\Goods\Supplier;
 use App\Models\Goods\Warehouse\Warehouse;
 use App\Models\User\Users;
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Log;
@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Log;
 class Goods extends Model
 {
     //
-    use Uuid, SoftDeletes;
+    use HasUuids, SoftDeletes;
 
     use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 

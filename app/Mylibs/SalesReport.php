@@ -25,17 +25,17 @@ class SalesReport
             $year = $exploded[0];
             $month = $exploded[1];
             if ($index === 0) {
-                $query = StockModel::select([DB::raw('COALESCE(SUM(goods_stock.unit * goods.' . $priceTag . '), 0) as sum')])
-                    ->leftJoin('goods', 'goods.id', '=', 'goods_stock.goods_id')
-                    ->where('goods_stock.type', $type)
-                    ->whereMonth('goods_stock.created_at', $month)
-                    ->whereYear('goods_stock.created_at', $year);
+                $query = StockModel::select([DB::raw('COALESCE(SUM(goods_stocks.unit * goods.' . $priceTag . '), 0) as sum')])
+                    ->leftJoin('goods', 'goods.id', '=', 'goods_stocks.goods_id')
+                    ->where('goods_stocks.type', $type)
+                    ->whereMonth('goods_stocks.created_at', $month)
+                    ->whereYear('goods_stocks.created_at', $year);
             } else {
-                $subquery = StockModel::select([DB::raw('COALESCE(SUM(goods_stock.unit * goods.' . $priceTag . '), 0) as sum')])
-                    ->leftJoin('goods', 'goods.id', '=', 'goods_stock.goods_id')
-                    ->where('goods_stock.type', $type)
-                    ->whereMonth('goods_stock.created_at', $month)
-                    ->whereYear('goods_stock.created_at', $year);
+                $subquery = StockModel::select([DB::raw('COALESCE(SUM(goods_stocks.unit * goods.' . $priceTag . '), 0) as sum')])
+                    ->leftJoin('goods', 'goods.id', '=', 'goods_stocks.goods_id')
+                    ->where('goods_stocks.type', $type)
+                    ->whereMonth('goods_stocks.created_at', $month)
+                    ->whereYear('goods_stocks.created_at', $year);
                 $query = $query->unionAll($subquery);
             }
             $index++;
@@ -76,17 +76,17 @@ class SalesReport
             $year = $exploded[0];
             $month = $exploded[1];
             if ($index === 0) {
-                $query = StockModel::select([DB::raw('COALESCE(SUM(goods_stock.unit * goods.' . $priceTag . '), 0) as sum')])
-                    ->leftJoin('goods', 'goods.id', '=', 'goods_stock.goods_id')
-                    ->where('goods_stock.type', 'PURCHASE')
-                    ->whereMonth('goods_stock.created_at', $month)
-                    ->whereYear('goods_stock.created_at', $year);
+                $query = StockModel::select([DB::raw('COALESCE(SUM(goods_stocks.unit * goods.' . $priceTag . '), 0) as sum')])
+                    ->leftJoin('goods', 'goods.id', '=', 'goods_stocks.goods_id')
+                    ->where('goods_stocks.type', 'PURCHASE')
+                    ->whereMonth('goods_stocks.created_at', $month)
+                    ->whereYear('goods_stocks.created_at', $year);
             } else {
-                $subquery = StockModel::select([DB::raw('COALESCE(SUM(goods_stock.unit * goods.' . $priceTag . '), 0) as sum')])
-                    ->leftJoin('goods', 'goods.id', '=', 'goods_stock.goods_id')
-                    ->where('goods_stock.type', 'PURCHASE')
-                    ->whereMonth('goods_stock.created_at', $month)
-                    ->whereYear('goods_stock.created_at', $year);
+                $subquery = StockModel::select([DB::raw('COALESCE(SUM(goods_stocks.unit * goods.' . $priceTag . '), 0) as sum')])
+                    ->leftJoin('goods', 'goods.id', '=', 'goods_stocks.goods_id')
+                    ->where('goods_stocks.type', 'PURCHASE')
+                    ->whereMonth('goods_stocks.created_at', $month)
+                    ->whereYear('goods_stocks.created_at', $year);
                 $query = $query->unionAll($subquery);
             }
             $index++;
@@ -121,17 +121,17 @@ class SalesReport
             $year = $exploded[0];
             $month = $exploded[1];
             if ($index === 0) {
-                $query = StockModel::select([DB::raw('COALESCE(SUM(goods_stock.unit * goods.' . $priceTag . '), 0) as sum')])
-                    ->leftJoin('goods', 'goods.id', '=', 'goods_stock.goods_id')
-                    ->where('goods_stock.type', 'SHIPPING')
-                    ->whereMonth('goods_stock.created_at', $month)
-                    ->whereYear('goods_stock.created_at', $year);
+                $query = StockModel::select([DB::raw('COALESCE(SUM(goods_stocks.unit * goods.' . $priceTag . '), 0) as sum')])
+                    ->leftJoin('goods', 'goods.id', '=', 'goods_stocks.goods_id')
+                    ->where('goods_stocks.type', 'SHIPPING')
+                    ->whereMonth('goods_stocks.created_at', $month)
+                    ->whereYear('goods_stocks.created_at', $year);
             } else {
-                $subquery = StockModel::select([DB::raw('COALESCE(SUM(goods_stock.unit * goods.' . $priceTag . '), 0) as sum')])
-                    ->leftJoin('goods', 'goods.id', '=', 'goods_stock.goods_id')
-                    ->where('goods_stock.type', 'SHIPPING')
-                    ->whereMonth('goods_stock.created_at', $month)
-                    ->whereYear('goods_stock.created_at', $year);
+                $subquery = StockModel::select([DB::raw('COALESCE(SUM(goods_stocks.unit * goods.' . $priceTag . '), 0) as sum')])
+                    ->leftJoin('goods', 'goods.id', '=', 'goods_stocks.goods_id')
+                    ->where('goods_stocks.type', 'SHIPPING')
+                    ->whereMonth('goods_stocks.created_at', $month)
+                    ->whereYear('goods_stocks.created_at', $year);
                 $query = $query->unionAll($subquery);
             }
             $index++;
@@ -192,15 +192,15 @@ class SalesReport
             $year = $exploded[0];
             $month = $exploded[1];
             if ($index === 0) {
-                $query = StockModel::select([DB::raw('COALESCE(SUM(goods_stock.unit * goods.' . $priceTag . '), 0) as sum')])
-                    ->leftJoin('goods', 'goods.id', '=', 'goods_stock.goods_id')
-                    ->whereMonth('goods_stock.created_at', $month)
-                    ->whereYear('goods_stock.created_at', $year);
+                $query = StockModel::select([DB::raw('COALESCE(SUM(goods_stocks.unit * goods.' . $priceTag . '), 0) as sum')])
+                    ->leftJoin('goods', 'goods.id', '=', 'goods_stocks.goods_id')
+                    ->whereMonth('goods_stocks.created_at', $month)
+                    ->whereYear('goods_stocks.created_at', $year);
             } else {
-                $subquery = StockModel::select([DB::raw('COALESCE(SUM(goods_stock.unit * goods.' . $priceTag . '), 0) as sum')])
-                    ->leftJoin('goods', 'goods.id', '=', 'goods_stock.goods_id')
-                    ->whereMonth('goods_stock.created_at', $month)
-                    ->whereYear('goods_stock.created_at', $year);
+                $subquery = StockModel::select([DB::raw('COALESCE(SUM(goods_stocks.unit * goods.' . $priceTag . '), 0) as sum')])
+                    ->leftJoin('goods', 'goods.id', '=', 'goods_stocks.goods_id')
+                    ->whereMonth('goods_stocks.created_at', $month)
+                    ->whereYear('goods_stocks.created_at', $year);
                 $query = $query->unionAll($subquery);
             }
             $index++;
@@ -236,15 +236,15 @@ class SalesReport
             $to = explode("-", $to);
         }
 
-        $original = StockModel::select([DB::raw('COALESCE(SUM(goods_stock.unit * goods.' . $priceTag . '), 0) as sum')])
-            ->leftJoin('goods', 'goods.id', '=', 'goods_stock.goods_id')
-            ->whereMonth('goods_stock.created_at', $from[1])
-            ->whereYear('goods_stock.created_at', $from[0])
+        $original = StockModel::select([DB::raw('COALESCE(SUM(goods_stocks.unit * goods.' . $priceTag . '), 0) as sum')])
+            ->leftJoin('goods', 'goods.id', '=', 'goods_stocks.goods_id')
+            ->whereMonth('goods_stocks.created_at', $from[1])
+            ->whereYear('goods_stocks.created_at', $from[0])
             ->first();
-        $new = StockModel::select([DB::raw('COALESCE(SUM(goods_stock.unit * goods.' . $priceTag . '), 0) as sum')])
-            ->leftJoin('goods', 'goods.id', '=', 'goods_stock.goods_id')
-            ->whereMonth('goods_stock.created_at', $to[1])
-            ->whereYear('goods_stock.created_at', $to[0])
+        $new = StockModel::select([DB::raw('COALESCE(SUM(goods_stocks.unit * goods.' . $priceTag . '), 0) as sum')])
+            ->leftJoin('goods', 'goods.id', '=', 'goods_stocks.goods_id')
+            ->whereMonth('goods_stocks.created_at', $to[1])
+            ->whereYear('goods_stocks.created_at', $to[0])
             ->first();
         if ($original->sum > 0) {
             $increase = $new->sum - $original->sum;

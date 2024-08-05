@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[814],{69814:(e,n,t)=>{t.r(n),t.d(n,{default:()=>l});const a={name:"ExchangeRate",components:{ExchangeRateTable:t(72035).Z}};const l=(0,t(51900).Z)(a,(function(){var e=this.$createElement;return(this._self._c||e)("ExchangeRateTable")}),[],!1,null,null,null).exports}}]);
-//# sourceMappingURL=814.js.map

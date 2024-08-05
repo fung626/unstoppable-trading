@@ -1,5 +1,4 @@
 // import axios from "axios";
-import { i18n } from "../../plugins";
 import router from "../../router";
 import axios from "../../utils/myAxios";
 import * as types from "./mutation-types";
@@ -12,7 +11,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}get`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         let res = response.data;
                         commit(types.FETCH_EXCHANGERATE_SUCCESS, res);
@@ -21,13 +20,13 @@ export default {
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -41,7 +40,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}details`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         let res = response.data;
                         commit(types.FETCH_EXCHANGERATE_DETAILS_SUCCESS, res);
@@ -50,13 +49,13 @@ export default {
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -70,29 +69,29 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}update`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         dispatch("snackbar/show", {
                             color: "success",
-                            text: i18n.t("snackbar.success.updated")
+                            text: t("snackbar.success.updated"),
                         });
                         let res = response.data;
                         resolve(res);
                     } else {
                         dispatch("snackbar/show", {
                             color: "error",
-                            text: i18n.t("snackbar.fail.update")
+                            text: t("snackbar.fail.update"),
                         });
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -100,10 +99,10 @@ export default {
                     }
                     dispatch("snackbar/show", {
                         color: "error",
-                        text: i18n.t("snackbar.fail.update")
+                        text: t("snackbar.fail.update"),
                     });
                     reject(error);
                 });
         });
-    }
+    },
 };

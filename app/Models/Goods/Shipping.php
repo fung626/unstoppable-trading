@@ -3,7 +3,6 @@
 namespace App\Models\Goods;
 
 use App\Models\Goods\Stock\StockShipping;
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

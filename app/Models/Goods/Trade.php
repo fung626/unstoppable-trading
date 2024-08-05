@@ -4,15 +4,14 @@ namespace App\Models\Goods;
 
 use App\Models\Goods\Goods;
 use App\Models\Goods\Invoice\Item as InvoiceItem;
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
 class Trade extends Model
 {
     //
-    use Uuid;
+    use HasUuids;
 
-    protected $table = 'trade';
+    protected $table = 'trades';
 
     protected $keyType = 'string';
 

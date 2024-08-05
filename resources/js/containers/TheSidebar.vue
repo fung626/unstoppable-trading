@@ -1,134 +1,76 @@
+<script setup>
+import { RouterLink } from "vue-router";
+import { TheSidebarNav } from "./TheSidebarNav.js";
+</script>
+
 <template>
     <CSidebar
-        fixed
-        :minimize="minimize"
-        :show="show"
-        @update:show="value => $store.dispatch('toggleSidebarMobile')"
+        class="border-end"
+        colorScheme="dark"
+        position="fixed"
+        :unfoldable="unfoldable"
+        :visible="visible"
+        @visible-change="(value) => toggleVisible(value)"
     >
-        <CSidebarBrand class="d-md-down-none" to="/">
-            <!-- <CIcon
-                class="d-block"
-                name="logo"
-                size="custom-size"
-                :height="35"
-                :viewBox="`0 0 ${minimize ? 110 : 556} 134`"
-            /> -->
-            <img
-                v-if="minimize"
-                src="/images/logo.png"
-                width="52"
-                height="42"
-                style="object-fit: contain;"
-            />
-            <img
-                v-else
-                src="/images/header-logo.png"
-                width="256"
-                height="42"
-                style="object-fit: contain;"
-            />
-        </CSidebarBrand>
-        <CRenderFunction flat :content-to-render="nav" />
-        <CSidebarMinimizer
-            class="d-md-down-none"
-            @click.native="$store.dispatch('sidebarMinimize')"
-        />
+        <CSidebarHeader class="border-bottom">
+            <RouterLink custom to="/" v-slot="{ href, navigate }">
+                <CSidebarBrand
+                    v-bind="$attrs"
+                    as="a"
+                    :href="href"
+                    @click="navigate"
+                >
+                    <img src="/images/header-logo.png" height="32" />
+                    <!-- <CIcon
+                        custom-class-name="sidebar-brand-full"
+                        :icon="logo"
+                        :height="32"
+                    />
+                    <CIcon
+                        custom-class-name="sidebar-brand-narrow"
+                        :icon="sygnet"
+                        :height="32"
+                    /> -->
+                </CSidebarBrand>
+            </RouterLink>
+            <CCloseButton class="d-lg-none" dark @click="toggleVisible()" />
+        </CSidebarHeader>
+        <TheSidebarNav />
+        <CSidebarFooter class="border-top d-none d-lg-flex">
+            <CSidebarToggler @click="toggleUnfoldable()" />
+        </CSidebarFooter>
     </CSidebar>
 </template>
 
 <script>
-// import axios from "axios";
 import { mapState } from "vuex";
 import _adminNav from "./_adminNav";
-import _employeeNav from "./_employeeNav";
 
 export default {
-    name: "TheSidebar",
-    data() {
-        return {
-            nav: [],
-            buffor: []
-        };
-    },
     computed: {
-        ...mapState(["uisidebar"]),
-        show() {
-            return this.uisidebar.sidebarShow;
+        ...mapState(["ui/sidebar"]),
+        unfoldable() {
+            return this["ui/sidebar"].unfoldable;
         },
-        minimize() {
-            return this.uisidebar.sidebarMinimize;
-        }
+        visible() {
+            return this["ui/sidebar"].visible;
+        },
     },
     methods: {
-        dropdown(data) {
-            let result = {
-                _name: "CSidebarNavDropdown",
-                name: $t(data["name"]),
-                route: data["href"],
-                icon: data["icon"],
-                _children: []
-            };
-            for (let i = 0; i < data["elements"].length; i++) {
-                if (data["elements"][i]["slug"] == "dropdown") {
-                    result._children.push(this.dropdown(data["elements"][i]));
-                } else {
-                    result._children.push({
-                        _name: "CSidebarNavItem",
-                        name: $t(data["elements"][i]["name"]),
-                        to: data["elements"][i]["href"],
-                        icon: data["elements"][i]["icon"]
-                    });
-                }
-            }
-            return result;
+        toggleVisible(value) {
+            this.$store.dispatch("ui/sidebar/toggleVisible", value);
         },
-        rebuildData(data) {
-            this.buffor = [
-                {
-                    _name: "CSidebarNav",
-                    _children: []
-                }
-            ];
-            for (let k = 0; k < data.length; k++) {
-                switch (data[k]["slug"]) {
-                    case "link":
-                        if (data[k]["href"].indexOf("http") !== -1) {
-                            this.buffor[0]._children.push({
-                                _name: "CSidebarNavItem",
-                                name: data[k]["name"],
-                                href: data[k]["href"],
-                                icon: data[k]["icon"],
-                                target: "_blank"
-                            });
-                        } else {
-                            this.buffor[0]._children.push({
-                                _name: "CSidebarNavItem",
-                                name: data[k]["name"],
-                                to: data[k]["href"],
-                                icon: data[k]["icon"]
-                            });
-                        }
-                        break;
-                    case "title":
-                        this.buffor[0]._children.push({
-                            _name: "CSidebarNavTitle",
-                            _children: [data[k]["name"]]
-                        });
-                        break;
-                    case "dropdown":
-                        this.buffor[0]._children.push(this.dropdown(data[k]));
-                        break;
-                }
-            }
-            return this.buffor;
-        }
+        toggleUnfoldable() {
+            this.$store.dispatch("ui/sidebar/toggleUnfoldable");
+        },
     },
     mounted() {
-        if (this.$store.getters.isAdmin) {
-            this.nav = _adminNav;
-        } else {
-            this.nav = _employeeNav;
-        }
-    }
+        // if (this.$store.getters.isAdmin) {
+        //     this.nav = _adminNav;
+        // } else {
+        //     this.nav = _employeeNav;
+        // }
+        this.nav = _adminNav;
+    },
 };
 </script>

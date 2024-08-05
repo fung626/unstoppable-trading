@@ -1,13 +1,13 @@
-import CreateShippingDialog from "./CreateShippingDialog";
-import Dialog from "./Dialog";
-import DutyCalendar from "./DutyCalendar";
-import ExchangeRate from "./ExchangeRate";
-import ExchangeRateTable from "./ExchangeRateTable";
-import ScannerDialog from "./ScannerDialog";
-import ShippingPurchaseQuickSearch from "./ShippingPurchaseQuickSearch";
-import Snackbar from "./Snackbar";
-import StockCalendar from "./StockCalendar";
-import TextFieldColorPicker from "./TextFieldColorPicker";
+import CreateShippingDialog from "./CreateShippingDialog.vue";
+import Dialog from "./Dialog.vue";
+import DutyCalendar from "./DutyCalendar.vue";
+import ExchangeRate from "./ExchangeRate.vue";
+import ExchangeRateTable from "./ExchangeRateTable.vue";
+import ScannerDialog from "./ScannerDialog.vue";
+import ShippingPurchaseQuickSearch from "./ShippingPurchaseQuickSearch.vue";
+import Snackbar from "./Snackbar.vue";
+import StockCalendar from "./StockCalendar.vue";
+import TextFieldColorPicker from "./TextFieldColorPicker.vue";
 
 export {
     CreateShippingDialog,
@@ -19,5 +19,5 @@ export {
     ShippingPurchaseQuickSearch,
     Snackbar,
     StockCalendar,
-    TextFieldColorPicker
+    TextFieldColorPicker,
 };

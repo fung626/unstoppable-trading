@@ -4,18 +4,18 @@ namespace App\Models\Goods;
 
 use App\Models\Goods\Goods;
 use App\Models\User\Users;
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Item extends Model
 {
     //
-    use Uuid;
+    use HasUuids;
 
     // use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
-    protected $table = 'goods_item';
+    protected $table = 'goods_items';
 
     protected $keyType = 'string';
 

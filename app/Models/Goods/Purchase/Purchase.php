@@ -5,7 +5,6 @@ namespace App\Models\Goods\Purchase;
 use App\Models\Goods\Purchase\Item;
 use App\Models\Goods\Supplier;
 use App\Models\User\Users;
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -14,7 +13,7 @@ class Purchase extends Model
     //
     use Uuid, SoftDeletes;
 
-    protected $table = 'goods_purchase';
+    protected $table = 'goods_purchases';
 
     protected $keyType = 'string';
 

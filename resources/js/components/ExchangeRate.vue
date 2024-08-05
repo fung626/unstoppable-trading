@@ -74,12 +74,12 @@
 
 <script>
 import { currencies } from "@/constants";
-import ExchangeRateTable from "./ExchangeRateTable";
+import ExchangeRateTable from "./ExchangeRateTable.vue";
 
 export default {
     name: "ExchangeRate",
     components: {
-        ExchangeRateTable
+        ExchangeRateTable,
     },
     data() {
         return {
@@ -91,13 +91,13 @@ export default {
             currencies: currencies,
             updatedAt: null,
             errors: {},
-            loading: false
+            loading: false,
         };
     },
     watch: {
-        base: function(newVal, oldVal) {
+        base: function (newVal, oldVal) {
             if (newVal === this.symbol) {
-                currencies.forEach(element => {
+                currencies.forEach((element) => {
                     if (this.symbol != element.value) {
                         this.symbol = element.value;
                     }
@@ -107,9 +107,9 @@ export default {
                 this.fetch();
             }
         },
-        symbol: function(newVal, oldVal) {
+        symbol: function (newVal, oldVal) {
             if (newVal === this.base) {
-                currencies.forEach(element => {
+                currencies.forEach((element) => {
                     if (this.base != element.value) {
                         this.base = element.value;
                     }
@@ -119,12 +119,12 @@ export default {
                 this.fetch();
             }
         },
-        baseAmount: function(val) {
+        baseAmount: function (val) {
             this.symbolAmount = val * this.rate;
         },
-        symbolAmount: function(val) {
+        symbolAmount: function (val) {
             this.baseAmount = val / this.rate;
-        }
+        },
     },
     mounted() {
         this.fetch();
@@ -138,11 +138,11 @@ export default {
             self.loading = true;
             let data = {
                 base: self.base,
-                symbol: self.symbol
+                symbol: self.symbol,
             };
             this.$store
                 .dispatch("exchangerate/details", data)
-                .then(response => {
+                .then((response) => {
                     let res = response.data.data;
                     self.base = res.base;
                     self.symbol = res.symbol;
@@ -152,11 +152,11 @@ export default {
                     self.loading = false;
                     self.errors = {};
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.errors = error.response.data?.data;
                     self.loading = false;
                 });
-        }
-    }
+        },
+    },
 };
 </script>

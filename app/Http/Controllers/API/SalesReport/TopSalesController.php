@@ -22,11 +22,11 @@ class TopSalesController extends Controller
                 'goods_item.size',
                 'goods_item.color',
                 'goods_item.barcode',
-                DB::raw('abs(goods_stock.unit) as unit'),
+                DB::raw('abs(goods_stocks.unit) as unit'),
             ])
-            ->leftJoin('goods', 'goods.id', '=', 'goods_stock.goods_id')
-            ->leftJoin('goods_item', 'goods_item.id', '=', 'goods_stock.goods_item_id')
-            ->where('goods_stock.type', 'SHIPPING')
+            ->leftJoin('goods', 'goods.id', '=', 'goods_stocks.goods_id')
+            ->leftJoin('goods_item', 'goods_item.id', '=', 'goods_stocks.goods_item_id')
+            ->where('goods_stocks.type', 'SHIPPING')
             ->orderBy('unit', 'DESC')
             ->groupBy('goods_item.id')
             ->get();

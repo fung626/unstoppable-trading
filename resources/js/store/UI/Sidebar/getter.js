@@ -1,14 +1,14 @@
 export default {
-    sidebarShow(state) {
-        if (state.sidebarShow === null) {
+    visible(state) {
+        if (state.visible === null) {
             return false;
         }
-        return state.sidebarShow;
+        return state.visible;
     },
-    sidebarMinimize(state) {
-        if (state.sidebarMinimize === null) {
+    unfoldable(state) {
+        if (state.unfoldable === null) {
             return false;
         }
-        return state.sidebarMinimize;
-    }
+        return state.unfoldable;
+    },
 };

@@ -4,13 +4,12 @@ namespace App\Models\Goods\Stock;
 
 // use App\Models\Goods\Shipping;
 use App\Models\Goods\Stock\Stock;
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
 class StockShipping extends Model
 {
     //
-    use Uuid;
+    use HasUuids;
 
     protected $table = 'goods_stock_shippings';
 

@@ -5,16 +5,16 @@ namespace App\Models\Goods\Stock;
 use App\Models\Goods\Goods;
 use App\Models\Goods\Item;
 use App\Models\Goods\Stock\StockShipping;
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Stock extends Model
 {
     //
-    use Uuid;
+    use HasUuids;
 
-    protected $table = 'goods_stock';
+    protected $table = 'goods_stocks';
 
     protected $keyType = 'string';
 

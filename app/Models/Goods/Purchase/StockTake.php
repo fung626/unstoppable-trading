@@ -2,16 +2,15 @@
 
 namespace App\Models\Goods\Purchase;
 
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
 class StockTake extends Model
 {
     //
 
-    use Uuid;
+    use HasUuids;
 
-    protected $table = 'goods_stocktake';
+    protected $table = 'goods_stocktakes';
 
     protected $keyType = 'string';
 

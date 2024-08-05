@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Carbon\Carbon;
 use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Symfony\Component\HttpFoundation\Response;
 

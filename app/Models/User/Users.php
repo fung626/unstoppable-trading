@@ -5,6 +5,7 @@ namespace App\Models\User;
 use App\Models\User\Employee;
 use App\Models\User\Permission;
 use App\Notifications\MyWelcomeNotification;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -55,6 +56,18 @@ class Users extends Authenticatable
     public function sendWelcomeNotification(\Carbon\Carbon $validUntil, $password)
     {
         $this->notify(new MyWelcomeNotification($validUntil, $password));
+    }
+
+    /**
+     * Send a password reset notification to the user.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $url = env('APP_URL') . 'auth/forgot/password/reset/' . $this->id . '/' . $token;
+        $this->notify(new ResetPasswordNotification($url));
     }
 
     public function getIsAdminAttribute()

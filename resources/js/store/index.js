@@ -1,7 +1,6 @@
 // import * as Cookies from "js-cookie";
 import SecureLS from "secure-ls";
-import Vue from "vue";
-import Vuex from "vuex";
+import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import Auth from "./Auth";
 import Category from "./Category";
@@ -42,13 +41,11 @@ import UserEvent from "./UserEvent";
 import UserPermission from "./UserPermission";
 import Warehouse from "./Warehouse";
 
-Vue.use(Vuex);
-
 // Load store modules dynamically.
 
 const ls = new SecureLS({ isCompression: false });
 
-export default new Vuex.Store({
+export default createStore({
     strict: process.env.NODE_ENV !== "production",
     modules: {
         // API
@@ -67,10 +64,12 @@ export default new Vuex.Store({
         ["goods/item"]: GoodsItem,
         ["goods/shipping"]: GoodsShipping,
         ["goods/shipping/packing"]: GoodsShippingPacking,
-        ["goods/shipping/purchase/quicksearch"]: GoodsShippingPurchaseQuickSearch,
+        ["goods/shipping/purchase/quicksearch"]:
+            GoodsShippingPurchaseQuickSearch,
         ["goods/shipping/mailer"]: GoodsShipingMailer,
         ["goods/shipping/invoice"]: GoodsShippingInvoice,
-        ["goods/shipping/available/shipping/item"]: GoodsShipAvailableShippingItems,
+        ["goods/shipping/available/shipping/item"]:
+            GoodsShipAvailableShippingItems,
         ["goods/shipping/alteration"]: GoodsShippingAlteration,
         ["goods/stock"]: GoodsStock,
         ["goods/stock/calendar"]: GoodsStockCalendar,
@@ -88,15 +87,15 @@ export default new Vuex.Store({
         client: Client,
         ["chart/purchaseline"]: PurchaseLineChart,
         // UI
-        uisidebar: UISidebar,
-        uialert: UIAlert,
-        uisnackbar: UISnackbar
+        ["ui/sidebar"]: UISidebar,
+        ["ui/alart"]: UIAlert,
+        ["ui/snackbar"]: UISnackbar,
     },
     // plugins: [createPersistedState({ storage: window.sessionStorage })]
     plugins: [
         createPersistedState({
             storage: {
-                getItem: key => {
+                getItem: (key) => {
                     let item = ls.get(key);
                     if (item) {
                         let state = JSON.parse(item);
@@ -109,8 +108,8 @@ export default new Vuex.Store({
                     let str = JSON.stringify(state);
                     ls.set(key, str);
                 },
-                removeItem: key => ls.remove(key)
-            }
-        })
-    ]
+                removeItem: (key) => ls.remove(key),
+            },
+        }),
+    ],
 });

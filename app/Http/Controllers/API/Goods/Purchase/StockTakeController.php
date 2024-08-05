@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Validator;
 
-class StockTakeController extends Controller
+class StocktakeController extends Controller
 {
     //
     protected $withs = [

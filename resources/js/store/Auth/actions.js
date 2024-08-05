@@ -1,8 +1,9 @@
-import { i18n } from "../../plugins";
+import i18n from "@/plugins/vue-i18n";
 import router from "../../router";
 import axios from "../../utils/myAxios";
 import * as types from "./mutation-types";
 
+const { t } = i18n.global;
 const endpoint = "/api/auth/";
 const name = "auth";
 
@@ -11,27 +12,27 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}login`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error && "data" in response.data) {
                         let res = response.data;
                         commit(types.LOGIN_SUCCESS, res);
                         dispatch("snackbar/show", {
                             color: "success",
-                            text: i18n.t("snackbar.success.login")
+                            text: t("snackbar.success.login"),
                         });
                         resolve(res);
                     } else {
                         dispatch("snackbar/show", {
                             color: "success",
-                            text: i18n.t("snackbar.fail.login")
+                            text: t("snackbar.fail.login"),
                         });
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     dispatch("snackbar/show", {
                         color: "success",
-                        text: i18n.t("snackbar.fail.login")
+                        text: t("snackbar.fail.login"),
                     });
                     reject(error);
                 });
@@ -44,24 +45,24 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}forgot/password/email`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         dispatch("snackbar/show", {
                             color: "success",
-                            text: i18n.t("auth.forgotpassword.mailsent")
+                            text: t("auth.forgotpassword.mailsent"),
                         });
                         resolve(response);
                     } else {
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -75,7 +76,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}forgot/password/find`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         resolve(response);
                     } else {
@@ -83,7 +84,7 @@ export default {
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
@@ -98,18 +99,18 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}forgot/password/reset`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         dispatch("snackbar/show", {
                             color: "success",
-                            text: i18n.t("auth.resetpassword.success")
+                            text: t("auth.resetpassword.success"),
                         });
                         resolve(response);
                     } else {
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
@@ -119,5 +120,5 @@ export default {
                     reject(error);
                 });
         });
-    }
+    },
 };

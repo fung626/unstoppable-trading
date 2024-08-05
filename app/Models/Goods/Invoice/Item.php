@@ -4,15 +4,14 @@ namespace App\Models\Goods\Invoice;
 
 use App\Models\Goods\Goods;
 use App\Models\Goods\Invoice\Invoice;
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
 
-    use Uuid;
+    use HasUuids;
 
-    protected $table = 'invoice_item';
+    protected $table = 'invoice_items';
 
     protected $keyType = 'string';
 

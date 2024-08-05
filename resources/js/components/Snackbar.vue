@@ -22,7 +22,7 @@ export default {
     name: "Snackbar",
     data() {
         return {
-            timeout: 60000
+            timeout: 10000,
         };
     },
     computed: {
@@ -35,19 +35,24 @@ export default {
                 if (!value) {
                     this.$store.dispatch("snackbar/close");
                 }
-            }
+            },
         },
         color() {
             return this.uisnackbar.color;
         },
         text() {
             return this.uisnackbar.text;
-        }
+        },
+    },
+    watch: {
+        show(n, o) {
+            console.log(n, o);
+        },
     },
     methods: {
         close() {
             this.$store.dispatch("snackbar/close");
-        }
-    }
+        },
+    },
 };
 </script>

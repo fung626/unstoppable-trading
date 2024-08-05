@@ -11,7 +11,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 use Validator;
@@ -40,17 +39,22 @@ class ForgotPasswordController extends Controller
         }
 
         $user = Users::where('email', request('email'))->first();
-
+        // dd($request->only('email'));
         if ($user) {
             // Illuminate\Auth\Notifications\ResetPassword::toMail();
-            $response = Password::sendResetLink(['email' => request('email')], function (Message $message) {
-                $message->subject(Lang::get('Forgot Password'));
-            });
+            $response = Password::sendResetLink(['email' => request('email')]);
 
             switch ($response) {
                 case Password::RESET_LINK_SENT:
                     // $request->session()->flash('alert', 'success');
                     // $request->session()->flash('msg', Lang::get('auth.password.forgot.alert.linksent'));
+                    // return redirect()
+                    //     ->back();
+                    $response = config('response.common.success');
+                    return response()->json($response, 200);
+                case Password::RESET_THROTTLED:
+                    // $request->session()->flash('alert', 'danger');
+                    // $request->session()->flash('msg', Lang::get('Invalid email'));
                     // return redirect()
                     //     ->back();
                     $response = config('response.common.success');

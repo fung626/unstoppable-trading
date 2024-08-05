@@ -1,5 +1,4 @@
 // import axios from "axios";
-import { i18n } from "../../plugins";
 import router from "../../router";
 import axios from "../../utils/myAxios";
 
@@ -11,28 +10,28 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}create`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         dispatch("snackbar/show", {
                             color: "success",
-                            text: i18n.t("snackbar.success.created")
+                            text: t("snackbar.success.created"),
                         });
                         resolve(response);
                     } else {
                         dispatch("snackbar/show", {
                             color: "error",
-                            text: i18n.t("snackbar.fail.create")
+                            text: t("snackbar.fail.create"),
                         });
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -40,11 +39,11 @@ export default {
                     }
                     dispatch("snackbar/show", {
                         color: "error",
-                        text: i18n.t("snackbar.fail.create")
+                        text: t("snackbar.fail.create"),
                     });
 
                     reject(error);
                 });
         });
-    }
+    },
 };

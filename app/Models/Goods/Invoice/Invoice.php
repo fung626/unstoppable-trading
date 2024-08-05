@@ -3,15 +3,14 @@
 namespace App\Models\Goods\Invoice;
 
 use App\Models\Goods\Invoice\Item;
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
 {
     //
-    use Uuid;
+    use HasUuids;
 
-    protected $table = 'invoice';
+    protected $table = 'invoices';
 
     protected $keyType = 'string';
 

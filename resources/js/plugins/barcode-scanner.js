@@ -1,4 +1,4 @@
-import Vue from "vue";
-import VueBarcodeScanner from "vue-barcode-scanner";
+// import Vue from "vue";
+// import VueBarcodeScanner from "vue-barcode-scanner";
 
-Vue.use(VueBarcodeScanner);
+// Vue.use(VueBarcodeScanner);

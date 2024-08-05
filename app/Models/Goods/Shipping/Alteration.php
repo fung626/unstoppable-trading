@@ -3,13 +3,12 @@
 namespace App\Models\Goods\Shipping;
 
 use App\Models\Goods\Item;
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
 class Alteration extends Model
 {
     //
-    use Uuid;
+    use HasUuids;
 
     protected $table = 'goods_shipping_alterations';
 

@@ -18,6 +18,12 @@
         <CDropdownItem to="/profile">
             <CIcon name="cil-user" /> {{ $t("profile") }}
         </CDropdownItem>
+        <CDropdownItem
+            v-if="$store.getters.isEmployee"
+            :to="`leave/create/${$store.getters.authUser.id}`"
+        >
+            <CIcon name="cil-spreadsheet" /> {{ $t("leave") }}
+        </CDropdownItem>
         <CDropdownDivider />
         <CDropdownItem @click="logout()">
             <CIcon name="cil-lock-locked" /> {{ $t("logout") }}
@@ -31,15 +37,15 @@ export default {
     computed: {
         avatar() {
             return `https://www.gravatar.com/avatar/${this.$store.getters.authUser?.email}?s=160&d=retro`;
-        }
+        },
     },
     methods: {
         logout() {
             // let self = this;
             this.$store.dispatch("auth/logout");
             this.$router.push({ name: "Login" });
-        }
-    }
+        },
+    },
 };
 </script>
 

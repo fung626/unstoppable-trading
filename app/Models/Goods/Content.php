@@ -3,17 +3,16 @@
 namespace App\Models\Goods;
 
 use App\Models\User\Users;
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
 class Content extends Model
 {
     //
-    use Uuid;
+    use HasUuids;
 
     // use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
-    protected $table = 'goods_content';
+    protected $table = 'goods_contents';
 
     protected $keyType = 'string';
 

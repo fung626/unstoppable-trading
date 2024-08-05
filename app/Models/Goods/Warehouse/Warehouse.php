@@ -3,17 +3,16 @@
 namespace App\Models\Goods\Warehouse;
 
 use App\Models\Goods\Goods;
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
 class Warehouse extends Model
 {
     //
-    use Uuid;
+    use HasUuids;
 
     use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
-    protected $table = 'warehouse';
+    protected $table = 'warehouses';
 
     protected $keyType = 'string';
 

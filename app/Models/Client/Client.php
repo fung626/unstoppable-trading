@@ -2,16 +2,15 @@
 
 namespace App\Models\Client;
 
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
 
-    use Uuid;
-
+    use HasUuids;
     //
-    protected $table = 'client';
+    protected $table = 'clients';
 
     protected $keyType = 'string';
 

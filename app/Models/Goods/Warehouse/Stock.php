@@ -5,16 +5,15 @@ namespace App\Models\Goods\Warehouse;
 use App\Models\Goods\Stock\Stock as MasterStock;
 use App\Models\Goods\Trade as MasterTrade;
 use App\Models\Goods\Warehouse\Warehouse;
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Stock extends Model
 {
     //
-    use Uuid;
+    use HasUuids;
 
-    protected $table = 'warehouse_stock';
+    protected $table = 'warehouse_stocks';
 
     protected $keyType = 'string';
 

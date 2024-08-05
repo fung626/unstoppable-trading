@@ -1,4 +1,6 @@
-export default {
-    sidebarShow: "responsive",
-    sidebarMinimize: false
-};
+const state = () => ({
+    visible: undefined,
+    unfoldable: false,
+});
+
+export default state;

@@ -1,48 +1,136 @@
+<script setup>
+import { useColorModes } from "@coreui/vue";
+import { onMounted, ref } from "vue";
+
+import TheBreadcrumb from "./TheBreadcrumb.vue";
+
+const headerClassNames = ref("mb-4 p-0");
+
+const { colorMode, setColorMode } = useColorModes(
+    "coreui-free-vue-admin-template-theme"
+);
+
+onMounted(() => {
+    document.addEventListener("scroll", () => {
+        if (document.documentElement.scrollTop > 0) {
+            headerClassNames.value = "mb-4 p-0 shadow-sm";
+        } else {
+            headerClassNames.value = "mb-4 p-0";
+        }
+    });
+});
+</script>
+
 <template>
-    <CHeader fixed with-subheader light>
-        <CToggler
-            in-header
-            class="ml-3 d-lg-none"
-            @click="$store.dispatch('toggleSidebarMobile')"
-        />
-        <CToggler
-            in-header
-            class="ml-3 d-md-down-none"
-            @click="$store.dispatch('toggleSidebarDesktop')"
-        />
-        <CHeaderBrand class="mx-auto d-lg-none" to="/">
-            <!-- <CIcon name="logo" height="48" alt="Logo" /> -->
-            <img src="/images/header-logo.png" height="48" />
-        </CHeaderBrand>
-
-        <CMenu />
-
-        <CHeaderNav class="mr-4">
-            <TheHeaderDropdownShipping v-if="isPermissionGranted('shipping')" />
-            <TheHeaderDropdownAccnt />
-        </CHeaderNav>
-        <CSubheader class="px-3">
-            <CBreadcrumbRouter class="border-0 mb-0" />
-        </CSubheader>
+    <CHeader position="sticky" :class="headerClassNames">
+        <CContainer class="border-bottom px-4" fluid>
+            <CHeaderToggler
+                @click="toggleVisible()"
+                style="margin-inline-start: -14px"
+            >
+                <CIcon icon="cil-menu" size="lg" />
+            </CHeaderToggler>
+            <!-- <CHeaderNav class="d-none d-md-flex">
+                <CNavItem>
+                    <CNavLink href="/dashboard"> Dashboard </CNavLink>
+                </CNavItem>
+                <CNavItem>
+                    <CNavLink href="#">Users</CNavLink>
+                </CNavItem>
+                <CNavItem>
+                    <CNavLink href="#">Settings</CNavLink>
+                </CNavItem>
+            </CHeaderNav> -->
+            <CHeaderNav class="ms-auto">
+                <CNavItem>
+                    <CNavLink href="#">
+                        <CIcon icon="cil-bell" size="lg" />
+                    </CNavLink>
+                </CNavItem>
+                <CNavItem>
+                    <CNavLink href="#">
+                        <CIcon icon="cil-list" size="lg" />
+                    </CNavLink>
+                </CNavItem>
+                <CNavItem>
+                    <CNavLink href="#">
+                        <CIcon icon="cil-envelope-open" size="lg" />
+                    </CNavLink>
+                </CNavItem>
+            </CHeaderNav>
+            <CHeaderNav>
+                <li class="nav-item py-1">
+                    <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+                </li>
+                <CDropdown variant="nav-item" placement="bottom-end">
+                    <CDropdownToggle :caret="false">
+                        <CIcon
+                            v-if="colorMode === 'dark'"
+                            icon="cil-moon"
+                            size="lg"
+                        />
+                        <CIcon
+                            v-else-if="colorMode === 'light'"
+                            icon="cil-sun"
+                            size="lg"
+                        />
+                        <CIcon v-else icon="cil-contrast" size="lg" />
+                    </CDropdownToggle>
+                    <CDropdownMenu>
+                        <CDropdownItem
+                            :active="colorMode === 'light'"
+                            class="d-flex align-items-center"
+                            component="button"
+                            type="button"
+                            @click="setColorMode('light')"
+                        >
+                            <CIcon class="me-2" icon="cil-sun" size="lg" />
+                            Light
+                        </CDropdownItem>
+                        <CDropdownItem
+                            :active="colorMode === 'dark'"
+                            class="d-flex align-items-center"
+                            component="button"
+                            type="button"
+                            @click="setColorMode('dark')"
+                        >
+                            <CIcon class="me-2" icon="cil-moon" size="lg" />
+                            Dark
+                        </CDropdownItem>
+                        <CDropdownItem
+                            :active="colorMode === 'auto'"
+                            class="d-flex align-items-center"
+                            component="button"
+                            type="button"
+                            @click="setColorMode('auto')"
+                        >
+                            <CIcon class="me-2" icon="cil-contrast" size="lg" />
+                            Auto
+                        </CDropdownItem>
+                    </CDropdownMenu>
+                </CDropdown>
+                <li class="nav-item py-1">
+                    <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+                </li>
+            </CHeaderNav>
+        </CContainer>
+        <CContainer class="px-4" fluid>
+            <TheBreadcrumb />
+        </CContainer>
     </CHeader>
 </template>
 
 <script>
-import CMenu from "./Menu";
-import TheHeaderDropdownAccnt from "./TheHeaderDropdownAccnt";
-import TheHeaderDropdownShipping from "./TheHeaderDropdownShipping";
+import { mapState } from "vuex";
 
 export default {
-    name: "TheHeader",
-    components: {
-        TheHeaderDropdownShipping,
-        TheHeaderDropdownAccnt,
-        CMenu
+    computed: {
+        ...mapState(["ui/sidebar"]),
     },
     methods: {
-        isPermissionGranted(key) {
-            return this.$store.getters.isPermissionGranted(key);
-        }
-    }
+        toggleVisible() {
+            this.$store.dispatch("ui/sidebar/toggleVisible");
+        },
+    },
 };
 </script>

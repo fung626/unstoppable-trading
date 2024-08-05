@@ -1,22 +1,18 @@
 <?php
 
+use App\Http\Controllers\API\Auth\MyWelcomeController;
+use App\Http\Controllers\Web\PageController;
+use App\Http\Middleware\Localization;
+use App\Http\Middleware\MyWelcomesNewUsers;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
- */
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
-Route::get('/{any}', 'Web\PageController@index')->where('any', '.*');
-// Route::get('image/{path}', 'Web\FileController@image')->where(['path' => '.*']);
-// Route::get('pdf/{path}', 'Web\CMS\FileController@pdf')->where(['path' => '.*']);
+Route::prefix('welcome')->middleware(['web', MyWelcomesNewUsers::class, Localization::class])->group(function () {
+    Route::get('{user}', [MyWelcomeController::class, 'showWelcomeForm'])->name('welcome');
+    Route::post('{user}', [MyWelcomeController::class, 'savePassword'])->name('password.initial');
+});
+
+Route::get('/{any}', [PageController::class, 'index'])->where('any', '.*');

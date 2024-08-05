@@ -1,5 +1,7 @@
-import { i18n } from "@/plugins";
+import i18n from "@/plugins/vue-i18n";
 import { v4 as uuidv4 } from "uuid";
+
+const { t } = i18n.global;
 
 const defaults = {
     item: {
@@ -11,12 +13,12 @@ const defaults = {
             actions: [
                 {
                     key: uuidv4(),
-                    title: i18n.t("button.delete"),
+                    title: t("button.delete"),
                     color: "danger",
                     type: "Delete",
-                    disabled: false
-                }
-            ]
+                    disabled: false,
+                },
+            ],
         },
         remote: {
             updated: false,
@@ -27,20 +29,20 @@ const defaults = {
             actions: [
                 {
                     key: uuidv4(),
-                    title: i18n.t("button.update"),
+                    title: t("button.update"),
                     color: "primary",
                     type: "Update",
-                    disabled: false
+                    disabled: false,
                 },
                 {
                     key: uuidv4(),
-                    title: i18n.t("button.delete"),
+                    title: t("button.delete"),
                     color: "danger",
                     type: "Delete",
-                    disabled: false
-                }
-            ]
-        }
+                    disabled: false,
+                },
+            ],
+        },
     },
     content: {
         local: {
@@ -49,12 +51,12 @@ const defaults = {
             actions: [
                 {
                     key: uuidv4(),
-                    title: i18n.t("button.delete"),
+                    title: t("button.delete"),
                     color: "danger",
                     type: "Delete",
-                    disabled: false
-                }
-            ]
+                    disabled: false,
+                },
+            ],
         },
         remote: {
             updated: false,
@@ -63,21 +65,21 @@ const defaults = {
             actions: [
                 {
                     key: uuidv4(),
-                    title: i18n.t("button.update"),
+                    title: t("button.update"),
                     color: "primary",
                     type: "Update",
-                    disabled: false
+                    disabled: false,
                 },
                 {
                     key: uuidv4(),
-                    title: i18n.t("button.delete"),
+                    title: t("button.delete"),
                     color: "danger",
                     type: "Delete",
-                    disabled: false
-                }
-            ]
-        }
-    }
+                    disabled: false,
+                },
+            ],
+        },
+    },
 };
 
 export default defaults;

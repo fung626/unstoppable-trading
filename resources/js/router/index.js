@@ -1,148 +1,165 @@
-import Vue from "vue";
-import Meta from "vue-meta";
-import Router from "vue-router";
-import { sync } from "vuex-router-sync";
-import store from "../store";
-import routes from "./routes";
+import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import i18n from "@/plugins/vue-i18n";
+import { h, resolveComponent } from "vue";
+import { createRouter, createWebHashHistory } from "vue-router";
+// import routes from "./routes";
 
-Vue.use(Meta);
-Vue.use(Router);
+const { t } = i18n.global;
 
-const router = make(routes({ authGuard, guestGuard }));
+const routes = [
+    {
+        path: "/",
+        name: t("home"),
+        component: DefaultLayout,
+        redirect: "/dashboard",
+        beforeEnter(to, from, next) {
+            const isAuthenticated = false;
+            if (isAuthenticated) {
+                next();
+            } else {
+                next("/login");
+            }
+        },
+        children: [
+            {
+                path: "dashboard",
+                name: "dashboard",
+                component: () => import("@/views/dashboard/Dashboard.vue"),
+            },
+            {
+                path: "sales-report",
+                name: "salesreport.home",
+                component: {
+                    render() {
+                        return h(resolveComponent("router-view"));
+                    },
+                },
+                children: [
+                    {
+                        path: "",
+                        name: t("salesreport.table"),
+                        component: import(
+                            "@/views/sales-report/SalesReport.vue"
+                        ),
+                    },
+                ],
+            },
+            {
+                path: "/users",
+                name: "route.users.home",
+                component: {
+                    render() {
+                        return h(resolveComponent("router-view"));
+                    },
+                },
+                children: [
+                    {
+                        path: "",
+                        name: "route.users.table",
+                        component: () => import("@/views/users/Users.vue"),
+                    },
+                    {
+                        path: "create",
+                        name: "route.users.create",
+                        component: () => import("@/views/users/CreateUser.vue"),
+                    },
+                    {
+                        path: "details/:id",
+                        name: "route.users.details",
+                        component: () =>
+                            import("@/views/users/UserDetails.vue"),
+                    },
+                ],
+            },
+            {
+                path: "duty",
+                name: "route.duty.home",
+                component: {
+                    render() {
+                        return h(resolveComponent("router-view"));
+                    },
+                },
+                children: [
+                    {
+                        path: "",
+                        name: "route.duty.table",
+                        component: () => import("@/views/duty/Duty.vue"),
+                    },
+                    {
+                        path: "create/:userId?",
+                        name: "route.duty.create",
+                        name: "CreateDuty",
+                        component: () => import("@/views/duty/CreateDuty.vue"),
+                    },
+                    {
+                        path: "details/:id",
+                        name: "route.duty.details",
+                        component: () => import("@/views/duty/DutyDetails.vue"),
+                    },
+                ],
+            },
+            // {
+            //     path: "clients",
+            //     name: t("clients"),
+            //     component: {
+            //         render() {
+            //             return h(resolveComponent("router-view"));
+            //         },
+            //     },
+            //     children: [
+            //         {
+            //             path: "",
+            //             name: t("table"),
+            //             component: () => {
+            //                 console.log("import");
+            //                 return import("@/views/clients/Clients.vue");
+            //             },
+            //         },
+            //         {
+            //             path: "create",
+            //             name: t("create"),
+            //             component: () =>
+            //                 import("@/views/clients/CreateClient.vue"),
+            //         },
+            //         {
+            //             path: "details/:id",
+            //             name: t("details"),
+            //             component: () =>
+            //                 import("@/views/clients/ClientDetails.vue"),
+            //         },
+            //     ],
+            // },
+        ],
+    },
+    {
+        path: "/login",
+        name: "login",
+        component: () => import("@/views/auth/Login.vue"),
+    },
+    {
+        path: "/forgotpassword",
+        name: "forgotpassword",
+        component: () => import("@/views/auth/ForgotPassword.vue"),
+    },
+    {
+        path: "/auth/forgot/password/reset/:id/:token",
+        name: "resetpassword",
+        component: () => import("@/views/auth/ResetPassword.vue"),
+    },
+];
 
-sync(store, router);
+const router = createRouter({
+    history: createWebHashHistory(import.meta.env.BASE_URL),
+    // history: createWebHistory(),
+    routes,
+    scrollBehavior() {
+        // always scroll to top
+        return { top: 0 };
+    },
+});
+
+// console.log(router);
+
+// sync(store, router);
 
 export default router;
-
-/**
- * Create a new router instance.
- *
- * @param  {Array} routes
- * @return {Router}
- */
-function make(routes) {
-    const router = new Router({
-        routes,
-        scrollBehavior,
-        mode: "history",
-        linkActiveClass: "active"
-    });
-
-    // Register before guard.
-    router.beforeEach(async (to, from, next) => {
-        if (!store.getters.authCheck && store.getters.authToken) {
-            try {
-            } catch (e) {}
-        }
-        setLayout(router, to);
-        next();
-    });
-
-    // Register after hook.
-    router.afterEach((to, from) => {
-        router.app.$nextTick(() => {
-            // router.app.$loading.finish();
-        });
-    });
-
-    return router;
-}
-
-/**
- * Set the application layout from the matched page component.
- *
- * @param {Router} router
- * @param {Route} to
- */
-function setLayout(router, to) {
-    // Get the first matched component.
-    const [component] = router.getMatchedComponents({ ...to });
-
-    if (component) {
-        router.app.$nextTick(() => {
-            // Start the page loading bar.
-            if (component.loading !== false) {
-                // router.app.$loading.start();
-            }
-
-            // Set application layout.
-            // router.app.setLayout(component.layout || "");
-        });
-    }
-}
-
-/**
- * Redirect to login if guest.
- *
- * @param  {Array} routes
- * @return {Array}
- */
-function authGuard(routes) {
-    return beforeEnter(routes, (to, from, next) => {
-        if (!store.getters.authCheck) {
-            next({
-                path: "/login",
-                params: { nextUrl: to.fullPath }
-            });
-        } else {
-            next();
-        }
-    });
-}
-
-/**
- * Redirect home if authenticated.
- *
- * @param  {Array} routes
- * @return {Array}
- */
-function guestGuard(routes) {
-    return beforeEnter(routes, (to, from, next) => {
-        if (store.getters.authCheck) {
-            next({
-                path: "/",
-                params: { nextUrl: to.fullPath }
-            });
-        } else {
-            next();
-        }
-    });
-}
-
-/**
- * Apply beforeEnter guard to the routes.
- *
- * @param  {Array} routes
- * @param  {Function} beforeEnter
- * @return {Array}
- */
-function beforeEnter(routes, beforeEnter) {
-    return routes.map(route => {
-        return { ...route, beforeEnter };
-    });
-}
-
-/**
- * @param  {Route} to
- * @param  {Route} from
- * @param  {Object|undefined} savedPosition
- * @return {Object}
- */
-function scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-        return savedPosition;
-    }
-
-    const position = {};
-
-    if (to.hash) {
-        position.selector = to.hash;
-    }
-
-    if (to.matched.some(m => m.meta.scrollToTop)) {
-        position.x = 0;
-        position.y = 0;
-    }
-
-    return position;
-}

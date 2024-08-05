@@ -1,13 +1,12 @@
 import * as types from "./mutation-types";
 
+const name = "ui/sidebar";
+
 export default {
-    toggleSidebarDesktop({ commit, dispatch }, payload) {
-        commit(types.TOGGLE_SIDEBAR_DESKTOP, payload);
+    [`${name}/toggleVisible`]({ commit, dispatch }, payload) {
+        commit(types.TOGGLE_SIDEBAR_VISIBLE, payload);
     },
-    toggleSidebarMobile({ commit, dispatch }, payload) {
-        commit(types.TOGGLE_SIDEBAR_MOBILE, payload);
+    [`${name}/toggleUnfoldable`]({ commit, dispatch }, payload) {
+        commit(types.TOGGLE_SIDEBAR_UNFOLDABLE, payload);
     },
-    sidebarMinimize({ commit, dispatch }, payload) {
-        commit(types.SIDEBAR_MINIMIZE, payload);
-    }
 };

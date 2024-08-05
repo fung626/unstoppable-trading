@@ -12,15 +12,12 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Vuetify CSS -->
-    {{-- <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet"> --}}
-    <!-- App CSS -->
-    <link href="{{ asset('css/app.css')}}" rel="stylesheet">
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
@@ -32,7 +29,7 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
 
-    <script src="{{ asset('js/app.js')}}"></script>
+    {{-- <script src="{{ asset('js/app.js')}}"></script> --}}
 </body>
 
 </html>

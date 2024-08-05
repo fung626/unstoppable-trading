@@ -1,262 +1,237 @@
 <?php
 
+use App\Http\Controllers\API\Auth\ForgotPasswordController;
+use App\Http\Controllers\API\Auth\LoginController;
+use App\Http\Controllers\API\Auth\ResetPasswordController;
+use App\Http\Controllers\API\Client\ClientController;
+use App\Http\Controllers\API\Config\WebController;
+use App\Http\Controllers\API\ExchangeRateController;
+use App\Http\Controllers\API\Goods\BarcodeController;
+use App\Http\Controllers\API\Goods\CategoryController;
+use App\Http\Controllers\API\Goods\GoodsController;
+use App\Http\Controllers\API\Goods\ItemController;
+use App\Http\Controllers\API\Goods\PurchaseController;
+use App\Http\Controllers\API\Goods\Purchase\StocktakeController;
+use App\Http\Controllers\API\Goods\ShippingAlterationController;
+use App\Http\Controllers\API\Goods\ShippingController;
+use App\Http\Controllers\API\Goods\ShippingPurchaseQuickSearchController;
+use App\Http\Controllers\API\Goods\Shipping\AlterationController;
+use App\Http\Controllers\API\Goods\Shipping\AvailableShippingItemController;
+use App\Http\Controllers\API\Goods\Shipping\InvoiceController;
+use App\Http\Controllers\API\Goods\Shipping\MailerController;
+use App\Http\Controllers\API\Goods\Shipping\PackingController;
+use App\Http\Controllers\API\Goods\StockCalendarController;
+use App\Http\Controllers\API\Goods\StockController;
+use App\Http\Controllers\API\Goods\SupplierController;
+use App\Http\Controllers\API\Goods\WarehouseController;
+use App\Http\Controllers\API\SalesReport\AverageInventoryController;
+use App\Http\Controllers\API\SalesReport\ChartController;
+use App\Http\Controllers\API\SalesReport\InventoryTurnoverController;
+use App\Http\Controllers\API\SalesReport\SalesReportController;
+use App\Http\Controllers\API\SalesReport\StockChartController;
+use App\Http\Controllers\API\SalesReport\TopSalesController;
+use App\Http\Controllers\API\SalesReport\TopStocksController;
+use App\Http\Controllers\API\Statistics\Chart\PurchaseLineController;
+use App\Http\Controllers\API\Statistics\Dashboard\CalloutController;
+use App\Http\Controllers\API\Storage\FontCotroller;
+use App\Http\Controllers\API\User\DutyCalendarController;
+use App\Http\Controllers\API\User\DutyController;
+use App\Http\Controllers\API\User\EmployeeController;
+use App\Http\Controllers\API\User\PasswordController;
+use App\Http\Controllers\API\User\PermissionController;
+use App\Http\Controllers\API\User\ProfileController;
+use App\Http\Controllers\API\User\UserController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
- */
-
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-Route::group(['namespace' => 'API', 'middleware' => ['localization'], 'prefix' => 'test'], function () {
-    Route::get('get', 'TestController@get');
-    Route::post('post', 'TestController@post');
+Route::prefix('auth')->group(function () {
+    Route::post('login', [LoginController::class, 'index']);
+    Route::post('forgot/password/email', [ForgotPasswordController::class, 'forgot']);
+    Route::post('forgot/password/reset', [ForgotPasswordController::class, 'reset']);
+    Route::post('forgot/password/find', [ForgotPasswordController::class, 'find']);
 });
 
-Route::group(['namespace' => 'API\Storage', 'prefix' => 'storage'], function () {
-    Route::get('font', 'FontCotroller@get');
+Route::prefix('storage')->group(function () {
+    Route::get('font/get', [FontCotroller::class, 'get']);
 });
 
-Route::group(['namespace' => 'API', 'prefix' => 'export'], function () {
-    Route::post('data', 'ExportDataController@post');
+Route::prefix('auth')->middleware(['web', 'localization'])->group(function () {
+    Route::get('password/reset', [ResetPasswordController::class, 'index'])->name('password.reset');
+    Route::post('password/reset', [ResetPasswordController::class, 'post'])->name('password.reset');
 });
 
-Route::group(['namespace' => 'API\Auth', 'middleware' => ['web', 'welcome.user', 'localization'], 'prefix' => 'welcome'], function () {
-    Route::get('{user}', ['as' => 'welcome', 'uses' => 'MyWelcomeController@showWelcomeForm']);
-    Route::post('{user}', ['as' => 'password.initial', 'uses' => 'MyWelcomeController@savePassword']);
+Route::prefix('config')->middleware(['localization'])->group(function () {
+    Route::get('web/get', [WebController::class, 'get']);
 });
 
-Route::group(['namespace' => 'API\Auth', 'middleware' => ['localization'], 'prefix' => 'auth'], function () {
-    Route::post('login', 'LoginController@index');
-    Route::post('forgot/password/email', 'ForgotPasswordController@forgot');
-    Route::post('forgot/password/reset', 'ForgotPasswordController@reset');
-    Route::post('forgot/password/find', 'ForgotPasswordController@find');
+Route::prefix('sales-reports')->middleware(['auth:api', 'scopes:sales-report', 'localization'])->group(function () {
+    Route::get('get', [SalesReportController::class, 'get']);
+    Route::get('average/inventory/get', [AverageInventoryController::class, 'get']);
+    Route::get('inventory/turnover/get', [InventoryTurnoverController::class, 'get']);
+
+    Route::get('top-sales/get', [TopSalesController::class, 'get']);
+    Route::get('top-stocks/get', [TopStocksController::class, 'get']);
+
+    Route::get('chart/get', [ChartController::class, 'get']);
+    Route::get('stock-chart/get', [StockChartController::class, 'get']);
 });
 
-Route::group(['namespace' => 'API\Auth', 'middleware' => ['web', 'localization'], 'prefix' => 'auth'], function () {
-    // Route::post('forgot/password/email', ['as' => 'password.forgot', 'uses' => 'ForgotPasswordController@post']);
-    // Route::get('forgot/password/email', ['as' => 'password.email', 'uses' => 'ForgotPasswordController@get']);
-    // Route::get('password/reset/{token}', ['as' => 'password.request', 'uses' => 'ResetPasswordController@find']);
-    Route::get('password/reset', ['as' => 'password.reset', 'uses' => 'ResetPasswordController@index']);
-    Route::post('password/reset', ['as' => 'password.reset', 'uses' => 'ResetPasswordController@post']);
-});
-
-// Route::group(['middleware' => ['auth:api']], function () {
-
-// });
-
-Route::group(['namespace' => 'API\Config', 'middleware' => ['localization'], 'prefix' => 'config'], function () {
-    Route::get('web/get', ['uses' => 'WebController@get']);
-});
-
-Route::group(['namespace' => 'API', 'middleware' => ['auth:api', 'localization'], 'prefix' => 'dashboard'], function () {
-    Route::get('get', ['uses' => 'DashboardController@get']);
-});
-
-Route::group(['namespace' => 'API\SalesReport', 'middleware' => ['auth:api', 'scopes:salesreport', 'localization'], 'prefix' => 'salesreport'], function () {
-    Route::get('get', ['uses' => 'SalesReportController@get']);
-    Route::get('average/inventory/get', ['uses' => 'AverageInventoryController@get']);
-    Route::get('inventory/turnover/get', ['uses' => 'InventoryTurnoverController@get']);
-
-    Route::get('topsales/get', 'TopSalesController@get');
-    Route::get('topstocks/get', 'TopStocksController@get');
-
-    Route::get('chart/get', ['uses' => 'ChartController@get']);
-    Route::get('stockchart/get', ['uses' => 'StockChartController@get']);
-});
-
-Route::group(['namespace' => 'API\User', 'middleware' => ['auth:api', 'scopes:user', 'localization'], 'prefix' => 'user'], function () {
-    Route::post('create', ['uses' => 'UserController@post']);
-    Route::post('update', ['uses' => 'UserController@update']);
-    Route::post('get', ['uses' => 'UserController@get']);
-    Route::get('details', ['uses' => 'UserController@details']);
-    Route::post('delete', ['uses' => 'UserController@delete']);
-    Route::post('export', ['uses' => 'UserController@export']);
+Route::prefix('users')->middleware(['auth:api', 'scopes:users', 'localization'])->group(function () {
+    Route::post('create', [UserController::class, 'post']);
+    Route::post('update', [UserController::class, 'update']);
+    Route::post('get', [UserController::class, 'get']);
+    Route::get('details', [UserController::class, 'details']);
+    Route::delete('delete', [UserController::class, 'delete']);
+    Route::post('export', [UserController::class, 'export']);
     // profile
-    Route::get('profile/get', ['uses' => 'ProfileController@get']);
-    Route::post('profile/update', ['uses' => 'ProfileController@update']);
+    Route::get('profile/get', [ProfileController::class, 'get']);
+    Route::post('profile/update', [ProfileController::class, 'update']);
     // employee
-    Route::get('employee/get', ['uses' => 'EmployeeController@get']);
-    Route::post('employee/update', ['uses' => 'EmployeeController@update']);
+    Route::get('employee/get', [EmployeeController::class, 'get']);
+    Route::post('employee/update', [EmployeeController::class, 'update']);
     // permission
-    Route::get('permission/get', ['uses' => 'PermissionController@get']);
-    Route::post('permission/update', ['uses' => 'PermissionController@update']);
-    // password
-    Route::post('profile/password/update', ['uses' => 'PasswordController@post']);
-});
-
-Route::group(['namespace' => 'API\User', 'middleware' => ['auth:api', 'scopes:duty', 'localization'], 'prefix' => 'user/duty'], function () {
+    Route::get('permission/get', [PermissionController::class, 'get']);
+    Route::post('permission/update', [PermissionController::class, 'update']);
     // duty
-    Route::post('create', ['uses' => 'DutyController@post']);
-    Route::post('update', ['uses' => 'DutyController@update']);
-    Route::post('get', ['uses' => 'DutyController@get']);
-    Route::get('details', ['uses' => 'DutyController@details']);
-    Route::post('delete', ['uses' => 'DutyController@delete']);
-    Route::post('export', ['uses' => 'DutyController@export']);
-});
-
-Route::group(['namespace' => 'API\User', 'middleware' => ['auth:api', 'scopes:leave', 'localization'], 'prefix' => 'user/leave'], function () {
-    // leave
-    Route::post('create', ['uses' => 'DutyController@post']);
-    Route::post('update', ['uses' => 'DutyController@update']);
-    Route::post('get', ['uses' => 'DutyController@get']);
-    Route::get('details', ['uses' => 'DutyController@details']);
-    Route::post('delete', ['uses' => 'DutyController@delete']);
-    Route::post('export', ['uses' => 'DutyController@export']);
-});
-
-Route::group(['namespace' => 'API\User', 'middleware' => ['auth:api', 'localization'], 'prefix' => 'user'], function () {
-    // duty
-    Route::post('duty/calendar/get', ['uses' => 'DutyCalendarController@get']);
+    Route::post('duty/create', [DutyController::class, 'post']);
+    Route::post('duty/update', [DutyController::class, 'post']);
+    Route::post('duty/get', [DutyController::class, 'get']);
+    Route::get('duty/details', [DutyController::class, 'details']);
+    Route::delete('duty/delete', [DutyController::class, 'delete']);
+    Route::post('duty/export', [DutyController::class, 'export']);
     // password
-    Route::post('profile/password/update', ['uses' => 'PasswordController@post']);
+    Route::post('profile/password/update', [PasswordController::class, 'post']);
 });
 
-Route::group(['namespace' => 'API\Client', 'middleware' => ['auth:api', 'scopes:client', 'localization'], 'prefix' => 'client'], function () {
-    Route::post('create', ['uses' => 'ClientController@post']);
-    Route::post('update', ['uses' => 'ClientController@update']);
-    Route::post('get', ['uses' => 'ClientController@get']);
-    Route::get('details', ['uses' => 'ClientController@details']);
-    Route::post('delete', ['uses' => 'ClientController@delete']);
-    Route::post('export', ['uses' => 'ClientController@export']);
+Route::prefix('users')->middleware(['auth:api', 'localization'])->group(function () {
+    // duty
+    Route::post('duty/calendar/get', [DutyCalendarController::class, 'get']);
+    // password
+    Route::post('profile/password/update', [PasswordController::class, 'post']);
 });
 
-Route::group(['namespace' => 'API\Goods', 'middleware' => ['auth:api', 'scopes:supplier', 'localization'], 'prefix' => 'goods/supplier'], function () {
-    Route::post('create', ['uses' => 'SupplierController@post']);
-    Route::post('update', ['uses' => 'SupplierController@update']);
-    Route::post('get', ['uses' => 'SupplierController@get']);
-    Route::get('details', ['uses' => 'SupplierController@details']);
-    Route::post('delete', ['uses' => 'SupplierController@delete']);
-    Route::post('export', ['uses' => 'SupplierController@export']);
+Route::prefix('clients')->middleware(['auth:api', 'scopes:clients', 'localization'])->group(function () {
+    Route::post('create', [ClientController::class, 'post']);
+    Route::post('update', [ClientController::class, 'update']);
+    Route::post('get', [ClientController::class, 'get']);
+    Route::get('details', [ClientController::class, 'details']);
+    Route::delete('delete', [ClientController::class, 'delete']);
+    Route::post('export', [ClientController::class, 'export']);
 });
 
-Route::group(['namespace' => 'API\Goods', 'middleware' => ['auth:api', 'scopes:category', 'localization'], 'prefix' => 'goods/category'], function () {
-    Route::post('create', ['uses' => 'CategoryController@post']);
-    Route::post('update', ['uses' => 'CategoryController@update']);
-    Route::post('get', ['uses' => 'CategoryController@get']);
-    Route::get('details', ['uses' => 'CategoryController@details']);
-    Route::post('delete', ['uses' => 'CategoryController@delete']);
-    Route::post('export', ['uses' => 'CategoryController@export']);
+Route::prefix('suppliers')->middleware(['auth:api', 'scopes:suppliers', 'localization'])->group(function () {
+    Route::post('create', [SupplierController::class, 'post']);
+    Route::post('update', [SupplierController::class, 'update']);
+    Route::post('get', [SupplierController::class, 'get']);
+    Route::get('details', [SupplierController::class, 'details']);
+    Route::delete('delete', [SupplierController::class, 'delete']);
+    Route::post('export', [SupplierController::class, 'export']);
 });
 
-Route::group(['namespace' => 'API\Goods', 'middleware' => ['auth:api', 'scopes:goods', 'localization'], 'prefix' => 'goods'], function () {
-    Route::post('create', ['uses' => 'GoodsController@post']);
-    Route::post('update', ['uses' => 'GoodsController@update']);
-    Route::post('get', ['uses' => 'GoodsController@get']);
-    Route::get('details', ['uses' => 'GoodsController@details']);
-    Route::post('delete', ['uses' => 'GoodsController@delete']);
-    Route::post('export', ['uses' => 'GoodsController@export']);
-    Route::post('shipping/purchase/quicksearch/get', ['uses' => 'ShippingPurchaseQuickSearchController@get']);
+Route::prefix('categories')->middleware(['auth:api', 'scopes:categories', 'localization'])->group(function () {
+    Route::post('create', [CategoryController::class, 'post']);
+    Route::post('update', [CategoryController::class, 'update']);
+    Route::post('get', [CategoryController::class, 'get']);
+    Route::get('details', [CategoryController::class, 'details']);
+    Route::delete('delete', [CategoryController::class, 'delete']);
+    Route::post('export', [CategoryController::class, 'export']);
 });
 
-Route::get('goods/purchase/items', ['uses' => 'API\Goods\PurchaseController@items']);
-Route::group(['namespace' => 'API\Goods', 'middleware' => ['auth:api', 'scopes:purchase', 'localization'], 'prefix' => 'goods/purchase'], function () {
-    Route::post('create', ['uses' => 'PurchaseController@post']);
-    Route::get('create/values', ['uses' => 'PurchaseController@postDefaultValues']);
-    Route::post('update', ['uses' => 'PurchaseController@update']);
-    Route::post('get', ['uses' => 'PurchaseController@get']);
-    Route::get('details', ['uses' => 'PurchaseController@details']);
-    Route::post('export', ['uses' => 'PurchaseController@export']);
+Route::prefix('goods')->middleware(['auth:api', 'scopes:goods', 'localization'])->group(function () {
+    Route::post('create', [GoodsController::class, 'post']);
+    Route::post('update', [GoodsController::class, 'update']);
+    Route::post('get', [GoodsController::class, 'get']);
+    Route::get('details', [GoodsController::class, 'details']);
+    Route::delete('delete', [GoodsController::class, 'delete']);
+    Route::post('export', [GoodsController::class, 'export']);
+    Route::post('shipping/purchase/quicksearch/get', [ShippingPurchaseQuickSearchController::class, 'get']);
 });
 
-Route::group(['namespace' => 'API\Goods\Purchase', 'middleware' => ['auth:api', 'scopes:stocktake', 'localization'], 'prefix' => 'goods/purchase/stocktake'], function () {
-    Route::post('create', ['uses' => 'StockTakeController@post']);
-    Route::get('details', ['uses' => 'StockTakeController@details']);
+Route::get('goods/purchases/items', [PurchaseController::class, 'items']);
+
+Route::prefix('goods/purchases')->middleware(['auth:api', 'scopes:purchases', 'localization'])->group(function () {
+    Route::post('create', [PurchaseController::class, 'post']);
+    Route::get('create/values', [PurchaseController::class, 'postDefaultValues']);
+    Route::post('update', [PurchaseController::class, 'update']);
+    Route::post('get', [PurchaseController::class, 'get']);
+    Route::get('details', [PurchaseController::class, 'details']);
+    Route::post('export', [PurchaseController::class, 'export']);
 });
 
-// Route::get('goods/purchase/invoice/details', ['uses' => 'API\Goods\Purchase\InvoiceController@details']);
-Route::group(['namespace' => 'API\Goods\Purchase', 'middleware' => ['auth:api', 'scopes:purchase', 'localization'], 'prefix' => 'goods/purchase/invoice'], function () {
-    // Route::post('create', ['uses' => 'InvoiceController@post']);
-    // Route::post('get', ['uses' => 'InvoiceController@get']);
-    Route::get('details', ['uses' => 'InvoiceController@details']);
-    Route::get('items', ['uses' => 'InvoiceController@items']);
-    Route::post('export', ['uses' => 'InvoiceController@export']);
+Route::prefix('goods/purchases/stocktakes')->middleware(['auth:api', 'scopes:stocktakes', 'localization'])->group(function () {
+    Route::post('create', [StocktakeController::class, 'post']);
+    Route::get('details', [StocktakeController::class, 'details']);
 });
 
-Route::group(['namespace' => 'API\Goods', 'middleware' => ['auth:api', 'scopes:shipping', 'localization'], 'prefix' => 'goods/shipping'], function () {
-    Route::post('create', ['uses' => 'ShippingController@post']);
-    Route::post('get', ['uses' => 'ShippingController@get']);
-    Route::get('details', ['uses' => 'ShippingController@details']);
-    Route::post('update', ['uses' => 'ShippingController@update']);
-    Route::post('export', ['uses' => 'ShippingController@export']);
-    Route::post('format', ['uses' => 'ShippingController@format']);
+Route::prefix('goods/shippings')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
+    Route::post('create', [ShippingController::class, 'post']);
+    Route::post('get', [ShippingController::class, 'get']);
+    Route::get('details', [ShippingController::class, 'details']);
+    Route::post('update', [ShippingController::class, 'update']);
+    Route::post('export', [ShippingController::class, 'export']);
+    Route::post('format', [ShippingController::class, 'format']);
 });
 
-Route::group(['namespace' => 'API\Goods\Shipping', 'middleware' => ['auth:api', 'scopes:shipping', 'localization'], 'prefix' => 'goods/shipping/alteration'], function () {
-    Route::post('get', ['uses' => 'AlterationController@get']);
-    Route::post('export', ['uses' => 'ShippingAlterationController@export']);
+Route::prefix('goods/shippings/alteration')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
+    Route::post('get', [AlterationController::class, 'get']);
+    Route::post('export', [ShippingAlterationController::class, 'export']);
 });
 
-Route::group(['namespace' => 'API\Goods\Shipping', 'middleware' => ['auth:api', 'scopes:shipping', 'localization'], 'prefix' => 'goods/shipping/available/shipping/item'], function () {
-    Route::post('get', ['uses' => 'AvailableShippingItemController@get']);
+Route::prefix('goods/shippings/available/shippings/items')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
+    Route::post('get', [AvailableShippingItemController::class, 'get']);
 });
 
-Route::group(['namespace' => 'API\Goods\Shipping', 'middleware' => ['auth:api', 'scopes:shipping', 'localization'], 'prefix' => 'goods/shipping/packing'], function () {
-    Route::post('export', ['uses' => 'PackingController@export']);
+Route::prefix('goods/shippings/packings')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
+    Route::post('export', [PackingController::class, 'export']);
 });
 
-Route::group(['namespace' => 'API\Goods\Shipping', 'middleware' => ['auth:api', 'scopes:shipping', 'localization'], 'prefix' => 'goods/shipping/mailer'], function () {
-    Route::post('export', ['uses' => 'MailerController@export']);
+Route::prefix('goods/shippings/mailer')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
+    Route::post('export', [MailerController::class, 'export']);
 });
 
-Route::group(['namespace' => 'API\Goods\Shipping', 'middleware' => ['auth:api', 'scopes:shipping', 'localization'], 'prefix' => 'goods/shipping/invoice'], function () {
-    Route::post('export', ['uses' => 'InvoiceController@export']);
+Route::prefix('goods/shippings/invoices')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
+    Route::post('export', [InvoiceController::class, 'export']);
 });
 
-Route::group(['namespace' => 'API\Goods', 'middleware' => ['auth:api', 'scopes:goods', 'localization'], 'prefix' => 'goods/item'], function () {
-    Route::post('update', ['uses' => 'ItemController@update']);
-    Route::post('get', ['uses' => 'ItemController@get']);
-    Route::get('details', ['uses' => 'ItemController@details']);
-    Route::post('delete', ['uses' => 'ItemController@delete']);
-    Route::post('export', ['uses' => 'ItemController@export']);
+Route::prefix('goods/items')->middleware(['auth:api', 'scopes:goods', 'localization'])->group(function () {
+    Route::post('update', [ItemController::class, 'update']);
+    Route::post('get', [ItemController::class, 'get']);
+    Route::get('details', [ItemController::class, 'details']);
+    Route::delete('delete', [ItemController::class, 'delete']);
+    Route::post('export', [ItemController::class, 'export']);
 });
 
-Route::group(['namespace' => 'API\Goods', 'middleware' => ['auth:api', 'scopes:goods', 'localization'], 'prefix' => 'goods/content'], function () {
-    Route::post('update', ['uses' => 'ContentController@update']);
-    Route::post('get', ['uses' => 'ContentController@get']);
-    Route::get('details', ['uses' => 'ContentController@details']);
-    Route::post('delete', ['uses' => 'ContentController@delete']);
-    Route::post('export', ['uses' => 'ContentController@export']);
+Route::prefix('goods/warehouses')->middleware(['auth:api', 'scopes:warehouses', 'localization'])->group(function () {
+    Route::post('update', [WarehouseController::class, 'update']);
+    Route::post('get', [WarehouseController::class, 'get']);
+    Route::get('details', [WarehouseController::class, 'details']);
+    Route::delete('delete', [WarehouseController::class, 'delete']);
+    Route::post('export', [WarehouseController::class, 'export']);
 });
 
-Route::group(['namespace' => 'API\Goods', 'middleware' => ['auth:api', 'scopes:warehouse', 'localization'], 'prefix' => 'goods/warehouse'], function () {
-    Route::post('create', ['uses' => 'WarehouseController@post']);
-    Route::post('update', ['uses' => 'WarehouseController@update']);
-    Route::post('get', ['uses' => 'WarehouseController@get']);
-    Route::get('details', ['uses' => 'WarehouseController@details']);
-    Route::post('delete', ['uses' => 'WarehouseController@delete']);
-    Route::post('export', ['uses' => 'WarehouseController@export']);
+Route::prefix('goods/warehouses')->middleware(['auth:api', 'scopes:stocks', 'localization'])->group(function () {
+    Route::post('get', [StockController::class, 'get']);
+    Route::post('export', [StockController::class, 'export']);
+    Route::post('calendar/get', [StockCalendarController::class, 'get']);
 });
 
-Route::group(['namespace' => 'API\Goods', 'middleware' => ['auth:api', 'scopes:stock', 'localization'], 'prefix' => 'goods/stock'], function () {
-    Route::post('get', ['uses' => 'StockController@get']);
-    Route::post('export', ['uses' => 'StockController@export']);
-    Route::post('calendar/get', ['uses' => 'StockCalendarController@get']);
+Route::prefix('goods/barcode')->middleware(['auth:api', 'scopes:goods', 'localization'])->group(function () {
+    Route::post('get', [BarcodeController::class, 'get']);
 });
 
-Route::group(['namespace' => 'API\Goods', 'middleware' => ['auth:api', 'scopes:goods', 'localization'], 'prefix' => 'goods/barcode'], function () {
-    Route::post('get', ['uses' => 'BarcodeController@get']);
+Route::prefix('statistics/chart')->middleware(['auth:api', 'localization'])->group(function () {
+    Route::post('purchase-line/get', [PurchaseLineController::class, 'get']);
 });
 
-Route::group(['namespace' => 'API\Statistics\Chart', 'middleware' => ['auth:api', 'localization'], 'prefix' => 'statistics/chart'], function () {
-    Route::get('purchaseline/get', ['uses' => 'PurchaseLineController@get']);
+Route::prefix('statistics/dashboard')->middleware(['auth:api', 'localization'])->group(function () {
+    Route::post('callout/get', [CalloutController::class, 'get']);
 });
 
-Route::group(['namespace' => 'API\Statistics\Dashboard', 'middleware' => ['auth:api', 'localization'], 'prefix' => 'statistics/dashboard'], function () {
-    Route::get('callout/get', ['uses' => 'CalloutController@get']);
+Route::prefix('exchange-rate')->middleware(['auth:api', 'localization'])->group(function () {
+    Route::post('update', [ExchangeRateController::class, 'update']);
+    Route::post('get', [ExchangeRateController::class, 'get']);
+    Route::post('details', [ExchangeRateController::class, 'details']);
 });
 
-Route::group(['namespace' => 'API', 'middleware' => ['auth:api', 'localization'], 'prefix' => 'exchangerate'], function () {
-    Route::post('update', ['uses' => 'ExchangeRateController@update']);
-    Route::post('get', ['uses' => 'ExchangeRateController@get']);
-    Route::post('details', ['uses' => 'ExchangeRateController@details']);
-});
+// Route::get('/user', function (Request $request) {
+//     return $request->user();
+// })->middleware('auth:api');

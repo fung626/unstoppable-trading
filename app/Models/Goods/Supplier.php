@@ -3,16 +3,15 @@
 namespace App\Models\Goods;
 
 use App\Models\Goods\Goods;
-use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
 class Supplier extends Model
 {
 
-    use Uuid;
+    use HasUuids;
 
     //
-    protected $table = 'supplier';
+    protected $table = 'suppliers';
 
     protected $keyType = 'string';
 

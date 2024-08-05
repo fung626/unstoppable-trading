@@ -1,18 +1,20 @@
-import { i18n } from "../plugins";
+import i18n from "@/plugins/vue-i18n";
+
+const { t } = i18n.global;
 
 const shippingStatus = [
     {
-        name: i18n.t("shippingstatus.pending"),
-        value: "PENDING"
+        name: t("shipping.status.pending"),
+        value: "PENDING",
     },
     {
-        name: i18n.t("shippingstatus.processing"),
-        value: "PROCESSING"
+        name: t("shipping.status.processing"),
+        value: "PROCESSING",
     },
     {
-        name: i18n.t("shippingstatus.delivered"),
-        value: "DELIVERED"
-    }
+        name: t("shipping.status.delivered"),
+        value: "DELIVERED",
+    },
 ];
 
 export default shippingStatus;

@@ -2,7 +2,11 @@
     <CCard>
         <CCardBody>
             <h4>
-                {{ `${$t("shipping")} ${$t("purchase")} ${$t("quicksearch")}` }}
+                {{
+                    `${$t("shipping.invoice")}/${$t("purchase.invoice")} ${$t(
+                        "quicksearch"
+                    )}`
+                }}
             </h4>
             <hr />
             <CRow>
@@ -18,11 +22,10 @@
                         dense
                         hide-no-data
                         hide-selected
-                        :item-text="getItemText"
+                        item-text="name"
                         item-value="id"
                         return-object
-                    >
-                    </v-autocomplete>
+                    ></v-autocomplete>
                 </CCol>
                 <CCol md="2" sm="2">
                     <CButton
@@ -100,10 +103,6 @@ export default {
                         break;
                 }
             }
-        },
-        getItemText(item) {
-            // console.log(item);
-            return `${item.name}`;
         }
     }
 };

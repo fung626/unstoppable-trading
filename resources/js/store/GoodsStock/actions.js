@@ -1,6 +1,5 @@
 // import axios from "axios";
 import moment from "moment";
-import { i18n } from "../../plugins";
 import router from "../../router";
 import axios from "../../utils/myAxios";
 import * as types from "./mutation-types";
@@ -13,7 +12,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}get`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         let res = response.data;
                         commit(types.FETCH_GOODS_STOCK_SUCCESS, res);
@@ -22,13 +21,13 @@ export default {
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -45,9 +44,9 @@ export default {
                 url: `${endpoint}export`,
                 method: "POST",
                 data: payload,
-                responseType: "blob"
+                responseType: "blob",
             })
-                .then(response => {
+                .then((response) => {
                     let fileURL = window.URL.createObjectURL(
                         new Blob([response.data])
                     );
@@ -55,7 +54,7 @@ export default {
                     fileLink.href = fileURL;
                     fileLink.setAttribute(
                         "download",
-                        `${i18n.t("goods")}-${moment().format(
+                        `${t("goods")}-${moment().format(
                             "dddd, Do MMMM YYYY"
                         )}.pdf`
                     );
@@ -63,13 +62,13 @@ export default {
                     fileLink.click();
                     resolve();
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -78,5 +77,5 @@ export default {
                     reject(error);
                 });
         });
-    }
+    },
 };

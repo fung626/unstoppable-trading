@@ -11,7 +11,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .get(`${endpoint}get`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error && "data" in response.data) {
                         let res = response.data;
                         commit(types.FETCH_PURCHASELINE_SUCCESS, res);
@@ -20,13 +20,13 @@ export default {
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -36,5 +36,5 @@ export default {
                     reject(error);
                 });
         });
-    }
+    },
 };

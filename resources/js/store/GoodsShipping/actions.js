@@ -1,7 +1,6 @@
 // import axios from "axios";
 import moment from "moment";
 import queryString from "query-string";
-import { i18n } from "../../plugins";
 import router from "../../router";
 import axios from "../../utils/myAxios";
 import * as types from "./mutation-types";
@@ -20,7 +19,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}get`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         let res = response.data;
                         commit(types.FETCH_SHIPPING_SUCCESS, res);
@@ -29,13 +28,13 @@ export default {
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -50,7 +49,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .get(`${endpoint}details?${query}`)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         let res = response.data;
                         commit(types.FETCH_SHIPPING_DETAILS_SUCCESS, res);
@@ -59,13 +58,13 @@ export default {
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -79,30 +78,30 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}update`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         let res = response.data;
                         commit(types.UPDATE_SHIPPING_DETAILS_SUCCESS, res);
                         dispatch("snackbar/show", {
                             color: "success",
-                            text: i18n.t("snackbar.success.updated")
+                            text: t("snackbar.success.updated"),
                         });
                         resolve(res);
                     } else {
                         dispatch("snackbar/show", {
                             color: "error",
-                            text: i18n.t("snackbar.fail.update")
+                            text: t("snackbar.fail.update"),
                         });
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -110,7 +109,7 @@ export default {
                     }
                     dispatch("snackbar/show", {
                         color: "error",
-                        text: i18n.t("snackbar.fail.update")
+                        text: t("snackbar.fail.update"),
                     });
                     reject(error);
                 });
@@ -120,28 +119,28 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}create`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         dispatch("snackbar/show", {
                             color: "success",
-                            text: i18n.t("snackbar.success.created")
+                            text: t("snackbar.success.created"),
                         });
                         resolve(response);
                     } else {
                         dispatch("snackbar/show", {
                             color: "error",
-                            text: i18n.t("snackbar.fail.create")
+                            text: t("snackbar.fail.create"),
                         });
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -149,7 +148,7 @@ export default {
                     }
                     dispatch("snackbar/show", {
                         color: "error",
-                        text: i18n.t("snackbar.fail.create")
+                        text: t("snackbar.fail.create"),
                     });
                     reject(error);
                 });
@@ -159,7 +158,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}format`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         let res = response.data;
                         commit(types.FORMAT_SHIPPING_SUCCESS, res);
@@ -168,13 +167,13 @@ export default {
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -190,9 +189,9 @@ export default {
                 url: `${endpoint}export`,
                 method: "POST",
                 data: payload,
-                responseType: "blob"
+                responseType: "blob",
             })
-                .then(response => {
+                .then((response) => {
                     let fileURL = window.URL.createObjectURL(
                         new Blob([response.data])
                     );
@@ -200,7 +199,7 @@ export default {
                     fileLink.href = fileURL;
                     fileLink.setAttribute(
                         "download",
-                        `${i18n.t("shipping")}-${moment().format(
+                        `${t("shipping.title")}-${moment().format(
                             "dddd, Do MMMM YYYY"
                         )}.pdf`
                     );
@@ -208,13 +207,13 @@ export default {
                     fileLink.click();
                     resolve();
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -223,5 +222,5 @@ export default {
                     reject(error);
                 });
         });
-    }
+    },
 };

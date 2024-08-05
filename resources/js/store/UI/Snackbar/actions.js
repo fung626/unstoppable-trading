@@ -8,5 +8,5 @@ export default {
     },
     [`${name}/close`]({ commit, dispatch }) {
         commit(types.CLOSE);
-    }
+    },
 };

@@ -1,18 +1,20 @@
-import { i18n } from "../plugins";
+import i18n from "@/plugins/vue-i18n";
+
+const { t } = i18n.global;
 
 const types = [
     {
-        name: `${i18n.t("calendar.month")}`,
-        value: "month"
+        name: `${t("calendar.month")}`,
+        value: "month",
     },
     {
-        name: `${i18n.t("calendar.week")}`,
-        value: "week"
+        name: `${t("calendar.week")}`,
+        value: "week",
     },
     {
-        name: `${i18n.t("calendar.day")}`,
-        value: "day"
-    }
+        name: `${t("calendar.day")}`,
+        value: "day",
+    },
 ];
 
 export default types;

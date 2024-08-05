@@ -1,5 +1,5 @@
 <template>
-    <CModal :show.sync="dialog" :centered="true" :title="title" size="lg">
+    <CModal :visible="dialog" :centered="true" :title="title" size="lg">
         <v-progress-linear
             :active="loading"
             indeterminate
@@ -69,10 +69,10 @@ export default {
         ...mapState(["goods/shipping"]),
         shippingData() {
             return this["goods/shipping"].shippingData;
-        }
+        },
     },
     components: {
-        StreamBarcodeReader
+        StreamBarcodeReader,
     },
     data() {
         return {
@@ -86,7 +86,7 @@ export default {
             error: false,
             loading: false,
             data: null,
-            goodsSizes: goodsSizes
+            goodsSizes: goodsSizes,
         };
     },
     methods: {
@@ -97,17 +97,17 @@ export default {
             }
             self.loading = true;
             let data = {
-                barcode: self.barcode
+                barcode: self.barcode,
             };
             this.$store
                 .dispatch("goods/item/details", data)
-                .then(response => {
+                .then((response) => {
                     let data = JSON.parse(JSON.stringify(response.data));
                     self.data = data;
                     // update();
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -118,16 +118,16 @@ export default {
             }
             self.loading = true;
             let data = {
-                barcode: self.barcode
+                barcode: self.barcode,
             };
             this.$store
                 .dispatch("goods/purchase/details", data)
-                .then(response => {
+                .then((response) => {
                     let data = JSON.parse(JSON.stringify(response.data));
                     self.data = data;
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -150,7 +150,9 @@ export default {
             this.type = type;
             switch (type) {
                 case "Shipping":
-                    this.title = `${this.$t("shipping")}${this.$t("scanner")}`;
+                    this.title = `${this.$t("shipping.title")}${this.$t(
+                        "scanner"
+                    )}`;
                     if (item && "barcode" in item) {
                         this.barcode = item.barcode;
                         this.fetchItemDetails();
@@ -173,19 +175,19 @@ export default {
                 switch (this.type) {
                     case "Shipping":
                         this.$store.dispatch("goods/shipping/add", {
-                            data: { ...this.data, unit: this.unit }
+                            data: { ...this.data, unit: this.unit },
                         });
                         break;
                     case "Search":
                         this.$router.push({
                             name: "GoodsDetails",
-                            params: { id: this.data.goods.id }
+                            params: { id: this.data.goods.id },
                         });
                         break;
                     case "StockTake":
                         this.$router.push({
                             name: "StockTake",
-                            params: { id: this.data.id }
+                            params: { id: this.data.id },
                         });
                         break;
                 }
@@ -226,7 +228,7 @@ export default {
             this.unit = 0;
             this.barcode = null;
             this.data = null;
-        }
-    }
+        },
+    },
 };
 </script>
