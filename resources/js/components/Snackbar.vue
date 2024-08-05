@@ -16,8 +16,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
     name: "Snackbar",
     data() {
@@ -26,10 +24,9 @@ export default {
         };
     },
     computed: {
-        ...mapState(["uisnackbar"]),
         show: {
             get() {
-                return this.uisnackbar.show;
+                return this.$store.getters["snackbar/show"];
             },
             set(value) {
                 if (!value) {
@@ -38,15 +35,10 @@ export default {
             },
         },
         color() {
-            return this.uisnackbar.color;
+            return this.$store.getters["snackbar/color"];
         },
         text() {
-            return this.uisnackbar.text;
-        },
-    },
-    watch: {
-        show(n, o) {
-            console.log(n, o);
+            return this.$store.getters["snackbar/text"];
         },
     },
     methods: {
