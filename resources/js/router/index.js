@@ -3,17 +3,18 @@ import i18n from "@/plugins/vue-i18n";
 import { h, resolveComponent } from "vue";
 import { createRouter, createWebHashHistory } from "vue-router";
 // import routes from "./routes";
+import store from "../store";
 
 const { t } = i18n.global;
 
 const routes = [
     {
         path: "/",
-        name: t("home"),
+        name: "home",
         component: DefaultLayout,
         redirect: "/dashboard",
         beforeEnter(to, from, next) {
-            const isAuthenticated = false;
+            const isAuthenticated = store.getters.isAuthenticated;
             if (isAuthenticated) {
                 next();
             } else {
@@ -28,7 +29,7 @@ const routes = [
             },
             {
                 path: "sales-report",
-                name: "salesreport.home",
+                name: "route.salesreport.home",
                 component: {
                     render() {
                         return h(resolveComponent("router-view"));
@@ -37,7 +38,7 @@ const routes = [
                 children: [
                     {
                         path: "",
-                        name: t("salesreport.table"),
+                        name: "route.salesreport.table",
                         component: import(
                             "@/views/sales-report/SalesReport.vue"
                         ),
@@ -135,6 +136,14 @@ const routes = [
         path: "/login",
         name: "login",
         component: () => import("@/views/auth/Login.vue"),
+        beforeEnter(to, from, next) {
+            const isAuthenticated = store.getters.isAuthenticated;
+            if (isAuthenticated) {
+                next("/dashboard");
+            } else {
+                next();
+            }
+        },
     },
     {
         path: "/forgotpassword",

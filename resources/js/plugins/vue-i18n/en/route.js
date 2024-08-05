@@ -6,6 +6,12 @@ export default {
             create: "Create",
             details: "Details",
         },
+        salesreport: {
+            home: "Sales Report",
+            table: "Table",
+            create: "Create",
+            details: "Details",
+        },
         duty: {
             home: "Home",
             table: "Table",

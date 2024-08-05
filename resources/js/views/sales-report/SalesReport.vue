@@ -1,251 +1,157 @@
 <template>
-    <CRow>
-        <CCol :xs="12">
-            <CCard class="mb-4">
-                <CCardHeader>
-                    <strong>Vue Accordion</strong>
-                </CCardHeader>
-                <CCardBody>
-                    <p class="text-body-secondary small">
-                        Click the accordions below to expand/collapse the
-                        accordion content.
-                    </p>
-                    <DocsExample href="components/accordion.html">
-                        <CAccordion>
-                            <CAccordionItem :item-key="1">
-                                <CAccordionHeader>
-                                    Accordion Item #1
-                                </CAccordionHeader>
-                                <CAccordionBody>
-                                    <strong
-                                        >This is the first item's accordion
-                                        body.</strong
-                                    >
-                                    It is hidden by default, until the collapse
-                                    plugin adds the appropriate classes that we
-                                    use to style each element. These classes
-                                    control the overall appearance, as well as
-                                    the showing and hiding via CSS transitions.
-                                    You can modify any of this with custom CSS
-                                    or overriding our default variables. It's
-                                    also worth noting that just about any HTML
-                                    can go within the
-                                    <code>.accordion-body</code>, though the
-                                    transition does limit overflow.
-                                </CAccordionBody>
-                            </CAccordionItem>
-                            <CAccordionItem :item-key="2">
-                                <CAccordionHeader>
-                                    Accordion Item #2
-                                </CAccordionHeader>
-                                <CAccordionBody>
-                                    <strong
-                                        >This is the second item's accordion
-                                        body.</strong
-                                    >
-                                    It is hidden by default, until the collapse
-                                    plugin adds the appropriate classes that we
-                                    use to style each element. These classes
-                                    control the overall appearance, as well as
-                                    the showing and hiding via CSS transitions.
-                                    You can modify any of this with custom CSS
-                                    or overriding our default variables. It's
-                                    also worth noting that just about any HTML
-                                    can go within the
-                                    <code>.accordion-body</code>, though the
-                                    transition does limit overflow.
-                                </CAccordionBody>
-                            </CAccordionItem>
-                            <CAccordionItem :item-key="3">
-                                <CAccordionHeader>
-                                    Accordion Item #3
-                                </CAccordionHeader>
-                                <CAccordionBody>
-                                    <strong
-                                        >This is the third item's accordion
-                                        body.</strong
-                                    >
-                                    It is hidden by default, until the collapse
-                                    plugin adds the appropriate classes that we
-                                    use to style each element. These classes
-                                    control the overall appearance, as well as
-                                    the showing and hiding via CSS transitions.
-                                    You can modify any of this with custom CSS
-                                    or overriding our default variables. It's
-                                    also worth noting that just about any HTML
-                                    can go within the
-                                    <code>.accordion-body</code>, though the
-                                    transition does limit overflow.
-                                </CAccordionBody>
-                            </CAccordionItem>
-                        </CAccordion>
-                    </DocsExample>
-                </CCardBody>
-            </CCard>
-            <CCard class="mb-4">
-                <CCardHeader>
-                    <strong>Vue Accordion</strong> <small>Flush</small>
-                </CCardHeader>
-                <CCardBody>
-                    <p class="text-body-secondary small">
-                        Add <code>flush</code> to remove the default
-                        <code>background-color</code>, some borders, and some
-                        rounded corners to render accordions edge-to-edge with
-                        their parent container.
-                    </p>
-                    <DocsExample href="components/accordion.html#flush">
-                        <CAccordion flush>
-                            <CAccordionItem>
-                                <CAccordionHeader>
-                                    Accordion Item #1
-                                </CAccordionHeader>
-                                <CAccordionBody>
-                                    <strong
-                                        >This is the first item's accordion
-                                        body.</strong
-                                    >
-                                    It is hidden by default, until the collapse
-                                    plugin adds the appropriate classes that we
-                                    use to style each element. These classes
-                                    control the overall appearance, as well as
-                                    the showing and hiding via CSS transitions.
-                                    You can modify any of this with custom CSS
-                                    or overriding our default variables. It's
-                                    also worth noting that just about any HTML
-                                    can go within the
-                                    <code>.accordion-body</code>, though the
-                                    transition does limit overflow.
-                                </CAccordionBody>
-                            </CAccordionItem>
-                            <CAccordionItem>
-                                <CAccordionHeader>
-                                    Accordion Item #2
-                                </CAccordionHeader>
-                                <CAccordionBody>
-                                    <strong
-                                        >This is the second item's accordion
-                                        body.</strong
-                                    >
-                                    It is hidden by default, until the collapse
-                                    plugin adds the appropriate classes that we
-                                    use to style each element. These classes
-                                    control the overall appearance, as well as
-                                    the showing and hiding via CSS transitions.
-                                    You can modify any of this with custom CSS
-                                    or overriding our default variables. It's
-                                    also worth noting that just about any HTML
-                                    can go within the
-                                    <code>.accordion-body</code>, though the
-                                    transition does limit overflow.
-                                </CAccordionBody>
-                            </CAccordionItem>
-                            <CAccordionItem>
-                                <CAccordionHeader>
-                                    Accordion Item #3
-                                </CAccordionHeader>
-                                <CAccordionBody>
-                                    <strong
-                                        >This is the third item's accordion
-                                        body.</strong
-                                    >
-                                    It is hidden by default, until the collapse
-                                    plugin adds the appropriate classes that we
-                                    use to style each element. These classes
-                                    control the overall appearance, as well as
-                                    the showing and hiding via CSS transitions.
-                                    You can modify any of this with custom CSS
-                                    or overriding our default variables. It's
-                                    also worth noting that just about any HTML
-                                    can go within the
-                                    <code>.accordion-body</code>, though the
-                                    transition does limit overflow.
-                                </CAccordionBody>
-                            </CAccordionItem>
-                        </CAccordion>
-                    </DocsExample>
-                </CCardBody>
-            </CCard>
-            <CCard class="mb-4">
-                <CCardHeader>
-                    <strong>Vue Accordion</strong> <small>Always open</small>
-                </CCardHeader>
-                <CCardBody>
-                    <p class="text-body-secondary small">
-                        Add <code>always-open</code> property to make accordion
-                        items stay open when another item is opened.
-                    </p>
-                    <DocsExample href="components/accordion.html#always-open">
-                        <CAccordion :active-item-key="2" always-open>
-                            <CAccordionItem :item-key="1">
-                                <CAccordionHeader>
-                                    Accordion Item #1
-                                </CAccordionHeader>
-                                <CAccordionBody>
-                                    <strong
-                                        >This is the first item's accordion
-                                        body.</strong
-                                    >
-                                    It is hidden by default, until the collapse
-                                    plugin adds the appropriate classes that we
-                                    use to style each element. These classes
-                                    control the overall appearance, as well as
-                                    the showing and hiding via CSS transitions.
-                                    You can modify any of this with custom CSS
-                                    or overriding our default variables. It's
-                                    also worth noting that just about any HTML
-                                    can go within the
-                                    <code>.accordion-body</code>, though the
-                                    transition does limit overflow.
-                                </CAccordionBody>
-                            </CAccordionItem>
-                            <CAccordionItem :item-key="2">
-                                <CAccordionHeader>
-                                    Accordion Item #2
-                                </CAccordionHeader>
-                                <CAccordionBody>
-                                    <strong
-                                        >This is the second item's accordion
-                                        body.</strong
-                                    >
-                                    It is hidden by default, until the collapse
-                                    plugin adds the appropriate classes that we
-                                    use to style each element. These classes
-                                    control the overall appearance, as well as
-                                    the showing and hiding via CSS transitions.
-                                    You can modify any of this with custom CSS
-                                    or overriding our default variables. It's
-                                    also worth noting that just about any HTML
-                                    can go within the
-                                    <code>.accordion-body</code>, though the
-                                    transition does limit overflow.
-                                </CAccordionBody>
-                            </CAccordionItem>
-                            <CAccordionItem :item-key="3">
-                                <CAccordionHeader>
-                                    Accordion Item #3
-                                </CAccordionHeader>
-                                <CAccordionBody>
-                                    <strong
-                                        >This is the third item's accordion
-                                        body.</strong
-                                    >
-                                    It is hidden by default, until the collapse
-                                    plugin adds the appropriate classes that we
-                                    use to style each element. These classes
-                                    control the overall appearance, as well as
-                                    the showing and hiding via CSS transitions.
-                                    You can modify any of this with custom CSS
-                                    or overriding our default variables. It's
-                                    also worth noting that just about any HTML
-                                    can go within the
-                                    <code>.accordion-body</code>, though the
-                                    transition does limit overflow.
-                                </CAccordionBody>
-                            </CAccordionItem>
-                        </CAccordion>
-                    </DocsExample>
-                </CCardBody>
-            </CCard>
-        </CCol>
-    </CRow>
+    <CContainer lg>
+        <CRow>
+            <CCol col="12" sm="6" lg="6">
+                <CWidgetIcon
+                    :header="data.last_30days_stock_costs"
+                    :text="`${$t('lastsomedays', { days: '30' })}${$t(
+                        'stock'
+                    )}${$t('price.cost')}`"
+                    color="primary"
+                >
+                    <CIcon name="cib-server-fault" width="24" />
+                </CWidgetIcon>
+            </CCol>
+            <CCol col="12" sm="6" lg="6">
+                <CWidgetIcon
+                    :header="data.last_30days_shipping_costs"
+                    :text="`${$t('lastsomedays', { days: '30' })}${$t(
+                        'shipping.title'
+                    )}${$t('price.cost')}`"
+                    color="primary"
+                >
+                    <CIcon name="cib-codeship" width="24" />
+                </CWidgetIcon>
+            </CCol>
+        </CRow>
+        <CRow>
+            <CCol md="12">
+                <SalesReportLineChart />
+            </CCol>
+        </CRow>
+        <CRow>
+            <CCol col="12" sm="6" lg="3">
+                <CWidgetIcon
+                    :header="data.average_inventory"
+                    :text="`${$t('lastthreemonths')}${$t(
+                        'averageinventory'
+                    )}${$t('price.cost')}`"
+                    color="primary"
+                >
+                    <CIcon name="cil-chart-line" width="24" />
+                </CWidgetIcon>
+            </CCol>
+            <CCol col="12" sm="6" lg="3">
+                <CWidgetIcon
+                    :header="data.inventory_turnover"
+                    :text="`${$t('lastthreemonths')}${$t(
+                        'inventoryturnover'
+                    )}${$t('price.cost')}`"
+                    color="primary"
+                >
+                    <CIcon name="cil-chart-line" width="24" />
+                </CWidgetIcon>
+            </CCol>
+            <CCol col="12" sm="6" lg="3">
+                <CWidgetIcon
+                    :header="data.inventory_change"
+                    :text="`${$t('price.cost')}${$t('inventorychange')}`"
+                    color="primary"
+                >
+                    <CIcon name="cil-chart-line" width="24" />
+                </CWidgetIcon>
+            </CCol>
+            <CCol col="12" sm="6" lg="3">
+                <CWidgetIcon
+                    :header="data.inventory_dio"
+                    :text="`${$t('daysinventoryoutstanding')}`"
+                    color="primary"
+                >
+                    <CIcon name="cil-chart-line" width="24" />
+                </CWidgetIcon>
+            </CCol>
+        </CRow>
+        <CRow>
+            <CCol md="12">
+                <CCard class="mb-4">
+                    <CCardBody>
+                        <CRow>
+                            <CCol sm="12">
+                                <h4 class="card-title mb-0">
+                                    {{ $t("topsales") }}
+                                </h4>
+                                <div class="small text-medium-emphasis"></div>
+                            </CCol>
+                        </CRow>
+                        <TopSalesTable />
+                    </CCardBody>
+                </CCard>
+            </CCol>
+        </CRow>
+        <CRow>
+            <CCol md="12">
+                <CCard class="mb-4">
+                    <CCardBody>
+                        <CRow>
+                            <CCol sm="12">
+                                <h4 class="card-title mb-0">
+                                    {{ $t("topstocks") }}
+                                </h4>
+                                <div class="small text-medium-emphasis"></div>
+                            </CCol>
+                        </CRow>
+                        <TopStocksTable />
+                    </CCardBody>
+                </CCard>
+            </CCol>
+        </CRow>
+    </CContainer>
 </template>
+<script>
+//
+import { mapState } from "vuex";
+import SalesReportLineChart from "./components/SalesReportLineChart.vue";
+import TopSalesTable from "./components/TopSalesTable.vue";
+import TopStocksTable from "./components/TopStocksTable.vue";
+
+export default {
+    name: "SalesReport",
+    components: {
+        SalesReportLineChart,
+        TopSalesTable,
+        TopStocksTable,
+    },
+    computed: {
+        ...mapState(["salesreport"]),
+        data() {
+            return JSON.parse(JSON.stringify(this["salesreport"].data));
+        },
+    },
+    data() {
+        return {
+            loading: false,
+        };
+    },
+    mounted() {
+        this.fetch();
+    },
+    methods: {
+        fetch() {
+            let self = this;
+            if (self.loading) {
+                return;
+            }
+            let data = {};
+            self.loading = true;
+            this.$store
+                .dispatch("salesreport/get", data)
+                .then((response) => {
+                    self.loading = false;
+                })
+                .catch((error) => {
+                    self.loading = false;
+                });
+        },
+    },
+};
+</script>

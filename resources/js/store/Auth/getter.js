@@ -16,7 +16,7 @@ export default {
         }
         return state.token;
     },
-    authCheck(state) {
+    isAuthenticated(state) {
         return state.token !== null && state.token !== undefined;
     },
     isAdmin(state) {
@@ -26,7 +26,7 @@ export default {
         return state.user?.role === EMPLOYEE;
     },
     isPermissionGranted(state) {
-        return key => {
+        return (key) => {
             if (state.user?.role === ADMIN) {
                 return true;
             }
@@ -48,5 +48,5 @@ export default {
         return state.user?.permission?.items
             ? state.user?.permission?.items
             : {};
-    }
+    },
 };

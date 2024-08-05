@@ -6,6 +6,12 @@ export default {
             create: "新增",
             details: "詳細",
         },
+        salesreport: {
+            home: "銷售報告",
+            table: "清單",
+            create: "新增",
+            details: "詳細",
+        },
         duty: {
             home: "更",
             table: "清單",

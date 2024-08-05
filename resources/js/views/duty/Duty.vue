@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- <Dialog ref="dialog" />
+        <Dialog ref="dialog" />
         <DutyCalendar />
         <CRow class="p-2">
             <CCol md="9" sm="9">
@@ -34,17 +34,14 @@
             :pageCount="pageCount"
             :headers="headers"
             :items="items"
-            :options.sync="options"
             :server-items-length="serverItemsLength"
             :loading="loading"
-            :sort-by.sync="sortBy"
-            :sort-desc.sync="sortDesc"
             :footer-props="{
                 disableItemsPerPage: disableItemsPerPage,
                 disablePagination: disablePagination,
                 showFirstLastPage: true,
                 showCurrentPage: true,
-                itemsPerPageOptions: [10, 20, 50, 100]
+                itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
             <template v-slot:[`item.color`]="{ item }">
@@ -56,17 +53,17 @@
                             height: '30px',
                             width: '30px',
                             borderRadius: '4px',
-                            backgroundColor: item.color
+                            backgroundColor: item.color,
                         }"
                     ></div>
                 </div>
             </template>
-            <template v-slot:[`item.created_at`]="{ item }">
+            <!-- <template v-slot:[`item.created_at`]="{ item }">
                 {{ item.created_at | moment("dddd, Do MMMM YYYY") }}
             </template>
             <template v-slot:[`item.updated_at`]="{ item }">
                 {{ item.updated_at | moment("dddd, Do MMMM YYYY") }}
-            </template>
+            </template> -->
             <template v-slot:[`item.actions`]="{ item }">
                 <CButtonGroup>
                     <CButton
@@ -81,10 +78,10 @@
                     </CButton>
                 </CButtonGroup>
             </template>
-        </v-data-table> -->
+        </v-data-table>
     </div>
 </template>
-<!-- <script>
+<script>
 //
 import { Dialog, DutyCalendar } from "@/components";
 
@@ -92,7 +89,7 @@ export default {
     name: "Duty",
     components: {
         Dialog,
-        DutyCalendar
+        DutyCalendar,
     },
     data() {
         return {
@@ -113,27 +110,27 @@ export default {
                 { text: this.$t("end"), value: "end" },
                 {
                     text: `${this.$t("calendar.title")} ${this.$t("color")}`,
-                    value: "color"
+                    value: "color",
                 },
                 { text: this.$t("updatedat"), value: "updated_at" },
-                { text: this.$t("actions"), value: "actions", sortable: false }
+                { text: this.$t("actions"), value: "actions", sortable: false },
             ],
             snackbar: {
                 show: false,
-                text: ""
-            }
+                text: "",
+            },
         };
     },
     watch: {
         options: {
             handler() {
                 this.fetch();
-            }
+            },
         },
         loading() {
             this.disableItemsPerPage = this.loading;
             this.disablePagination = this.loading;
-        }
+        },
     },
     methods: {
         fetch(reset = false) {
@@ -145,11 +142,11 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                search: self.searchText
+                search: self.searchText,
             };
             this.$store
                 .dispatch("user/duty/get", data)
-                .then(response => {
+                .then((response) => {
                     let res = JSON.parse(JSON.stringify(response.data));
                     self.items = res.data;
                     self.serverItemsLength = res.total;
@@ -157,7 +154,7 @@ export default {
                     self.page = res.current_page;
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -176,14 +173,14 @@ export default {
                 sort_by: sortBy,
                 sort_desc: sortDesc,
                 search: self.searchText,
-                extension: "pdf"
+                extension: "pdf",
             };
             this.$store
                 .dispatch("user/duty/export", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -196,13 +193,13 @@ export default {
                 case "RouterPush":
                     this.$router.push({
                         name: "DutyDetails",
-                        params: { id: item.id }
+                        params: { id: item.id },
                     });
                     break;
                 case "Create":
                     this.$router.push({
                         name: "CreateDuty",
-                        params: { userId: item.user.id }
+                        params: { userId: item.user.id },
                     });
                     break;
                 case "Delete":
@@ -215,18 +212,18 @@ export default {
                         let self = this;
                         this.$store
                             .dispatch("user/duty/delete", { id: id })
-                            .then(response => {
+                            .then((response) => {
                                 self.loading = false;
                                 self.fetch();
                             })
-                            .catch(error => {
+                            .catch((error) => {
                                 self.loading = false;
                             });
                     }
                     break;
             }
             // console.log(id, key);
-        }
-    }
+        },
+    },
 };
-</script> -->
+</script>
