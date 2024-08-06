@@ -3,8 +3,8 @@ import router from "../../router";
 import axios from "../../utils/myAxios";
 import * as types from "./mutation-types";
 
-const endpoint = "/api/user/duty/calendar/";
-const name = "user/duty/calendar";
+const endpoint = "/api/users/duty/calendar/";
+const name = "users/duty/calendar";
 
 export default {
     [`${name}/get`]({ commit, dispatch }, payload) {

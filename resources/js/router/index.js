@@ -89,7 +89,6 @@ const routes = [
                     {
                         path: "create/:userId?",
                         name: "route.duty.create",
-                        name: "CreateDuty",
                         component: () => import("@/views/duty/CreateDuty.vue"),
                     },
                     {

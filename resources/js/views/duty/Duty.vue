@@ -16,16 +16,18 @@
                     </template>
                 </CInput>
             </CCol>
-            <CCol md="3" sm="3" class="text-right">
-                <CButton color="primary" size="sm" v-on:click="add">
-                    <CIcon name="cil-plus" size="sm" />
-                </CButton>
-                <CButton color="primary" size="sm" v-on:click="download">
-                    <CIcon name="cil-cloud-download" size="sm" />
-                </CButton>
-                <CButton color="primary" size="sm" v-on:click="reload">
-                    <CIcon name="cil-reload" size="sm" />
-                </CButton>
+            <CCol :md="3" :sm="3" class="text-right">
+                <CButtonGroup role="group">
+                    <CButton color="primary" size="sm" v-on:click="add">
+                        <CIcon name="cil-plus" size="sm" />
+                    </CButton>
+                    <CButton color="primary" size="sm" v-on:click="download">
+                        <CIcon name="cil-cloud-download" size="sm" />
+                    </CButton>
+                    <CButton color="primary" size="sm" v-on:click="reload">
+                        <CIcon name="cil-reload" size="sm" />
+                    </CButton>
+                </CButtonGroup>
             </CCol>
         </CRow>
         <v-data-table
@@ -162,7 +164,7 @@ export default {
             this.fetch(true);
         },
         add() {
-            this.$router.push({ name: "CreateDuty" });
+            this.$router.push({ path: "/duty/create" });
         },
         download() {
             let self = this;

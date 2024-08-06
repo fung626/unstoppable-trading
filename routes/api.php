@@ -99,7 +99,7 @@ Route::prefix('users')->middleware(['auth:api', 'scopes:users', 'localization'])
     Route::delete('duty/delete', [DutyController::class, 'delete']);
     Route::post('duty/export', [DutyController::class, 'export']);
     // password
-    Route::post('profile/password/update', [PasswordController::class, 'post']);
+    // Route::post('profile/password/update', [PasswordController::class, 'post']);
 });
 
 Route::prefix('users')->middleware(['auth:api', 'localization'])->group(function () {

@@ -3,7 +3,7 @@ import router from "../../router";
 import axios from "../../utils/myAxios";
 import * as types from "./mutation-types";
 
-const endpoint = "/api/user/profile/";
+const endpoint = "/api/users/profile/";
 const name = "profile";
 
 export default {

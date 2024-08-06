@@ -1,3 +1,21 @@
+<script setup>
+import { onMounted, ref } from "vue";
+
+const calendar = ref(null);
+
+onMounted(() => {
+    // calendar.value.$el
+    console.log(calendar.value.$el);
+});
+
+function prev() {
+    calendar.value.prev();
+}
+function next() {
+    calendar.value.next();
+}
+</script>
+
 <template>
     <CCard v-if="allowed">
         <v-progress-linear
@@ -15,7 +33,7 @@
             </CRow>
             <CRow class="p-2">
                 <CCol class="d-block d-md-none" sm="12">
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-end px-2">
                         <CButtonGroup>
                             <CButton
                                 v-for="t in types"
@@ -32,7 +50,7 @@
                 <CCol class="d-block d-md-none" sm="12">
                     <div class="d-flex justify-content-between">
                         <CButton
-                            @click="prev"
+                            @click="$refs.calendar.prev()"
                             color="light"
                             :disabled="loading"
                         >
@@ -65,17 +83,21 @@
                         >
                             {{ t.name }}
                         </CButton>
+                        <CButton
+                            @click="$refs.calendar.next()"
+                            color="light"
+                            :disabled="loading"
+                        >
+                            <v-icon>mdi-chevron-right</v-icon>
+                        </CButton>
                     </CButtonGroup>
-                    <CButton @click="next" color="light" :disabled="loading">
-                        <v-icon>mdi-chevron-right</v-icon>
-                    </CButton>
                 </CCol>
             </CRow>
             <v-calendar
                 ref="calendar"
                 v-model="focus"
                 :weekdays="weekday"
-                :type="type"
+                type="week"
                 :events="events"
                 :event-overlap-mode="mode"
                 :event-overlap-threshold="30"
@@ -99,7 +121,7 @@ import { mapState } from "vuex";
 export default {
     name: "DutyCalendar",
     props: {
-        userId: null
+        userId: null,
     },
     components: {},
     computed: {
@@ -120,18 +142,18 @@ export default {
                         start: start,
                         end: end,
                         color: item.color ? item.color : "cyan",
-                        timed: true
+                        timed: true,
                     });
                 }
             }
             return temp;
-        }
+        },
     },
     data() {
         return {
             loading: false,
-            focus: "",
-            type: "month",
+            focus: [new Date()],
+            type: "week",
             types: calendarTypes,
             mode: "stack",
             modes: ["stack", "column"],
@@ -140,10 +162,10 @@ export default {
                 { text: "Sun - Sat", value: [0, 1, 2, 3, 4, 5, 6] },
                 { text: "Mon - Sun", value: [1, 2, 3, 4, 5, 6, 0] },
                 { text: "Mon - Fri", value: [1, 2, 3, 4, 5] },
-                { text: "Mon, Wed, Fri", value: [1, 3, 5] }
+                { text: "Mon, Wed, Fri", value: [1, 3, 5] },
             ],
             selectedElement: null,
-            selectedOpen: false
+            selectedOpen: false,
         };
     },
     mounted() {
@@ -159,29 +181,23 @@ export default {
             let data = {
                 user_id: this.userId,
                 from: start.date,
-                to: end.date
+                to: end.date,
             };
             this.$store
-                .dispatch("user/duty/calendar/get", data)
-                .then(response => {
+                .dispatch("users/duty/calendar/get", data)
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
         showEvent({ nativeEvent, event }) {
             // console.log(event);
         },
-        prev() {
-            this.$refs.calendar.prev();
-        },
-        next() {
-            this.$refs.calendar.next();
-        },
         onTypeClick(type) {
             this.type = type.value;
-            // console.log(this.type);
+            console.log(this.type);
             // this.$forceUpdate();
         },
         allowed() {
@@ -192,7 +208,7 @@ export default {
                 return true;
             }
             return false;
-        }
-    }
+        },
+    },
 };
 </script>

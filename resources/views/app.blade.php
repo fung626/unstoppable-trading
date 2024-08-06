@@ -17,7 +17,7 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
-    @vite(['resources/js/app.js'])
+    @vite(['resources/styles/style.scss', 'resources/js/app.js'])
 </head>
 
 <body>

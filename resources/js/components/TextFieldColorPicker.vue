@@ -1,5 +1,18 @@
 <template>
-    <v-text-field
+    <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+            <v-btn :color="color" dark v-on="on"> Event Color </v-btn>
+        </template>
+        <v-color-picker
+            value="#7417BE"
+            v-model="color"
+            hide-canvas
+            hide-inputs
+            show-swatches
+            class="mx-auto"
+        ></v-color-picker>
+    </v-menu>
+    <!-- <v-text-field
         class=""
         :value="value"
         @input="$emit('input', $event)"
@@ -30,19 +43,20 @@
                 </v-card>
             </v-menu>
         </template>
-    </v-text-field>
+    </v-text-field> -->
 </template>
 
 <script>
 export default {
     name: "TextFieldColorPicker",
     props: {
-        value: String
+        // value: String,
     },
     data() {
         return {
             mask: "!#XXXXXXXX",
-            menu: false
+            menu: false,
+            value: "",
         };
     },
     // watch: {
@@ -62,9 +76,9 @@ export default {
                 height: "30px",
                 width: "30px",
                 borderRadius: menu ? "50%" : "4px",
-                transition: "border-radius 200ms ease-in-out"
+                transition: "border-radius 200ms ease-in-out",
             };
-        }
-    }
+        },
+    },
 };
 </script>

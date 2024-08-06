@@ -4,8 +4,8 @@ import router from "../../router";
 import axios from "../../utils/myAxios";
 import * as types from "./mutation-types";
 
-const endpoint = "/api/user/permission/";
-const name = "user/permission";
+const endpoint = "/api/users/permission/";
+const name = "users/permission";
 
 export default {
     [`${name}/get`]({ commit, dispatch }, payload) {

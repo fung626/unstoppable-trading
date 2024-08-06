@@ -10,49 +10,25 @@
                         v-model="user"
                         :items="autocomplete.user.items"
                         :loading="autocomplete.user.loading"
-                        :search-input.sync="autocomplete.user.search"
                         required
                         outlined
                         dense
                         hide-no-data
                         hide-selected
-                        item-text="name"
+                        item-title="name"
                         item-value="id"
                         :label="$t('user')"
                         return-object
                         :error="errors.user ? true : false"
                         :error-messages="errors.user"
-                    ></v-autocomplete>
-                    <v-menu
-                        v-model="dateMenu"
-                        :close-on-content-click="false"
-                        :nudge-right="40"
-                        transition="scale-transition"
-                        offset-y
-                        min-width="auto"
                     >
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-text-field
-                                v-model="datesText"
-                                :label="$t('date')"
-                                outlined
-                                dense
-                                clearable
-                                readonly
-                                v-bind="attrs"
-                                v-on="on"
-                                :error="errors.dates ? true : false"
-                                :error-messages="errors.dates"
-                                :hint="$t('hint.duty.date')"
-                                persistent-hint
-                            ></v-text-field>
-                        </template>
-                        <v-date-picker
-                            v-model="dates"
-                            :min="new Date().toISOString().slice(0, 10)"
-                            range
-                        ></v-date-picker>
-                    </v-menu>
+                    </v-autocomplete>
+                    <v-date-input
+                        :label="$t('date')"
+                        prepend-icon=""
+                        clearable
+                        outlined
+                    ></v-date-input>
                     <CRow>
                         <CCol md="6" sm="6">
                             <v-text-field
@@ -114,7 +90,7 @@ export default {
     name: "CreateDuty",
     components: {
         DutyCalendar,
-        TextFieldColorPicker
+        TextFieldColorPicker,
     },
     computed: {
         datesText() {
@@ -133,7 +109,7 @@ export default {
                 this.dates = sorted;
                 return sorted.join(" － ");
             }
-        }
+        },
     },
     data() {
         return {
@@ -148,13 +124,45 @@ export default {
             autocomplete: {
                 user: {
                     items: [],
-                    loading: false
-                }
-            }
+                    loading: false,
+                    search: "",
+                },
+            },
         };
     },
     watch: {
-        "autocomplete.user.search": function(val) {
+        "autocomplete.user.search": function (val) {},
+    },
+    mounted() {
+        this.fetch();
+    },
+    methods: {
+        submit() {
+            let self = this;
+            if (self.loading) {
+                return;
+            }
+            self.loading = true;
+            let data = {
+                user: self.user,
+                dates: self.dates,
+                start: self.start,
+                end: self.end,
+                color: self.color,
+            };
+            this.$store
+                .dispatch("users/duty/create", data)
+                .then((response) => {
+                    self.loading = false;
+                    self.errors = {};
+                    self.$router.back();
+                })
+                .catch((error) => {
+                    self.errors = error.response.data?.data;
+                    self.loading = false;
+                });
+        },
+        fetch() {
             let self = this;
             let cli = self.autocomplete.user;
             if (cli.items.length > 0 || cli.loading) {
@@ -163,11 +171,11 @@ export default {
             self.autocomplete.user.loading = true;
             let data = {
                 user_id: self.userId,
-                role: "EMPLOYEE"
+                role: "EMPLOYEE",
             };
             this.$store
-                .dispatch("user/get", data)
-                .then(response => {
+                .dispatch("users/get", data)
+                .then((response) => {
                     let data = response.data;
                     self.autocomplete.user.items = response.data;
                     self.autocomplete.user.loading = false;
@@ -182,38 +190,11 @@ export default {
                         }
                     }
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.autocomplete.user.loading = false;
                 });
-        }
+        },
     },
-    methods: {
-        submit() {
-            let self = this;
-            if (self.loading) {
-                return;
-            }
-            self.loading = true;
-            let data = {
-                user: self.user,
-                dates: self.dates,
-                start: self.start,
-                end: self.end,
-                color: self.color
-            };
-            this.$store
-                .dispatch("user/duty/create", data)
-                .then(response => {
-                    self.loading = false;
-                    self.errors = {};
-                    self.$router.back();
-                })
-                .catch(error => {
-                    self.errors = error.response.data?.data;
-                    self.loading = false;
-                });
-        }
-    }
 };
 </script>
 

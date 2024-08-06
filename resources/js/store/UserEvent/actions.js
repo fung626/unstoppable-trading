@@ -4,8 +4,8 @@ import router from "../../router";
 import axios from "../../utils/myAxios";
 import * as types from "./mutation-types";
 
-const endpoint = "/api/user/event/";
-const name = "user/event";
+const endpoint = "/api/users/event/";
+const name = "users/event";
 
 export default {
     [`${name}/get`]({ commit, dispatch }, payload) {
