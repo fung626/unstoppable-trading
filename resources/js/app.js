@@ -53,6 +53,10 @@ app.config.globalProperties.$momentDateFormat = "dddd, Do MMMM YYYY";
 app.config.globalProperties.$log = console.log;
 
 app.config.globalProperties.$moment = moment;
+app.config.globalProperties.$formatDate = (value) => {
+    if (!value) return "";
+    return moment(value).format("YYYY-DD-MM");
+};
 
 app.use(CoreuiVue);
 app.use(router);

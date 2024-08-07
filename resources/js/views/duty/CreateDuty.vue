@@ -118,7 +118,6 @@ export default {
             loading: false,
             user: "",
             dates: [new Date(), new Date()],
-            // date: new Date(),
             start: "",
             end: "",
             color: "#0D47A1FF",
@@ -148,12 +147,12 @@ export default {
             self.loading = true;
             let data = {
                 user: self.user,
-                dates: self.dates,
+                dates: self.dates.map((x) => x.toMyDateString()),
                 start: self.start,
                 end: self.end,
                 color: self.color,
             };
-            console.log(data);
+            // console.log(data);
             this.$store
                 .dispatch("users/duty/create", data)
                 .then((response) => {

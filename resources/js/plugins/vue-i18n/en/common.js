@@ -32,4 +32,5 @@ export default {
     salary: "Salary",
     fulltime: "Full-Time",
     parttime: "Part-Time",
+    name: "Name",
 };

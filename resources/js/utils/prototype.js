@@ -8,6 +8,13 @@ Number.prototype.format = function (n, x) {
     return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, "g"), "$&,");
 };
 
+Date.prototype.toMyDateString = function () {
+    let y = this.getFullYear();
+    let m = `0${this.getMonth() + 1}`.slice(-2);
+    let d = `0${this.getDate()}`.slice(-2);
+    return `${y}-${m}-${d}`;
+};
+
 Number.prototype.abbreviateAmount = function () {
     let isNegative = false;
     let num = this;

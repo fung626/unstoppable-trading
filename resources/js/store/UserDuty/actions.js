@@ -1,9 +1,11 @@
 // import axios from "axios";
+import i18n from "@/plugins/vue-i18n";
 import queryString from "query-string";
 import router from "../../router";
 import axios from "../../utils/myAxios";
 import * as types from "./mutation-types";
 
+const { t } = i18n.global;
 const endpoint = "/api/users/duty/";
 const name = "users/duty";
 
@@ -73,7 +75,7 @@ export default {
             axios
                 .post(`${endpoint}create`, payload)
                 .then(function (response) {
-                    if (!response.data.error && "data" in response.data) {
+                    if (!response.data.error) {
                         dispatch("snackbar/show", {
                             color: "success",
                             text: t("snackbar.success.created"),

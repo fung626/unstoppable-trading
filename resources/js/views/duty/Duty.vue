@@ -32,12 +32,12 @@
         </CRow>
         <v-data-table
             class="elevation-1"
-            :page="page"
-            :pageCount="pageCount"
             :headers="headers"
             :items="items"
-            :server-items-length="serverItemsLength"
+            :items-length="serverItemsLength"
+            :search="search"
             :loading="loading"
+            @update:options="fetch"
             :footer-props="{
                 disableItemsPerPage: disableItemsPerPage,
                 disablePagination: disablePagination,
@@ -60,12 +60,12 @@
                     ></div>
                 </div>
             </template>
-            <!-- <template v-slot:[`item.created_at`]="{ item }">
-                {{ item.created_at | moment("dddd, Do MMMM YYYY") }}
+            <template v-slot:[`item.created_at`]="{ item }">
+                {{ this.$formatDate(item.created_at) }}
             </template>
             <template v-slot:[`item.updated_at`]="{ item }">
-                {{ item.updated_at | moment("dddd, Do MMMM YYYY") }}
-            </template> -->
+                {{ this.$formatDate(item.updated_at) }}
+            </template>
             <template v-slot:[`item.actions`]="{ item }">
                 <CButtonGroup>
                     <CButton
@@ -101,7 +101,11 @@ export default {
             pageCount: 0,
             items: [],
             loading: false,
-            options: {},
+            options: {
+                page: 1,
+                itemsPerPage: 5,
+                sortBy: null,
+            },
             sortBy: "updated_at",
             sortDesc: false,
             disableItemsPerPage: false,
@@ -126,7 +130,7 @@ export default {
     watch: {
         options: {
             handler() {
-                this.fetch();
+                this.fetch(self.options);
             },
         },
         loading() {
@@ -134,20 +138,26 @@ export default {
             this.disablePagination = this.loading;
         },
     },
+    mounted() {
+        // this.fetch();
+    },
     methods: {
-        fetch(reset = false) {
+        fetch({ page, itemsPerPage, sortBy }) {
             let self = this;
             self.loading = true;
-            const { page, itemsPerPage, sortBy, sortDesc } = self.options;
+            // const { sortDesc } = self.options;
+            self.options.page = page;
+            self.options.itemsPerPage = itemsPerPage;
+            self.options.sortBy = sortBy;
             let data = {
-                page: reset ? 1 : page,
+                page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-                sort_desc: sortDesc,
+                sort_desc: null,
                 search: self.searchText,
             };
             this.$store
-                .dispatch("user/duty/get", data)
+                .dispatch("users/duty/get", data)
                 .then((response) => {
                     let res = JSON.parse(JSON.stringify(response.data));
                     self.items = res.data;
