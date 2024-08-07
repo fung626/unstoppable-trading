@@ -1,73 +1,59 @@
 <template>
-    <v-menu offset-y>
-        <template v-slot:activator="{ on }">
-            <v-btn :color="color" dark v-on="on"> Event Color </v-btn>
-        </template>
-        <v-color-picker
-            value="#7417BE"
-            v-model="color"
-            hide-canvas
-            hide-inputs
-            show-swatches
-            class="mx-auto"
-        ></v-color-picker>
-    </v-menu>
-    <!-- <v-text-field
-        class=""
-        :value="value"
-        @input="$emit('input', $event)"
-        return-masked-value
-        hide-details
-        solo
-    >
-        <template v-slot:append>
-            <v-menu
-                v-model="menu"
-                top
-                nudge-bottom="105"
-                nudge-left="16"
-                :close-on-content-click="false"
-            >
-                <template v-slot:activator="{ on }">
-                    <div :style="swatchStyle" v-on="on" />
-                </template>
-                <v-card>
-                    <v-card-text class="pa-0">
-                        <v-color-picker
-                            :value="value"
-                            @input="$emit('input', $event)"
-                            show-swatches
-                            flat
-                        />
-                    </v-card-text>
-                </v-card>
-            </v-menu>
-        </template>
-    </v-text-field> -->
+    <div>
+        <v-menu class="w" v-model="menu">
+            <template v-slot:activator="{ props }">
+                <v-btn
+                    class="w-100"
+                    :style="{ backgroundColor: value, color: 'white' }"
+                    v-bind="props"
+                >
+                    {{ value }}
+                </v-btn>
+            </template>
+            <v-card color="transparent" elevation="0" outlined>
+                <v-color-picker
+                    class="mx-auto"
+                    v-model="value"
+                    hide-canvas
+                    hide-inputs
+                    show-swatches
+                    :border="false"
+                ></v-color-picker>
+            </v-card>
+        </v-menu>
+    </div>
 </template>
 
 <script>
 export default {
     name: "TextFieldColorPicker",
     props: {
-        // value: String,
+        modelValue: [String, Array],
     },
     data() {
         return {
             mask: "!#XXXXXXXX",
             menu: false,
-            value: "",
+            // value: "#7417BE",
         };
     },
     // watch: {
-    //     value: function(val) {
+    //     value: function (val) {
     //         console.log(val);
-    //     }
+    //     },
     // },
     // mounted() {
     //     console.log(this.value);
     // },
     computed: {
+        value: {
+            get() {
+                return this.modelValue;
+            },
+            set(value) {
+                this.$emit("update:modelValue", value);
+            },
+        },
         swatchStyle() {
             const { value, menu } = this;
             return {

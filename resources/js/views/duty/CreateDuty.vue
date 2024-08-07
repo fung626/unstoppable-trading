@@ -1,7 +1,7 @@
 <template>
     <div>
         <DutyCalendar v-if="user" :userId="user.id" />
-        <CCard class="p-4">
+        <CCard class="p-4 my-4">
             <CCardBody>
                 <h4>{{ $t("create") }}</h4>
                 <hr />
@@ -25,9 +25,11 @@
                     </v-autocomplete>
                     <v-date-input
                         :label="$t('date')"
+                        v-model="dates"
                         prepend-icon=""
                         clearable
                         outlined
+                        multiple="range"
                     ></v-date-input>
                     <CRow>
                         <CCol md="6" sm="6">
@@ -115,7 +117,8 @@ export default {
         return {
             loading: false,
             user: "",
-            dates: [],
+            dates: [new Date(), new Date()],
+            // date: new Date(),
             start: "",
             end: "",
             color: "#0D47A1FF",
@@ -150,6 +153,7 @@ export default {
                 end: self.end,
                 color: self.color,
             };
+            console.log(data);
             this.$store
                 .dispatch("users/duty/create", data)
                 .then((response) => {
