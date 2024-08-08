@@ -105,7 +105,7 @@ import { mapState } from "vuex";
 export default {
     name: "PurchaseTable",
     components: {
-        Dialog
+        Dialog,
     },
     computed: {
         ...mapState(["goods/purchase"]),
@@ -120,7 +120,7 @@ export default {
         },
         items() {
             return this["goods/purchase"].data?.data;
-        }
+        },
     },
     data() {
         return {
@@ -132,31 +132,35 @@ export default {
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { text: this.$t("number"), value: "generated_id" },
-                { text: this.$t("supplier"), value: "supplier.name" },
-                { text: this.$t("user"), value: "users.name" },
-                { text: this.$t("subtotal"), value: "subtotal" },
-                { text: this.$t("status"), value: "status" },
-                { text: this.$t("date"), value: "date" },
-                { text: this.$t("updatedat"), value: "updated_at" },
+                { title: this.$t("number"), value: "generated_id" },
+                { title: this.$t("supplier"), value: "supplier.name" },
+                { title: this.$t("user"), value: "users.name" },
+                { title: this.$t("subtotal"), value: "subtotal" },
+                { title: this.$t("status"), value: "status" },
+                { title: this.$t("date"), value: "date" },
+                { title: this.$t("updatedat"), value: "updated_at" },
                 {
                     text: `${this.$t("status")}${this.$t("actions")}`,
-                    value: "status_actions"
+                    value: "status_actions",
                 },
-                { text: this.$t("actions"), value: "actions", sortable: false }
-            ]
+                {
+                    title: this.$t("actions"),
+                    value: "actions",
+                    sortable: false,
+                },
+            ],
         };
     },
     watch: {
         options: {
             handler() {
                 this.fetch();
-            }
+            },
         },
         loading() {
             this.disableItemsPerPage = this.loading;
             this.disablePagination = this.loading;
-        }
+        },
     },
     mounted() {
         this.fetch();
@@ -174,14 +178,14 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                search: self.searchText
+                search: self.searchText,
             };
             this.$store
                 .dispatch("goods/purchase/get", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -200,14 +204,14 @@ export default {
                 sort_by: sortBy,
                 sort_desc: sortDesc,
                 search: self.searchText,
-                extension: "pdf"
+                extension: "pdf",
             };
             this.$store
                 .dispatch("goods/purchase/export", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -232,13 +236,13 @@ export default {
                         this.$store
                             .dispatch("goods/purchase/update", {
                                 id: item.id,
-                                status: action.status
+                                status: action.status,
                             })
-                            .then(response => {
+                            .then((response) => {
                                 self.loading = false;
                                 self.fetch();
                             })
-                            .catch(error => {
+                            .catch((error) => {
                                 self.loading = false;
                             });
                     }
@@ -249,13 +253,13 @@ export default {
                         case "PurchaseDetails":
                             this.$router.push({
                                 name: route,
-                                params: { id: item.id }
+                                params: { id: item.id },
                             });
                             break;
                         case "StockTake":
                             this.$router.push({
                                 name: route,
-                                params: { id: item.id }
+                                params: { id: item.id },
                             });
                             break;
                     }
@@ -273,18 +277,18 @@ export default {
                         }
                         this.$store
                             .dispatch("goods/purchase/delete", { id: item.id })
-                            .then(response => {
+                            .then((response) => {
                                 self.loading = false;
                                 self.fetch();
                             })
-                            .catch(error => {
+                            .catch((error) => {
                                 self.loading = false;
                             });
                     }
                     break;
             }
             // console.log(id, key);
-        }
-    }
+        },
+    },
 };
 </script>

@@ -56,7 +56,7 @@
                                     v-bind:class="bgColor(item[header.value])"
                                     v-if="
                                         isRowEditable(header.value) &&
-                                            item[header.value]
+                                        item[header.value]
                                     "
                                 >
                                     <v-edit-dialog
@@ -141,13 +141,13 @@
                 </template>
             </v-data-table>
             <CRow class="m-2">
-                <div class="bg-yellow" style="height:25px;width:25px;">
+                <div class="bg-yellow" style="height: 25px; width: 25px">
                     &nbsp;
                 </div>
                 <span class="mx-2">{{ "*" }} {{ $t("defaultunit") }}</span>
             </CRow>
             <CRow class="m-2">
-                <div class="bg-green" style="height:25px;width:25px;">
+                <div class="bg-green" style="height: 25px; width: 25px">
                     &nbsp;
                 </div>
                 <span class="mx-2">{{ "*" }} {{ $t("updatedunit") }}</span>
@@ -178,7 +178,7 @@ export default {
     components: {
         Dialog,
         Dashboard,
-        StockTakeDialog
+        StockTakeDialog,
     },
     data() {
         return {
@@ -188,10 +188,10 @@ export default {
             subtotal: 0,
             headers: [
                 { text: "#ID", value: "id" },
-                { text: this.$t("name"), value: "name" },
-                { text: this.$t("type"), value: "type" },
-                { text: this.$t("cup"), value: "cup" },
-                { text: this.$t("color"), value: "color" },
+                { title: this.$t("name"), value: "name" },
+                { title: this.$t("type"), value: "type" },
+                { title: this.$t("cup"), value: "cup" },
+                { title: this.$t("color"), value: "color" },
                 { text: "32-S", value: "32-S" },
                 { text: "34-M", value: "34-M" },
                 { text: "36-L", value: "36-L" },
@@ -199,12 +199,12 @@ export default {
                 { text: "40-Q", value: "40-Q" },
                 { text: "42-EQ", value: "42-EQ" },
                 { text: "44-Free", value: "44-Free" },
-                { text: this.$t("unitprice"), value: "unit_price" },
-                { text: this.$t("totalunit"), value: "total_unit" },
-                { text: this.$t("cost"), value: "cost" }
+                { title: this.$t("unitprice"), value: "unit_price" },
+                { title: this.$t("totalunit"), value: "total_unit" },
+                { title: this.$t("cost"), value: "cost" },
             ],
             fetchLoading: false,
-            submitLoading: false
+            submitLoading: false,
         };
     },
     mounted() {
@@ -215,16 +215,16 @@ export default {
             let self = this;
             self.fetchLoading = true;
             let data = {
-                id: self.$route.params.id
+                id: self.$route.params.id,
             };
             this.$store
                 .dispatch("goods/purchase/invoice/items", data)
-                .then(response => {
+                .then((response) => {
                     self.fetchLoading = false;
                     self.items = JSON.parse(JSON.stringify(response.data));
                     self.updateTotal();
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.fetchLoading = false;
                 });
         },
@@ -266,20 +266,20 @@ export default {
             self.submitLoading = true;
             let data = {
                 goods_purchase_id: self.$route.params.id,
-                items: self.items
+                items: self.items,
             };
             this.$store
                 .dispatch("goods/purchase/stocktake/create", data)
-                .then(response => {
+                .then((response) => {
                     self.submitLoading = false;
                     self.$router.back();
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.submitLoading = false;
                 });
         },
         isRowEditable(value) {
-            return goodsSizes.find(obj => obj.name === value);
+            return goodsSizes.find((obj) => obj.name === value);
         },
         isCurrencyRow(value) {
             const rows = ["unit_price", "cost"];
@@ -318,8 +318,8 @@ export default {
         async scanner() {
             let res = await this.$refs.scannerDialog.open(this.items);
             if (res) {
-                this.items.forEach(item => {
-                    goodsSizes.forEach(size => {
+                this.items.forEach((item) => {
+                    goodsSizes.forEach((size) => {
                         if (item[size.name]) {
                             if (item[size.name].barcode === res.barcode) {
                                 item[size.name].unit = res.unit;
@@ -328,8 +328,8 @@ export default {
                     });
                 });
             }
-        }
-    }
+        },
+    },
 };
 </script>
 

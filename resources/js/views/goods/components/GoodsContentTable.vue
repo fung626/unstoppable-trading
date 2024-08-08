@@ -58,7 +58,7 @@
                 disablePagination: disablePagination,
                 showFirstLastPage: true,
                 showCurrentPage: true,
-                itemsPerPageOptions: [10, 20, 50, 100]
+                itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
             <template v-slot:[`item.key`]="{ item }">
@@ -133,10 +133,10 @@ import { v4 as uuidv4 } from "uuid";
 export default {
     name: "GoodsContentTable",
     props: {
-        goodsId: null
+        goodsId: null,
     },
     components: {
-        Dialog
+        Dialog,
     },
     data() {
         return {
@@ -152,23 +152,27 @@ export default {
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { text: this.$t("contentkey"), value: "key" },
-                { text: this.$t("contentvalue"), value: "value" },
-                { text: this.$t("updatedat"), value: "updated_at" },
-                { text: this.$t("actions"), value: "actions", sortable: false }
-            ]
+                { title: this.$t("contentkey"), value: "key" },
+                { title: this.$t("contentvalue"), value: "value" },
+                { title: this.$t("updatedat"), value: "updated_at" },
+                {
+                    title: this.$t("actions"),
+                    value: "actions",
+                    sortable: false,
+                },
+            ],
         };
     },
     watch: {
         options: {
             handler() {
                 this.fetch();
-            }
+            },
         },
         loading() {
             this.disableItemsPerPage = this.loading;
             this.disablePagination = this.loading;
-        }
+        },
     },
     methods: {
         fetch(reset = false) {
@@ -181,11 +185,11 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                search: self.searchText
+                search: self.searchText,
             };
             this.$store
                 .dispatch("goods/content/get", data)
-                .then(response => {
+                .then((response) => {
                     let res = response.data;
                     self.items = res.data;
                     self.serverItemsLength = res.total;
@@ -193,7 +197,7 @@ export default {
                     self.page = res.current_page;
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -203,7 +207,7 @@ export default {
         add() {
             this.items = [
                 ...this.items,
-                { ...goodsDefaults.content.remote, id: uuidv4() }
+                { ...goodsDefaults.content.remote, id: uuidv4() },
             ];
             this.serverItemsLength += 1;
         },
@@ -217,14 +221,14 @@ export default {
                 sort_by: sortBy,
                 sort_desc: sortDesc,
                 search: self.searchText,
-                extension: "pdf"
+                extension: "pdf",
             };
             this.$store
                 .dispatch("goods/content/export", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -247,16 +251,16 @@ export default {
                         }
                         self.loading = true;
                         let data = { ...item, goods_id: self.goodsId };
-                        let index = self.items.findIndex(obj => {
+                        let index = self.items.findIndex((obj) => {
                             return obj.id === item.id;
                         });
                         this.$store
                             .dispatch("goods/content/update", data)
-                            .then(response => {
+                            .then((response) => {
                                 self.loading = false;
                                 self.items[index] = response.data.data;
                             })
-                            .catch(error => {
+                            .catch((error) => {
                                 self.loading = false;
                             });
                     }
@@ -273,7 +277,7 @@ export default {
                             return;
                         }
                         if (item.updated === false) {
-                            let tempItems = self.items.filter(obj => {
+                            let tempItems = self.items.filter((obj) => {
                                 if (obj.id) {
                                     return obj.id !== item.id;
                                 }
@@ -284,13 +288,13 @@ export default {
                             self.loading = true;
                             this.$store
                                 .dispatch("goods/content/delete", {
-                                    id: item.id
+                                    id: item.id,
                                 })
-                                .then(response => {
+                                .then((response) => {
                                     self.loading = false;
                                     self.fetch();
                                 })
-                                .catch(error => {
+                                .catch((error) => {
                                     self.loading = false;
                                 });
                         }
@@ -298,7 +302,7 @@ export default {
                     break;
             }
             // console.log(id, key);
-        }
-    }
+        },
+    },
 };
 </script>

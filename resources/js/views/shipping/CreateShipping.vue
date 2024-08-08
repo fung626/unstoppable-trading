@@ -186,7 +186,7 @@
                                         <div
                                             v-if="
                                                 isRowEditable(header.value) &&
-                                                    item[header.value]
+                                                item[header.value]
                                             "
                                         >
                                             <v-edit-dialog
@@ -325,7 +325,7 @@ import {
     countryCodes,
     currencies,
     goodsSizes,
-    shippingStatus
+    shippingStatus,
 } from "@/constants";
 import { mapState } from "vuex";
 
@@ -333,7 +333,7 @@ export default {
     name: "CreateShipping",
     components: {
         Dialog,
-        ScannerDialog
+        ScannerDialog,
     },
     computed: {
         ...mapState(["goods/shipping"]),
@@ -346,13 +346,13 @@ export default {
                 return JSON.parse(JSON.stringify(data));
             }
             return [];
-        }
+        },
     },
     data() {
         return {
             fetchLoading: {
                 form: false,
-                table: false
+                table: false,
             },
             loading: false,
             totalunit: 0,
@@ -371,18 +371,18 @@ export default {
             autocomplete: {
                 client: {
                     items: [],
-                    loading: false
-                }
+                    loading: false,
+                },
             },
             table: {
                 item: {
                     search: "",
                     headers: [
                         { text: "#ID", value: "id" },
-                        { text: this.$t("name"), value: "name" },
-                        { text: this.$t("type"), value: "type" },
-                        { text: this.$t("cup"), value: "cup" },
-                        { text: this.$t("color"), value: "color" },
+                        { title: this.$t("name"), value: "name" },
+                        { title: this.$t("type"), value: "type" },
+                        { title: this.$t("cup"), value: "cup" },
+                        { title: this.$t("color"), value: "color" },
                         { text: "32-S", value: "32-S" },
                         { text: "34-M", value: "34-M" },
                         { text: "36-L", value: "36-L" },
@@ -392,24 +392,24 @@ export default {
                         { text: "44-Free", value: "44-Free" },
                         {
                             text: `${this.$t("unitprice")}($)`,
-                            value: "unit_price"
+                            value: "unit_price",
                         },
-                        { text: this.$t("totalunit"), value: "total_unit" },
+                        { title: this.$t("totalunit"), value: "total_unit" },
                         {
                             text: `${this.$t("cost")}($)`,
-                            value: "cost"
-                        }
-                    ]
-                }
+                            value: "cost",
+                        },
+                    ],
+                },
             },
             errors: {},
             countryCodes: countryCodes,
             currencies: currencies,
-            shippingStatus: shippingStatus
+            shippingStatus: shippingStatus,
         };
     },
     watch: {
-        "autocomplete.client.search": function(val) {
+        "autocomplete.client.search": function (val) {
             let self = this;
             let cli = self.autocomplete.client;
             if (cli.items.length > 0 || cli.loading) {
@@ -418,11 +418,11 @@ export default {
             self.autocomplete.client.loading = true;
             this.$store
                 .dispatch("client/get", {})
-                .then(response => {
+                .then((response) => {
                     self.autocomplete.client.items = response.data;
                     self.autocomplete.client.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.autocomplete.client.loading = false;
                 });
         },
@@ -439,7 +439,7 @@ export default {
             this.email = this.client.email;
             this.address = this.client.address;
             this.currency = this.client.currency;
-        }
+        },
     },
     mounted() {
         this.fetch();
@@ -452,15 +452,15 @@ export default {
             }
             self.fetchLoading.table = true;
             let data = {
-                items: this.shippingData
+                items: this.shippingData,
             };
             this.$store
                 .dispatch("goods/shipping/format", data)
-                .then(response => {
+                .then((response) => {
                     self.updateTable();
                     self.fetchLoading.table = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.updateTable();
                     self.fetchLoading.table = false;
                 });
@@ -482,22 +482,22 @@ export default {
                 client_address: self.address,
                 status: self.status,
                 currency: self.currency,
-                items: self.items
+                items: self.items,
             };
             this.$store
                 .dispatch("goods/shipping/create", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                     self.$store.dispatch("goods/shipping/clear");
                     self.$router.back();
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                     self.errors = error.response.data?.data;
                 });
         },
         isRowEditable(value) {
-            return goodsSizes.find(obj => obj.name === value);
+            return goodsSizes.find((obj) => obj.name === value);
         },
         isCurrencyRow(value) {
             const rows = ["unit_price", "cost"];
@@ -531,8 +531,8 @@ export default {
         },
         async scanner() {
             await this.$refs.scannerDialog.open("Shipping");
-        }
-    }
+        },
+    },
 };
 </script>
 

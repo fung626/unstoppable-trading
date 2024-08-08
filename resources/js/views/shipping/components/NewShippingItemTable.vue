@@ -47,7 +47,7 @@
                 disablePagination: disablePagination,
                 showFirstLastPage: true,
                 showCurrentPage: true,
-                itemsPerPageOptions: [10, 20, 50, 100]
+                itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
             <template v-slot:[`item.32-S`]="{ item }">
@@ -67,9 +67,7 @@
                         </span>
                     </v-tooltip>
                 </div>
-                <div v-else>
-                    －
-                </div>
+                <div v-else>－</div>
             </template>
             <template v-slot:[`item.34-M`]="{ item }">
                 <div v-if="item['34-M']">
@@ -88,9 +86,7 @@
                         </span>
                     </v-tooltip>
                 </div>
-                <div v-else>
-                    －
-                </div>
+                <div v-else>－</div>
             </template>
             <template v-slot:[`item.36-L`]="{ item }">
                 <div v-if="item['36-L']">
@@ -109,9 +105,7 @@
                         </span>
                     </v-tooltip>
                 </div>
-                <div v-else>
-                    －
-                </div>
+                <div v-else>－</div>
             </template>
             <template v-slot:[`item.38-XL`]="{ item }">
                 <div v-if="item['38-XL']">
@@ -130,9 +124,7 @@
                         </span>
                     </v-tooltip>
                 </div>
-                <div v-else>
-                    －
-                </div>
+                <div v-else>－</div>
             </template>
             <template v-slot:[`item.40-Q`]="{ item }">
                 <div v-if="item['40-Q']">
@@ -151,9 +143,7 @@
                         </span>
                     </v-tooltip>
                 </div>
-                <div v-else>
-                    －
-                </div>
+                <div v-else>－</div>
             </template>
             <template v-slot:[`item.42-EQ`]="{ item }">
                 <div v-if="item['42-EQ']">
@@ -172,9 +162,7 @@
                         </span>
                     </v-tooltip>
                 </div>
-                <div v-else>
-                    －
-                </div>
+                <div v-else>－</div>
             </template>
             <template v-slot:[`item.44-Free`]="{ item }">
                 <div v-if="item['44-Free']">
@@ -193,9 +181,7 @@
                         </span>
                     </v-tooltip>
                 </div>
-                <div v-else>
-                    －
-                </div>
+                <div v-else>－</div>
             </template>
             <template v-slot:[`item.actions`]="{ item }">
                 <CButtonGroup>
@@ -222,10 +208,10 @@ import NewShippingItemDialog from "./NewShippingItemDialog";
 export default {
     name: "NewShippingItemTable",
     props: {
-        goodsShipId: null
+        goodsShipId: null,
     },
     components: {
-        NewShippingItemDialog
+        NewShippingItemDialog,
     },
     computed: {
         ...mapState(["goods/shipping/available/shipping/item"]),
@@ -242,7 +228,7 @@ export default {
         },
         items() {
             return this["goods/shipping/available/shipping/item"].data?.data;
-        }
+        },
     },
     data() {
         return {
@@ -254,10 +240,10 @@ export default {
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { text: this.$t("name"), value: "goods.name" },
-                { text: this.$t("type"), value: "goods.type" },
-                { text: this.$t("cup"), value: "cup" },
-                { text: this.$t("color"), value: "color" },
+                { title: this.$t("name"), value: "goods.name" },
+                { title: this.$t("type"), value: "goods.type" },
+                { title: this.$t("cup"), value: "cup" },
+                { title: this.$t("color"), value: "color" },
                 { text: "32-S", value: "32-S", sortable: false },
                 { text: "34-M", value: "34-M", sortable: false },
                 { text: "36-L", value: "36-L", sortable: false },
@@ -266,24 +252,28 @@ export default {
                 { text: "42-EQ", value: "42-EQ", sortable: false },
                 { text: "44-Free", value: "44-Free", sortable: false },
                 {
-                    text: this.$t("totalunit"),
+                    title: this.$t("totalunit"),
                     value: "total_unit",
-                    sortable: false
+                    sortable: false,
                 },
-                { text: this.$t("actions"), value: "actions", sortable: false }
-            ]
+                {
+                    title: this.$t("actions"),
+                    value: "actions",
+                    sortable: false,
+                },
+            ],
         };
     },
     watch: {
         options: {
             handler() {
                 this.fetch();
-            }
+            },
         },
         loading() {
             this.disableItemsPerPage = this.loading;
             this.disablePagination = this.loading;
-        }
+        },
     },
     mounted() {
         this.fetch();
@@ -302,14 +292,14 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                search: self.searchText
+                search: self.searchText,
             };
             this.$store
                 .dispatch("goods/shipping/available/shipping/item/get", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -336,7 +326,7 @@ export default {
                     break;
             }
             // console.log(id, key);
-        }
-    }
+        },
+    },
 };
 </script>

@@ -333,84 +333,84 @@ export default {
             autocomplete: {
                 supplier: {
                     items: [],
-                    loading: false
+                    loading: false,
                 },
                 category: {
                     items: [],
-                    loading: false
+                    loading: false,
                 },
                 warehouse: {
                     items: [],
-                    loading: false
-                }
+                    loading: false,
+                },
             },
             table: {
                 item: {
                     items: [],
                     headers: [
                         {
-                            text: this.$t("cup"),
+                            title: this.$t("cup"),
                             value: "cup",
                             sortable: false,
-                            width: "20%"
+                            width: "20%",
                         },
                         {
-                            text: this.$t("color"),
+                            title: this.$t("color"),
                             value: "color",
                             sortable: false,
-                            width: "20%"
+                            width: "20%",
                         },
                         {
-                            text: this.$t("size"),
+                            title: this.$t("size"),
                             value: "size",
                             sortable: false,
-                            width: "20%"
+                            width: "20%",
                         },
                         {
-                            text: this.$t("barcode"),
+                            title: this.$t("barcode"),
                             value: "barcode",
                             sortable: false,
-                            width: "20%"
+                            width: "20%",
                         },
                         {
-                            text: this.$t("actions"),
+                            title: this.$t("actions"),
                             value: "actions",
                             sortable: false,
-                            width: "20%"
-                        }
-                    ]
+                            width: "20%",
+                        },
+                    ],
                 },
                 content: {
                     items: [],
                     headers: [
                         {
-                            text: this.$t("contentkey"),
+                            title: this.$t("contentkey"),
                             value: "key",
-                            sortable: false
+                            sortable: false,
                         },
                         {
-                            text: this.$t("contentvalue"),
+                            title: this.$t("contentvalue"),
                             value: "value",
-                            sortable: false
+                            sortable: false,
                         },
                         {
-                            text: this.$t("actions"),
+                            title: this.$t("actions"),
                             value: "actions",
-                            sortable: false
-                        }
-                    ]
-                }
+                            sortable: false,
+                        },
+                    ],
+                },
             },
             errors: {},
             loading: false,
             goodsCups: goodsCups,
             goodsTypes: goodsTypes,
             goodsColors: goodsColors,
-            goodsSizes: goodsSizes
+            goodsSizes: goodsSizes,
         };
     },
     watch: {
-        "autocomplete.supplier.search": function(val) {
+        "autocomplete.supplier.search": function (val) {
             let self = this;
             let sup = self.autocomplete.supplier;
             if (sup.items.length > 0 || sup.loading) {
@@ -419,15 +419,15 @@ export default {
             self.autocomplete.supplier.loading = true;
             this.$store
                 .dispatch("goods/supplier/get", {})
-                .then(response => {
+                .then((response) => {
                     self.autocomplete.supplier.items = response.data;
                     self.autocomplete.supplier.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.autocomplete.supplier.loading = false;
                 });
         },
-        "autocomplete.category.search": function(val) {
+        "autocomplete.category.search": function (val) {
             let self = this;
             let cat = self.autocomplete.category;
             if (cat.items.length > 0 || cat.loading) {
@@ -436,15 +436,15 @@ export default {
             self.autocomplete.category.loading = true;
             this.$store
                 .dispatch("goods/category/get", {})
-                .then(response => {
+                .then((response) => {
                     self.autocomplete.category.items = response.data;
                     self.autocomplete.category.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.autocomplete.category.loading = false;
                 });
         },
-        "autocomplete.warehouse.search": function(val) {
+        "autocomplete.warehouse.search": function (val) {
             let self = this;
             let warehouse = self.autocomplete.warehouse;
             if (warehouse.items.length > 0 || warehouse.loading) {
@@ -453,14 +453,14 @@ export default {
             self.autocomplete.warehouse.loading = true;
             this.$store
                 .dispatch("goods/warehouse/get", {})
-                .then(response => {
+                .then((response) => {
                     self.autocomplete.warehouse.items = response.data;
                     self.autocomplete.warehouse.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.autocomplete.warehouse.loading = false;
                 });
-        }
+        },
     },
     methods: {
         submit() {
@@ -481,16 +481,16 @@ export default {
                 warehouses: self.warehouses,
                 description: self.description,
                 items: self.table.item.items,
-                contents: self.table.content.items
+                contents: self.table.content.items,
             };
             this.$store
                 .dispatch("goods/create", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                     self.errors = {};
                     self.$router.back();
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.errors = error.response.data?.data;
                     self.loading = false;
                 });
@@ -511,10 +511,10 @@ export default {
                                 {
                                     key: uuidv4(),
                                     title: this.$t("button.delete"),
-                                    type: "item"
-                                }
-                            ]
-                        }
+                                    type: "item",
+                                },
+                            ],
+                        },
                     ];
                     break;
                 case "content":
@@ -528,10 +528,10 @@ export default {
                                 {
                                     key: uuidv4(),
                                     title: this.$t("button.delete"),
-                                    type: "content"
-                                }
-                            ]
-                        }
+                                    type: "content",
+                                },
+                            ],
+                        },
                     ];
                     break;
             }
@@ -541,7 +541,7 @@ export default {
             switch (action.type) {
                 case "item":
                     {
-                        const index = self.table.item.items.findIndex(obj => {
+                        const index = self.table.item.items.findIndex((obj) => {
                             return obj.id === item.id;
                         });
                         self.table.item.items.splice(index, 1);
@@ -550,7 +550,7 @@ export default {
                 case "content":
                     {
                         const index = self.table.content.items.findIndex(
-                            obj => {
+                            (obj) => {
                                 return obj.id === item.id;
                             }
                         );
@@ -560,8 +560,8 @@ export default {
             }
         },
         save() {},
-        cancel() {}
-    }
+        cancel() {},
+    },
 };
 </script>
 

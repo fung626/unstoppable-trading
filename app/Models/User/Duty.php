@@ -11,6 +11,8 @@ class Duty extends Model
     //
     protected $table = 'user_duties';
 
+    // public $incrementing = false;
+
     /* The attributes that are mass assignable.
      *
      * @var array

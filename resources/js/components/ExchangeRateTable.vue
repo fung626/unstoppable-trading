@@ -45,27 +45,31 @@ export default {
         ...mapState(["exchangerate"]),
         items() {
             return this.exchangerate.data;
-        }
+        },
     },
     data() {
         return {
             loading: false,
             options: {},
             headers: [
-                { text: this.$t("Base"), value: "base" },
-                { text: this.$t("Symbol"), value: "symbol" },
-                { text: this.$t("rate"), value: "rate" },
-                { text: this.$t("updatedat"), value: "updated_at" },
-                { text: this.$t("actions"), value: "actions", sortable: false }
-            ]
+                { title: this.$t("Base"), value: "base" },
+                { title: this.$t("Symbol"), value: "symbol" },
+                { title: this.$t("rate"), value: "rate" },
+                { title: this.$t("updatedat"), value: "updated_at" },
+                {
+                    title: this.$t("actions"),
+                    value: "actions",
+                    sortable: false,
+                },
+            ],
         };
     },
     watch: {
         options: {
             handler() {
                 this.fetch();
-            }
-        }
+            },
+        },
     },
     methods: {
         fetch() {
@@ -76,14 +80,14 @@ export default {
             self.loading = true;
             let data = {
                 base: self.base,
-                symbol: self.symbol
+                symbol: self.symbol,
             };
             this.$store
                 .dispatch("exchangerate/get", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -96,12 +100,12 @@ export default {
                 case "RouterPush":
                     this.$router.push({
                         name: "ExchangeRateDetails",
-                        params: { base: item.base, symbol: item.symbol }
+                        params: { base: item.base, symbol: item.symbol },
                     });
                     break;
             }
             // console.log(id, key);
-        }
-    }
+        },
+    },
 };
 </script>

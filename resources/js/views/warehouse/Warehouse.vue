@@ -97,17 +97,21 @@ export default {
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { text: this.$t("sector"), value: "sector" },
-                { text: this.$t("shelf"), value: "shelf" },
-                { text: this.$t("segment"), value: "segment" },
+                { title: this.$t("sector"), value: "sector" },
+                { title: this.$t("shelf"), value: "shelf" },
+                { title: this.$t("segment"), value: "segment" },
                 {
-                    text: this.$t("stockunit"),
+                    title: this.$t("stockunit"),
                     value: "stock_unit",
                     sortable: false,
                 },
-                { text: this.$t("description"), value: "description" },
-                { text: this.$t("updatedat"), value: "updated_at" },
-                { text: this.$t("actions"), value: "actions", sortable: false },
+                { title: this.$t("description"), value: "description" },
+                { title: this.$t("updatedat"), value: "updated_at" },
+                {
+                    title: this.$t("actions"),
+                    value: "actions",
+                    sortable: false,
+                },
             ],
         };
     },

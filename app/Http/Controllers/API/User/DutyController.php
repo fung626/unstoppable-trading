@@ -23,24 +23,20 @@ class DutyController extends Controller
                 $keyword = trim(request('search'));
                 return $query->where(function ($query) use ($keyword) {
                     $query->where('user_id', 'like', '%' . $keyword . '%')
-                        ->orWhere('users.name', 'like', '%' . $keyword . '%')
-                        ->orWhere('users.email', 'like', '%' . $keyword . '%')
-                        ->orWhere('users.phone', 'like', '%' . $keyword . '%');
+                        ->orWhere('user.name', 'like', '%' . $keyword . '%')
+                        ->orWhere('user.email', 'like', '%' . $keyword . '%')
+                        ->orWhere('user.phone', 'like', '%' . $keyword . '%');
                 });
             })
             ->select(['user_duties.*'])
-            ->join('users', 'users.id', '=', 'user_duties.user_id');
+            ->join('users as user', 'user.id', '=', 'user_duties.user_id');
 
-        if ($request->filled(['sort_by', 'sort_desc'])) {
+        if ($request->filled(['sort_by'])) {
             $sortBys = request('sort_by');
-            $sortDescs = request('sort_desc');
-            $index = 0;
             foreach ($sortBys as $sortBy) {
-                $sortDesc = $sortDescs[$index];
-                if ($sortBy !== "actions") {
-                    $query->orderBy($sortBy, $sortDesc ? 'DESC' : 'ASC');
+                if ($sortBy["key"] && $sortBy["order"]) {
+                    $query->orderBy($sortBy["key"], $sortBy["order"]);
                 }
-                $index++;
             }
         }
 

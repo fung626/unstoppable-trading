@@ -97,7 +97,7 @@ export default {
         },
         footerItems() {
             return this["goods/purchase/invoice"].detailsData.footer_items;
-        }
+        },
     },
     data() {
         return {
@@ -111,8 +111,8 @@ export default {
                         { text: "X3", value: "X3" },
                         { text: "X4", value: "X4" },
                         { text: "X5", value: "X5" },
-                        { text: "X6", value: "X6" }
-                    ]
+                        { text: "X6", value: "X6" },
+                    ],
                 },
                 footer: {
                     headers: [
@@ -121,24 +121,24 @@ export default {
                             value: "X1",
                             align: "right",
                             width: "80%",
-                            sortable: false
+                            sortable: false,
                         },
                         {
                             text: "",
                             value: "X2",
                             align: "left",
                             width: "20%",
-                            sortable: false
-                        }
-                    ]
+                            sortable: false,
+                        },
+                    ],
                 },
                 item: {
                     headers: [
                         { text: "#ID", value: "id" },
-                        { text: this.$t("type"), value: "type" },
-                        { text: this.$t("goodsname"), value: "name" },
-                        { text: this.$t("cup"), value: "cup" },
-                        { text: this.$t("color"), value: "color" },
+                        { title: this.$t("type"), value: "type" },
+                        { title: this.$t("goodsname"), value: "name" },
+                        { title: this.$t("cup"), value: "cup" },
+                        { title: this.$t("color"), value: "color" },
                         { text: "32-S", value: "32-S.unit" },
                         { text: "34-M", value: "34-M.unit" },
                         { text: "36-L", value: "36-L.unit" },
@@ -148,19 +148,19 @@ export default {
                         { text: "44-Free", value: "44-Free.unit" },
                         {
                             text: `${this.$t("unitprice")}($)`,
-                            value: "formatted_unit_price"
+                            value: "formatted_unit_price",
                         },
                         {
                             text: `${this.$t("totalunit")}`,
-                            value: "total_unit"
+                            value: "total_unit",
                         },
                         {
                             text: `${this.$t("cost")}($)`,
-                            value: "formatted_cost"
-                        }
-                    ]
-                }
-            }
+                            value: "formatted_cost",
+                        },
+                    ],
+                },
+            },
         };
     },
     mounted() {
@@ -174,14 +174,14 @@ export default {
             }
             self.loading = true;
             let data = {
-                id: self.$route.params.id
+                id: self.$route.params.id,
             };
             this.$store
                 .dispatch("goods/purchase/invoice/details", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -193,21 +193,21 @@ export default {
             self.loading = true;
             let data = {
                 id: self.$route.params.id,
-                extension: "pdf"
+                extension: "pdf",
             };
             this.$store
                 .dispatch("goods/purchase/invoice/export", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
         reload() {
             this.fetch();
-        }
-    }
+        },
+    },
 };
 </script>
 

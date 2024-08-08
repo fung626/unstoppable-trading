@@ -2,21 +2,16 @@
     <div>
         <Dialog ref="dialog" />
         <DutyCalendar />
-        <CRow class="p-2">
-            <CCol md="9" sm="9">
-                <CInput
-                    size="sm"
-                    v-model="searchText"
-                    v-on:keyup.enter="search"
-                >
-                    <template #prepend>
-                        <CButton color="primary" size="sm" v-on:click="search">
-                            <CIcon name="cil-magnifying-glass" size="sm" />
-                        </CButton>
-                    </template>
-                </CInput>
+        <CRow class="p-2 mb-2 mt-4">
+            <CCol :md="10" :sm="10">
+                <CInputGroup class="mb-3">
+                    <CButton color="primary" size="sm">
+                        <CIcon name="cil-magnifying-glass" size="sm" />
+                    </CButton>
+                    <CFormInput size="sm" v-model="search" />
+                </CInputGroup>
             </CCol>
-            <CCol :md="3" :sm="3" class="text-right">
+            <CCol :md="2" :sm="2" class="text-right">
                 <CButtonGroup role="group">
                     <CButton color="primary" size="sm" v-on:click="add">
                         <CIcon name="cil-plus" size="sm" />
@@ -38,6 +33,7 @@
             :search="search"
             :loading="loading"
             @update:options="fetch"
+            :mobile="mobile"
             :footer-props="{
                 disableItemsPerPage: disableItemsPerPage,
                 disablePagination: disablePagination,
@@ -47,8 +43,14 @@
             }"
         >
             <template v-slot:[`item.color`]="{ item }">
-                <div class="d-flex align-items-center justify-content-center">
-                    {{ $t(item.color) }}
+                <div
+                    class="d-flex align-items-center"
+                    :class="{
+                        'justify-content-start': !mobile,
+                        'justify-content-end': mobile,
+                    }"
+                >
+                    {{ item.color }}
                     <div
                         class="mx-2"
                         :style="{
@@ -59,6 +61,9 @@
                         }"
                     ></div>
                 </div>
+            </template>
+            <template v-slot:loading>
+                <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
             </template>
             <template v-slot:[`item.created_at`]="{ item }">
                 {{ this.$formatDate(item.created_at) }}
@@ -95,31 +100,39 @@ export default {
     },
     data() {
         return {
-            searchText: null,
-            page: 1,
-            serverItemsLength: 0,
-            pageCount: 0,
-            items: [],
+            search: null,
             loading: false,
+            mobile: window.innerWidth < 769,
+            items: [],
+            page: 1,
+            pageCount: 0,
+            serverItemsLength: 0,
             options: {
                 page: 1,
                 itemsPerPage: 5,
                 sortBy: null,
+                sortDesc: false,
             },
-            sortBy: "updated_at",
-            sortDesc: false,
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { text: this.$t("name"), value: "user.name" },
-                { text: this.$t("start"), value: "start" },
-                { text: this.$t("end"), value: "end" },
+                { title: this.$t("name"), value: "user.name", sortable: true },
+                { title: this.$t("start"), value: "start", sortable: true },
+                { title: this.$t("end"), value: "end", sortable: true },
                 {
-                    text: `${this.$t("calendar.title")} ${this.$t("color")}`,
+                    title: `${this.$t("calendar.title")} ${this.$t("color")}`,
                     value: "color",
                 },
-                { text: this.$t("updatedat"), value: "updated_at" },
-                { text: this.$t("actions"), value: "actions", sortable: false },
+                {
+                    title: this.$t("updatedat"),
+                    value: "updated_at",
+                    sortable: true,
+                },
+                {
+                    title: this.$t("actions"),
+                    value: "actions",
+                    sortable: false,
+                },
             ],
             snackbar: {
                 show: false,
@@ -139,13 +152,18 @@ export default {
         },
     },
     mounted() {
-        // this.fetch();
+        window.addEventListener("resize", this.onResize);
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.onResize);
     },
     methods: {
-        fetch({ page, itemsPerPage, sortBy }) {
+        onResize() {
+            this.mobile = window.innerWidth < 769;
+        },
+        fetch({ page, itemsPerPage, sortBy, search }) {
             let self = this;
             self.loading = true;
-            // const { sortDesc } = self.options;
             self.options.page = page;
             self.options.itemsPerPage = itemsPerPage;
             self.options.sortBy = sortBy;
@@ -154,7 +172,7 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: null,
-                search: self.searchText,
+                search: search,
             };
             this.$store
                 .dispatch("users/duty/get", data)
@@ -169,9 +187,6 @@ export default {
                 .catch((error) => {
                     self.loading = false;
                 });
-        },
-        search() {
-            this.fetch(true);
         },
         add() {
             this.$router.push({ path: "/duty/create" });
@@ -188,7 +203,7 @@ export default {
                 extension: "pdf",
             };
             this.$store
-                .dispatch("user/duty/export", data)
+                .dispatch("users/duty/export", data)
                 .then((response) => {
                     self.loading = false;
                 })
@@ -197,21 +212,19 @@ export default {
                 });
         },
         reload() {
-            this.fetch();
+            this.fetch({ ...this.options });
         },
         async click(item, action) {
             let type = action.type;
             switch (type) {
                 case "RouterPush":
                     this.$router.push({
-                        name: "DutyDetails",
-                        params: { id: item.id },
+                        path: `duty/details/${item.id}`,
                     });
                     break;
                 case "Create":
                     this.$router.push({
-                        name: "CreateDuty",
-                        params: { userId: item.user.id },
+                        path: `duty/create/${item.user.id}`,
                     });
                     break;
                 case "Delete":

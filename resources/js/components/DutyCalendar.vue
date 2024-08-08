@@ -1,21 +1,3 @@
-<script setup>
-import { onMounted, ref } from "vue";
-
-const calendar = ref(null);
-
-onMounted(() => {
-    // calendar.value.$el
-    console.log(calendar.value.$el);
-});
-
-function prev() {
-    calendar.value.prev();
-}
-function next() {
-    calendar.value.next();
-}
-</script>
-
 <template>
     <CCard v-if="allowed">
         <v-progress-linear
@@ -32,47 +14,7 @@ function next() {
                 </CCol>
             </CRow>
             <CRow class="p-2">
-                <CCol class="d-block d-md-none" sm="12">
-                    <div class="d-flex justify-content-end px-2">
-                        <CButtonGroup>
-                            <CButton
-                                v-for="t in types"
-                                :key="t.value"
-                                :color="t.value === type ? 'primary' : 'light'"
-                                :disabled="loading"
-                                @click="onTypeClick(t)"
-                            >
-                                {{ t.name }}
-                            </CButton>
-                        </CButtonGroup>
-                    </div>
-                </CCol>
-                <CCol class="d-block d-md-none" sm="12">
-                    <div class="d-flex justify-content-between">
-                        <CButton
-                            @click="$refs.calendar.prev()"
-                            color="light"
-                            :disabled="loading"
-                        >
-                            <v-icon>mdi-chevron-left</v-icon>
-                        </CButton>
-                        <CButton
-                            @click="next"
-                            color="light"
-                            :disabled="loading"
-                        >
-                            <v-icon>mdi-chevron-right</v-icon>
-                        </CButton>
-                    </div>
-                </CCol>
-            </CRow>
-            <CRow class="p-2">
-                <CCol class="d-none d-md-block" sm="6">
-                    <CButton @click="prev" color="light" :disabled="loading">
-                        <v-icon>mdi-chevron-left</v-icon>
-                    </CButton>
-                </CCol>
-                <CCol class="d-none d-md-block text-right" sm="6">
+                <CCol class="text-right" :md="12">
                     <CButtonGroup>
                         <CButton
                             v-for="t in types"
@@ -83,13 +25,6 @@ function next() {
                         >
                             {{ t.name }}
                         </CButton>
-                        <CButton
-                            @click="$refs.calendar.next()"
-                            color="light"
-                            :disabled="loading"
-                        >
-                            <v-icon>mdi-chevron-right</v-icon>
-                        </CButton>
                     </CButtonGroup>
                 </CCol>
             </CRow>
@@ -97,16 +32,16 @@ function next() {
                 ref="calendar"
                 v-model="focus"
                 :weekdays="weekday"
-                type="week"
+                :view-mode="type"
                 :events="events"
                 :event-overlap-mode="mode"
                 :event-overlap-threshold="30"
                 @click:event="showEvent"
-                @change="fetch"
+                @update:pages="fetch"
             >
-                <template v-slot:event="{ event }">
+                <!-- <template v-slot:event="{ event }">
                     {{ event.name }}
-                </template>
+                </template> -->
             </v-calendar>
         </CCardBody>
     </CCard>
@@ -116,6 +51,7 @@ function next() {
 //
 import { calendarTypes } from "@/constants";
 import moment from "moment";
+import { useDate } from "vuetify";
 import { mapState } from "vuex";
 
 export default {
@@ -123,26 +59,31 @@ export default {
     props: {
         userId: null,
     },
-    components: {},
+    // setup() {
+    //    const calendar = ref(null);
+    //    return { calendar };
+    // },
     computed: {
-        ...mapState(["user/duty/calendar"]),
+        ...mapState(["users/duty/calendar"]),
         events() {
             let temp = [];
-            if (this["user/duty/calendar"]) {
-                let data = this["user/duty/calendar"].data;
+            let events = [];
+            if (this["users/duty/calendar"]) {
+                let data = this["users/duty/calendar"].data;
                 for (const item of data) {
                     let format = "H:mm";
                     let name = item["user"] ? item["user"]["name"] : "";
                     let start = new Date(item["start"]);
                     let end = new Date(item["end"]);
                     temp.push({
-                        name: ` ${moment(start).format(format)} - ${moment(
+                        title: ` ${moment(start).format(format)} - ${moment(
                             end
                         ).format(format)} ${name} `,
                         start: start,
                         end: end,
                         color: item.color ? item.color : "cyan",
-                        timed: true,
+                        allDay: false,
+                        // timed: true,
                     });
                 }
             }
@@ -153,7 +94,7 @@ export default {
         return {
             loading: false,
             focus: [new Date()],
-            type: "week",
+            type: "month",
             types: calendarTypes,
             mode: "stack",
             modes: ["stack", "column"],
@@ -170,6 +111,11 @@ export default {
     },
     mounted() {
         // this.fetch();
+        const adapter = useDate();
+        this.fetch({
+            start: adapter.startOfDay(adapter.startOfMonth(new Date())),
+            end: adapter.endOfDay(adapter.endOfMonth(new Date())),
+        });
     },
     methods: {
         fetch({ start, end }) {
@@ -197,7 +143,6 @@ export default {
         },
         onTypeClick(type) {
             this.type = type.value;
-            console.log(this.type);
             // this.$forceUpdate();
         },
         allowed() {

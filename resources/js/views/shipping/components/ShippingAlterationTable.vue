@@ -55,7 +55,7 @@
                 disablePagination: disablePagination,
                 showFirstLastPage: true,
                 showCurrentPage: true,
-                itemsPerPageOptions: [10, 20, 50, 100]
+                itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
             <template v-slot:[`item.type`]="{ item }">
@@ -82,7 +82,7 @@
 export default {
     name: "ShippingAlterationTable",
     props: {
-        goodsShipId: null
+        goodsShipId: null,
     },
     data() {
         return {
@@ -100,50 +100,50 @@ export default {
             headers: [
                 {
                     text: `${this.$t("name")}`,
-                    value: "item.goods.name"
+                    value: "item.goods.name",
                 },
                 {
                     text: `${this.$t("type")}`,
-                    value: "item.goods.type"
+                    value: "item.goods.type",
                 },
                 {
                     text: `${this.$t("size")}`,
-                    value: "item.size"
+                    value: "item.size",
                 },
                 {
                     text: `${this.$t("color")}`,
-                    value: "item.color"
+                    value: "item.color",
                 },
                 {
                     text: `${this.$t("barcode")}`,
-                    value: "item.barcode"
+                    value: "item.barcode",
                 },
                 {
                     text: `${this.$t("unit")}`,
-                    value: "unit"
+                    value: "unit",
                 },
                 {
                     text: `${this.$t("altered")}${this.$t("unit")}`,
-                    value: "altered_unit"
+                    value: "altered_unit",
                 },
                 {
                     text: `${this.$t("alteration")}${this.$t("type")}`,
-                    value: "type"
+                    value: "type",
                 },
-                { text: this.$t("updatedat"), value: "updated_at" }
-            ]
+                { title: this.$t("updatedat"), value: "updated_at" },
+            ],
         };
     },
     watch: {
         options: {
             handler() {
                 this.fetch();
-            }
+            },
         },
         loading() {
             this.disableItemsPerPage = this.loading;
             this.disablePagination = this.loading;
-        }
+        },
     },
     methods: {
         fetch(reset = false) {
@@ -156,11 +156,11 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                keyword: self.searchText
+                keyword: self.searchText,
             };
             this.$store
                 .dispatch("goods/shipping/alteration/get", data)
-                .then(response => {
+                .then((response) => {
                     let res = JSON.parse(JSON.stringify(response.data));
                     self.items = res.data;
                     self.serverItemsLength = res.total;
@@ -168,7 +168,7 @@ export default {
                     self.page = res.current_page;
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -185,21 +185,21 @@ export default {
                 sort_by: sortBy,
                 sort_desc: sortDesc,
                 search: self.searchText,
-                extension: "pdf"
+                extension: "pdf",
             };
             this.$store
                 .dispatch("goods/shipping/alteration/export", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
         reload() {
             this.fetch();
-        }
-    }
+        },
+    },
 };
 </script>
 

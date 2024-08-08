@@ -64,7 +64,7 @@
                 disablePagination: disablePagination,
                 showFirstLastPage: true,
                 showCurrentPage: true,
-                itemsPerPageOptions: [10, 20, 50, 100]
+                itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
             <template v-slot:[`item.cup`]="{ item }">
@@ -151,11 +151,11 @@ import ShippingDialog from "./ShippingDialog";
 export default {
     name: "GoodsItemTable",
     props: {
-        goodsId: null
+        goodsId: null,
     },
     components: {
         Dialog,
-        ShippingDialog
+        ShippingDialog,
     },
     data() {
         return {
@@ -171,33 +171,37 @@ export default {
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { text: this.$t("cup"), value: "cup" },
-                { text: this.$t("color"), value: "color" },
-                { text: this.$t("size"), value: "size" },
-                { text: this.$t("barcode"), value: "barcode" },
+                { title: this.$t("cup"), value: "cup" },
+                { title: this.$t("color"), value: "color" },
+                { title: this.$t("size"), value: "size" },
+                { title: this.$t("barcode"), value: "barcode" },
                 {
-                    text: this.$t("stockunit"),
+                    title: this.$t("stockunit"),
                     value: "stock_unit",
-                    sortable: false
+                    sortable: false,
                 },
-                { text: this.$t("updatedat"), value: "updated_at" },
-                { text: this.$t("actions"), value: "actions", sortable: false }
+                { title: this.$t("updatedat"), value: "updated_at" },
+                {
+                    title: this.$t("actions"),
+                    value: "actions",
+                    sortable: false,
+                },
             ],
             goodsCups: goodsCups,
             goodsColors: goodsColors,
-            goodsSizes: goodsSizes
+            goodsSizes: goodsSizes,
         };
     },
     watch: {
         options: {
             handler() {
                 this.fetch();
-            }
+            },
         },
         loading() {
             this.disableItemsPerPage = this.loading;
             this.disablePagination = this.loading;
-        }
+        },
     },
     methods: {
         fetch(reset = false) {
@@ -210,11 +214,11 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                search: self.searchText
+                search: self.searchText,
             };
             this.$store
                 .dispatch("goods/item/get", data)
-                .then(response => {
+                .then((response) => {
                     let res = JSON.parse(JSON.stringify(response.data));
                     self.headers = res.headers;
                     self.items = res.data;
@@ -223,7 +227,7 @@ export default {
                     self.page = res.current_page;
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -233,7 +237,7 @@ export default {
         add() {
             this.items = [
                 ...this.items,
-                { ...goodsDefaults.item.remote, id: uuidv4() }
+                { ...goodsDefaults.item.remote, id: uuidv4() },
             ];
             this.serverItemsLength += 1;
         },
@@ -247,14 +251,14 @@ export default {
                 sort_by: sortBy,
                 sort_desc: sortDesc,
                 search: self.searchText,
-                extension: "pdf"
+                extension: "pdf",
             };
             this.$store
                 .dispatch("goods/item/export", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -277,16 +281,16 @@ export default {
                         }
                         self.loading = true;
                         let data = { ...item, goods_id: self.goodsId };
-                        let index = self.items.findIndex(obj => {
+                        let index = self.items.findIndex((obj) => {
                             return obj.id === item.id;
                         });
                         this.$store
                             .dispatch("goods/item/update", data)
-                            .then(response => {
+                            .then((response) => {
                                 self.loading = false;
                                 self.fetch();
                             })
-                            .catch(error => {
+                            .catch((error) => {
                                 self.loading = false;
                             });
                     }
@@ -310,7 +314,7 @@ export default {
                             return;
                         }
                         if (item.updated === false) {
-                            let tempItems = self.items.filter(obj => {
+                            let tempItems = self.items.filter((obj) => {
                                 if (obj.id) {
                                     return obj.id !== item.id;
                                 }
@@ -321,11 +325,11 @@ export default {
                             self.loading = true;
                             this.$store
                                 .dispatch("goods/item/delete", { id: item.id })
-                                .then(response => {
+                                .then((response) => {
                                     self.loading = false;
                                     self.fetch();
                                 })
-                                .catch(error => {
+                                .catch((error) => {
                                     self.loading = false;
                                 });
                         }
@@ -333,8 +337,8 @@ export default {
                     break;
             }
             // console.log(id, key);
-        }
-    }
+        },
+    },
 };
 </script>
 

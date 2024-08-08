@@ -1,7 +1,7 @@
 <template>
     <div>
         <DutyCalendar v-if="formData.user.id" :userId="formData.user.id" />
-        <CCard class="p-4">
+        <CCard class="p-4 my-4">
             <v-progress-linear
                 :active="fetchLoading"
                 indeterminate
@@ -110,17 +110,17 @@ export default {
     name: "DutyDetails",
     components: {
         DutyCalendar,
-        TextFieldColorPicker
+        TextFieldColorPicker,
     },
     data() {
         return {
             formData: {
-                user: {}
+                user: {},
             },
             errors: {},
             dateMenu: false,
             fetchLoading: false,
-            updateLoading: false
+            updateLoading: false,
         };
     },
     mounted() {
@@ -134,16 +134,16 @@ export default {
             }
             self.fetchLoading = true;
             let data = {
-                id: self.$route.params.id
+                id: self.$route.params.id,
             };
             this.$store
-                .dispatch("user/duty/details", data)
-                .then(response => {
+                .dispatch("users/duty/details", data)
+                .then((response) => {
                     // console.log(response.data);
                     self.formData = JSON.parse(JSON.stringify(response.data));
                     self.fetchLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.fetchLoading = false;
                 });
         },
@@ -155,16 +155,16 @@ export default {
             self.updateLoading = true;
             this.$store
                 .dispatch("user/duty/update", self.formData)
-                .then(response => {
+                .then((response) => {
                     self.formData = JSON.parse(JSON.stringify(response.data));
                     self.updateLoading = false;
                     // console.log(response);
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.updateLoading = false;
                 });
-        }
-    }
+        },
+    },
 };
 </script>
 

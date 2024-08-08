@@ -229,7 +229,7 @@
                                     <div
                                         v-if="
                                             isRowEditable(header.value) &&
-                                                item[header.value]
+                                            item[header.value]
                                         "
                                     >
                                         <v-edit-dialog
@@ -342,7 +342,7 @@ import {
     countryCodes,
     currencies,
     goodsSizes,
-    purchaseStatus
+    purchaseStatus,
 } from "@/constants";
 import { isMobile } from "react-device-detect";
 import { mapState } from "vuex";
@@ -351,7 +351,7 @@ import CreatePurchaseDialog from "./components/CreatePurchaseDialog";
 export default {
     name: "CreatePurchase",
     components: {
-        CreatePurchaseDialog
+        CreatePurchaseDialog,
     },
     computed: {
         ...mapState(["goods/purchase"]),
@@ -361,7 +361,7 @@ export default {
                 return JSON.parse(JSON.stringify(items));
             }
             return [];
-        }
+        },
     },
     data() {
         return {
@@ -385,10 +385,10 @@ export default {
                     search: "",
                     headers: [
                         { text: "#ID", value: "id" },
-                        { text: this.$t("name"), value: "name" },
-                        { text: this.$t("type"), value: "type" },
-                        { text: this.$t("cup"), value: "cup" },
-                        { text: this.$t("color"), value: "color" },
+                        { title: this.$t("name"), value: "name" },
+                        { title: this.$t("type"), value: "type" },
+                        { title: this.$t("cup"), value: "cup" },
+                        { title: this.$t("color"), value: "color" },
                         { text: "32-S", value: "32-S" },
                         { text: "34-M", value: "34-M" },
                         { text: "36-L", value: "36-L" },
@@ -398,23 +398,23 @@ export default {
                         { text: "44-Free", value: "44-Free" },
                         {
                             text: `${this.$t("unitprice")}($)`,
-                            value: "unit_price"
+                            value: "unit_price",
                         },
-                        { text: this.$t("totalunit"), value: "total_unit" },
-                        { text: `${this.$t("cost")}($)`, value: "cost" }
-                    ]
-                }
+                        { title: this.$t("totalunit"), value: "total_unit" },
+                        { text: `${this.$t("cost")}($)`, value: "cost" },
+                    ],
+                },
             },
             dateMenu: false,
             fetchLoading: {
                 form: false,
-                table: false
+                table: false,
             },
             loading: false,
             errors: {},
             countryCodes: countryCodes,
             purchaseStatus: purchaseStatus,
-            currencies: currencies
+            currencies: currencies,
         };
     },
     mounted() {
@@ -427,19 +427,19 @@ export default {
             self.fetchLoading.form = true;
             this.$store
                 .dispatch("goods/purchase/items", {
-                    id: self.$route.params.id
+                    id: self.$route.params.id,
                 })
-                .then(response => {
+                .then((response) => {
                     self.fetchLoading.table = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.fetchLoading.table = false;
                 });
             this.$store
                 .dispatch("goods/supplier/details", {
-                    id: self.$route.params.id
+                    id: self.$route.params.id,
                 })
-                .then(response => {
+                .then((response) => {
                     let res = response.data;
                     self.supplier = res;
                     self.supplierName = res.name;
@@ -454,7 +454,7 @@ export default {
                     self.currency = res.cost_price_currency;
                     self.fetchLoading.form = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.fetchLoading.form = false;
                 });
         },
@@ -478,22 +478,22 @@ export default {
                 date: self.date,
                 status: self.status,
                 currency: self.currency,
-                purchase_items: self.items
+                purchase_items: self.items,
             };
             this.$store
                 .dispatch("goods/purchase/create", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                     self.errors = {};
                     self.$router.back();
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                     self.errors = error.response.data?.data;
                 });
         },
         isRowEditable(value) {
-            return goodsSizes.find(obj => obj.name === value);
+            return goodsSizes.find((obj) => obj.name === value);
         },
         isCurrencyRow(value) {
             const rows = ["unit_price", "cost"];
@@ -524,8 +524,8 @@ export default {
         async scanner() {
             let res = await this.$refs.scannerDialog.open(this.items);
             if (res) {
-                this.items.forEach(item => {
-                    goodsSizes.forEach(size => {
+                this.items.forEach((item) => {
+                    goodsSizes.forEach((size) => {
                         if (item[size.name]) {
                             if (item[size.name].barcode === res.barcode) {
                                 item[size.name].unit = res.unit;
@@ -537,8 +537,8 @@ export default {
         },
         isMobile() {
             return isMobile;
-        }
-    }
+        },
+    },
 };
 </script>
 

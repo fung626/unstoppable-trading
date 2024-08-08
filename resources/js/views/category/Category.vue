@@ -97,9 +97,13 @@ export default {
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { text: this.$t("name"), value: "name" },
-                { text: this.$t("updatedat"), value: "updated_at" },
-                { text: this.$t("actions"), value: "actions", sortable: false },
+                { title: this.$t("name"), value: "name" },
+                { title: this.$t("updatedat"), value: "updated_at" },
+                {
+                    title: this.$t("actions"),
+                    value: "actions",
+                    sortable: false,
+                },
             ],
         };
     },

@@ -237,10 +237,10 @@ export default {
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { text: this.$t("name"), value: "goods.name" },
-                { text: this.$t("type"), value: "goods.type" },
-                { text: this.$t("cup"), value: "cup" },
-                { text: this.$t("color"), value: "color" },
+                { title: this.$t("name"), value: "goods.name" },
+                { title: this.$t("type"), value: "goods.type" },
+                { title: this.$t("cup"), value: "cup" },
+                { title: this.$t("color"), value: "color" },
                 { text: "32-S", value: "32-S", sortable: false },
                 { text: "34-M", value: "34-M", sortable: false },
                 { text: "36-L", value: "36-L", sortable: false },
@@ -249,11 +249,15 @@ export default {
                 { text: "42-EQ", value: "42-EQ", sortable: false },
                 { text: "44-Free", value: "44-Free", sortable: false },
                 {
-                    text: this.$t("totalunit"),
+                    title: this.$t("totalunit"),
                     value: "total_unit",
                     sortable: false,
                 },
-                { text: this.$t("actions"), value: "actions", sortable: false },
+                {
+                    title: this.$t("actions"),
+                    value: "actions",
+                    sortable: false,
+                },
             ],
         };
     },

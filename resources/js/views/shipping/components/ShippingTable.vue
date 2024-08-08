@@ -115,7 +115,7 @@ export default {
             disablePagination: false,
             headers: [
                 {
-                    text: this.$t("number"),
+                    title: this.$t("number"),
                     value: "generated_id",
                 },
                 {
@@ -154,13 +154,17 @@ export default {
                     value: "status",
                     sortable: false,
                 },
-                { text: this.$t("updatedat"), value: "updated_at" },
+                { title: this.$t("updatedat"), value: "updated_at" },
                 {
                     text: `${this.$t("status")}${this.$t("actions")}`,
                     value: "status_actions",
                     sortable: false,
                 },
-                { text: this.$t("actions"), value: "actions", sortable: false },
+                {
+                    title: this.$t("actions"),
+                    value: "actions",
+                    sortable: false,
+                },
             ],
         };
     },

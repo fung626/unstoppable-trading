@@ -34,33 +34,33 @@ export default {
         ...mapState(["salesreport/topstocks"]),
         items() {
             return this["salesreport/topstocks"].data;
-        }
+        },
     },
     data() {
         return {
             loading: false,
             options: {},
             headers: [
-                { text: this.$t("name"), value: "name", sortable: false },
-                { text: this.$t("type"), value: "type", sortable: false },
-                { text: this.$t("cup"), value: "cup", sortable: false },
-                { text: this.$t("color"), value: "color", sortable: false },
-                { text: this.$t("size"), value: "size", sortable: false },
+                { title: this.$t("name"), value: "name", sortable: false },
+                { title: this.$t("type"), value: "type", sortable: false },
+                { title: this.$t("cup"), value: "cup", sortable: false },
+                { title: this.$t("color"), value: "color", sortable: false },
+                { title: this.$t("size"), value: "size", sortable: false },
                 {
-                    text: this.$t("unit"),
+                    title: this.$t("unit"),
                     value: "unit",
-                    sortable: false
-                }
-            ]
+                    sortable: false,
+                },
+            ],
         };
     },
     watch: {
         options: {
             handler() {
                 this.fetch();
-            }
+            },
         },
-        loading() {}
+        loading() {},
     },
     mounted() {
         this.fetch();
@@ -76,10 +76,10 @@ export default {
             let data = {};
             this.$store
                 .dispatch("salesreport/topstocks/get", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -88,7 +88,7 @@ export default {
         },
         reload() {
             this.fetch();
-        }
-    }
+        },
+    },
 };
 </script>
