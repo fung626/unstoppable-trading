@@ -10,7 +10,7 @@
                 <CCardBody>
                     <CTabs
                         variant="pills"
-                        @update:activeTab="index => activeTabUpdated(index)"
+                        @update:activeTab="(index) => activeTabUpdated(index)"
                     >
                         <CTab
                             :title="tab.values[0].toUpperCase()"
@@ -22,7 +22,7 @@
                         <CTab
                             v-if="
                                 $store.getters.isAdmin &&
-                                    data.role === 'EMPLOYEE'
+                                data.role === 'EMPLOYEE'
                             "
                             :title="tab.values[1].toUpperCase()"
                             :active="tab.index === 1 ? true : false"
@@ -35,7 +35,7 @@
                         <CTab
                             v-if="
                                 $store.getters.isAdmin &&
-                                    data.role === 'EMPLOYEE'
+                                data.role === 'EMPLOYEE'
                             "
                             :title="tab.values[2].toUpperCase()"
                             :active="tab.index === 2 ? true : false"
@@ -63,10 +63,10 @@
 </template>
 <script>
 //
-import DutyCalendar from "@/components/DutyCalendar";
-import EmployeeForm from "./components/EmployeeForm";
-import PermissionForm from "./components/PermissionForm";
-import UserForm from "./components/UserForm";
+import DutyCalendar from "@/components/DutyCalendar.vue";
+import EmployeeForm from "./components/EmployeeForm.vue";
+import PermissionForm from "./components/PermissionForm.vue";
+import UserForm from "./components/UserForm.vue";
 
 export default {
     name: "UserDetails",
@@ -74,7 +74,7 @@ export default {
         DutyCalendar,
         EmployeeForm,
         PermissionForm,
-        UserForm
+        UserForm,
     },
     data() {
         return {
@@ -85,10 +85,10 @@ export default {
                     this.$t("info"),
                     this.$t("employee"),
                     this.$t("duty"),
-                    this.$t("permission")
+                    this.$t("permission"),
                 ],
-                index: 0
-            }
+                index: 0,
+            },
         };
     },
     mounted() {
@@ -103,20 +103,20 @@ export default {
             }
             self.loading = true;
             let data = {
-                id: self.$route.params.id
+                id: self.$route.params.id,
             };
             this.$store
                 .dispatch("user/details", data)
-                .then(response => {
+                .then((response) => {
                     self.data = response.data;
                     self.loading = false;
                     // console.log(response);
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
-        }
-    }
+        },
+    },
 };
 </script>
 
