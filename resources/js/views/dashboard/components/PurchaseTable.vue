@@ -41,12 +41,13 @@
         </CRow>
         <v-data-table
             class="elevation-1"
-            :page="page"
             :headers="headers"
             :items="items"
-            :options.sync="options"
-            :server-items-length="serverItemsLength"
+            :items-length="serverItemsLength"
+            :search="search"
             :loading="loading"
+            @update:options="fetch"
+            :mobile="mobile"
             hide-default-footer
         >
             <template v-slot:[`item.status`]="{ item }">
@@ -56,14 +57,14 @@
             </template>
             <template v-slot:[`item.date`]="{ item }">
                 <div v-if="item.date">
-                    {{ item.date | moment("dddd, Do MMMM YYYY") }}
+                    {{ this.$formatDate(item.date) }}
                 </div>
             </template>
             <template v-slot:[`item.created_at`]="{ item }">
-                {{ item.created_at | moment("dddd, Do MMMM YYYY") }}
+                {{ this.$formatDate(item.created_at) }}
             </template>
             <template v-slot:[`item.updated_at`]="{ item }">
-                {{ item.updated_at | moment("dddd, Do MMMM YYYY") }}
+                {{ this.$formatDate(item.updated_at) }}
             </template>
             <template v-slot:[`item.status_actions`]="{ item }">
                 <CButtonGroup>

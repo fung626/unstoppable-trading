@@ -102,31 +102,31 @@ class GoodsController extends Controller
                     foreach ($items as $item) {
                         $goodsItem = Item::where([
                             'goods_id' => $goods->id,
-                            'cup' => isset($item['cup']) ? $item['cup'] : null,
-                            'size' => $item['size'],
-                            'color' => $item['color'],
+                            'cup' => isset($item['cup']['name']) ? $item['cup']['name'] : null,
+                            'size' => $item['size']['name'],
+                            'color' => $item['color']['name'],
                         ])->first();
                         if ($goods->type === 'BR') {
-                            if (isset($item['cup']) && isset($item['size']) && isset($item['color'])) {
+                            if (isset($item['cup']['name']) && isset($item['size']['name']) && isset($item['color']['name'])) {
                                 if (!$goodsItem) {
                                     Item::create([
                                         'goods_id' => $goods->id,
                                         'barcode' => isset($item['barcode']) ? $item['barcode'] : GoodsLib::barcode(),
-                                        'cup' => $item['cup'],
-                                        'size' => $item['size'],
-                                        'color' => $item['color'],
+                                        'cup' => $item['cup']['name'],
+                                        'size' => $item['size']['name'],
+                                        'color' => $item['color']['name'],
                                         'created_by' => $user->id,
                                     ]);
                                 }
                             }
                         } else {
-                            if (isset($item['size']) && isset($item['color'])) {
+                            if (isset($item['size']['name']) && isset($item['color']['name'])) {
                                 if (!$goodsItem) {
                                     Item::create([
                                         'goods_id' => $goods->id,
                                         'barcode' => isset($item['barcode']) ? $item['barcode'] : GoodsLib::barcode(),
-                                        'size' => $item['size'],
-                                        'color' => $item['color'],
+                                        'size' => $item['size']['name'],
+                                        'color' => $item['color']['name'],
                                         'created_by' => $user->id,
                                     ]);
                                 }

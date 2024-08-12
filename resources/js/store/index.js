@@ -74,7 +74,7 @@ export default createStore({
         ["goods/stocks"]: GoodsStock,
         ["goods/stocks/calendar"]: GoodsStockCalendar,
         ["goods/purchases"]: Purchases,
-        ["goods/purchase/invoice"]: PurchaseInvoice,
+        ["goods/purchases/invoice"]: PurchaseInvoice,
         ["goods/purchases/stocktake"]: PurchaseStockTake,
         ["sales-reports"]: SalesReports,
         ["sales-reports/chart"]: SalesReportChart,

@@ -107,7 +107,7 @@
                             ></v-text-field>
                         </CCol>
                     </CRow>
-                    <!--  <v-text-field
+                    <v-text-field
                         v-model="email"
                         :label="$t('email')"
                         required
@@ -131,6 +131,7 @@
                         required
                         outlined
                         dense
+                        return-object
                         :error="errors['status'] ? true : false"
                         :error-messages="errors['status']"
                     ></v-select>
@@ -143,30 +144,22 @@
                         required
                         outlined
                         dense
+                        return-object
                         :error="errors['currency'] ? true : false"
                         :error-messages="errors['currency']"
                     ></v-select>
                     <hr />
                     <CRow class="p-2">
                         <CCol md="12" sm="12">
-                            <CInput
-                                size="sm"
-                                v-model="table.item.search"
-                                v-on:keyup.enter="table.item.search"
-                            >
-                                <template #prepend>
-                                    <CButton
-                                        color="primary"
+                            <CInputGroup class="mb-3">
+                                <CButton color="primary" size="sm">
+                                    <CIcon
+                                        name="cil-magnifying-glass"
                                         size="sm"
-                                        v-on:click="table.item.search"
-                                    >
-                                        <CIcon
-                                            name="cil-magnifying-glass"
-                                            size="sm"
-                                        />
-                                    </CButton>
-                                </template>
-                            </CInput>
+                                    />
+                                </CButton>
+                                <CFormInput size="sm" v-model="search" />
+                            </CInputGroup>
                         </CCol>
                     </CRow>
                     <v-data-table
@@ -190,7 +183,7 @@
                                             "
                                         >
                                             <v-edit-dialog
-                                                :return-value.sync="
+                                                :v-model:propName="
                                                     item[header.value].unit
                                                 "
                                                 @save="save(idx)"
@@ -240,11 +233,10 @@
                                             "
                                         >
                                             <div v-if="item[header.value]">
-                                                {{ "$ "
-                                                }}{{
-                                                    item[
+                                                {{
+                                                    `${item[
                                                         header.value
-                                                    ].toLocaleString()
+                                                    ].toLocaleString()}`
                                                 }}
                                             </div>
                                         </div>
@@ -265,7 +257,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td colspan="4">
+                                    <td class="p-2" colspan="4">
                                         {{ $t("totalunit") }} {{ ": " }}
                                         <span v-if="totalunit">
                                             {{ totalunit.toLocaleString() }}
@@ -287,7 +279,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td colspan="4">
+                                    <td class="p-2" colspan="4">
                                         {{ $t("subtotal") }} {{ ": " }}
                                         <span v-if="subtotal">
                                             {{ "$" }}
@@ -312,7 +304,7 @@
                             color="primary"
                             :size="15"
                         ></v-progress-circular>
-                    </CButton> -->
+                    </CButton>
                 </form>
             </CCardBody>
         </CCard>
@@ -336,12 +328,12 @@ export default {
         ScannerDialog,
     },
     computed: {
-        ...mapState(["goods/shipping"]),
+        ...mapState(["goods/shippings"]),
         shippingData() {
-            return this["goods/shipping"].shippingData;
+            return this["goods/shippings"].shippingData;
         },
         items() {
-            let data = this["goods/shipping"].formattedShipData;
+            let data = this["goods/shippings"].formattedShipData;
             if (data) {
                 return JSON.parse(JSON.stringify(data));
             }
@@ -425,8 +417,8 @@ export default {
         },
     },
     mounted() {
-        console.log("mounted");
         this.fetch();
+        this.getClients();
     },
     methods: {
         fetch() {

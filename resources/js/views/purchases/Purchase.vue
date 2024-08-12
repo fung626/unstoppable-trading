@@ -63,10 +63,10 @@
                 </div>
             </template>
             <template v-slot:[`item.created_at`]="{ item }">
-                {{ item.created_at | moment("dddd, Do MMMM YYYY") }}
+               {{ this.$formatDate(item.created_at) }}
             </template>
             <template v-slot:[`item.updated_at`]="{ item }">
-                {{ item.updated_at | moment("dddd, Do MMMM YYYY") }}
+               {{ this.$formatDate(item.updated_at) }}
             </template> -->
             <template v-slot:[`item.status_actions`]="{ item }">
                 <CButtonGroup>

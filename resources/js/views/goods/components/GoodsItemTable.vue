@@ -121,7 +121,7 @@
             </template>
             <template v-slot:[`item.updated_at`]="{ item }">
                 <div v-if="item.updated_at">
-                    {{ item.updated_at | moment("dddd, Do MMMM YYYY") }}
+                    {{ this.$formatDate(item.updated_at) }}
                 </div>
             </template>
             <template v-slot:[`item.actions`]="{ item }">

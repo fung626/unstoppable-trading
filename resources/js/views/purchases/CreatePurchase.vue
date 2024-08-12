@@ -46,10 +46,10 @@
                 ></v-text-field>
                 <v-expansion-panels>
                     <v-expansion-panel>
-                        <v-expansion-panel-header>
+                        <v-expansion-panel-title>
                             {{ $t("more") }}
-                        </v-expansion-panel-header>
-                        <v-expansion-panel-content>
+                        </v-expansion-panel-title>
+                        <v-expansion-panel-text>
                             <v-text-field
                                 v-model="contact"
                                 :label="$t('contact')"
@@ -61,7 +61,7 @@
                                 :error-messages="errors['to_contact']"
                             ></v-text-field>
                             <CRow>
-                                <CCol md="2" sm="2">
+                                <CCol :md="2" :sm="5">
                                     <v-select
                                         v-model="phoneCountryCode"
                                         :items="countryCodes"
@@ -73,7 +73,7 @@
                                         dense
                                     ></v-select>
                                 </CCol>
-                                <CCol md="10" sm="10">
+                                <CCol :md="10" :sm="7">
                                     <v-text-field
                                         v-model="phone"
                                         :label="$t('phone')"
@@ -89,7 +89,7 @@
                                 </CCol>
                             </CRow>
                             <CRow>
-                                <CCol md="2" sm="2">
+                                <CCol :md="2" :sm="5">
                                     <v-select
                                         v-model="faxCountryCode"
                                         :items="countryCodes"
@@ -101,7 +101,7 @@
                                         dense
                                     ></v-select>
                                 </CCol>
-                                <CCol md="10" sm="10">
+                                <CCol :md="10" :sm="7">
                                     <v-text-field
                                         v-model="fax"
                                         :label="$t('fax')"
@@ -156,34 +156,14 @@
                                 :error="errors['currency'] ? true : false"
                                 :error-messages="errors['currency']"
                             ></v-select>
-                            <v-menu
-                                v-model="dateMenu"
-                                :close-on-content-click="false"
-                                :nudge-right="40"
-                                transition="scale-transition"
-                                offset-y
-                                min-width="auto"
-                            >
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field
-                                        v-model="date"
-                                        :label="$t('date')"
-                                        outlined
-                                        dense
-                                        clearable
-                                        readonly
-                                        v-bind="attrs"
-                                        v-on="on"
-                                        :error="errors['date'] ? true : false"
-                                        :error-messages="errors['date']"
-                                    ></v-text-field>
-                                </template>
-                                <v-date-picker
-                                    v-model="date"
-                                    @input="dateMenu = false"
-                                ></v-date-picker>
-                            </v-menu>
-                        </v-expansion-panel-content>
+                            <v-date-input
+                                :label="$t('date')"
+                                v-model="date"
+                                prepend-icon=""
+                                clearable
+                                outlined
+                            ></v-date-input>
+                        </v-expansion-panel-text>
                     </v-expansion-panel>
                 </v-expansion-panels>
                 <CRow class="p-2">
@@ -194,24 +174,12 @@
                 <hr />
                 <CRow class="p-2">
                     <CCol md="12" sm="12">
-                        <CInput
-                            size="sm"
-                            v-model="table.item.search"
-                            v-on:keyup.enter="table.item.search"
-                        >
-                            <template #prepend>
-                                <CButton
-                                    color="primary"
-                                    size="sm"
-                                    v-on:click="table.item.search"
-                                >
-                                    <CIcon
-                                        name="cil-magnifying-glass"
-                                        size="sm"
-                                    />
-                                </CButton>
-                            </template>
-                        </CInput>
+                        <CInputGroup class="mb-3">
+                            <CButton color="primary" size="sm">
+                                <CIcon name="cil-magnifying-glass" size="sm" />
+                            </CButton>
+                            <CFormInput size="sm" v-model="search" />
+                        </CInputGroup>
                     </CCol>
                 </CRow>
                 <v-data-table
@@ -232,7 +200,15 @@
                                             item[header.value]
                                         "
                                     >
-                                        <v-edit-dialog
+                                        <v-text-field
+                                            v-model="item[header.value].unit"
+                                            type="number"
+                                            required
+                                            outlined
+                                            dense
+                                            clearable
+                                        ></v-text-field>
+                                        <!-- <v-edit-dialog
                                             :return-value.sync="
                                                 item[header.value].unit
                                             "
@@ -255,7 +231,7 @@
                                                     controls
                                                 ></vue-number-input>
                                             </template>
-                                        </v-edit-dialog>
+                                        </v-edit-dialog> -->
                                     </div>
                                     <div
                                         v-else-if="isRowEditable(header.value)"
@@ -283,8 +259,8 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td>{{ $t("totalunit") }} {{ " " }}</td>
-                                <td colspan="4">
+                                <td class="p-2">{{ $t("totalunit") }}</td>
+                                <td class="p-2" colspan="4">
                                     <span v-if="totalunit">
                                         {{ totalunit.toLocaleString() }}
                                     </span>
@@ -304,8 +280,8 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td>{{ $t("subtotal") }} {{ " " }}</td>
-                                <td colspan="4">
+                                <td class="p-2">{{ $t("subtotal") }}</td>
+                                <td class="p-2" colspan="4">
                                     <span v-if="subtotal">
                                         {{ "$ " }}
                                         {{ subtotal.toLocaleString() }}
@@ -345,26 +321,16 @@ import {
     purchaseStatus,
 } from "@/constants";
 import { isMobile } from "react-device-detect";
-import { mapState } from "vuex";
-import CreatePurchaseDialog from "./components/CreatePurchaseDialog";
+import CreatePurchaseDialog from "./components/CreatePurchaseDialog.vue";
 
 export default {
     name: "CreatePurchase",
     components: {
         CreatePurchaseDialog,
     },
-    computed: {
-        ...mapState(["goods/purchase"]),
-        items() {
-            let items = this["goods/purchase"].items;
-            if (items) {
-                return JSON.parse(JSON.stringify(items));
-            }
-            return [];
-        },
-    },
     data() {
         return {
+            items: [],
             supplier: "",
             supplierName: "",
             supplierNumber: "",
@@ -375,7 +341,7 @@ export default {
             faxCountryCode: "",
             fax: "",
             email: "",
-            date: new Date().toISOString().substr(0, 10),
+            date: new Date(),
             status: "PENDING",
             currency: "",
             totalunit: 0,
@@ -384,24 +350,24 @@ export default {
                 item: {
                     search: "",
                     headers: [
-                        { text: "#ID", value: "id" },
+                        { title: "#ID", value: "id" },
                         { title: this.$t("name"), value: "name" },
                         { title: this.$t("type"), value: "type" },
                         { title: this.$t("cup"), value: "cup" },
                         { title: this.$t("color"), value: "color" },
-                        { text: "32-S", value: "32-S" },
-                        { text: "34-M", value: "34-M" },
-                        { text: "36-L", value: "36-L" },
-                        { text: "38-XL", value: "38-XL" },
-                        { text: "40-Q", value: "40-Q" },
-                        { text: "42-EQ", value: "42-EQ" },
-                        { text: "44-Free", value: "44-Free" },
+                        { title: "32-S", value: "32-S" },
+                        { title: "34-M", value: "34-M" },
+                        { title: "36-L", value: "36-L" },
+                        { title: "38-XL", value: "38-XL" },
+                        { title: "40-Q", value: "40-Q" },
+                        { title: "42-EQ", value: "42-EQ" },
+                        { title: "44-Free", value: "44-Free" },
                         {
-                            text: `${this.$t("unitprice")}($)`,
+                            title: `${this.$t("unitprice")}($)`,
                             value: "unit_price",
                         },
                         { title: this.$t("totalunit"), value: "total_unit" },
-                        { text: `${this.$t("cost")}($)`, value: "cost" },
+                        { title: `${this.$t("cost")}($)`, value: "cost" },
                     ],
                 },
             },
@@ -426,10 +392,12 @@ export default {
             self.fetchLoading.table = true;
             self.fetchLoading.form = true;
             this.$store
-                .dispatch("goods/purchase/items", {
+                .dispatch("goods/purchases/items", {
                     id: self.$route.params.id,
                 })
                 .then((response) => {
+                    console.log(response);
+                    self.items = response.data;
                     self.fetchLoading.table = false;
                 })
                 .catch((error) => {

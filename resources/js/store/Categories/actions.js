@@ -7,7 +7,7 @@ import axios from "../../utils/myAxios";
 import * as types from "./mutation-types";
 
 const { t } = i18n.global;
-const endpoint = "/api/goods/categories/";
+const endpoint = "/api/categories/";
 const name = "categories";
 
 export default {

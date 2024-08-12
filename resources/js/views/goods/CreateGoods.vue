@@ -76,8 +76,9 @@
                 <v-autocomplete
                     v-model="supplier"
                     :items="autocomplete.supplier.items"
+                    :disabled="autocomplete.supplier.loading"
                     :loading="autocomplete.supplier.loading"
-                    :search-input.sync="autocomplete.supplier.search"
+                    @update:search="getSuppliers"
                     required
                     outlined
                     dense
@@ -93,8 +94,9 @@
                 <v-autocomplete
                     v-model="categories"
                     :items="autocomplete.category.items"
+                    :disabled="autocomplete.category.loading"
                     :loading="autocomplete.category.loading"
-                    :search-input.sync="autocomplete.category.search"
+                    @update:search="getCategories"
                     hide-no-data
                     hide-selected
                     outlined
@@ -104,14 +106,15 @@
                     return-object
                     chips
                     small-chips
-                    deletable-chips
+                    closable-chips
                     multiple
                 ></v-autocomplete>
                 <v-autocomplete
                     v-model="warehouses"
                     :items="autocomplete.warehouse.items"
+                    :disabled="autocomplete.warehouse.loading"
                     :loading="autocomplete.warehouse.loading"
-                    :search-input.sync="autocomplete.warehouse.search"
+                    @update:search="getWarehouses"
                     required
                     outlined
                     dense
@@ -123,16 +126,16 @@
                     return-object
                     chips
                     small-chips
-                    deletable-chips
+                    closable-chips
                     multiple
                 ></v-autocomplete>
-                <v-text-field
+                <v-textarea
                     v-model="description"
                     :label="$t('description')"
                     outlined
                     dense
                     clearable
-                ></v-text-field>
+                ></v-textarea>
                 <CRow class="p-2">
                     <CCol md="9" sm="9">
                         <h4 class="my-2">{{ $t("goodsitem") }}</h4>
@@ -152,7 +155,6 @@
                     class="my-2 elevation-1"
                     :headers="table.item.headers"
                     :items="table.item.items"
-                    :options.sync="table.item.options"
                     :hide-default-footer="true"
                 >
                     <template v-slot:[`item.cup`]="{ item }">
@@ -162,8 +164,9 @@
                             item-title="name"
                             item-value="name"
                             :disabled="type === 'BF'"
+                            variant="plain"
                             hide-details
-                            rounded
+                            return-object
                         ></v-autocomplete>
                     </template>
                     <template v-slot:[`item.color`]="{ item }">
@@ -172,8 +175,9 @@
                             :items="goodsColors"
                             item-title="name"
                             item-value="name"
+                            variant="plain"
                             hide-details
-                            rounded
+                            return-object
                         ></v-autocomplete>
                     </template>
                     <template v-slot:[`item.size`]="{ item }">
@@ -182,30 +186,18 @@
                             :items="goodsSizes"
                             item-title="name"
                             item-value="name"
+                            variant="plain"
                             hide-details
-                            rounded
                             return-object
                         ></v-autocomplete>
                     </template>
                     <template v-slot:[`item.barcode`]="{ item }">
-                        <v-edit-dialog
-                            :return-value.sync="item.barcode"
-                            @save="save"
-                            @cancel="cancel"
-                            :save-text="$t('button.confirm')"
-                            :cancel-text="$t('button.cancel')"
-                            large
+                        <v-text-field
+                            v-model="item.barcode"
+                            variant="plain"
+                            hide-details
                         >
-                            {{ item.barcode }}
-                            <template v-slot:input>
-                                <v-text-field
-                                    v-model="item.barcode"
-                                    :label="$t('button.edit')"
-                                    single-line
-                                    counter
-                                ></v-text-field>
-                            </template>
-                        </v-edit-dialog>
+                        </v-text-field>
                     </template>
                     <template v-slot:[`item.actions`]="{ item }">
                         <CButtonGroup>
@@ -240,48 +232,23 @@
                     class="my-2 elevation-1"
                     :headers="table.content.headers"
                     :items="table.content.items"
-                    :options.sync="table.content.options"
                     :hide-default-footer="true"
                 >
                     <template v-slot:[`item.key`]="{ item }">
-                        <v-edit-dialog
-                            :return-value.sync="item.key"
-                            @save="save"
-                            @cancel="cancel"
-                            :save-text="$t('button.confirm')"
-                            :cancel-text="$t('button.cancel')"
-                            large
+                        <v-text-field
+                            v-model="item.key"
+                            variant="plain"
+                            hide-details
                         >
-                            {{ item.key }}
-                            <template v-slot:input>
-                                <v-text-field
-                                    v-model="item.key"
-                                    :label="$t('button.edit')"
-                                    single-line
-                                    counter
-                                ></v-text-field>
-                            </template>
-                        </v-edit-dialog>
+                        </v-text-field>
                     </template>
                     <template v-slot:[`item.value`]="{ item }">
-                        <v-edit-dialog
-                            :return-value.sync="item.value"
-                            @save="save"
-                            @cancel="cancel"
-                            :save-text="$t('button.confirm')"
-                            :cancel-text="$t('button.cancel')"
-                            large
+                        <v-text-field
+                            v-model="item.value"
+                            variant="plain"
+                            hide-details
                         >
-                            {{ item.value }}
-                            <template v-slot:input>
-                                <v-text-field
-                                    v-model="item.value"
-                                    :label="$t('button.edit')"
-                                    single-line
-                                    counter
-                                ></v-text-field>
-                            </template>
-                        </v-edit-dialog>
+                        </v-text-field>
                     </template>
                     <template v-slot:[`item.actions`]="{ item }">
                         <CButtonGroup>
@@ -328,8 +295,8 @@ export default {
             retailprice: "",
             wholesaleprice: "",
             supplier: "",
-            warehouses: "",
-            categories: "",
+            warehouses: [],
+            categories: [],
             description: "",
             autocomplete: {
                 supplier: {
@@ -463,6 +430,11 @@ export default {
                 });
         },
     },
+    mounted() {
+        this.getSuppliers();
+        this.getCategories();
+        this.getWarehouses();
+    },
     methods: {
         submit() {
             let self = this;
@@ -513,6 +485,7 @@ export default {
                                     key: uuidv4(),
                                     title: this.$t("button.delete"),
                                     type: "item",
+                                    color: "danger",
                                 },
                             ],
                         },
@@ -530,6 +503,7 @@ export default {
                                     key: uuidv4(),
                                     title: this.$t("button.delete"),
                                     type: "content",
+                                    color: "danger",
                                 },
                             ],
                         },
@@ -562,6 +536,57 @@ export default {
         },
         save() {},
         cancel() {},
+        getSuppliers() {
+            let self = this;
+            let cli = self.autocomplete.supplier;
+            if (cli.items.length > 0 || cli.loading) {
+                return;
+            }
+            self.autocomplete.supplier.loading = true;
+            this.$store
+                .dispatch("goods/suppliers/get", {})
+                .then((response) => {
+                    self.autocomplete.supplier.items = response.data;
+                    self.autocomplete.supplier.loading = false;
+                })
+                .catch((error) => {
+                    self.autocomplete.supplier.loading = false;
+                });
+        },
+        getCategories() {
+            let self = this;
+            let cli = self.autocomplete.category;
+            if (cli.items.length > 0 || cli.loading) {
+                return;
+            }
+            self.autocomplete.category.loading = true;
+            this.$store
+                .dispatch("categories/get", {})
+                .then((response) => {
+                    self.autocomplete.category.items = response.data;
+                    self.autocomplete.category.loading = false;
+                })
+                .catch((error) => {
+                    self.autocomplete.category.loading = false;
+                });
+        },
+        getWarehouses() {
+            let self = this;
+            let cli = self.autocomplete.warehouse;
+            if (cli.items.length > 0 || cli.loading) {
+                return;
+            }
+            self.autocomplete.warehouse.loading = true;
+            this.$store
+                .dispatch("goods/warehouses/get", {})
+                .then((response) => {
+                    self.autocomplete.warehouse.items = response.data;
+                    self.autocomplete.warehouse.loading = false;
+                })
+                .catch((error) => {
+                    self.autocomplete.warehouse.loading = false;
+                });
+        },
     },
 };
 </script>

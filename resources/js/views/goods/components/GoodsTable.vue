@@ -101,7 +101,7 @@
                         :color="action.color"
                         :disabled="action.disabled"
                         size="sm"
-                        @click="click(item.id, action.type)"
+                        @click="click(item, action)"
                     >
                         {{ action.title }}
                     </CButton>
@@ -214,14 +214,16 @@ export default {
             this.$store
                 .dispatch("goods/get", data)
                 .then((response) => {
+                    let res = JSON.parse(JSON.stringify(response.data));
+                    self.items = res.data.data;
+                    self.serverItemsLength = res.total;
+                    self.pageCount = res.last_page;
+                    self.page = res.current_page;
                     self.loading = false;
                 })
                 .catch((error) => {
                     self.loading = false;
                 });
-        },
-        search() {
-            this.fetch(true);
         },
         add() {
             this.$router.push({ path: "goods/create" });
@@ -250,27 +252,16 @@ export default {
                 });
         },
         reload() {
-            this.fetch();
+            this.fetch({ ...this.options });
         },
         async click(item, action) {
             let type = action.type;
             switch (type) {
                 case "RouterPush":
                     let route = action.route;
-                    switch (route) {
-                        case "CreatePurchase":
-                            this.$router.push({
-                                name: route,
-                                params: { id: item.supplier.id },
-                            });
-                            break;
-                        case "GoodsDetails":
-                            this.$router.push({
-                                name: route,
-                                params: { id: item.id },
-                            });
-                            break;
-                    }
+                    this.$router.push({
+                        path: route,
+                    });
                     break;
                 case "Delete":
                     if (

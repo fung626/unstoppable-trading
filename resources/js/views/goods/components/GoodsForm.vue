@@ -116,7 +116,7 @@
                     return-object
                     chips
                     small-chips
-                    deletable-chips
+                    closable-chips
                     multiple
                 ></v-autocomplete>
                 <v-autocomplete
@@ -135,7 +135,7 @@
                     return-object
                     chips
                     small-chips
-                    deletable-chips
+                    closable-chips
                     multiple
                 ></v-autocomplete>
                 <v-text-field
