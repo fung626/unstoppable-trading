@@ -98,15 +98,15 @@ import { mapState } from "vuex";
 export default {
     name: "StockCalendar",
     props: {
-        stockType: null
+        stockType: null,
     },
     components: {},
     computed: {
-        ...mapState(["goods/stock/calendar"]),
+        ...mapState(["goods/stocks/calendar"]),
         events() {
             let temp = [];
-            if (this["goods/stock/calendar"]) {
-                let data = this["goods/stock/calendar"].data;
+            if (this["goods/stocks/calendar"]) {
+                let data = this["goods/stocks/calendar"].data;
                 for (const item of data) {
                     let color = "cyan";
                     let status = this.$t(
@@ -130,12 +130,12 @@ export default {
                         start: start,
                         end: end,
                         color: color,
-                        timed: false
+                        timed: false,
                     });
                 }
             }
             return temp;
-        }
+        },
     },
     data() {
         return {
@@ -150,10 +150,10 @@ export default {
                 { text: "Sun - Sat", value: [0, 1, 2, 3, 4, 5, 6] },
                 { text: "Mon - Sun", value: [1, 2, 3, 4, 5, 6, 0] },
                 { text: "Mon - Fri", value: [1, 2, 3, 4, 5] },
-                { text: "Mon, Wed, Fri", value: [1, 3, 5] }
+                { text: "Mon, Wed, Fri", value: [1, 3, 5] },
             ],
             selectedElement: null,
-            selectedOpen: false
+            selectedOpen: false,
         };
     },
     mounted() {
@@ -169,14 +169,14 @@ export default {
             let data = {
                 type: this.stockType,
                 from: start.date,
-                to: end.date
+                to: end.date,
             };
             this.$store
-                .dispatch("goods/stock/calendar/get", data)
-                .then(response => {
+                .dispatch("goods/stocks/calendar/get", data)
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -193,7 +193,7 @@ export default {
             this.type = type.value;
             // console.log(this.type);
             // this.$forceUpdate();
-        }
-    }
+        },
+    },
 };
 </script>

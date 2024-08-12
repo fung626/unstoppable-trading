@@ -3,8 +3,8 @@ import SecureLS from "secure-ls";
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import Auth from "./Auth";
-import Category from "./Category";
-import Client from "./Client";
+import Categories from "./Categories";
+import Clients from "./Clients";
 import Dashboard from "./Dashboard";
 import ExchangeRate from "./ExchangeRate";
 import Goods from "./Goods";
@@ -20,16 +20,16 @@ import GoodsShippingPurchaseQuickSearch from "./GoodsShippingPurchaseQuickSearch
 import GoodsStock from "./GoodsStock";
 import GoodsStockCalendar from "./GoodsStockCalendar";
 import Profile from "./Profile";
-import Purchase from "./Purchase";
 import PurchaseInvoice from "./PurchaseInvoice";
 import PurchaseLineChart from "./PurchaseLineChart";
+import Purchases from "./Purchases";
 import PurchaseStockTake from "./PurchaseStockTake";
-import SalesReport from "./SalesReport";
 import SalesReportChart from "./SalesReportChart";
+import SalesReports from "./SalesReports";
 import SalesReportStockChart from "./SalesReportStockChart";
 import SalesReportTopSales from "./SalesReportTopSales";
 import SalesReportTopSocks from "./SalesReportTopSocks";
-import Supplier from "./Supplier";
+import Suppliers from "./Suppliers";
 import UIAlert from "./UI/Alert";
 import UISidebar from "./UI/Sidebar";
 import UISnackbar from "./UI/Snackbar";
@@ -39,7 +39,7 @@ import UserDutyCalendar from "./UserDutyCalendar";
 import UserEmployee from "./UserEmployee";
 import UserEvent from "./UserEvent";
 import UserPermission from "./UserPermission";
-import Warehouse from "./Warehouse";
+import Warehouses from "./Warehouses";
 
 // Load store modules dynamically.
 
@@ -62,29 +62,29 @@ export default createStore({
         goods: Goods,
         ["goods/content"]: GoodsContent,
         ["goods/item"]: GoodsItem,
-        ["goods/shipping"]: GoodsShipping,
-        ["goods/shipping/packing"]: GoodsShippingPacking,
-        ["goods/shipping/purchase/quicksearch"]:
+        ["goods/shippings"]: GoodsShipping,
+        ["goods/shippings/packing"]: GoodsShippingPacking,
+        ["goods/shippings/purchases/quicksearch"]:
             GoodsShippingPurchaseQuickSearch,
-        ["goods/shipping/mailer"]: GoodsShipingMailer,
-        ["goods/shipping/invoice"]: GoodsShippingInvoice,
-        ["goods/shipping/available/shipping/item"]:
+        ["goods/shippings/mailer"]: GoodsShipingMailer,
+        ["goods/shippings/invoice"]: GoodsShippingInvoice,
+        ["goods/shippings/available/shipping/item"]:
             GoodsShipAvailableShippingItems,
-        ["goods/shipping/alteration"]: GoodsShippingAlteration,
-        ["goods/stock"]: GoodsStock,
-        ["goods/stock/calendar"]: GoodsStockCalendar,
-        ["goods/purchase"]: Purchase,
+        ["goods/shippings/alteration"]: GoodsShippingAlteration,
+        ["goods/stocks"]: GoodsStock,
+        ["goods/stocks/calendar"]: GoodsStockCalendar,
+        ["goods/purchases"]: Purchases,
         ["goods/purchase/invoice"]: PurchaseInvoice,
-        ["goods/purchase/stocktake"]: PurchaseStockTake,
-        salesreport: SalesReport,
-        ["salesreport/chart"]: SalesReportChart,
-        ["salesreport/stockchart"]: SalesReportStockChart,
-        ["salesreport/topsales"]: SalesReportTopSales,
-        ["salesreport/topstocks"]: SalesReportTopSocks,
-        category: Category,
-        supplier: Supplier,
-        warehouse: Warehouse,
-        client: Client,
+        ["goods/purchases/stocktake"]: PurchaseStockTake,
+        ["sales-reports"]: SalesReports,
+        ["sales-reports/chart"]: SalesReportChart,
+        ["sales-reports/stockchart"]: SalesReportStockChart,
+        ["sales-reports/topsales"]: SalesReportTopSales,
+        ["sales-reports/topstocks"]: SalesReportTopSocks,
+        categories: Categories,
+        suppliers: Suppliers,
+        warehouses: Warehouses,
+        clients: Clients,
         ["chart/purchaseline"]: PurchaseLineChart,
         // UI
         ["ui/sidebar"]: UISidebar,

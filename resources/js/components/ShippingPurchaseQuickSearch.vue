@@ -22,7 +22,7 @@
                         dense
                         hide-no-data
                         hide-selected
-                        item-text="name"
+                        item-title="name"
                         item-value="id"
                         return-object
                     ></v-autocomplete>
@@ -52,13 +52,13 @@ export default {
             autocomplete: {
                 data: {
                     items: [],
-                    loading: false
-                }
-            }
+                    loading: false,
+                },
+            },
         };
     },
     watch: {
-        "autocomplete.data.search": function(newVal, oldVal) {
+        "autocomplete.data.search": function (newVal, oldVal) {
             // console.log(newVal);
             let self = this;
             let cli = self.autocomplete.data;
@@ -70,19 +70,19 @@ export default {
             }
             self.autocomplete.data.loading = true;
             let data = {
-                search: newVal
+                search: newVal,
             };
             this.$store
-                .dispatch("goods/shipping/purchase/quicksearch/get", data)
-                .then(response => {
+                .dispatch("goods/shippings/purchase/quicksearch/get", data)
+                .then((response) => {
                     // let data = response.data;
                     self.autocomplete.data.items = response.data;
                     self.autocomplete.data.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.autocomplete.data.loading = false;
                 });
-        }
+        },
     },
     methods: {
         details() {
@@ -92,18 +92,18 @@ export default {
                     case "SHIPPING":
                         this.$router.push({
                             name: "ShippingDetails",
-                            params: { id: id }
+                            params: { id: id },
                         });
                         break;
                     case "PURCHASE":
                         this.$router.push({
                             name: "PurchaseDetails",
-                            params: { id: id }
+                            params: { id: id },
                         });
                         break;
                 }
             }
-        }
-    }
+        },
+    },
 };
 </script>

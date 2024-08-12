@@ -34,6 +34,7 @@ use App\Http\Controllers\API\SalesReport\TopStocksController;
 use App\Http\Controllers\API\Statistics\Chart\PurchaseLineController;
 use App\Http\Controllers\API\Statistics\Dashboard\CalloutController;
 use App\Http\Controllers\API\Storage\FontCotroller;
+use App\Http\Controllers\API\TestController;
 use App\Http\Controllers\API\User\DutyCalendarController;
 use App\Http\Controllers\API\User\DutyController;
 use App\Http\Controllers\API\User\EmployeeController;
@@ -42,6 +43,11 @@ use App\Http\Controllers\API\User\PermissionController;
 use App\Http\Controllers\API\User\ProfileController;
 use App\Http\Controllers\API\User\UserController;
 use Illuminate\Support\Facades\Route;
+
+Route::prefix('test')->group(function () {
+    Route::get('get', [TestController::class, 'get']);
+    Route::post('post', [TestController::class, 'post']);
+});
 
 Route::prefix('auth')->group(function () {
     Route::post('login', [LoginController::class, 'index']);
@@ -55,7 +61,7 @@ Route::prefix('storage')->group(function () {
 });
 
 Route::prefix('auth')->middleware(['web', 'localization'])->group(function () {
-    Route::get('password/reset', [ResetPasswordController::class, 'index'])->name('password.reset');
+    Route::get('password/reset', [ResetPasswordController::class, 'index']);
     Route::post('password/reset', [ResetPasswordController::class, 'post'])->name('password.reset');
 });
 
@@ -118,7 +124,7 @@ Route::prefix('clients')->middleware(['auth:api', 'scopes:clients', 'localizatio
     Route::post('export', [ClientController::class, 'export']);
 });
 
-Route::prefix('suppliers')->middleware(['auth:api', 'scopes:suppliers', 'localization'])->group(function () {
+Route::prefix('goods/suppliers')->middleware(['auth:api', 'scopes:suppliers', 'localization'])->group(function () {
     Route::post('create', [SupplierController::class, 'post']);
     Route::post('update', [SupplierController::class, 'update']);
     Route::post('get', [SupplierController::class, 'get']);
@@ -201,6 +207,7 @@ Route::prefix('goods/items')->middleware(['auth:api', 'scopes:goods', 'localizat
 });
 
 Route::prefix('goods/warehouses')->middleware(['auth:api', 'scopes:warehouses', 'localization'])->group(function () {
+    Route::post('create', [WarehouseController::class, 'post']);
     Route::post('update', [WarehouseController::class, 'update']);
     Route::post('get', [WarehouseController::class, 'get']);
     Route::get('details', [WarehouseController::class, 'details']);
@@ -208,7 +215,7 @@ Route::prefix('goods/warehouses')->middleware(['auth:api', 'scopes:warehouses', 
     Route::post('export', [WarehouseController::class, 'export']);
 });
 
-Route::prefix('goods/warehouses')->middleware(['auth:api', 'scopes:stocks', 'localization'])->group(function () {
+Route::prefix('goods/stocks')->middleware(['auth:api', 'scopes:stocks', 'localization'])->group(function () {
     Route::post('get', [StockController::class, 'get']);
     Route::post('export', [StockController::class, 'export']);
     Route::post('calendar/get', [StockCalendarController::class, 'get']);

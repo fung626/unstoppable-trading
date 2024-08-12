@@ -5,6 +5,7 @@ namespace App\Models\Goods\Warehouse;
 use App\Models\Goods\Stock\Stock as MasterStock;
 use App\Models\Goods\Trade as MasterTrade;
 use App\Models\Goods\Warehouse\Warehouse;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 

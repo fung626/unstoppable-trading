@@ -3,6 +3,7 @@
 namespace App\Models\Goods;
 
 use App\Models\User\Users;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class Content extends Model

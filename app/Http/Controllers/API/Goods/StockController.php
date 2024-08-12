@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API\Goods;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Goods\Stocks as StocksCollection;
-use App\Models\Goods\Goods;
 use App\Models\Goods\Item;
 use App\Mylibs\MyPhpOffice;
 use Illuminate\Http\Request;
@@ -38,11 +37,11 @@ class StockController extends Controller
             ->when($request->filled(['search']), function ($query) {
                 $keyword = trim(request('search'));
                 return $query->where(function ($query) use ($keyword) {
-                    $query->where('goods_item.id', 'like', '%' . $keyword . '%')
-                        ->orWhere('goods_item.cup', 'like', '%' . $keyword . '%')
-                        ->orWhere('goods_item.size', 'like', '%' . $keyword . '%')
-                        ->orWhere('goods_item.color', 'like', '%' . $keyword . '%')
-                        ->orWhere('goods_item.barcode', 'like', '%' . $keyword . '%');
+                    $query->where('goods_items.id', 'like', '%' . $keyword . '%')
+                        ->orWhere('goods_items.cup', 'like', '%' . $keyword . '%')
+                        ->orWhere('goods_items.size', 'like', '%' . $keyword . '%')
+                        ->orWhere('goods_items.color', 'like', '%' . $keyword . '%')
+                        ->orWhere('goods_items.barcode', 'like', '%' . $keyword . '%');
                 })->orWhereHas('goods', function ($query) use ($keyword) {
                     $query->where('goods.id', 'like', '%' . $keyword . '%')
                         ->orWhere('goods.name', 'like', '%' . $keyword . '%')
@@ -50,7 +49,7 @@ class StockController extends Controller
                 });
             })
             ->select($select)
-            ->join('goods', 'goods.id', '=', 'goods_item.goods_id')
+            ->join('goods', 'goods.id', '=', 'goods_items.goods_id')
             ->groupBy(['goods_id', 'color', 'cup']);
 
         if ($request->filled(['sort_by', 'sort_desc'])) {
@@ -62,7 +61,7 @@ class StockController extends Controller
                 $query->orderBy($sortBy, $sortDesc ? 'DESC' : 'ASC');
                 $index++;
             }
-            $query->orderBy('goods_item.updated_at', $sortDesc ? 'DESC' : 'ASC');
+            $query->orderBy('goods_items.updated_at', $sortDesc ? 'DESC' : 'ASC');
         }
 
         $response = config('response.common.success');
@@ -107,11 +106,11 @@ class StockController extends Controller
             ->when($request->filled(['search']), function ($query) {
                 $keyword = trim(request('search'));
                 return $query->where(function ($query) use ($keyword) {
-                    $query->where('goods_item.id', 'like', '%' . $keyword . '%')
-                        ->orWhere('goods_item.cup', 'like', '%' . $keyword . '%')
-                        ->orWhere('goods_item.size', 'like', '%' . $keyword . '%')
-                        ->orWhere('goods_item.color', 'like', '%' . $keyword . '%')
-                        ->orWhere('goods_item.barcode', 'like', '%' . $keyword . '%');
+                    $query->where('goods_items.id', 'like', '%' . $keyword . '%')
+                        ->orWhere('goods_items.cup', 'like', '%' . $keyword . '%')
+                        ->orWhere('goods_items.size', 'like', '%' . $keyword . '%')
+                        ->orWhere('goods_items.color', 'like', '%' . $keyword . '%')
+                        ->orWhere('goods_items.barcode', 'like', '%' . $keyword . '%');
                 })->orWhereHas('goods', function ($query) use ($keyword) {
                     $query->where('goods.id', 'like', '%' . $keyword . '%')
                         ->orWhere('goods.name', 'like', '%' . $keyword . '%')
@@ -119,7 +118,7 @@ class StockController extends Controller
                 });
             })
             ->select($select)
-            ->join('goods', 'goods.id', '=', 'goods_item.goods_id')
+            ->join('goods', 'goods.id', '=', 'goods_items.goods_id')
             ->groupBy(['goods_id', 'color', 'cup']);
 
         if ($request->filled(['sort_by', 'sort_desc'])) {
@@ -131,7 +130,7 @@ class StockController extends Controller
                 $query->orderBy($sortBy, $sortDesc ? 'DESC' : 'ASC');
                 $index++;
             }
-            $query->orderBy('goods_item.updated_at', $sortDesc ? 'DESC' : 'ASC');
+            $query->orderBy('goods_items.updated_at', $sortDesc ? 'DESC' : 'ASC');
         }
 
         $headers = [];

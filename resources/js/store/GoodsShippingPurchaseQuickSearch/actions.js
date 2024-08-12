@@ -1,9 +1,11 @@
 // import axios from "axios";
+import i18n from "@/plugins/vue-i18n";
 import router from "../../router";
 import axios from "../../utils/myAxios";
 
-const endpoint = "/api/goods/shipping/purchase/quicksearch/";
-const name = "goods/shipping/purchase/quicksearch";
+const { t } = i18n.global;
+const endpoint = "/api/goods/shippings/purchase/quicksearch/";
+const name = "goods/shippings/purchase/quicksearch";
 
 export default {
     [`${name}/get`]({ commit, dispatch }, payload) {

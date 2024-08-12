@@ -54,7 +54,7 @@ export default {
         ...mapState(["goods/shipping"]),
         shippingData() {
             return this["goods/shipping"].shippingData;
-        }
+        },
     },
     data() {
         return {
@@ -69,8 +69,8 @@ export default {
                 color: "grey lighten-3",
                 width: 400,
                 zIndex: 200,
-                noconfirm: false
-            }
+                noconfirm: false,
+            },
         };
     },
     methods: {
@@ -79,7 +79,7 @@ export default {
             this.title = title;
             this.message = message;
             this.item = item;
-            let temp = this.shippingData.find(obj => obj.id === item.id);
+            let temp = this.shippingData.find((obj) => obj.id === item.id);
             this.unit = temp ? temp.unit : 0;
             return new Promise((resolve, reject) => {
                 this.resolve = resolve;
@@ -87,8 +87,8 @@ export default {
             });
         },
         confirm() {
-            this.$store.dispatch("goods/shipping/add", {
-                data: { ...this.item, unit: this.unit }
+            this.$store.dispatch("goods/shippings/add", {
+                data: { ...this.item, unit: this.unit },
             });
             this.resolve(true);
             this.item = null;
@@ -100,7 +100,7 @@ export default {
             this.item = null;
             this.unit = 0;
             this.dialog = false;
-        }
-    }
+        },
+    },
 };
 </script>

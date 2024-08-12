@@ -18,8 +18,10 @@ class Employee extends Model
     protected $fillable = [
         'user_id',
         'salary',
-        'employee_mandatory_contribution',
-        'employer_mandatory_contribution',
+        // 'employee_mandatory_contribution',
+        // 'employer_mandatory_contribution',
+        'employee_contribution',
+        'employer_contribution',
         'type',
         'joined_at',
         'left_at',

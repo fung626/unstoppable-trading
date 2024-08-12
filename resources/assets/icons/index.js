@@ -33,6 +33,7 @@ import {
     cilArrowRight,
     cilArrowTop,
     cilBan,
+    cilBarcode,
     cilBasket,
     cilBell,
     cilCalculator,
@@ -97,6 +98,7 @@ import {
 export const iconsSet = Object.assign(
     {},
     {
+        cilBarcode,
         cilReload,
         cilPlus,
         cilArrowBottom,

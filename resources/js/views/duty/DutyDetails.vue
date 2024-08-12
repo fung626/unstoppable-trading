@@ -154,7 +154,7 @@ export default {
             }
             self.updateLoading = true;
             this.$store
-                .dispatch("user/duty/update", self.formData)
+                .dispatch("users/duty/update", self.formData)
                 .then((response) => {
                     self.formData = JSON.parse(JSON.stringify(response.data));
                     self.updateLoading = false;

@@ -50,7 +50,7 @@
                             :label="$t('countrycode')"
                             :error="errors.phone_country_code ? true : false"
                             :error-messages="errors.phone_country_code"
-                            item-text="name"
+                            item-title="name"
                             item-value="value"
                             required
                             outlined
@@ -96,7 +96,7 @@
                     v-model="currency"
                     :items="currencies"
                     :label="$t('currency')"
-                    item-text="name"
+                    item-title="name"
                     item-value="value"
                     required
                     outlined
@@ -125,7 +125,7 @@ export default {
     name: "CreateClient",
     components: {},
     props: {
-        id: null
+        id: null,
     },
     data() {
         return {
@@ -140,7 +140,7 @@ export default {
             errors: {},
             loading: false,
             countryCodes: countryCodes,
-            currencies: currencies
+            currencies: currencies,
         };
     },
     methods: {
@@ -158,21 +158,21 @@ export default {
                 phone: self.phone,
                 email: self.email,
                 address: self.address,
-                currency: self.currency
+                currency: self.currency,
             };
             this.$store
-                .dispatch("client/create", data)
-                .then(response => {
+                .dispatch("clients/create", data)
+                .then((response) => {
                     self.loading = false;
                     self.errors = {};
                     self.$router.back();
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.errors = error.response.data?.data;
                     self.loading = false;
                 });
-        }
-    }
+        },
+    },
 };
 </script>
 

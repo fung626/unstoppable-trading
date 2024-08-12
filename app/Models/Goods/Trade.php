@@ -4,6 +4,7 @@ namespace App\Models\Goods;
 
 use App\Models\Goods\Goods;
 use App\Models\Goods\Invoice\Item as InvoiceItem;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class Trade extends Model

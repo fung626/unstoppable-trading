@@ -23,7 +23,7 @@
                     <v-select
                         v-model="base"
                         :items="currencies"
-                        item-text="name"
+                        item-title="name"
                         item-value="value"
                         :error="errors.base ? true : false"
                         :error-messages="errors.base"
@@ -47,7 +47,7 @@
                     <v-select
                         v-model="symbol"
                         :items="currencies"
-                        item-text="name"
+                        item-title="name"
                         item-value="value"
                         :error="errors.symbol ? true : false"
                         :error-messages="errors.symbol"

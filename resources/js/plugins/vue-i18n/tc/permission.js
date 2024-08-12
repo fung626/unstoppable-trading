@@ -1,0 +1,12 @@
+export default {
+    goods: "貨物",
+    users: "用户",
+    stocks: "庫存",
+    clients: "客戶",
+    purchases: "購買",
+    shippings: "運輸",
+    suppliers: "供應商",
+    categories: "類別",
+    warehouses: "貨倉",
+    "sales-reports": "銷售報告",
+};

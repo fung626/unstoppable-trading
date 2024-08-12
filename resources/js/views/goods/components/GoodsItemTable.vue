@@ -71,7 +71,7 @@
                 <v-autocomplete
                     v-model="item.cup"
                     :items="goodsCups"
-                    item-text="name"
+                    item-title="name"
                     item-value="name"
                     hide-details
                     rounded
@@ -81,7 +81,7 @@
                 <v-autocomplete
                     v-model="item.color"
                     :items="goodsColors"
-                    item-text="name"
+                    item-title="name"
                     item-value="name"
                     hide-details
                     rounded
@@ -91,7 +91,7 @@
                 <v-autocomplete
                     v-model="item.size"
                     :items="goodsSizes"
-                    item-text="name"
+                    item-title="name"
                     item-value="name"
                     hide-details
                     rounded

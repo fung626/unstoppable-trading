@@ -12,7 +12,7 @@ export default [
         to: "/dashboard",
         icon: "cil-speedometer",
     },
-    ...(permissions.salesreport
+    ...(permissions["sales-reports"]
         ? [
               {
                   component: "CNavItem",
@@ -22,7 +22,7 @@ export default [
               },
           ]
         : []),
-    ...(permissions.user
+    ...(permissions.users
         ? [
               {
                   component: "CNavItem",
@@ -42,7 +42,7 @@ export default [
               },
           ]
         : []),
-    ...(permissions.stock
+    ...(permissions.stocks
         ? [
               {
                   component: "CNavItem",
@@ -52,7 +52,7 @@ export default [
               },
           ]
         : []),
-    ...(permissions.purchase
+    ...(permissions.purchases
         ? [
               {
                   component: "CNavItem",
@@ -62,7 +62,7 @@ export default [
               },
           ]
         : []),
-    ...(permissions.purchase
+    ...(permissions.purchases
         ? [
               {
                   component: "CNavItem",
@@ -72,7 +72,7 @@ export default [
               },
           ]
         : []),
-    ...(permissions.supplier
+    ...(permissions.suppliers
         ? [
               {
                   component: "CNavItem",
@@ -82,7 +82,7 @@ export default [
               },
           ]
         : []),
-    ...(permissions.category
+    ...(permissions.categories
         ? [
               {
                   component: "CNavItem",
@@ -92,7 +92,7 @@ export default [
               },
           ]
         : []),
-    ...(permissions.warehouse
+    ...(permissions.warehouses
         ? [
               {
                   component: "CNavItem",
@@ -102,7 +102,7 @@ export default [
               },
           ]
         : []),
-    ...(permissions.client
+    ...(permissions.clients
         ? [
               {
                   component: "CNavItem",

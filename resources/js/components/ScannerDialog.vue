@@ -174,7 +174,7 @@ export default {
             if (this.data) {
                 switch (this.type) {
                     case "Shipping":
-                        this.$store.dispatch("goods/shipping/add", {
+                        this.$store.dispatch("goods/shippings/add", {
                             data: { ...this.data, unit: this.unit },
                         });
                         break;

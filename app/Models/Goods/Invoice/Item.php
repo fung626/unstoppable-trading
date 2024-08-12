@@ -4,6 +4,7 @@ namespace App\Models\Goods\Invoice;
 
 use App\Models\Goods\Goods;
 use App\Models\Goods\Invoice\Invoice;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model

@@ -1,20 +1,16 @@
 <template>
     <div>
         <Dialog ref="dialog" />
-        <CRow class="p-2">
-            <CCol :md="9" :sm="9">
+        <CRow class="p-2 mb-2 mt-4">
+            <CCol :md="10" :sm="10">
                 <CInputGroup class="mb-3">
-                    <CButton color="primary" size="sm" v-on:click="search">
+                    <CButton color="primary" size="sm">
                         <CIcon name="cil-magnifying-glass" size="sm" />
                     </CButton>
-                    <CFormInput
-                        size="sm"
-                        v-model="searchText"
-                        v-on:keyup.enter="search"
-                    />
+                    <CFormInput size="sm" v-model="search" />
                 </CInputGroup>
             </CCol>
-            <CCol :md="3" :sm="3" class="text-right">
+            <CCol :md="2" :sm="2" class="text-right">
                 <CButtonGroup role="group">
                     <CButton color="primary" size="sm" v-on:click="add">
                         <CIcon name="cil-plus" size="sm" />
@@ -30,6 +26,13 @@
         </CRow>
         <v-data-table
             class="elevation-1"
+            :headers="headers"
+            :items="items"
+            :items-length="serverItemsLength"
+            :search="search"
+            :loading="loading"
+            @update:options="fetch"
+            :mobile="mobile"
             :footer-props="{
                 disableItemsPerPage: disableItemsPerPage,
                 disablePagination: disablePagination,
@@ -38,12 +41,15 @@
                 itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
-            <!-- <template v-slot:[`item.created_at`]="{ item }">
-                {{ item.created_at | moment("dddd, Do MMMM YYYY") }}
+            <template v-slot:loading>
+                <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
+            </template>
+            <template v-slot:[`item.created_at`]="{ item }">
+                {{ this.$formatDate(item.created_at) }}
             </template>
             <template v-slot:[`item.updated_at`]="{ item }">
-                {{ item.updated_at | moment("dddd, Do MMMM YYYY") }}
-            </template> -->
+                {{ this.$formatDate(item.updated_at) }}
+            </template>
             <template v-slot:[`item.actions`]="{ item }">
                 <CButtonGroup>
                     <CButton
@@ -61,38 +67,30 @@
         </v-data-table>
     </div>
 </template>
-<!-- <script>
+<script>
 //
 import { Dialog } from "@/components";
-import { mapState } from "vuex";
 
 export default {
     name: "Client",
     components: {
         Dialog,
     },
-    computed: {
-        ...mapState(["client"]),
-        serverItemsLength() {
-            return this.client.data?.total;
-        },
-        pageCount() {
-            return this.client.data?.last_page;
-        },
-        page() {
-            return this.client.data?.current_page;
-        },
-        items() {
-            return this.client.data?.data;
-        },
-    },
     data() {
         return {
-            searchText: null,
+            search: null,
             loading: false,
-            options: {},
-            sortBy: "name",
-            sortDesc: false,
+            mobile: window.innerWidth < 769,
+            items: [],
+            // page: 1,
+            pageCount: 0,
+            serverItemsLength: 0,
+            options: {
+                page: 1,
+                itemsPerPage: 5,
+                sortBy: null,
+                sortDesc: false,
+            },
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
@@ -106,7 +104,11 @@ export default {
                 },
                 { title: this.$t("email"), value: "email" },
                 { title: this.$t("updatedat"), value: "updated_at" },
-                { title: this.$t("actions"), value: "actions", sortable: false },
+                {
+                    title: this.$t("actions"),
+                    value: "actions",
+                    sortable: false,
+                },
             ],
         };
     },
@@ -122,20 +124,25 @@ export default {
         },
     },
     methods: {
-        fetch(reset = false) {
+        fetch({ page, itemsPerPage, sortBy, search }) {
             let self = this;
             self.loading = true;
-            const { page, itemsPerPage, sortBy, sortDesc } = self.options;
+            // const { page, itemsPerPage, sortBy, sortDesc } = self.options;
             let data = {
-                page: reset ? 1 : page,
+                page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-                sort_desc: sortDesc,
-                search: self.searchText,
+                sort_desc: null,
+                search: search,
             };
             this.$store
-                .dispatch("client/get", data)
+                .dispatch("clients/get", data)
                 .then((response) => {
+                    let res = JSON.parse(JSON.stringify(response.data));
+                    self.items = res.data;
+                    self.serverItemsLength = res.total;
+                    self.pageCount = res.last_page;
+                    self.page = res.current_page;
                     self.loading = false;
                 })
                 .catch((error) => {
@@ -143,7 +150,7 @@ export default {
                 });
         },
         search() {
-            this.fetch(true);
+            this.fetch({ ...this.options });
         },
         add() {
             this.$router.push({ path: "/clients/create" });
@@ -160,7 +167,7 @@ export default {
                 extension: "pdf",
             };
             this.$store
-                .dispatch("client/export", data)
+                .dispatch("clients/export", data)
                 .then((response) => {
                     self.loading = false;
                 })
@@ -169,14 +176,13 @@ export default {
                 });
         },
         reload() {
-            this.fetch();
+            this.fetch({ ...this.options });
         },
         async click(id, type) {
             switch (type) {
                 case "RouterPush":
                     this.$router.push({
-                        name: "ClientDetails",
-                        params: { id: id },
+                        path: `clients/details/${id}`,
                     });
                     break;
                 case "Delete":
@@ -188,7 +194,7 @@ export default {
                     ) {
                         let self = this;
                         this.$store
-                            .dispatch("client/delete", { id: id })
+                            .dispatch("clients/delete", { id: id })
                             .then((response) => {
                                 self.loading = false;
                                 self.fetch();
@@ -203,4 +209,4 @@ export default {
         },
     },
 };
-</script> -->
+</script>

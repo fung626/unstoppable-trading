@@ -3,6 +3,7 @@
 namespace App\Models\Goods\Warehouse;
 
 use App\Models\Goods\Goods;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class Warehouse extends Model

@@ -18,5 +18,29 @@ export default {
             create: "新增",
             details: "詳細",
         },
+        goods: {
+            home: "貨物",
+            table: "清單",
+            create: "新增",
+            details: "詳細",
+        },
+        suppliers: {
+            home: "供應商",
+            table: "清單",
+            create: "新增",
+            details: "詳細",
+        },
+        categories: {
+            home: "類別",
+            table: "清單",
+            create: "新增",
+            details: "詳細",
+        },
+        warehouses: {
+            home: "貨倉",
+            table: "清單",
+            create: "新增",
+            details: "詳細",
+        },
     },
 };

@@ -63,6 +63,7 @@ class EmployeeController extends Controller
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             $response = config('response.common.fail.database');
+            $response['msg'] = $e->getMessage();
             return response()->json($response, 400);
         }
         // dd($user);

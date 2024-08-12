@@ -1,10 +1,12 @@
 // import axios from "axios";
+import i18n from "@/plugins/vue-i18n";
 import moment from "moment";
 import router from "../../router";
 import axios from "../../utils/myAxios";
 
-const endpoint = "/api/goods/shipping/invoice/";
-const name = "goods/shipping/invoice";
+const { t } = i18n.global;
+const endpoint = "/api/goods/shippings/invoice/";
+const name = "goods/shippings/invoice";
 
 export default {
     [`${name}/export`]({ commit, dispatch }, payload) {

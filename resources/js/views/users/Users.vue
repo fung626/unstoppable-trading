@@ -151,9 +151,6 @@ export default {
                     self.loading = false;
                 });
         },
-        search() {
-            this.fetch(true);
-        },
         add() {
             this.$router.push({ path: "users/create" });
         },
@@ -165,7 +162,7 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                search: self.searchText,
+                search: self.search,
                 extension: "pdf",
             };
             this.$store
@@ -178,7 +175,7 @@ export default {
                 });
         },
         reload() {
-            this.fetch();
+            this.fetch({ ...this.options });
         },
         async click(id, type) {
             switch (type) {

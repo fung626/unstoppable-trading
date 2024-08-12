@@ -45,7 +45,7 @@
                     :label="$t('role')"
                     :error="errors.role ? true : false"
                     :error-messages="errors.role"
-                    item-text="name"
+                    item-title="name"
                     item-value="value"
                     required
                     outlined
@@ -81,7 +81,7 @@ export default {
             errors: {},
             loading: false,
             passwordVisible: false,
-            roles: roles
+            roles: roles,
         };
     },
     methods: {
@@ -96,21 +96,21 @@ export default {
                 email: self.email,
                 phone: self.phone,
                 password: self.password,
-                role: self.role
+                role: self.role,
             };
             this.$store
-                .dispatch("user/create", data)
-                .then(response => {
+                .dispatch("users/create", data)
+                .then((response) => {
                     self.loading = false;
                     self.errors = {};
                     self.$router.back();
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.errors = error.response.data?.data;
                     self.loading = false;
                 });
-        }
-    }
+        },
+    },
 };
 </script>
 

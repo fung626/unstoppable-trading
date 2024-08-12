@@ -52,15 +52,15 @@ export default {
         ...mapState(["goods/shipping"]),
         data() {
             return this["goods/shipping"].shippingData;
-        }
+        },
     },
     methods: {
         clear() {
-            this.$store.dispatch("goods/shipping/clear");
+            this.$store.dispatch("goods/shippings/clear");
         },
         show() {
             return this.data.length > 0 ? true : false;
-        }
-    }
+        },
+    },
 };
 </script>

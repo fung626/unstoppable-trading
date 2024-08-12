@@ -53,11 +53,12 @@
                             :label="$t('countrycode')"
                             :error="errors.phone_country_code ? true : false"
                             :error-messages="errors.phone_country_code"
-                            item-text="name"
+                            item-title="value"
                             item-value="value"
                             required
                             outlined
                             dense
+                            return-object
                         ></v-select>
                     </CCol>
                     <CCol md="10" sm="10">
@@ -99,11 +100,13 @@
                     v-model="formData.currency"
                     :items="currencies"
                     :label="$t('currency')"
-                    item-text="name"
+                    item-title="name"
+                    item-title="value"
                     item-value="value"
                     required
                     outlined
                     dense
+                    return-object
                     :error="errors.currency ? true : false"
                     :error-messages="errors.currency"
                 ></v-select>
@@ -129,7 +132,7 @@ export default {
     name: "ClientForm",
     components: {},
     props: {
-        id: null
+        id: null,
     },
     data() {
         return {
@@ -138,7 +141,7 @@ export default {
             fetchLoading: false,
             updateLoading: false,
             countryCodes: countryCodes,
-            currencies: currencies
+            currencies: currencies,
         };
     },
     mounted() {
@@ -151,16 +154,16 @@ export default {
                 return;
             }
             let data = {
-                id: self.$props.id
+                id: self.$props.id,
             };
             self.fetchLoading = true;
             this.$store
-                .dispatch("client/details", data)
-                .then(response => {
+                .dispatch("clients/details", data)
+                .then((response) => {
                     self.formData = JSON.parse(JSON.stringify(response.data));
                     self.fetchLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.fetchLoading = false;
                 });
         },
@@ -171,18 +174,18 @@ export default {
             }
             self.updateLoading = true;
             this.$store
-                .dispatch("client/update", self.formData)
-                .then(response => {
+                .dispatch("clients/update", self.formData)
+                .then((response) => {
                     self.formData = JSON.parse(JSON.stringify(response.data));
                     self.errors = {};
                     self.updateLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.errors = error.response.data?.data;
                     self.updateLoading = false;
                 });
-        }
-    }
+        },
+    },
 };
 </script>
 

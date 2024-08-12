@@ -4,11 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Goods\Stocks as StocksCollection;
+use App\Models\Config\UserRole;
 use App\Models\Goods\Item;
-use App\Mylibs\Common;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TestController extends Controller
 {
@@ -20,10 +20,31 @@ class TestController extends Controller
 
     public function get(Request $request)
     {
-        $from = Carbon::now()->addMonth(-6);
-        $to = Carbon::now();
-        $range = Common::getMonthsFromRange($from, $to, 'M Y');
-        dd($range);
+        $response = config('response.common.success');
+        try {
+            // $array = array(
+            //     "users" => true,
+            //     "goods" => true,
+            //     "stocks" => true,
+            //     "clients" => true,
+            //     "categories" => true,
+            //     "purchases" => true,
+            //     "shippings" => true,
+            //     "suppliers" => true,
+            //     "warehouses" => true,
+            //     "sales-reports" => true,
+            // );
+            $data = UserRole::where([
+                'name' => 'ADMIN',
+            ])->get();
+            $response['data'] = $data;
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            Log::error($e->getMessage());
+            $response['msg'] = $e->getMessage();
+            return response()->json($response, 200);
+        }
+        return response()->json($response, 200);
     }
 
     public function post(Request $request)

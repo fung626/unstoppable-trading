@@ -144,7 +144,7 @@ export default {
                     let i = iData[x.name];
                     for (const y of yData) {
                         if (y.id && y.id === i.goods_item_id) {
-                            this.$store.dispatch("goods/shipping/add", {
+                            this.$store.dispatch("goods/shippings/add", {
                                 data: { ...y, unit: i.unit },
                             });
                         }

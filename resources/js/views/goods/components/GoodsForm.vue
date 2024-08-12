@@ -76,7 +76,7 @@
                             :label="$t('type')"
                             :error="errors.type ? true : false"
                             :error-messages="errors.type"
-                            item-text="name"
+                            item-title="name"
                             item-value="name"
                             disabled
                             required
@@ -95,7 +95,7 @@
                     dense
                     hide-no-data
                     hide-selected
-                    item-text="name"
+                    item-title="name"
                     item-value="id"
                     :label="$t('supplier')"
                     :error="errors.supplier ? true : false"
@@ -110,7 +110,7 @@
                     hide-no-data
                     hide-selected
                     outlined
-                    item-text="name"
+                    item-title="name"
                     item-value="id"
                     :label="$t('categories')"
                     return-object
@@ -129,7 +129,7 @@
                     dense
                     hide-no-data
                     hide-selected
-                    item-text="name"
+                    item-title="name"
                     item-value="id"
                     :label="$t('warehouse')"
                     return-object
@@ -174,7 +174,7 @@ export default {
     name: "GoodsForm",
     components: {},
     props: {
-        id: null
+        id: null,
     },
     data() {
         return {
@@ -184,17 +184,17 @@ export default {
             updateLoading: false,
             supplier: {
                 items: [],
-                loading: false
+                loading: false,
             },
             category: {
                 items: [],
-                loading: false
+                loading: false,
             },
             warehouse: {
                 items: [],
-                loading: false
+                loading: false,
             },
-            goodsTypes: goodsTypes
+            goodsTypes: goodsTypes,
         };
     },
     watch: {
@@ -204,15 +204,15 @@ export default {
                 if (self.supplier.length > 0 || self.supplier.loading) return;
                 self.supplier.loading = true;
                 this.$store
-                    .dispatch("goods/supplier/get", {})
-                    .then(response => {
+                    .dispatch("goods/suppliers/get", {})
+                    .then((response) => {
                         self.supplier.items = response.data;
                         self.supplier.loading = false;
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         self.supplier.loading = false;
                     });
-            }
+            },
         ],
         category: [
             function search(val) {
@@ -221,14 +221,14 @@ export default {
                 self.category.loading = true;
                 this.$store
                     .dispatch("goods/category/get", {})
-                    .then(response => {
+                    .then((response) => {
                         self.category.items = response.data;
                         self.category.loading = false;
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         self.category.loading = false;
                     });
-            }
+            },
         ],
         warehouse: [
             function search(val) {
@@ -236,16 +236,16 @@ export default {
                 if (self.warehouse.length > 0 || self.warehouse.loading) return;
                 self.warehouse.loading = true;
                 this.$store
-                    .dispatch("goods/warehouse/get", {})
-                    .then(response => {
+                    .dispatch("goods/warehouses/get", {})
+                    .then((response) => {
                         self.warehouse.items = response.data;
                         self.warehouse.loading = false;
                     })
-                    .catch(error => {
+                    .catch((error) => {
                         self.warehouse.loading = false;
                     });
-            }
-        ]
+            },
+        ],
     },
     mounted() {
         this.fetch();
@@ -257,16 +257,16 @@ export default {
                 return;
             }
             let data = {
-                id: self.$props.id
+                id: self.$props.id,
             };
             self.fetchLoading = true;
             this.$store
                 .dispatch("goods/details", data)
-                .then(response => {
+                .then((response) => {
                     self.formData = JSON.parse(JSON.stringify(response.data));
                     self.fetchLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.fetchLoading = false;
                 });
         },
@@ -278,17 +278,17 @@ export default {
             self.updateLoading = true;
             this.$store
                 .dispatch("goods/update", self.formData)
-                .then(response => {
+                .then((response) => {
                     self.formData = JSON.parse(JSON.stringify(response.data));
                     self.errors = {};
                     self.updateLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.errors = error.response.data?.data;
                     self.updateLoading = false;
                 });
-        }
-    }
+        },
+    },
 };
 </script>
 

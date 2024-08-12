@@ -37,6 +37,14 @@ export default defineConfig({
             "@/assets": `${path.resolve(__dirname, "resources/assets")}/`,
             "@styles": `${path.resolve(__dirname, "resources/styles")}`,
             "@/styles": `${path.resolve(__dirname, "resources/styles")}/`,
+            "@constants": `${path.resolve(
+                __dirname,
+                "resources/js/constants"
+            )}`,
+            "@/constants": `${path.resolve(
+                __dirname,
+                "resources/js/constants"
+            )}/`,
             "~coreui": path.resolve(__dirname, "node_modules/@coreui/coreui"),
         },
     },

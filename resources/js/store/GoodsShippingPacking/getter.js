@@ -1,3 +1,3 @@
-const name = "goods/shipping/packing";
+const name = "goods/shippings/packing";
 
 export default {};

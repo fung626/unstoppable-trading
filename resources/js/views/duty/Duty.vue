@@ -236,7 +236,7 @@ export default {
                     ) {
                         let self = this;
                         this.$store
-                            .dispatch("user/duty/delete", { id: id })
+                            .dispatch("users/duty/delete", { id: id })
                             .then((response) => {
                                 self.loading = false;
                                 self.fetch();

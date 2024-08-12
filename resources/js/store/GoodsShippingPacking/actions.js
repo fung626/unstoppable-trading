@@ -3,9 +3,11 @@ import moment from "moment";
 import router from "../../router";
 import axios from "../../utils/myAxios";
 // import * as types from "./mutation-types";
+import i18n from "@/plugins/vue-i18n";
 
-const endpoint = "/api/goods/shipping/packing/";
-const name = "goods/shipping/packing";
+const { t } = i18n.global;
+const endpoint = "/api/goods/shippings/packing/";
+const name = "goods/shippings/packing";
 
 export default {
     [`${name}/export`]({ commit, dispatch }, payload) {

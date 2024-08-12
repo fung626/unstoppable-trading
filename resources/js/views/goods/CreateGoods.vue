@@ -63,7 +63,7 @@
                         <v-select
                             v-model="type"
                             :items="goodsTypes"
-                            item-text="name"
+                            item-title="name"
                             item-value="name"
                             :label="$t('type')"
                             :error="errors.type ? true : false"
@@ -83,7 +83,7 @@
                     dense
                     hide-no-data
                     hide-selected
-                    item-text="name"
+                    item-title="name"
                     item-value="id"
                     :label="$t('supplier')"
                     :error="errors.supplier ? true : false"
@@ -98,7 +98,7 @@
                     hide-no-data
                     hide-selected
                     outlined
-                    item-text="name"
+                    item-title="name"
                     item-value="id"
                     :label="$t('categories')"
                     return-object
@@ -117,7 +117,7 @@
                     dense
                     hide-no-data
                     hide-selected
-                    item-text="name"
+                    item-title="name"
                     item-value="id"
                     :label="$t('warehouse')"
                     return-object
@@ -159,7 +159,7 @@
                         <v-autocomplete
                             v-model="item.cup"
                             :items="goodsCups"
-                            item-text="name"
+                            item-title="name"
                             item-value="name"
                             :disabled="type === 'BF'"
                             hide-details
@@ -170,7 +170,7 @@
                         <v-autocomplete
                             v-model="item.color"
                             :items="goodsColors"
-                            item-text="name"
+                            item-title="name"
                             item-value="name"
                             hide-details
                             rounded
@@ -180,10 +180,11 @@
                         <v-autocomplete
                             v-model="item.size"
                             :items="goodsSizes"
-                            item-text="name"
+                            item-title="name"
                             item-value="name"
                             hide-details
                             rounded
+                            return-object
                         ></v-autocomplete>
                     </template>
                     <template v-slot:[`item.barcode`]="{ item }">
@@ -452,7 +453,7 @@ export default {
             }
             self.autocomplete.warehouse.loading = true;
             this.$store
-                .dispatch("goods/warehouse/get", {})
+                .dispatch("goods/warehouses/get", {})
                 .then((response) => {
                     self.autocomplete.warehouse.items = response.data;
                     self.autocomplete.warehouse.loading = false;

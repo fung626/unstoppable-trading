@@ -48,11 +48,12 @@
                     :label="$t('role')"
                     :error="errors.role ? true : false"
                     :error-messages="errors.role"
-                    item-text="name"
+                    item-title="value"
                     item-value="value"
                     required
                     outlined
                     dense
+                    return-object
                     :disabled="!$store.getters.isAdmin"
                 ></v-select>
                 <v-text-field
@@ -89,7 +90,7 @@ import { roles } from "@/constants";
 export default {
     name: "UserForm",
     props: {
-        id: null
+        id: null,
     },
     data() {
         return {
@@ -97,7 +98,7 @@ export default {
             errors: {},
             fetchLoading: false,
             updateLoading: false,
-            roles: roles
+            roles: roles,
         };
     },
     mounted() {
@@ -111,15 +112,15 @@ export default {
             }
             self.fetchLoading = true;
             let data = {
-                id: self.$props.id
+                id: self.$props.id,
             };
             this.$store
-                .dispatch("user/details", data)
-                .then(response => {
+                .dispatch("users/details", data)
+                .then((response) => {
                     self.formData = response.data;
                     self.fetchLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.fetchLoading = false;
                 });
         },
@@ -131,21 +132,21 @@ export default {
             self.updateLoading = true;
             let data = {
                 ...self.formData,
-                id: self.$props.id
+                id: self.$props.id,
             };
             this.$store
-                .dispatch("user/update", data)
-                .then(response => {
+                .dispatch("users/update", data)
+                .then((response) => {
                     self.formData = response.data.data;
                     self.errors = {};
                     self.updateLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.errors = error.response.data?.data;
                     self.updateLoading = false;
                 });
-        }
-    }
+        },
+    },
 };
 </script>
 

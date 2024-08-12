@@ -8,53 +8,43 @@
                     color="cyan"
                 ></v-progress-linear>
                 <CCardBody>
-                    <CTabs
-                        variant="pills"
-                        @update:activeTab="(index) => activeTabUpdated(index)"
-                    >
-                        <CTab
-                            :title="tab.values[0].toUpperCase()"
-                            :active="tab.index === 0 ? true : false"
-                        >
-                            <hr />
-                            <UserForm :id="this.$route.params.id"></UserForm>
-                        </CTab>
-                        <CTab
-                            v-if="
-                                $store.getters.isAdmin &&
-                                data.role === 'EMPLOYEE'
-                            "
-                            :title="tab.values[1].toUpperCase()"
-                            :active="tab.index === 1 ? true : false"
-                        >
-                            <hr />
-                            <EmployeeForm
-                                :id="this.$route.params.id"
-                            ></EmployeeForm>
-                        </CTab>
-                        <CTab
-                            v-if="
-                                $store.getters.isAdmin &&
-                                data.role === 'EMPLOYEE'
-                            "
-                            :title="tab.values[2].toUpperCase()"
-                            :active="tab.index === 2 ? true : false"
-                        >
-                            <hr />
-                            <DutyCalendar
-                                :userId="this.$route.params.id"
-                            ></DutyCalendar>
-                        </CTab>
-                        <CTab
-                            v-if="$store.getters.isAdmin"
-                            :title="tab.values[3].toUpperCase()"
-                            :active="tab.index === 3 ? true : false"
-                        >
-                            <hr />
-                            <PermissionForm
-                                :id="this.$route.params.id"
-                            ></PermissionForm>
-                        </CTab>
+                    <CTabs :activeItemKey="0">
+                        <CTabList variant="pills">
+                            <CTab :itemKey="0">
+                                {{ tab.values[0].toUpperCase() }}
+                            </CTab>
+                            <CTab :itemKey="1">
+                                {{ tab.values[1].toUpperCase() }}
+                            </CTab>
+                            <CTab :itemKey="2">
+                                {{ tab.values[2].toUpperCase() }}
+                            </CTab>
+                            <CTab :itemKey="3">
+                                {{ tab.values[3].toUpperCase() }}
+                            </CTab>
+                        </CTabList>
+                        <CTabContent>
+                            <CTabPanel class="p-3" :itemKey="0">
+                                <UserForm
+                                    :id="this.$route.params.id"
+                                ></UserForm>
+                            </CTabPanel>
+                            <CTabPanel class="p-3" :itemKey="1">
+                                <EmployeeForm
+                                    :id="this.$route.params.id"
+                                ></EmployeeForm>
+                            </CTabPanel>
+                            <CTabPanel class="p-3" :itemKey="2">
+                                <DutyCalendar
+                                    :userId="this.$route.params.id"
+                                ></DutyCalendar>
+                            </CTabPanel>
+                            <CTabPanel class="p-3" :itemKey="3">
+                                <PermissionForm
+                                    :id="this.$route.params.id"
+                                ></PermissionForm>
+                            </CTabPanel>
+                        </CTabContent>
                     </CTabs>
                 </CCardBody>
             </CCard>
@@ -106,7 +96,7 @@ export default {
                 id: self.$route.params.id,
             };
             this.$store
-                .dispatch("user/details", data)
+                .dispatch("users/details", data)
                 .then((response) => {
                     self.data = response.data;
                     self.loading = false;

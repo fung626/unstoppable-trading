@@ -16,12 +16,13 @@ class LoginController extends Controller
     //
     public function index(Request $request)
     {
-        // dd(bcrypt('demo'));
+        // dd(bcrypt('12345678'));
         if (!$request->has(['email', 'password'])) {
             $response = config('response.common.fail.parameter');
             return response()->json($response, 400);
         }
 
+        // dd(Auth::attempt(['email' => request('email'), 'password' => request('password')]));
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
             switch ($user->role) {

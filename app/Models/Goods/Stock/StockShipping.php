@@ -4,6 +4,7 @@ namespace App\Models\Goods\Stock;
 
 // use App\Models\Goods\Shipping;
 use App\Models\Goods\Stock\Stock;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class StockShipping extends Model

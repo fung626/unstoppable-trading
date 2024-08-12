@@ -3,26 +3,27 @@
         <CCol>
             <CCard class="p-2">
                 <CCardBody>
-                    <CTabs
-                        variant="pills"
-                        @update:activeTab="index => activeTabUpdated(index)"
-                    >
-                        <CTab
-                            :title="tab.values[0].toUpperCase()"
-                            :active="tab.index === 0 ? true : false"
-                        >
-                            <hr />
-                            <ClientForm
-                                :id="this.$route.params.id"
-                            ></ClientForm>
-                        </CTab>
-                        <CTab
-                            :title="tab.values[1].toUpperCase()"
-                            :active="tab.index === 1 ? true : false"
-                        >
-                            <hr />
-                            <ShippingTable :clientId="this.$route.params.id" />
-                        </CTab>
+                    <CTabs :activeItemKey="0">
+                        <CTabList variant="pills">
+                            <CTab :itemKey="0">
+                                {{ tab.values[0].toUpperCase() }}
+                            </CTab>
+                            <CTab :itemKey="1">
+                                {{ tab.values[1].toUpperCase() }}
+                            </CTab>
+                        </CTabList>
+                        <CTabContent>
+                            <CTabPanel class="p-3" :itemKey="0">
+                                <ClientForm
+                                    :id="this.$route.params.id"
+                                ></ClientForm>
+                            </CTabPanel>
+                            <CTabPanel class="p-3" :itemKey="1">
+                                <ShippingTable
+                                    :clientId="this.$route.params.id"
+                                />
+                            </CTabPanel>
+                        </CTabContent>
                     </CTabs>
                 </CCardBody>
             </CCard>
@@ -31,25 +32,25 @@
 </template>
 <script>
 //
-import ShippingTable from "../shipping/components/ShippingTable";
-import ClientForm from "./components/ClientForm";
+import ShippingTable from "../shipping/components/ShippingTable.vue";
+import ClientForm from "./components/ClientForm.vue";
 
 export default {
     name: "ClientDetails",
     components: {
         ClientForm,
-        ShippingTable
+        ShippingTable,
     },
     data() {
         return {
             tab: {
                 values: [this.$t("info"), this.$t("shipping.title")],
-                index: 0
-            }
+                index: 0,
+            },
         };
     },
     methods: {
-        activeTabUpdated(index) {}
-    }
+        activeTabUpdated(index) {},
+    },
 };
 </script>

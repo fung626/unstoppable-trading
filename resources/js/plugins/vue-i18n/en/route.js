@@ -1,7 +1,7 @@
 export default {
     route: {
         users: {
-            home: "Home",
+            home: "Users",
             table: "Table",
             create: "Create",
             details: "Details",
@@ -13,7 +13,31 @@ export default {
             details: "Details",
         },
         duty: {
-            home: "Home",
+            home: "Duty",
+            table: "Table",
+            create: "Create",
+            details: "Details",
+        },
+        goods: {
+            home: "Goods",
+            table: "Table",
+            create: "Create",
+            details: "Details",
+        },
+        suppliers: {
+            home: "Suppliers",
+            table: "Table",
+            create: "Create",
+            details: "Details",
+        },
+        categories: {
+            home: "Categories",
+            table: "Table",
+            create: "Create",
+            details: "Details",
+        },
+        warehouses: {
+            home: "Warehouses",
             table: "Table",
             create: "Create",
             details: "Details",

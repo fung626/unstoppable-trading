@@ -6,25 +6,32 @@
             color="cyan"
         ></v-progress-linear>
         <CCardBody>
-            <div class="d-flex flex-wrap">
-                <div v-for="(_, key) in formData.items" v-bind:key="`${key}`">
+            <CRow class="align-items-start">
+                <CCol
+                    :md="3"
+                    :sm="6"
+                    v-for="(_, key) in formData.items"
+                    v-bind:key="`${key}`"
+                >
                     <div v-if="formData.user.role === 'ADMIN'" class="p-2">
                         <v-switch
                             v-model="formData.items[key]"
+                            color="indigo"
+                            :label="$t(`permission.${key}`)"
                             inset
-                            :label="$t(key)"
                             disabled
                         ></v-switch>
                     </div>
                     <div v-else class="p-2">
                         <v-switch
                             v-model="formData.items[key]"
+                            :label="$t(`permission.${key}`)"
+                            color="indigo"
                             inset
-                            :label="$t(key)"
                         ></v-switch>
                     </div>
-                </div>
-            </div>
+                </CCol>
+            </CRow>
             <form>
                 <CButton @click="update" color="primary" class="px-4">
                     {{ $t("button.update") }}
@@ -46,7 +53,7 @@ import { roles } from "@/constants";
 export default {
     name: "PermissionForm",
     props: {
-        id: null
+        id: null,
     },
     data() {
         return {
@@ -54,7 +61,7 @@ export default {
             errors: {},
             fetchLoading: false,
             updateLoading: false,
-            roles: roles
+            roles: roles,
         };
     },
     mounted() {
@@ -68,16 +75,16 @@ export default {
             }
             self.fetchLoading = true;
             let data = {
-                id: self.$props.id
+                id: self.$props.id,
             };
             this.$store
-                .dispatch("user/permission/get", data)
-                .then(response => {
+                .dispatch("users/permission/get", data)
+                .then((response) => {
                     self.formData = JSON.parse(JSON.stringify(response.data));
                     // console.log(response.data.data);
                     self.fetchLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.fetchLoading = false;
                 });
         },
@@ -89,21 +96,21 @@ export default {
             self.updateLoading = true;
             let data = {
                 ...self.formData,
-                id: self.$props.id
+                id: self.$props.id,
             };
             this.$store
-                .dispatch("user/permission/update", data)
-                .then(response => {
+                .dispatch("users/permission/update", data)
+                .then((response) => {
                     self.formData = JSON.parse(JSON.stringify(response.data));
                     self.errors = {};
                     self.updateLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.errors = error.response.data?.data;
                     self.updateLoading = false;
                 });
-        }
-    }
+        },
+    },
 };
 </script>
 

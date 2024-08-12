@@ -4,7 +4,9 @@ namespace App\Http\Resources\Client;
 
 use App\Models\Config\CountryCode;
 use App\Mylibs\Common;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class Clients extends ResourceCollection
@@ -20,10 +22,18 @@ class Clients extends ResourceCollection
         // return parent::toArray($request);
         $countryCodeConfigs = CountryCode::get()->toArray();
         return $this->collection->transform(function ($item) use ($request, $countryCodeConfigs) {
-            $index = array_search($item->phone_country_code, array_column($countryCodeConfigs, 'code'));
-            $iso = $countryCodeConfigs[$index]['iso'];
-            if ($iso && $item->phone_country_code) {
-                $item->formated_phone = Common::formatPhoneNumber($item->phone, $iso);
+            try {
+                // dd($countryCodeConfigs);
+                $index = array_search($item->phone_country_code, array_column($countryCodeConfigs, 'code'));
+                $iso = $countryCodeConfigs[$index]['iso'];
+                if ($iso && $item->phone_country_code) {
+                    $item->formated_phone = Common::formatPhoneNumber($item->phone, $iso);
+                }
+            } catch (\Exception $e) {
+                // dd($e->getMessage());
+                Log::error($e->getMessage());
+                $response['msg'] = $e->getMessage();
+                // return response()->json($response, 200);
             }
             $item->actions = [
                 [

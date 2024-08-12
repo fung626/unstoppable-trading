@@ -3,6 +3,7 @@
 namespace App\Models\Goods\Invoice;
 
 use App\Models\Goods\Invoice\Item;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model

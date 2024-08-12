@@ -18,7 +18,7 @@ export default [
     {
         component: "CNavItem",
         name: t("salesreport"),
-        to: "/sales-report",
+        to: "/sales-reports",
         icon: "cil-chart-line",
     },
     {
@@ -42,37 +42,37 @@ export default [
     {
         component: "CNavItem",
         name: t("stock"),
-        to: "/stock",
+        to: "/stocks",
         icon: "cil-square",
     },
     {
         component: "CNavItem",
         name: t("purchase.title"),
-        to: "/purchase",
+        to: "/purchases",
         icon: "cil-storage",
     },
     {
         component: "CNavItem",
         name: t("shipping.title"),
-        to: "/shipping",
+        to: "/shippings",
         icon: "cil-truck",
     },
     {
         component: "CNavItem",
         name: t("supplier"),
-        to: "/supplier",
+        to: "/suppliers",
         icon: "cil-people",
     },
     {
         component: "CNavItem",
-        name: t("category"),
-        to: "/category",
+        name: t("categories"),
+        to: "/categories",
         icon: "cil-short-text",
     },
     {
         component: "CNavItem",
-        name: t("warehouse"),
-        to: "/warehouse",
+        name: t("warehouses"),
+        to: "/warehouses",
         icon: "cil-room",
     },
     {

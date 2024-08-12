@@ -1,10 +1,12 @@
 // import axios from "axios";
+import i18n from "@/plugins/vue-i18n";
 import router from "../../router";
 import axios from "../../utils/myAxios";
 import * as types from "./mutation-types";
 
-const endpoint = "/api/goods/stock/calendar/";
-const name = "goods/stock/calendar";
+const { t } = i18n.global;
+const endpoint = "/api/goods/stocks/calendar/";
+const name = "goods/stocks/calendar";
 
 export default {
     [`${name}/get`]({ commit, dispatch }, payload) {

@@ -4,14 +4,10 @@
         <CRow class="p-2">
             <CCol :md="9" :sm="9">
                 <CInputGroup class="mb-3">
-                    <CButton color="primary" size="sm" v-on:click="search">
+                    <CButton color="primary" size="sm">
                         <CIcon name="cil-magnifying-glass" size="sm" />
                     </CButton>
-                    <CFormInput
-                        size="sm"
-                        v-model="searchText"
-                        v-on:keyup.enter="search"
-                    />
+                    <CFormInput size="sm" v-model="search" />
                 </CInputGroup>
             </CCol>
             <CCol md="3" sm="3" class="text-right">
@@ -43,11 +39,15 @@
                 </CButtonGroup>
             </CCol>
         </CRow>
-        <v-data-table-server
+        <v-data-table
             class="elevation-1"
             :headers="headers"
             :items="items"
             :items-length="serverItemsLength"
+            :search="search"
+            :loading="loading"
+            @update:options="fetch"
+            :mobile="mobile"
             :footer-props="{
                 disableItemsPerPage: disableItemsPerPage,
                 disablePagination: disablePagination,
@@ -56,6 +56,9 @@
                 itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
+            <template v-slot:loading>
+                <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
+            </template>
             <template v-slot:[`item.warehouses`]="{ item }">
                 <v-chip
                     class="mr-2"
@@ -84,13 +87,13 @@
                     {{ cat.name }}
                 </v-chip>
             </template>
-            <!-- <template v-slot:[`item.created_at`]="{ item }">
-                {{ item.created_at | moment("dddd, Do MMMM YYYY") }}
+            <template v-slot:[`item.created_at`]="{ item }">
+                {{ this.$formatDate(item.created_at) }}
             </template>
             <template v-slot:[`item.updated_at`]="{ item }">
-                {{ item.updated_at | moment("dddd, Do MMMM YYYY") }}
-            </template> -->
-            <!-- <template v-slot:[`item.actions`]="{ item }">
+                {{ this.$formatDate(item.updated_at) }}
+            </template>
+            <template v-slot:[`item.actions`]="{ item }">
                 <CButtonGroup>
                     <CButton
                         v-for="action in item.actions"
@@ -98,13 +101,13 @@
                         :color="action.color"
                         :disabled="action.disabled"
                         size="sm"
-                        @click="click(item, action)"
+                        @click="click(item.id, action.type)"
                     >
                         {{ action.title }}
                     </CButton>
                 </CButtonGroup>
-            </template> -->
-        </v-data-table-server>
+            </template>
+        </v-data-table>
     </div>
 </template>
 <script>
@@ -139,11 +142,19 @@ export default {
     },
     data() {
         return {
-            searchText: null,
+            search: null,
             loading: false,
-            options: {},
-            sortBy: "name",
-            sortDesc: false,
+            mobile: window.innerWidth < 769,
+            items: [],
+            page: 1,
+            pageCount: 0,
+            serverItemsLength: 0,
+            options: {
+                page: 1,
+                itemsPerPage: 5,
+                sortBy: null,
+                sortDesc: false,
+            },
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
@@ -174,34 +185,31 @@ export default {
             ],
         };
     },
-    watch: {
-        options: {
-            handler() {
-                this.fetch();
-            },
-        },
-        loading() {
-            this.disableItemsPerPage = this.loading;
-            this.disablePagination = this.loading;
-        },
+    mounted() {
+        window.addEventListener("resize", this.onResize);
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.onResize);
     },
     methods: {
-        fetch(reset = false) {
+        onResize() {
+            this.mobile = window.innerWidth < 769;
+        },
+        fetch({ page, itemsPerPage, sortBy, search }) {
             let self = this;
-            if (self.loading) {
-                return;
-            }
             self.loading = true;
-            const { page, itemsPerPage, sortBy, sortDesc } = self.options;
+            self.options.page = page;
+            self.options.itemsPerPage = itemsPerPage;
+            self.options.sortBy = sortBy;
             let data = {
                 supplier_id: self.supplierId,
                 category_id: self.categoryId,
                 warehouse_id: self.warehouseId,
-                page: reset ? 1 : page,
+                page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-                sort_desc: sortDesc,
-                search: self.searchText,
+                sort_desc: null,
+                search: search,
             };
             this.$store
                 .dispatch("goods/get", data)
@@ -216,7 +224,7 @@ export default {
             this.fetch(true);
         },
         add() {
-            this.$router.push({ name: "CreateGoods" });
+            this.$router.push({ path: "goods/create" });
         },
         download() {
             let self = this;

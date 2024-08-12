@@ -18,4 +18,8 @@ class UserRole extends Model
         'name',
         'functions',
     ];
+
+    protected $casts = [
+        'functions' => 'array',
+    ];
 }

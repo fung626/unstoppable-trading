@@ -3,13 +3,14 @@
 namespace App\Models\Goods;
 
 use App\Models\Goods\Stock\StockShipping;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Shipping extends Model
 {
     //
-    use Uuid, SoftDeletes;
+    use HasUuids, SoftDeletes;
 
     protected $table = 'goods_shippings';
 

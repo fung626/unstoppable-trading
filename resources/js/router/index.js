@@ -28,7 +28,7 @@ const routes = [
                 component: () => import("@/views/dashboard/Dashboard.vue"),
             },
             {
-                path: "sales-report",
+                path: "sales-reports",
                 name: "route.salesreport.home",
                 component: {
                     render() {
@@ -38,9 +38,9 @@ const routes = [
                 children: [
                     {
                         path: "",
-                        name: "route.salesreport.table",
+                        name: "route.salesreports.table",
                         component: import(
-                            "@/views/sales-report/SalesReport.vue"
+                            "@/views/sales-reports/SalesReport.vue"
                         ),
                     },
                 ],
@@ -98,37 +98,233 @@ const routes = [
                     },
                 ],
             },
-            // {
-            //     path: "clients",
-            //     name: t("clients"),
-            //     component: {
-            //         render() {
-            //             return h(resolveComponent("router-view"));
-            //         },
-            //     },
-            //     children: [
-            //         {
-            //             path: "",
-            //             name: t("table"),
-            //             component: () => {
-            //                 console.log("import");
-            //                 return import("@/views/clients/Clients.vue");
-            //             },
-            //         },
-            //         {
-            //             path: "create",
-            //             name: t("create"),
-            //             component: () =>
-            //                 import("@/views/clients/CreateClient.vue"),
-            //         },
-            //         {
-            //             path: "details/:id",
-            //             name: t("details"),
-            //             component: () =>
-            //                 import("@/views/clients/ClientDetails.vue"),
-            //         },
-            //     ],
-            // },
+            {
+                path: "goods",
+                name: "route.goods.home",
+                component: {
+                    render() {
+                        return h(resolveComponent("router-view"));
+                    },
+                },
+                children: [
+                    {
+                        path: "",
+                        name: "route.goods.table",
+                        component: () => import("@/views/goods/Goods.vue"),
+                    },
+                    {
+                        path: "create",
+                        name: "route.goods.create",
+                        component: () =>
+                            import("@/views/goods/CreateGoods.vue"),
+                    },
+                    {
+                        path: "details/:id",
+                        name: "route.goods.details",
+                        component: () =>
+                            import("@/views/goods/GoodsDetails.vue"),
+                    },
+                ],
+            },
+            {
+                path: "stocks",
+                name: "route.stocks.home",
+                component: {
+                    render() {
+                        return h(resolveComponent("router-view"));
+                    },
+                },
+                children: [
+                    {
+                        path: "",
+                        name: "route.stocks.table",
+                        component: () =>
+                            import("@/views/goods-stocks/GoodsStock.vue"),
+                    },
+                ],
+            },
+            {
+                path: "purchases",
+                name: "route.purchases.home",
+                component: {
+                    render() {
+                        return h(resolveComponent("router-view"));
+                    },
+                },
+                children: [
+                    {
+                        path: "",
+                        name: "route.purchases.table",
+                        component: () =>
+                            import("@/views/purchases/Purchase.vue"),
+                    },
+                    {
+                        path: "create/:id",
+                        name: "route.purchases.create",
+                        component: () =>
+                            import("@/views/purchases/CreatePurchase.vue"),
+                    },
+                    {
+                        path: "details/:id",
+                        name: "route.purchases.details",
+                        component: () =>
+                            import("@/views/purchases/PurchaseDetails.vue"),
+                    },
+                    {
+                        path: "stocktake/:id",
+                        name: "route.purchases.stocktake",
+                        component: () =>
+                            import("@/views/purchases/StockTake.vue"),
+                    },
+                ],
+            },
+            {
+                path: "shippings",
+                name: "route.shippings.home",
+                component: {
+                    render() {
+                        return h(resolveComponent("router-view"));
+                    },
+                },
+                children: [
+                    {
+                        path: "",
+                        name: "route.shippings.table",
+                        component: () =>
+                            import("@/views/shippings/Shipping.vue"),
+                    },
+                    {
+                        path: "create",
+                        name: "route.shippings.create",
+                        component: () =>
+                            import("@/views/shippings/CreateShipping.vue"),
+                    },
+                    {
+                        path: "details/:id",
+                        name: "route.shippings.details",
+                        component: () =>
+                            import("@/views/shippings/ShippingDetails.vue"),
+                    },
+                ],
+            },
+            {
+                path: "suppliers",
+                name: "route.suppliers.home",
+                component: {
+                    render() {
+                        return h(resolveComponent("router-view"));
+                    },
+                },
+                children: [
+                    {
+                        path: "",
+                        name: "route.suppliers.table",
+                        component: () =>
+                            import("@/views/suppliers/Supplier.vue"),
+                    },
+                    {
+                        path: "create",
+                        name: "route.suppliers.create",
+                        component: () =>
+                            import("@/views/suppliers/CreateSupplier.vue"),
+                    },
+                    {
+                        path: "details/:id",
+                        name: "route.suppliers.crdetailsdetailseate",
+                        component: () =>
+                            import("@/views/suppliers/SupplierDetails.vue"),
+                    },
+                ],
+            },
+            {
+                path: "categories",
+                name: "route.categories.home",
+                component: {
+                    render() {
+                        return h(resolveComponent("router-view"));
+                    },
+                },
+                children: [
+                    {
+                        path: "",
+                        name: "route.categories.table",
+                        component: () =>
+                            import("@/views/categories/Category.vue"),
+                    },
+                    {
+                        path: "create",
+                        name: "route.categories.create",
+                        component: () =>
+                            import("@/views/categories/CreateCategory.vue"),
+                    },
+                    {
+                        path: "details/:id",
+                        name: "route.categories.details",
+                        component: () =>
+                            import("@/views/categories/CategoryDetails.vue"),
+                    },
+                ],
+            },
+            {
+                path: "warehouses",
+                name: "route.warehouses.home",
+                component: {
+                    render() {
+                        return h(resolveComponent("router-view"));
+                    },
+                },
+                children: [
+                    {
+                        path: "",
+                        name: "route.warehouses.table",
+                        component: () =>
+                            import("@/views/warehouses/Warehouse.vue"),
+                    },
+                    {
+                        path: "create",
+                        name: "route.warehouses.create",
+                        component: () =>
+                            import("@/views/warehouses/CreateWarehouse.vue"),
+                    },
+                    {
+                        path: "details/:id",
+                        name: "route.warehouses.details",
+                        component: () =>
+                            import("@/views/warehouses/WarehouseDetails.vue"),
+                    },
+                ],
+            },
+            {
+                path: "clients",
+                name: t("clients"),
+                component: {
+                    render() {
+                        return h(resolveComponent("router-view"));
+                    },
+                },
+                children: [
+                    {
+                        path: "",
+                        name: "route.clients.table",
+                        component: () => {
+                            console.log("import");
+                            return import("@/views/clients/Clients.vue");
+                        },
+                    },
+                    {
+                        path: "create",
+                        name: "route.clients.create",
+                        component: () =>
+                            import("@/views/clients/CreateClient.vue"),
+                    },
+                    {
+                        path: "details/:id",
+                        name: "route.clients.details",
+                        component: () =>
+                            import("@/views/clients/ClientDetails.vue"),
+                    },
+                ],
+            },
         ],
     },
     {

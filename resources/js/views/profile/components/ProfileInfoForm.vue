@@ -48,7 +48,7 @@
                     :label="$t('role')"
                     :error="errors.role ? true : false"
                     :error-messages="errors.role"
-                    item-text="name"
+                    item-title="name"
                     item-value="value"
                     required
                     outlined
@@ -93,14 +93,14 @@ export default {
         ...mapState(["profile"]),
         formData() {
             return JSON.parse(JSON.stringify(this.profile.data));
-        }
+        },
     },
     data() {
         return {
             errors: {},
             fetchLoading: false,
             updateLoading: false,
-            roles: roles
+            roles: roles,
         };
     },
     mounted() {
@@ -115,10 +115,10 @@ export default {
             self.fetchLoading = true;
             this.$store
                 .dispatch("profile/get")
-                .then(response => {
+                .then((response) => {
                     self.fetchLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.fetchLoading = false;
                 });
         },
@@ -130,16 +130,16 @@ export default {
             self.updateLoading = true;
             this.$store
                 .dispatch("profile/update", this.formData)
-                .then(response => {
+                .then((response) => {
                     self.updateLoading = false;
                     self.errors = {};
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.updateLoading = false;
                     self.errors = error.response.data?.data;
                 });
-        }
-    }
+        },
+    },
 };
 </script>
 

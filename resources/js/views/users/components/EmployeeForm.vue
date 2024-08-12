@@ -21,11 +21,9 @@
                     <CCol md="6" sm="6">
                         <v-text-field
                             v-model="formData.employer_contribution"
-                            :label="
-                                `${$t('employer')}${$t(
-                                    'mpf.contribution'
-                                )} （％）`
-                            "
+                            :label="`${$t('employer')}${$t(
+                                'mpf.contribution'
+                            )} （％）`"
                             :error="errors.employer_contribution ? true : false"
                             :error-messages="errors.employer_contribution"
                             outlined
@@ -36,11 +34,9 @@
                     <CCol md="6" sm="6">
                         <v-text-field
                             v-model="formData.employee_contribution"
-                            :label="
-                                `${$t('employee')}${$t(
-                                    'mpf.contribution'
-                                )} （％）`
-                            "
+                            :label="`${$t('employee')}${$t(
+                                'mpf.contribution'
+                            )} （％）`"
                             :error="errors.employee_contribution ? true : false"
                             :error-messages="errors.employee_contribution"
                             outlined
@@ -89,7 +85,7 @@
                     v-model="formData.type"
                     :items="employeeTypes"
                     :label="$t('type')"
-                    item-text="name"
+                    item-title="value"
                     item-value="value"
                     required
                     outlined
@@ -130,10 +126,10 @@ import { employeeTypes } from "@/constants";
 export default {
     name: "EmployeeForm",
     props: {
-        id: null
+        id: null,
     },
     components: {
-        TextFieldColorPicker
+        TextFieldColorPicker,
     },
     data() {
         return {
@@ -141,15 +137,15 @@ export default {
             errors: {},
             datepicker: {
                 joinedat: {
-                    menu: false
+                    menu: false,
                 },
                 leftat: {
-                    menu: false
-                }
+                    menu: false,
+                },
             },
             employeeTypes: employeeTypes,
             fetchLoading: false,
-            updateLoading: false
+            updateLoading: false,
         };
     },
     mounted() {
@@ -163,16 +159,16 @@ export default {
             }
             self.fetchLoading = true;
             let data = {
-                id: self.$props.id
+                id: self.$props.id,
             };
             this.$store
-                .dispatch("user/employee/get", data)
-                .then(response => {
+                .dispatch("users/employee/get", data)
+                .then((response) => {
                     self.formData = JSON.parse(JSON.stringify(response.data));
                     // console.log(self.formData);
                     self.fetchLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.fetchLoading = false;
                 });
         },
@@ -184,21 +180,21 @@ export default {
             self.updateLoading = true;
             let data = {
                 ...self.formData,
-                id: self.$props.id
+                id: self.$props.id,
             };
             this.$store
-                .dispatch("user/employee/update", data)
-                .then(response => {
+                .dispatch("users/employee/update", data)
+                .then((response) => {
                     self.formData = JSON.parse(JSON.stringify(response.data));
                     self.errors = {};
                     self.updateLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.errors = error.response.data?.data;
                     self.updateLoading = false;
                 });
-        }
-    }
+        },
+    },
 };
 </script>
 
