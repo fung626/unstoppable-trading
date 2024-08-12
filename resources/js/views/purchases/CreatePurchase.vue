@@ -190,111 +190,137 @@
                     :loading="fetchLoading.table"
                     :mobile-breakpoint="0"
                 >
-                    <template v-slot:body="{ items, headers }">
-                        <tbody>
-                            <tr v-for="(item, idx) in items" :key="idx">
-                                <td v-for="(header, key) in headers" :key="key">
-                                    <div
-                                        v-if="
-                                            isRowEditable(header.value) &&
-                                            item[header.value]
-                                        "
-                                    >
-                                        <v-text-field
-                                            v-model="item[header.value].unit"
-                                            type="number"
-                                            required
-                                            outlined
-                                            dense
-                                            clearable
-                                        ></v-text-field>
-                                        <!-- <v-edit-dialog
-                                            :return-value.sync="
-                                                item[header.value].unit
-                                            "
-                                            @save="save(item['id'] - 1)"
-                                            :save-text="$t('button.confirm')"
-                                            :cancel-text="$t('button.cancel')"
-                                            large
-                                        >
-                                            {{ item[header.value].unit }}
-                                            <template v-slot:input>
-                                                <vue-number-input
-                                                    class="m-4"
-                                                    size="small"
-                                                    v-model="
-                                                        item[header.value].unit
-                                                    "
-                                                    :min="0"
-                                                    inline
-                                                    center
-                                                    controls
-                                                ></vue-number-input>
-                                            </template>
-                                        </v-edit-dialog> -->
-                                    </div>
-                                    <div
-                                        v-else-if="isRowEditable(header.value)"
-                                    >
-                                        －
-                                    </div>
-                                    <div
-                                        v-else-if="isCurrencyRow(header.value)"
-                                    >
-                                        {{
-                                            item[header.value].toLocaleString()
-                                        }}
-                                    </div>
-                                    <div v-else>{{ item[header.value] }}</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="p-2">{{ $t("totalunit") }}</td>
-                                <td class="p-2" colspan="4">
-                                    <span v-if="totalunit">
-                                        {{ totalunit.toLocaleString() }}
-                                    </span>
-                                    <span v-else>
-                                        {{ "0".toLocaleString() }}
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="p-2">{{ $t("subtotal") }}</td>
-                                <td class="p-2" colspan="4">
-                                    <span v-if="subtotal">
-                                        {{ "$ " }}
-                                        {{ subtotal.toLocaleString() }}
-                                        {{ currency }}
-                                    </span>
-                                    <span v-else>
-                                        {{ "$ " }}
-                                        {{ "0".toLocaleString() }}
-                                        {{ currency }}
-                                    </span>
-                                </td>
-                            </tr>
-                        </tbody>
+                    <template v-slot:[`item.32-S`]="{ item }">
+                        <v-text-field
+                            v-if="item['32-S']"
+                            v-model="item['32-S'].unit"
+                            type="number"
+                            variant="plain"
+                            hide-details
+                            required
+                            dense
+                            clearable
+                        ></v-text-field>
+                    </template>
+                    <template v-slot:[`item.34-M`]="{ item }">
+                        <v-text-field
+                            v-if="item['34-M']"
+                            v-model="item['34-M'].unit"
+                            type="number"
+                            variant="plain"
+                            hide-details
+                            required
+                            dense
+                            clearable
+                        ></v-text-field>
+                    </template>
+                    <template v-slot:[`item.36-L`]="{ item }">
+                        <v-text-field
+                            v-if="item['36-L']"
+                            v-model="item['36-L'].unit"
+                            type="number"
+                            variant="plain"
+                            hide-details
+                            required
+                            dense
+                            clearable
+                        ></v-text-field>
+                    </template>
+                    <template v-slot:[`item.38-XL`]="{ item }">
+                        <v-text-field
+                            v-if="item['38-XL']"
+                            v-model="item['38-XL'].unit"
+                            type="number"
+                            variant="plain"
+                            hide-details
+                            required
+                            dense
+                            clearable
+                        ></v-text-field>
+                    </template>
+                    <template v-slot:[`item.40-Q`]="{ item }">
+                        <v-text-field
+                            v-if="item['40-Q']"
+                            v-model="item['40-Q'].unit"
+                            type="number"
+                            variant="plain"
+                            hide-details
+                            required
+                            dense
+                            clearable
+                        ></v-text-field>
+                    </template>
+                    <template v-slot:[`item.42-EQ`]="{ item }">
+                        <v-text-field
+                            v-if="item['42-EQ']"
+                            v-model="item['42-EQ'].unit"
+                            type="number"
+                            variant="plain"
+                            hide-details
+                            required
+                            dense
+                            clearable
+                        ></v-text-field>
+                    </template>
+                    <template v-slot:[`item.44-Free`]="{ item }">
+                        <v-text-field
+                            v-if="item['44-Free']"
+                            v-model="item['44-Free'].unit"
+                            type="number"
+                            variant="plain"
+                            hide-details
+                            required
+                            dense
+                            clearable
+                        ></v-text-field>
+                    </template>
+                    <template v-slot:[`body.append`]>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="p-2">{{ $t("totalunit") }}</td>
+                            <td class="p-2" colspan="4">
+                                <span v-if="totalunit">
+                                    {{ totalunit.toLocaleString() }}
+                                </span>
+                                <span v-else>
+                                    {{ "0".toLocaleString() }}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="p-2">{{ $t("subtotal") }}</td>
+                            <td class="p-2" colspan="4">
+                                <span v-if="subtotal">
+                                    {{ "$ " }}
+                                    {{ subtotal.toLocaleString() }}
+                                    {{ currency }}
+                                </span>
+                                <span v-else>
+                                    {{ "$ " }}
+                                    {{ "0".toLocaleString() }}
+                                    {{ currency }}
+                                </span>
+                            </td>
+                        </tr>
                     </template>
                 </v-data-table>
                 <hr />
@@ -396,8 +422,8 @@ export default {
                     id: self.$route.params.id,
                 })
                 .then((response) => {
-                    console.log(response);
-                    self.items = response.data;
+                    let data = JSON.parse(JSON.stringify(response.data));
+                    self.items = data;
                     self.fetchLoading.table = false;
                 })
                 .catch((error) => {
@@ -449,7 +475,7 @@ export default {
                 purchase_items: self.items,
             };
             this.$store
-                .dispatch("goods/purchase/create", data)
+                .dispatch("goods/purchases/create", data)
                 .then((response) => {
                     self.loading = false;
                     self.errors = {};
