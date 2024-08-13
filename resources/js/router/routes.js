@@ -221,7 +221,7 @@ export default [
             //             path: "stocktake/:id",
             //             name: t("stocktake"),
             //             component: () =>
-            //                 import("@/views/purchase/StockTake.vue"),
+            //                 import("@/views/purchase/Stocktake.vue"),
             //         },
             //     ],
             // },

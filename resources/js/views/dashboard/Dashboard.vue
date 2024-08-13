@@ -165,7 +165,7 @@ export default {
             await this.$refs.scannerDialog.open("Shipping");
         },
         async stocktake() {
-            await this.$refs.scannerDialog.open("StockTake");
+            await this.$refs.scannerDialog.open("Stocktake");
         },
     },
 };

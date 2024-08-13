@@ -236,7 +236,7 @@ export default {
                                 params: { id: item.id },
                             });
                             break;
-                        case "StockTake":
+                        case "Stocktake":
                             this.$router.push({
                                 name: route,
                                 params: { id: item.id },

@@ -47,7 +47,7 @@
                 <div v-else-if="type === 'Search'">
                     {{ $t("button.jumpto") }}{{ $t("details") }}
                 </div>
-                <div v-else-if="type === 'StockTake'">
+                <div v-else-if="type === 'Stocktake'">
                     {{ $t("button.confirm") }}
                 </div>
             </CButton>
@@ -161,7 +161,7 @@ export default {
                 case "Search":
                     this.title = `${this.$t("search")}${this.$t("scanner")}`;
                     break;
-                case "StockTake":
+                case "Stocktake":
                     this.title = `${this.$t("stocktake")}`;
                     break;
             }
@@ -184,9 +184,9 @@ export default {
                             params: { id: this.data.goods.id },
                         });
                         break;
-                    case "StockTake":
+                    case "Stocktake":
                         this.$router.push({
-                            name: "StockTake",
+                            name: "Stocktake",
                             params: { id: this.data.id },
                         });
                         break;
@@ -212,7 +212,7 @@ export default {
                     case "Search":
                         this.fetchItemDetails();
                         break;
-                    case "StockTake":
+                    case "Stocktake":
                         this.fetchPurchaseDetails();
                         break;
                 }

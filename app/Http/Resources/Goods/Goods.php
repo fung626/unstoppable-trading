@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Goods;
 
 use App\Models\Goods\Stock\Stock;
-// use App\Models\Goods\Stock\StockTake;
+// use App\Models\Goods\Stock\Stocktake;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Str;
 

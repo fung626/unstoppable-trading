@@ -41,7 +41,7 @@
             <template v-slot:loading>
                 <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
             </template>
-            <template v-slot:[`item.32-S`]="{ item }">
+            <!-- <template v-slot:[`item.32-S`]="{ item }">
                 <div v-if="item['32-S']">
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">
@@ -173,7 +173,7 @@
                     </v-tooltip>
                 </div>
                 <div v-else>－</div>
-            </template>
+            </template> -->
             <template v-slot:[`item.actions`]="{ item }">
                 <CButtonGroup>
                     <CButton

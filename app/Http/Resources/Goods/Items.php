@@ -19,7 +19,7 @@ class Items extends ResourceCollection
         // return parent::toArray($request);
         return $this->collection->transform(function ($item) use ($request) {
             $stockSum = Stock::goodsItemSum($item->id);
-            // $item->stock_taken_unit = StockTake::where('goods_item_id', $item->id)->get()->sum('unit');
+            // $item->stock_taken_unit = Stocktake::where('goods_item_id', $item->id)->get()->sum('unit');
             $item->stock_unit = $stockSum ? $stockSum->unit * 1 : 0;
             $item->actions = [
                 [

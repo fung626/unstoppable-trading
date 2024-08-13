@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API\Goods\Purchase;
 use App\Http\Controllers\Controller;
 use App\Models\Goods\Purchase\Purchase;
 use App\Models\Goods\Stock\Stock as GoodsStock;
-use App\Models\Goods\Stock\StockTake;
+use App\Models\Goods\Stock\Stocktake;
 use App\Mylibs\Goods as GoodsLib;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -54,7 +54,7 @@ class StocktakeController extends Controller
                                 'unit_price' => $item['unit_price'],
                                 'type' => 'PURCHASE',
                             ]);
-                            StockTake::create([
+                            Stocktake::create([
                                 'goods_stock_id' => $stock->id,
                                 'warehouse_id' => request('warehouse_id'),
                                 'goods_purchase_id' => request('goods_purchase_id'),

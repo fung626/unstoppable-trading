@@ -8,7 +8,7 @@ use App\Http\Resources\Goods\Items as ItemsResource;
 use App\Models\Goods\Goods;
 use App\Models\Goods\Item;
 use App\Models\Goods\Purchase\Item as PurchaseItem;
-use App\Models\Goods\Stock\StockTake as PurchaseStockTake;
+use App\Models\Goods\Stock\Stocktake as PurchaseStockTake;
 use App\Mylibs\Goods as GoodsLib;
 use App\Mylibs\MyPhpOffice;
 use Carbon\Carbon;

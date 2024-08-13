@@ -174,7 +174,7 @@ const routes = [
                         path: "stocktake/:id",
                         name: "route.purchases.stocktake",
                         component: () =>
-                            import("@/views/purchases/StockTake.vue"),
+                            import("@/views/purchases/Stocktake.vue"),
                     },
                 ],
             },

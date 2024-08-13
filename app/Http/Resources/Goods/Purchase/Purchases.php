@@ -74,7 +74,7 @@ class Purchases extends ResourceCollection
                         'title' => __('Stocktake'),
                         'color' => "info",
                         'type' => "RouterPush",
-                        'route' => "stocktake/" . $item->id,
+                        'route' => "/purchases/stocktakes/" . $item->id,
                         'disabled' => $item->status === 'PROCESSING' || $item->status === 'DELIVERED' ? true : false,
                     ],
                     [
@@ -82,7 +82,7 @@ class Purchases extends ResourceCollection
                         'title' => __('Details'),
                         'color' => "primary",
                         'type' => "RouterPush",
-                        'route' => "purchases/details/" . $item->id,
+                        'route' => "/purchases/details/" . $item->id,
                         'disabled' => false,
                     ],
                     // [

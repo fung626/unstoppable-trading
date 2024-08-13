@@ -5,7 +5,7 @@ namespace App\Models\Goods\Purchase;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class StockTake extends Model
+class Stocktake extends Model
 {
     //
 

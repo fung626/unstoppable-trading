@@ -1,7 +1,7 @@
 <template>
     <CCard>
         <Dialog ref="dialog" />
-        <StockTakeDialog ref="scannerDialog" />
+        <StocktakeDialog ref="scannerDialog" />
         <v-progress-linear
             :active="fetchLoading"
             indeterminate
@@ -12,22 +12,12 @@
             <hr />
             <CRow class="p-2">
                 <CCol md="9" sm="9">
-                    <CInput
-                        size="sm"
-                        v-model="search"
-                        v-on:keyup.enter="search"
-                    >
-                        <template #prepend>
-                            <CButton
-                                color="primary"
-                                size="sm"
-                                v-on:click="search"
-                                :disabled="fetchLoading"
-                            >
-                                <CIcon name="cil-magnifying-glass" size="sm" />
-                            </CButton>
-                        </template>
-                    </CInput>
+                    <CInputGroup class="mb-3">
+                        <CButton color="primary" size="sm">
+                            <CIcon name="cil-magnifying-glass" size="sm" />
+                        </CButton>
+                        <CFormInput size="sm" v-model="search" />
+                    </CInputGroup>
                 </CCol>
                 <CCol md="3" sm="3" class="text-right">
                     <CButton
@@ -44,114 +34,188 @@
                 class="my-2 elevation-1"
                 :headers="headers"
                 :items="items"
+                :items-length="serverItemsLength"
                 :search="search"
-                :fetchLoading="fetchLoading"
+                :loading="fetchLoading"
+                @update:options="fetch"
                 :mobile-breakpoint="0"
             >
-                <template v-slot:body="{ items, headers }">
-                    <tbody>
-                        <tr v-for="(item, idx) in items" :key="idx">
-                            <td v-for="(header, key) in headers" :key="key">
-                                <div
-                                    v-bind:class="bgColor(item[header.value])"
-                                    v-if="
-                                        isRowEditable(header.value) &&
-                                        item[header.value]
-                                    "
-                                >
-                                    <v-edit-dialog
-                                        :return-value.sync="
-                                            item[header.value].unit
-                                        "
-                                        @save="
-                                            save(item['id'] - 1, header.value)
-                                        "
-                                        :save-text="$t('button.confirm')"
-                                        :cancel-text="$t('button.cancel')"
-                                        large
-                                    >
-                                        {{ item[header.value].unit }}
-                                        <template v-slot:input>
-                                            <vue-number-input
-                                                class="m-4"
-                                                size="small"
-                                                v-model="
-                                                    item[header.value].unit
-                                                "
-                                                :min="0"
-                                                inline
-                                                center
-                                                controls
-                                            ></vue-number-input>
-                                        </template>
-                                    </v-edit-dialog>
-                                </div>
-                                <div v-else-if="isRowEditable(header.value)">
-                                    －
-                                </div>
-                                <div v-else-if="isCurrencyRow(header.value)">
-                                    <div v-if="item[header.value]">
-                                        {{
-                                            item[header.value].toLocaleString()
-                                        }}
-                                    </div>
-                                </div>
-                                <div v-else>{{ item[header.value] }}</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td colspan="2">{{ $t("totalunit") }}</td>
-                            <td colspan="2">
-                                <div v-if="totalunit">
-                                    {{ totalunit.toLocaleString() }}
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td colspan="2">{{ $t("subtotal") }}</td>
-                            <td colspan="2">
-                                <div v-if="subtotal">
-                                    {{ subtotal.toLocaleString() }}
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                <template v-slot:loading>
+                    <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
+                </template>
+                <template v-slot:[`item.32-S`]="{ index, item }">
+                    <div v-bind:class="bgColor(index, '32-S')">
+                        <v-text-field
+                            v-if="item['32-S']"
+                            v-model="item['32-S'].unit"
+                            type="number"
+                            variant="plain"
+                            hide-details
+                            required
+                            dense
+                            clearable
+                            @change="change(index, item)"
+                        ></v-text-field>
+                        <span v-else>N/A</span>
+                    </div>
+                </template>
+                <template v-slot:[`item.34-M`]="{ index, item }">
+                    <div v-bind:class="bgColor(index, '34-M')">
+                        <v-text-field
+                            v-if="item['34-M']"
+                            v-model="item['34-M'].unit"
+                            type="number"
+                            variant="plain"
+                            hide-details
+                            required
+                            dense
+                            clearable
+                            @change="change(index, item)"
+                        ></v-text-field>
+                        <span v-else>N/A</span>
+                    </div>
+                </template>
+                <template v-slot:[`item.36-L`]="{ index, item }">
+                    <div v-bind:class="bgColor(index, '36-L')">
+                        <v-text-field
+                            v-if="item['36-L']"
+                            v-model="item['36-L'].unit"
+                            type="number"
+                            variant="plain"
+                            hide-details
+                            required
+                            dense
+                            clearable
+                            @change="change(index, item)"
+                        ></v-text-field>
+                        <span v-else>N/A</span>
+                    </div>
+                </template>
+                <template v-slot:[`item.38-XL`]="{ index, item }">
+                    <div v-bind:class="bgColor(index, '38-XL')">
+                        <v-text-field
+                            v-if="item['38-XL']"
+                            v-model="item['38-XL'].unit"
+                            type="number"
+                            variant="plain"
+                            hide-details
+                            required
+                            dense
+                            clearable
+                            @change="change(index, item)"
+                        ></v-text-field>
+                        <span v-else>N/A</span>
+                    </div>
+                </template>
+                <template v-slot:[`item.40-Q`]="{ index, item }">
+                    <div v-bind:class="bgColor(index, '40-Q')">
+                        <v-text-field
+                            v-if="item['40-Q']"
+                            v-model="item['40-Q'].unit"
+                            type="number"
+                            variant="plain"
+                            hide-details
+                            required
+                            dense
+                            clearable
+                            @change="change(index, item)"
+                        ></v-text-field>
+                        <span v-else>N/A</span>
+                    </div>
+                </template>
+                <template v-slot:[`item.42-EQ`]="{ index, item }">
+                    <div v-bind:class="bgColor(index, '42-EQ')">
+                        <v-text-field
+                            v-if="item['42-EQ']"
+                            v-model="item['42-EQ'].unit"
+                            type="number"
+                            variant="plain"
+                            hide-details
+                            required
+                            dense
+                            clearable
+                            @change="change(index, item)"
+                        ></v-text-field>
+                        <span v-else>N/A</span>
+                    </div>
+                </template>
+                <template v-slot:[`item.44-Free`]="{ index, item }">
+                    <div v-bind:class="bgColor(index, '44-Free')">
+                        <v-text-field
+                            v-if="item['44-Free']"
+                            v-model="item['44-Free'].unit"
+                            type="number"
+                            variant="plain"
+                            hide-details
+                            required
+                            dense
+                            clearable
+                            @change="change(index, item)"
+                        ></v-text-field>
+                        <span v-else>N/A</span>
+                    </div>
+                </template>
+                <template v-slot:[`body.append`]>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="p-2">{{ $t("totalunit") }}</td>
+                        <td class="p-2" colspan="4">
+                            <span v-if="totalunit">
+                                {{ totalunit.toLocaleString() }}
+                            </span>
+                            <span v-else>
+                                {{ "0".toLocaleString() }}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="p-2">{{ $t("subtotal") }}</td>
+                        <td class="p-2" colspan="4">
+                            <span v-if="subtotal">
+                                {{ "$ " }}
+                                {{ subtotal.toLocaleString() }}
+                                {{ currency }}
+                            </span>
+                            <span v-else>
+                                {{ "$ " }}
+                                {{ "0".toLocaleString() }}
+                                {{ currency }}
+                            </span>
+                        </td>
+                    </tr>
                 </template>
             </v-data-table>
-            <CRow class="m-2">
+            <div class="d-flex p-2">
                 <div class="bg-yellow" style="height: 25px; width: 25px">
                     &nbsp;
                 </div>
-                <span class="mx-2">{{ "*" }} {{ $t("defaultunit") }}</span>
-            </CRow>
-            <CRow class="m-2">
+                <span class="px-2">{{ "*" }} {{ $t("defaultunit") }}</span>
+            </div>
+            <div class="d-flex p-2">
                 <div class="bg-green" style="height: 25px; width: 25px">
                     &nbsp;
                 </div>
-                <span class="mx-2">{{ "*" }} {{ $t("updatedunit") }}</span>
-            </CRow>
+                <span class="px-2">{{ "*" }} {{ $t("updatedunit") }}</span>
+            </div>
             <hr />
             <CButton @click="confirm" color="primary" class="px-4">
                 {{ $t("button.submit") }}
@@ -171,21 +235,33 @@
 import { Dialog } from "@/components";
 import { goodsSizes } from "@/constants";
 import Dashboard from "../dashboard/Dashboard.vue";
-import StockTakeDialog from "./components/StockTakeDialog";
+import StocktakeDialog from "./components/StocktakeDialog.vue";
 
 export default {
-    name: "StockTake",
+    name: "Stocktake",
     components: {
         Dialog,
         Dashboard,
-        StockTakeDialog,
+        StocktakeDialog,
     },
     data() {
         return {
-            search: null,
-            items: [],
             totalunit: 0,
             subtotal: 0,
+            search: null,
+            loading: false,
+            items: [],
+            // page: 1,
+            pageCount: 0,
+            serverItemsLength: 0,
+            options: {
+                page: 1,
+                itemsPerPage: 5,
+                sortBy: null,
+                sortDesc: false,
+            },
+            disableItemsPerPage: false,
+            disablePagination: false,
             headers: [
                 { title: "#ID", value: "id" },
                 { title: this.$t("name"), value: "name" },
@@ -269,42 +345,28 @@ export default {
                 items: self.items,
             };
             this.$store
-                .dispatch("goods/purchases/stocktake/create", data)
+                .dispatch("goods/purchases/stocktakes/create", data)
                 .then((response) => {
                     self.submitLoading = false;
-                    self.$router.back();
+                    self.$router.push({ path: "/purchases" });
                 })
                 .catch((error) => {
                     self.submitLoading = false;
                 });
         },
-        isRowEditable(value) {
-            return goodsSizes.find((obj) => obj.name === value);
-        },
-        isCurrencyRow(value) {
-            const rows = ["unit_price", "cost"];
-            const idx = rows.indexOf(value);
-            return idx > -1 ? true : false;
-        },
-        bgColor(value) {
-            if (value.updated) {
-                return "bg-green";
-            } else {
-                return "bg-yellow";
-            }
-        },
-        save(idx, key) {
-            this.items[idx][key].updated = true;
-            let item = this.items[idx];
-            let sizes = goodsSizes;
-            let totalunit = 0;
+        change(index, item) {
+            const sizes = goodsSizes;
+            let total = 0;
             for (let size of sizes) {
-                if (item[size.name]) {
-                    totalunit += item[size.name].unit;
+                const key = size.name;
+                if (item[key]) {
+                    this.items[index][key].updated = true;
+                    total += item[key].unit * 1;
+                    break;
                 }
             }
-            this.items[idx].total_unit = totalunit;
-            this.items[idx].cost = totalunit * this.items[idx].unit_price;
+            this.items[index].total_unit = total;
+            this.items[index].cost = total * this.items[index].unit_price;
             this.updateTotal();
         },
         updateTotal() {
@@ -329,6 +391,20 @@ export default {
                 });
             }
         },
+        bgColor(index, key) {
+            // console.log(value.updated);
+            const item = this.items[index][key];
+            if (item) {
+                const updated = item.updated;
+                if (updated) {
+                    return "d-flex align-items-center bg-green w-100 h-100 px-2";
+                } else {
+                    return "d-flex align-items-center bg-yellow w-100 h-100 px-2";
+                }
+            } else {
+                return "d-flex align-items-center w-100 h-100 px-2";
+            }
+        },
     },
 };
 </script>
@@ -343,4 +419,15 @@ export default {
 .my-table .v-table tbody tr:not(:last-child) {
     border-bottom: none;
 }
+.v-data-table__td {
+    padding: 0px !important;
+}
+/* .v-table > .v-table__wrapper > table > tbody > tr > td,
+.v-table > .v-table__wrapper > table > tbody > tr > th,
+.v-table > .v-table__wrapper > table > thead > tr > td,
+.v-table > .v-table__wrapper > table > thead > tr > th,
+.v-table > .v-table__wrapper > table > tfoot > tr > td,
+.v-table > .v-table__wrapper > table > tfoot > tr > th {
+    padding: 0px !important;
+} */
 </style>

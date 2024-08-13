@@ -30,7 +30,7 @@ class Item extends JsonResource
             'color' => $this->color,
             'cup' => $this->cup,
             'barcode' => $this->barcode,
-            // 'stock_taken_unit' => StockTake::where('goods_item_id', $this->id)->get()->sum('unit'),
+            // 'stock_taken_unit' => Stocktake::where('goods_item_id', $this->id)->get()->sum('unit'),
             'stock_unit' => $stockUnit,
             'created_by' => $this->created_by,
             'created_at' => $this->created_at,
