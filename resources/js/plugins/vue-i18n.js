@@ -102,7 +102,7 @@ const i18n = createI18n({
             currency: "Currency",
             invoice: "Invoice",
             stockalert: "Stock Alert",
-            stocktake: "Stock Take",
+            stocktake: "Stocktake",
             mailerinfo: "Mailer Info",
             packing: "Packing",
             update: "Update",

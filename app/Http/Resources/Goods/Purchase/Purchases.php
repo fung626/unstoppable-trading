@@ -71,7 +71,7 @@ class Purchases extends ResourceCollection
                 "actions" => [
                     [
                         'key' => Str::random(16),
-                        'title' => __('Stock Take'),
+                        'title' => __('Stocktake'),
                         'color' => "info",
                         'type' => "RouterPush",
                         'route' => "stocktake/" . $item->id,
