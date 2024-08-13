@@ -20,6 +20,7 @@ class StockController extends Controller
 
     public function get(Request $request)
     {
+
         $sizes = config('constant.goods.sizes');
         $select = [
             // 'id',

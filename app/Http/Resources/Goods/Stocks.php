@@ -59,7 +59,7 @@ class Stocks extends ResourceCollection
                     'title' => __('New Purchase'),
                     'color' => "info",
                     'type' => "RouterPush",
-                    'route' => "CreatePurchase",
+                    'route' => "/purchases/create",
                     'disabled' => false,
                 ],
                 [
@@ -67,7 +67,7 @@ class Stocks extends ResourceCollection
                     'title' => __('Details'),
                     'color' => "primary",
                     'type' => "RouterPush",
-                    'route' => "GoodsDetails",
+                    'route' => "/goods/details",
                     'disabled' => false,
                 ],
             ];

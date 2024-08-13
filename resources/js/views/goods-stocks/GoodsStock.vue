@@ -194,27 +194,11 @@
 <script>
 //
 import CreateShippingDialog from "@/components/CreateShippingDialog.vue";
-import { mapState } from "vuex";
 
 export default {
     name: "GoodsStock",
     components: {
         CreateShippingDialog,
-    },
-    computed: {
-        ...mapState(["goods/stock"]),
-        serverItemsLength() {
-            return this["goods/stock"].data?.total;
-        },
-        pageCount() {
-            return this["goods/stock"].data?.last_page;
-        },
-        page() {
-            return this["goods/stock"].data?.current_page;
-        },
-        items() {
-            return this["goods/stock"].data?.data;
-        },
     },
     data() {
         return {
@@ -259,7 +243,10 @@ export default {
         };
     },
     mounted() {
-        this.fetch();
+        window.addEventListener("resize", this.onResize);
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.onResize);
     },
     methods: {
         onResize() {
