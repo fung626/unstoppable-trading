@@ -144,7 +144,7 @@ export default {
                 });
         },
         search() {
-            this.fetch(true);
+            this.fetch({ ...this.options });
         },
         add() {
             this.$router.push({ path: "categories/create" });
@@ -170,7 +170,7 @@ export default {
                 });
         },
         reload() {
-            this.fetch();
+            this.fetch({ ...this.options });
         },
         async click(id, type) {
             switch (type) {

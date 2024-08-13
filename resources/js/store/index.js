@@ -60,14 +60,14 @@ export default createStore({
         ["users/event"]: UserEvent,
         ["users/permission"]: UserPermission,
         goods: Goods,
-        ["goods/content"]: GoodsContent,
-        ["goods/item"]: GoodsItem,
+        ["goods/contents"]: GoodsContent,
+        ["goods/items"]: GoodsItem,
         ["goods/shippings"]: GoodsShipping,
         ["goods/shippings/packing"]: GoodsShippingPacking,
         ["goods/shippings/purchases/quicksearch"]:
             GoodsShippingPurchaseQuickSearch,
         ["goods/shippings/mailer"]: GoodsShipingMailer,
-        ["goods/shippings/invoice"]: GoodsShippingInvoice,
+        ["goods/shippings/invoices"]: GoodsShippingInvoice,
         ["goods/shippings/available/shipping/item"]:
             GoodsShipAvailableShippingItems,
         ["goods/shippings/alteration"]: GoodsShippingAlteration,

@@ -232,7 +232,7 @@ export default {
                             })
                             .then((response) => {
                                 self.loading = false;
-                                self.fetch();
+                                self.fetch({ ...this.options });
                             })
                             .catch((error) => {
                                 self.loading = false;
@@ -261,7 +261,7 @@ export default {
                             .dispatch("goods/purchases/delete", { id: item.id })
                             .then((response) => {
                                 self.loading = false;
-                                self.fetch();
+                                self.fetch({ ...this.options });
                             })
                             .catch((error) => {
                                 self.loading = false;

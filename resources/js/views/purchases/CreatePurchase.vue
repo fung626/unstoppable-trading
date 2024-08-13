@@ -190,6 +190,11 @@
                     :loading="fetchLoading.table"
                     :mobile-breakpoint="0"
                 >
+                    <template v-slot:loading>
+                        <v-skeleton-loader
+                            type="table-row@10"
+                        ></v-skeleton-loader>
+                    </template>
                     <template v-slot:[`item.32-S`]="{ index, item }">
                         <v-text-field
                             v-if="item['32-S']"
@@ -202,8 +207,9 @@
                             clearable
                             @change="change(index, item)"
                         ></v-text-field>
+                        <span v-else>N/A</span>
                     </template>
-                    <template v-slot:[`item.34-M`]="{ item }">
+                    <template v-slot:[`item.34-M`]="{ index, item }">
                         <v-text-field
                             v-if="item['34-M']"
                             v-model="item['34-M'].unit"
@@ -213,9 +219,11 @@
                             required
                             dense
                             clearable
+                            @change="change(index, item)"
                         ></v-text-field>
+                        <span v-else>N/A</span>
                     </template>
-                    <template v-slot:[`item.36-L`]="{ item }">
+                    <template v-slot:[`item.36-L`]="{ index, item }">
                         <v-text-field
                             v-if="item['36-L']"
                             v-model="item['36-L'].unit"
@@ -225,9 +233,11 @@
                             required
                             dense
                             clearable
+                            @change="change(index, item)"
                         ></v-text-field>
+                        <span v-else>N/A</span>
                     </template>
-                    <template v-slot:[`item.38-XL`]="{ item }">
+                    <template v-slot:[`item.38-XL`]="{ index, item }">
                         <v-text-field
                             v-if="item['38-XL']"
                             v-model="item['38-XL'].unit"
@@ -237,9 +247,11 @@
                             required
                             dense
                             clearable
+                            @change="change(index, item)"
                         ></v-text-field>
+                        <span v-else>N/A</span>
                     </template>
-                    <template v-slot:[`item.40-Q`]="{ item }">
+                    <template v-slot:[`item.40-Q`]="{ index, item }">
                         <v-text-field
                             v-if="item['40-Q']"
                             v-model="item['40-Q'].unit"
@@ -249,9 +261,11 @@
                             required
                             dense
                             clearable
+                            @change="change(index, item)"
                         ></v-text-field>
+                        <span v-else>N/A</span>
                     </template>
-                    <template v-slot:[`item.42-EQ`]="{ item }">
+                    <template v-slot:[`item.42-EQ`]="{ index, item }">
                         <v-text-field
                             v-if="item['42-EQ']"
                             v-model="item['42-EQ'].unit"
@@ -261,9 +275,11 @@
                             required
                             dense
                             clearable
+                            @change="change(index, item)"
                         ></v-text-field>
+                        <span v-else>N/A</span>
                     </template>
-                    <template v-slot:[`item.44-Free`]="{ item }">
+                    <template v-slot:[`item.44-Free`]="{ index, item }">
                         <v-text-field
                             v-if="item['44-Free']"
                             v-model="item['44-Free'].unit"
@@ -273,7 +289,9 @@
                             required
                             dense
                             clearable
+                            @change="change(index, item)"
                         ></v-text-field>
+                        <span v-else>N/A</span>
                     </template>
                     <template v-slot:[`body.append`]>
                         <tr>
@@ -480,7 +498,7 @@ export default {
                 .then((response) => {
                     self.loading = false;
                     self.errors = {};
-                    self.$router.push({ path: "purchases" });
+                    self.$router.push({ path: "/purchases" });
                 })
                 .catch((error) => {
                     self.loading = false;

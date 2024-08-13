@@ -173,7 +173,7 @@ export default {
                 });
         },
         search() {
-            this.fetch(true);
+            this.fetch({ ...this.options });
         },
         download() {
             let self = this;

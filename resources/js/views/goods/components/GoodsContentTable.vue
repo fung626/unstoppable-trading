@@ -3,56 +3,51 @@
         <Dialog ref="dialog" />
         <CRow class="p-2">
             <CCol md="9" sm="9">
-                <CInput
-                    size="sm"
-                    v-model="searchText"
-                    v-on:keyup.enter="search"
-                >
-                    <template #prepend>
-                        <CButton color="primary" size="sm" v-on:click="search">
-                            <CIcon name="cil-magnifying-glass" size="sm" />
-                        </CButton>
-                    </template>
-                </CInput>
+                <CInputGroup class="mb-3">
+                    <CButton color="primary" size="sm">
+                        <CIcon name="cil-magnifying-glass" size="sm" />
+                    </CButton>
+                    <CFormInput size="sm" v-model="search" />
+                </CInputGroup>
             </CCol>
             <CCol md="3" sm="3" class="text-right">
-                <CButton
-                    color="primary"
-                    size="sm"
-                    v-on:click="add"
-                    :disabled="loading"
-                >
-                    <CIcon name="cil-plus" size="sm" />
-                </CButton>
-                <CButton
-                    color="primary"
-                    size="sm"
-                    v-on:click="download"
-                    :disabled="loading"
-                >
-                    <CIcon name="cil-cloud-download" size="sm" />
-                </CButton>
-                <CButton
-                    color="primary"
-                    size="sm"
-                    v-on:click="reload"
-                    :disabled="loading"
-                >
-                    <CIcon name="cil-reload" size="sm" />
-                </CButton>
+                <CButtonGroup>
+                    <CButton
+                        color="primary"
+                        size="sm"
+                        v-on:click="add"
+                        :disabled="loading"
+                    >
+                        <CIcon name="cil-plus" size="sm" />
+                    </CButton>
+                    <CButton
+                        color="primary"
+                        size="sm"
+                        v-on:click="download"
+                        :disabled="loading"
+                    >
+                        <CIcon name="cil-cloud-download" size="sm" />
+                    </CButton>
+                    <CButton
+                        color="primary"
+                        size="sm"
+                        v-on:click="reload"
+                        :disabled="loading"
+                    >
+                        <CIcon name="cil-reload" size="sm" />
+                    </CButton>
+                </CButtonGroup>
             </CCol>
         </CRow>
         <v-data-table
             class="elevation-1"
-            :page="page"
-            :pageCount="pageCount"
             :headers="headers"
             :items="items"
-            :options.sync="options"
-            :server-items-length="serverItemsLength"
+            :items-length="serverItemsLength"
+            :search="search"
             :loading="loading"
-            :sort-by.sync="sortBy"
-            :sort-desc.sync="sortDesc"
+            @update:options="fetch"
+            :mobile="mobile"
             :footer-props="{
                 disableItemsPerPage: disableItemsPerPage,
                 disablePagination: disablePagination,
@@ -61,41 +56,28 @@
                 itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
+            <template v-slot:loading>
+                <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
+            </template>
             <template v-slot:[`item.key`]="{ item }">
-                <v-edit-dialog
-                    :return-value.sync="item.key"
-                    :save-text="$t('button.confirm')"
-                    :cancel-text="$t('button.cancel')"
-                    large
-                >
-                    {{ item.key }}
-                    <template v-slot:input>
-                        <v-text-field
-                            v-model="item.key"
-                            :label="$t('button.edit')"
-                            single-line
-                            counter
-                        ></v-text-field>
-                    </template>
-                </v-edit-dialog>
+                <v-text-field
+                    v-model="item.key"
+                    :label="$t('key')"
+                    single-line
+                    variant="plain"
+                    hide-details
+                    counter
+                ></v-text-field>
             </template>
             <template v-slot:[`item.value`]="{ item }">
-                <v-edit-dialog
-                    :return-value.sync="item.value"
-                    :save-text="$t('button.confirm')"
-                    :cancel-text="$t('button.cancel')"
-                    large
-                >
-                    {{ item.value }}
-                    <template v-slot:input>
-                        <v-text-field
-                            v-model="item.value"
-                            :label="$t('button.edit')"
-                            single-line
-                            counter
-                        ></v-text-field>
-                    </template>
-                </v-edit-dialog>
+                <v-text-field
+                    v-model="item.value"
+                    :label="$t('value')"
+                    single-line
+                    variant="plain"
+                    hide-details
+                    counter
+                ></v-text-field>
             </template>
             <template v-slot:[`item.created_at`]="{ item }">
                 <div v-if="item.created_at">
@@ -128,6 +110,7 @@
 //
 import { Dialog } from "@/components";
 import { goodsDefaults } from "@/constants";
+import { CButtonGroup } from "@coreui/vue";
 import { v4 as uuidv4 } from "uuid";
 
 export default {
@@ -140,15 +123,19 @@ export default {
     },
     data() {
         return {
-            searchText: null,
-            page: 1,
-            serverItemsLength: 0,
-            pageCount: 0,
-            items: [],
+            search: null,
             loading: false,
-            options: {},
-            sortBy: "key",
-            sortDesc: false,
+            mobile: window.innerWidth < 769,
+            items: [],
+            page: 1,
+            pageCount: 0,
+            serverItemsLength: 0,
+            options: {
+                page: 1,
+                itemsPerPage: 5,
+                sortBy: "key",
+                sortDesc: false,
+            },
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
@@ -163,32 +150,32 @@ export default {
             ],
         };
     },
-    watch: {
-        options: {
-            handler() {
-                this.fetch();
-            },
-        },
-        loading() {
-            this.disableItemsPerPage = this.loading;
-            this.disablePagination = this.loading;
-        },
+    mounted() {
+        window.addEventListener("resize", this.onResize);
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.onResize);
     },
     methods: {
-        fetch(reset = false) {
+        onResize() {
+            this.mobile = window.innerWidth < 769;
+        },
+        fetch({ page, itemsPerPage, sortBy, search }) {
             let self = this;
             self.loading = true;
-            const { page, itemsPerPage, sortBy, sortDesc } = self.options;
+            self.options.page = page;
+            self.options.itemsPerPage = itemsPerPage;
+            self.options.sortBy = sortBy;
             let data = {
                 goods_id: self.goodsId,
-                page: reset ? 1 : page,
+                page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-                sort_desc: sortDesc,
-                search: self.searchText,
+                sort_desc: null,
+                search: search,
             };
             this.$store
-                .dispatch("goods/content/get", data)
+                .dispatch("goods/contents/get", data)
                 .then((response) => {
                     let res = response.data;
                     self.items = res.data;
@@ -202,7 +189,7 @@ export default {
                 });
         },
         search() {
-            this.fetch(true);
+            this.fetch({ ...this.options });
         },
         add() {
             this.items = [
@@ -224,7 +211,7 @@ export default {
                 extension: "pdf",
             };
             this.$store
-                .dispatch("goods/content/export", data)
+                .dispatch("goods/contents/export", data)
                 .then((response) => {
                     self.loading = false;
                 })
@@ -233,7 +220,7 @@ export default {
                 });
         },
         reload() {
-            this.fetch();
+            this.fetch({ ...this.options });
         },
         async click(item, action) {
             let type = action.type;
@@ -255,7 +242,7 @@ export default {
                             return obj.id === item.id;
                         });
                         this.$store
-                            .dispatch("goods/content/update", data)
+                            .dispatch("goods/contents/update", data)
                             .then((response) => {
                                 self.loading = false;
                                 self.items[index] = response.data.data;
@@ -287,7 +274,7 @@ export default {
                         } else {
                             self.loading = true;
                             this.$store
-                                .dispatch("goods/content/delete", {
+                                .dispatch("goods/contents/delete", {
                                     id: item.id,
                                 })
                                 .then((response) => {

@@ -304,7 +304,7 @@ export default {
                 });
         },
         search() {
-            this.fetch(true);
+            this.fetch({ ...this.options });
         },
         reload() {
             this.fetch();

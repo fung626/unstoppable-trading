@@ -170,7 +170,7 @@ export default {
                 });
         },
         search() {
-            this.fetch(true);
+            this.fetch({ ...this.options });
         },
         download() {
             let self = this;
@@ -196,7 +196,7 @@ export default {
                 });
         },
         reload() {
-            this.fetch();
+            this.fetch({ ...this.options });
         },
         async click(item, action) {
             let type = action.type;

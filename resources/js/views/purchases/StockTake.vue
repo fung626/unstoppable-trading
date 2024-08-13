@@ -187,18 +187,18 @@ export default {
             totalunit: 0,
             subtotal: 0,
             headers: [
-                { text: "#ID", value: "id" },
+                { title: "#ID", value: "id" },
                 { title: this.$t("name"), value: "name" },
                 { title: this.$t("type"), value: "type" },
                 { title: this.$t("cup"), value: "cup" },
                 { title: this.$t("color"), value: "color" },
-                { text: "32-S", value: "32-S" },
-                { text: "34-M", value: "34-M" },
-                { text: "36-L", value: "36-L" },
-                { text: "38-XL", value: "38-XL" },
-                { text: "40-Q", value: "40-Q" },
-                { text: "42-EQ", value: "42-EQ" },
-                { text: "44-Free", value: "44-Free" },
+                { title: "32-S", value: "32-S" },
+                { title: "34-M", value: "34-M" },
+                { title: "36-L", value: "36-L" },
+                { title: "38-XL", value: "38-XL" },
+                { title: "40-Q", value: "40-Q" },
+                { title: "42-EQ", value: "42-EQ" },
+                { title: "44-Free", value: "44-Free" },
                 { title: this.$t("unitprice"), value: "unit_price" },
                 { title: this.$t("totalunit"), value: "total_unit" },
                 { title: this.$t("cost"), value: "cost" },
@@ -218,7 +218,7 @@ export default {
                 id: self.$route.params.id,
             };
             this.$store
-                .dispatch("goods/purchases/invoice/items", data)
+                .dispatch("goods/purchases/invoices/items", data)
                 .then((response) => {
                     self.fetchLoading = false;
                     self.items = JSON.parse(JSON.stringify(response.data));

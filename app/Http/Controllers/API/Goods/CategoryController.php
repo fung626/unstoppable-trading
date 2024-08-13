@@ -48,7 +48,7 @@ class CategoryController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id' => 'required|string|exists:category,id',
+            'id' => 'required|string|exists:categories,id',
             'name' => 'required|string',
         ]);
 

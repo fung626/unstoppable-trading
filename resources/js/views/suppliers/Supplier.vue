@@ -158,7 +158,7 @@ export default {
                 });
         },
         search() {
-            this.fetch(true);
+            this.fetch({ ...this.options });
         },
         add() {
             this.$router.push({ path: "suppliers/create" });

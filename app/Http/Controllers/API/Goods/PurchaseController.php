@@ -273,7 +273,7 @@ class PurchaseController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id' => 'required|string|exists:goods_purchase,id',
+            'id' => 'required|string|exists:goods_purchases,id',
             'status' => 'required|in:' . implode(',', config('purchase.status')),
         ]);
 

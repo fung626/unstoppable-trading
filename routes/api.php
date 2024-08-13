@@ -8,6 +8,7 @@ use App\Http\Controllers\API\Config\WebController;
 use App\Http\Controllers\API\ExchangeRateController;
 use App\Http\Controllers\API\Goods\BarcodeController;
 use App\Http\Controllers\API\Goods\CategoryController;
+use App\Http\Controllers\API\Goods\ContentController;
 use App\Http\Controllers\API\Goods\GoodsController;
 use App\Http\Controllers\API\Goods\ItemController;
 use App\Http\Controllers\API\Goods\PurchaseController;
@@ -151,6 +152,14 @@ Route::prefix('goods')->middleware(['auth:api', 'scopes:goods', 'localization'])
     Route::delete('delete', [GoodsController::class, 'delete']);
     Route::post('export', [GoodsController::class, 'export']);
     Route::post('shipping/purchase/quicksearch/get', [ShippingPurchaseQuickSearchController::class, 'get']);
+});
+
+Route::prefix('goods/contents')->middleware(['auth:api', 'scopes:goods', 'localization'])->group(function () {
+    Route::post('update', [ContentController::class, 'update']);
+    Route::post('get', [ContentController::class, 'get']);
+    Route::get('details', [ContentController::class, 'details']);
+    Route::get('delete', [ContentController::class, 'delete']);
+    Route::post('export', [ContentController::class, 'export']);
 });
 
 Route::get('goods/purchases/items', [PurchaseController::class, 'items']);

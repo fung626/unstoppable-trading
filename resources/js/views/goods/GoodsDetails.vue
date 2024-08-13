@@ -3,35 +3,35 @@
         <CCol>
             <CCard class="p-2">
                 <CCardBody>
-                    <CTabs
-                        variant="pills"
-                        @update:activeTab="index => activeTabUpdated(index)"
-                    >
-                        <CTab
-                            :title="tab.values[0].toUpperCase()"
-                            :active="tab.index === 0 ? true : false"
-                        >
-                            <hr />
-                            <GoodsForm :id="this.$route.params.id"></GoodsForm>
-                        </CTab>
-                        <CTab
-                            :title="tab.values[1].toUpperCase()"
-                            :active="tab.index === 1 ? true : false"
-                        >
-                            <hr />
-                            <GoodsItemTable
-                                :goodsId="this.$route.params.id"
-                            ></GoodsItemTable>
-                        </CTab>
-                        <CTab
-                            :title="tab.values[2].toUpperCase()"
-                            :active="tab.index === 2 ? true : false"
-                        >
-                            <hr />
-                            <GoodsContentTable
-                                :goodsId="this.$route.params.id"
-                            ></GoodsContentTable>
-                        </CTab>
+                    <CTabs :activeItemKey="0">
+                        <CTabList variant="pills">
+                            <CTab :itemKey="0">
+                                {{ tab.values[0].toUpperCase() }}
+                            </CTab>
+                            <CTab :itemKey="1">
+                                {{ tab.values[1].toUpperCase() }}
+                            </CTab>
+                            <CTab :itemKey="2">
+                                {{ tab.values[2].toUpperCase() }}
+                            </CTab>
+                        </CTabList>
+                        <CTabContent>
+                            <CTabPanel class="p-3" :itemKey="0">
+                                <GoodsForm
+                                    :id="this.$route.params.id"
+                                ></GoodsForm>
+                            </CTabPanel>
+                            <CTabPanel class="p-3" :itemKey="1">
+                                <GoodsItemTable
+                                    :goodsId="this.$route.params.id"
+                                ></GoodsItemTable>
+                            </CTabPanel>
+                            <CTabPanel class="p-3" :itemKey="2">
+                                <GoodsContentTable
+                                    :goodsId="this.$route.params.id"
+                                ></GoodsContentTable>
+                            </CTabPanel>
+                        </CTabContent>
                     </CTabs>
                 </CCardBody>
             </CCard>
@@ -40,16 +40,16 @@
 </template>
 <script>
 //
-import GoodsForm from "./components/GoodsForm";
-import GoodsItemTable from "./components/GoodsItemTable";
-import GoodsContentTable from "./components/GoodsContentTable";
+import GoodsContentTable from "./components/GoodsContentTable.vue";
+import GoodsForm from "./components/GoodsForm.vue";
+import GoodsItemTable from "./components/GoodsItemTable.vue";
 
 export default {
     name: "GoodsDetails",
     components: {
         GoodsForm,
         GoodsItemTable,
-        GoodsContentTable
+        GoodsContentTable,
     },
     data() {
         return {
@@ -57,14 +57,14 @@ export default {
                 values: [
                     this.$t("info"),
                     this.$t("goodsitem"),
-                    this.$t("goodscontent")
+                    this.$t("goodscontent"),
                 ],
-                index: 0
-            }
+                index: 0,
+            },
         };
     },
     methods: {
-        activeTabUpdated(index) {}
-    }
+        activeTabUpdated(index) {},
+    },
 };
 </script>

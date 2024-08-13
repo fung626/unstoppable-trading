@@ -105,7 +105,7 @@ export default {
             };
             self.loading = true;
             this.$store
-                .dispatch("goods/item/get", data)
+                .dispatch("goods/items/get", data)
                 .then((response) => {
                     let res = JSON.parse(JSON.stringify(response.data));
                     self.items = res;

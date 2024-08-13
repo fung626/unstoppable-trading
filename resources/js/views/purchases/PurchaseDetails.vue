@@ -179,7 +179,7 @@ export default {
                 id: self.$route.params.id,
             };
             this.$store
-                .dispatch("goods/purchases/invoice/details", data)
+                .dispatch("goods/purchases/invoices/details", data)
                 .then((response) => {
                     self.loading = false;
                 })
@@ -198,7 +198,7 @@ export default {
                 extension: "pdf",
             };
             this.$store
-                .dispatch("goods/purchases/invoice/export", data)
+                .dispatch("goods/purchases/invoices/export", data)
                 .then((response) => {
                     self.loading = false;
                 })

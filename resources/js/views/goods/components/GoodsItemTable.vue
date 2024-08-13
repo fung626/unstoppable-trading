@@ -4,61 +4,51 @@
         <ShippingDialog ref="shippingDialog" />
         <CRow class="p-2">
             <CCol md="9" sm="9">
-                <CInput
-                    size="sm"
-                    v-model="searchText"
-                    v-on:keyup.enter="search"
-                >
-                    <template #prepend>
-                        <CButton
-                            color="primary"
-                            size="sm"
-                            v-on:click="search"
-                            :disabled="loading"
-                        >
-                            <CIcon name="cil-magnifying-glass" size="sm" />
-                        </CButton>
-                    </template>
-                </CInput>
+                <CInputGroup class="mb-3">
+                    <CButton color="primary" size="sm">
+                        <CIcon name="cil-magnifying-glass" size="sm" />
+                    </CButton>
+                    <CFormInput size="sm" v-model="search" />
+                </CInputGroup>
             </CCol>
             <CCol md="3" sm="3" class="text-right">
-                <CButton
-                    color="primary"
-                    size="sm"
-                    v-on:click="add"
-                    :disabled="loading"
-                >
-                    <CIcon name="cil-plus" size="sm" />
-                </CButton>
-                <CButton
-                    color="primary"
-                    size="sm"
-                    v-on:click="download"
-                    :disabled="loading"
-                >
-                    <CIcon name="cil-cloud-download" size="sm" />
-                </CButton>
-                <CButton
-                    color="primary"
-                    size="sm"
-                    v-on:click="reload"
-                    :disabled="loading"
-                >
-                    <CIcon name="cil-reload" size="sm" />
-                </CButton>
+                <CButtonGroup>
+                    <CButton
+                        color="primary"
+                        size="sm"
+                        v-on:click="add"
+                        :disabled="loading"
+                    >
+                        <CIcon name="cil-plus" size="sm" />
+                    </CButton>
+                    <CButton
+                        color="primary"
+                        size="sm"
+                        v-on:click="download"
+                        :disabled="loading"
+                    >
+                        <CIcon name="cil-cloud-download" size="sm" />
+                    </CButton>
+                    <CButton
+                        color="primary"
+                        size="sm"
+                        v-on:click="reload"
+                        :disabled="loading"
+                    >
+                        <CIcon name="cil-reload" size="sm" />
+                    </CButton>
+                </CButtonGroup>
             </CCol>
         </CRow>
         <v-data-table
             class="elevation-1"
-            :page="page"
-            :pageCount="pageCount"
             :headers="headers"
             :items="items"
-            :options.sync="options"
-            :server-items-length="serverItemsLength"
+            :items-length="serverItemsLength"
+            :search="search"
             :loading="loading"
-            :sort-by.sync="sortBy"
-            :sort-desc.sync="sortDesc"
+            @update:options="fetch"
+            :mobile="mobile"
             :footer-props="{
                 disableItemsPerPage: disableItemsPerPage,
                 disablePagination: disablePagination,
@@ -67,14 +57,17 @@
                 itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
+            <template v-slot:loading>
+                <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
+            </template>
             <template v-slot:[`item.cup`]="{ item }">
                 <v-autocomplete
                     v-model="item.cup"
                     :items="goodsCups"
                     item-title="name"
                     item-value="name"
+                    variant="plain"
                     hide-details
-                    rounded
                 ></v-autocomplete>
             </template>
             <template v-slot:[`item.color`]="{ item }">
@@ -83,8 +76,8 @@
                     :items="goodsColors"
                     item-title="name"
                     item-value="name"
+                    variant="plain"
                     hide-details
-                    rounded
                 ></v-autocomplete>
             </template>
             <template v-slot:[`item.size`]="{ item }">
@@ -93,8 +86,8 @@
                     :items="goodsSizes"
                     item-title="name"
                     item-value="name"
+                    variant="plain"
                     hide-details
-                    rounded
                 ></v-autocomplete>
             </template>
             <template v-slot:[`item.barcode`]="{ item }">
@@ -146,7 +139,7 @@
 import { Dialog } from "@/components";
 import { goodsColors, goodsCups, goodsDefaults, goodsSizes } from "@/constants";
 import { v4 as uuidv4 } from "uuid";
-import ShippingDialog from "./ShippingDialog";
+import ShippingDialog from "./ShippingDialog.vue";
 
 export default {
     name: "GoodsItemTable",
@@ -159,15 +152,19 @@ export default {
     },
     data() {
         return {
-            searchText: null,
-            page: 1,
-            serverItemsLength: 0,
-            pageCount: 0,
-            items: [],
+            search: null,
             loading: false,
-            options: {},
-            sortBy: "cup",
-            sortDesc: false,
+            mobile: window.innerWidth < 769,
+            items: [],
+            page: 1,
+            pageCount: 0,
+            serverItemsLength: 0,
+            options: {
+                page: 1,
+                itemsPerPage: 5,
+                sortBy: "cup",
+                sortDesc: false,
+            },
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
@@ -192,32 +189,32 @@ export default {
             goodsSizes: goodsSizes,
         };
     },
-    watch: {
-        options: {
-            handler() {
-                this.fetch();
-            },
-        },
-        loading() {
-            this.disableItemsPerPage = this.loading;
-            this.disablePagination = this.loading;
-        },
+    mounted() {
+        window.addEventListener("resize", this.onResize);
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.onResize);
     },
     methods: {
-        fetch(reset = false) {
+        onResize() {
+            this.mobile = window.innerWidth < 769;
+        },
+        fetch({ page, itemsPerPage, sortBy, search }) {
             let self = this;
             self.loading = true;
-            const { page, itemsPerPage, sortBy, sortDesc } = self.options;
+            self.options.page = page;
+            self.options.itemsPerPage = itemsPerPage;
+            self.options.sortBy = sortBy;
             let data = {
                 goods_id: self.$props.goodsId,
-                page: reset ? 1 : page,
+                page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-                sort_desc: sortDesc,
-                search: self.searchText,
+                sort_desc: null,
+                search: search,
             };
             this.$store
-                .dispatch("goods/item/get", data)
+                .dispatch("goods/items/get", data)
                 .then((response) => {
                     let res = JSON.parse(JSON.stringify(response.data));
                     self.headers = res.headers;
@@ -232,7 +229,7 @@ export default {
                 });
         },
         search() {
-            this.fetch(true);
+            this.fetch({ ...this.options });
         },
         add() {
             this.items = [
@@ -250,11 +247,11 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                search: self.searchText,
+                search: self.options.search,
                 extension: "pdf",
             };
             this.$store
-                .dispatch("goods/item/export", data)
+                .dispatch("goods/items/export", data)
                 .then((response) => {
                     self.loading = false;
                 })
@@ -263,7 +260,7 @@ export default {
                 });
         },
         reload() {
-            this.fetch();
+            this.fetch({ ...this.options });
         },
         async click(item, action) {
             let type = action.type;
@@ -281,14 +278,14 @@ export default {
                         }
                         self.loading = true;
                         let data = { ...item, goods_id: self.goodsId };
-                        let index = self.items.findIndex((obj) => {
+                        /*let index = self.items.findIndex((obj) => {
                             return obj.id === item.id;
-                        });
+                        });*/
                         this.$store
-                            .dispatch("goods/item/update", data)
+                            .dispatch("goods/items/update", data)
                             .then((response) => {
                                 self.loading = false;
-                                self.fetch();
+                                self.fetch({ ...this.options });
                             })
                             .catch((error) => {
                                 self.loading = false;
@@ -324,10 +321,10 @@ export default {
                         } else {
                             self.loading = true;
                             this.$store
-                                .dispatch("goods/item/delete", { id: item.id })
+                                .dispatch("goods/items/delete", { id: item.id })
                                 .then((response) => {
                                     self.loading = false;
-                                    self.fetch();
+                                    self.fetch({ ...this.options });
                                 })
                                 .catch((error) => {
                                     self.loading = false;

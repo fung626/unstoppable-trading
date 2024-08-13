@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API\Goods;
 
 use App\Http\Controllers\Controller;
-use App\Models\Goods\Goods;
 use App\Models\Goods\Invoice\Invoice;
 use App\Models\Goods\Invoice\Item as InvoiceItem;
 use App\Models\Goods\Warehouse\Stock as WarehouseStock;
@@ -39,7 +38,7 @@ class InvoiceController extends Controller
             'date' => 'required|date',
             'items' => 'filled',
             'items.*.goods_id' => 'required|string|exists:goods,id',
-            'items.*.warehouse_id' => 'required|string|exists:warehouse_stock,warehouse_id',
+            'items.*.warehouse_id' => 'required|string|exists:warehouse_stocks,warehouse_id',
             'items.*.quantity' => 'required|integer',
             'items.*.price' => 'nullable|numeric',
         ]);
