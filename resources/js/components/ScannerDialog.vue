@@ -121,7 +121,7 @@ export default {
                 barcode: self.barcode,
             };
             this.$store
-                .dispatch("goods/purchase/details", data)
+                .dispatch("goods/purchases/details", data)
                 .then((response) => {
                     let data = JSON.parse(JSON.stringify(response.data));
                     self.data = data;

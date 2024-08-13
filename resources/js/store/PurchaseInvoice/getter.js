@@ -1,4 +1,4 @@
-const name = "goods/purchase/invoice";
+const name = "goods/purchases/invoices";
 
 export default {
     [`${name}/data`](state) {
@@ -6,5 +6,5 @@ export default {
     },
     [`${name}/data/details`](state) {
         return state.detailsData;
-    }
+    },
 };

@@ -218,7 +218,7 @@ export default {
                 id: self.$route.params.id,
             };
             this.$store
-                .dispatch("goods/purchase/invoice/items", data)
+                .dispatch("goods/purchases/invoice/items", data)
                 .then((response) => {
                     self.fetchLoading = false;
                     self.items = JSON.parse(JSON.stringify(response.data));
@@ -269,7 +269,7 @@ export default {
                 items: self.items,
             };
             this.$store
-                .dispatch("goods/purchase/stocktake/create", data)
+                .dispatch("goods/purchases/stocktake/create", data)
                 .then((response) => {
                     self.submitLoading = false;
                     self.$router.back();

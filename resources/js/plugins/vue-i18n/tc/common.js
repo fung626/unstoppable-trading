@@ -17,6 +17,7 @@ export default {
     salesreport: "銷售報告",
     topsales: "最高銷售貨物",
     topstocks: "最高庫存貨物",
+    warehouses: "倉庫",
     management: "管理",
     home: "主頁",
     dashboard: "控制板",

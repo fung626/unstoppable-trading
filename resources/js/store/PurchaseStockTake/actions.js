@@ -4,8 +4,8 @@ import router from "../../router";
 import axios from "../../utils/myAxios";
 
 const { t } = i18n.global;
-const endpoint = "/api/goods/purchase/stocktake/";
-const name = "goods/purchase/stocktake";
+const endpoint = "/api/goods/purchases/stocktake/";
+const name = "goods/purchases/stocktake";
 
 export default {
     [`${name}/create`]({ commit, dispatch }, payload) {

@@ -5,13 +5,14 @@ namespace App\Models\Goods\Purchase;
 use App\Models\Goods\Purchase\Item;
 use App\Models\Goods\Supplier;
 use App\Models\User\Users;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Purchase extends Model
 {
     //
-    use Uuid, SoftDeletes;
+    use HasUuids, SoftDeletes;
 
     protected $table = 'goods_purchases';
 

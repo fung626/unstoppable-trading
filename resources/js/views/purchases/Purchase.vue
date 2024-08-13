@@ -1,25 +1,15 @@
 <template>
     <div>
-        <StockCalendar stockType="purchase" />
+        <!-- <StockCalendar stockType="purchase" /> -->
         <Dialog ref="dialog" />
         <CRow class="p-2">
             <CCol :md="9" :sm="9">
-                <CInput
-                    size="sm"
-                    v-model="searchText"
-                    v-on:keyup.enter="search"
-                >
-                    <template #prepend>
-                        <CButton
-                            color="primary"
-                            size="sm"
-                            v-on:click="search"
-                            :disabled="loading"
-                        >
-                            <CIcon name="cil-magnifying-glass" size="sm" />
-                        </CButton>
-                    </template>
-                </CInput>
+                <CInputGroup class="mb-3">
+                    <CButton color="primary" size="sm">
+                        <CIcon name="cil-magnifying-glass" size="sm" />
+                    </CButton>
+                    <CFormInput size="sm" v-model="search" />
+                </CInputGroup>
             </CCol>
             <CCol :md="3" :sm="3" class="text-right">
                 <CButtonGroup role="group">
@@ -44,6 +34,13 @@
         </CRow>
         <v-data-table
             class="elevation-1"
+            :headers="headers"
+            :items="items"
+            :items-length="serverItemsLength"
+            :search="search"
+            :loading="loading"
+            @update:options="fetch"
+            :mobile="mobile"
             :footer-props="{
                 disableItemsPerPage: disableItemsPerPage,
                 disablePagination: disablePagination,
@@ -52,22 +49,25 @@
                 itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
+            <template v-slot:loading>
+                <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
+            </template>
             <template v-slot:[`item.status`]="{ item }">
                 <div v-if="item.status">
                     {{ $t(`purchase.status.${item.status}`) }}
                 </div>
             </template>
-            <!-- <template v-slot:[`item.date`]="{ item }">
+            <template v-slot:[`item.date`]="{ item }">
                 <div v-if="item.date">
-                    {{ item.date | moment("dddd, Do MMMM YYYY") }}
+                    {{ this.$formatDate(item.date) }}
                 </div>
             </template>
             <template v-slot:[`item.created_at`]="{ item }">
-               {{ this.$formatDate(item.created_at) }}
+                {{ this.$formatDate(item.created_at) }}
             </template>
             <template v-slot:[`item.updated_at`]="{ item }">
-               {{ this.$formatDate(item.updated_at) }}
-            </template> -->
+                {{ this.$formatDate(item.updated_at) }}
+            </template>
             <template v-slot:[`item.status_actions`]="{ item }">
                 <CButtonGroup>
                     <CButton
@@ -102,7 +102,6 @@
 <script>
 //
 import { Dialog, StockCalendar } from "@/components";
-import { mapState } from "vuex";
 
 export default {
     name: "Purchase",
@@ -110,28 +109,21 @@ export default {
         Dialog,
         StockCalendar,
     },
-    computed: {
-        ...mapState(["goods/purchase"]),
-        serverItemsLength() {
-            return this["goods/purchase"].data?.total;
-        },
-        pageCount() {
-            return this["goods/purchase"].data?.last_page;
-        },
-        page() {
-            return this["goods/purchase"].data?.current_page;
-        },
-        items() {
-            return this["goods/purchase"].data?.data;
-        },
-    },
     data() {
         return {
-            searchText: null,
+            search: null,
             loading: false,
-            options: {},
-            sortBy: "supplier.name",
-            sortDesc: false,
+            mobile: window.innerWidth < 769,
+            items: [],
+            page: 1,
+            pageCount: 0,
+            serverItemsLength: 0,
+            options: {
+                page: 1,
+                itemsPerPage: 5,
+                sortBy: "supplier.name",
+                sortDesc: false,
+            },
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
@@ -154,46 +146,46 @@ export default {
             ],
         };
     },
-    watch: {
-        options: {
-            handler() {
-                this.fetch();
-            },
-        },
-        loading() {
-            this.disableItemsPerPage = this.loading;
-            this.disablePagination = this.loading;
-        },
+    mounted() {
+        window.addEventListener("resize", this.onResize);
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.onResize);
     },
     methods: {
-        fetch(reset = false) {
+        onResize() {
+            this.mobile = window.innerWidth < 769;
+        },
+        fetch({ page, itemsPerPage, sortBy, search }) {
             let self = this;
-            if (self.loading) {
-                return;
-            }
             self.loading = true;
-            const { page, itemsPerPage, sortBy, sortDesc } = self.options;
+            self.options.page = page;
+            self.options.itemsPerPage = itemsPerPage;
+            self.options.sortBy = sortBy;
             let data = {
-                page: reset ? 1 : page,
+                page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-                sort_desc: sortDesc,
-                search: self.searchText,
+                sort_desc: null,
+                search: search,
             };
             this.$store
-                .dispatch("goods/purchase/get", data)
+                .dispatch("goods/purchases/get", data)
                 .then((response) => {
+                    // console.log(response);
+                    let res = JSON.parse(JSON.stringify(response.data));
+                    self.items = res.data;
+                    self.serverItemsLength = res.total;
+                    self.pageCount = res.last_page;
+                    self.page = res.current_page;
                     self.loading = false;
                 })
                 .catch((error) => {
                     self.loading = false;
                 });
         },
-        search() {
-            this.fetch(true);
-        },
         add() {
-            this.$router.push({ name: "CreatePurchase" });
+            this.$router.push({ path: "purchases/create" });
         },
         download() {
             let self = this;
@@ -207,7 +199,7 @@ export default {
                 extension: "pdf",
             };
             this.$store
-                .dispatch("goods/purchase/export", data)
+                .dispatch("goods/purchases/export", data)
                 .then((response) => {
                     self.loading = false;
                 })
@@ -216,7 +208,7 @@ export default {
                 });
         },
         reload() {
-            this.fetch();
+            this.fetch({ ...this.options });
         },
         async click(item, action) {
             let type = action.type;
@@ -234,7 +226,7 @@ export default {
                         }
                         self.loading = true;
                         this.$store
-                            .dispatch("goods/purchase/update", {
+                            .dispatch("goods/purchases/update", {
                                 id: item.id,
                                 status: action.status,
                             })
@@ -250,8 +242,7 @@ export default {
                 case "RouterPush":
                     let route = action.route;
                     this.$router.push({
-                        name: route,
-                        params: { id: item.id },
+                        path: route,
                     });
                     break;
                 case "Delete":
@@ -267,7 +258,7 @@ export default {
                         }
                         self.loading = true;
                         this.$store
-                            .dispatch("goods/purchase/delete", { id: item.id })
+                            .dispatch("goods/purchases/delete", { id: item.id })
                             .then((response) => {
                                 self.loading = false;
                                 self.fetch();

@@ -2,25 +2,15 @@
     <div>
         <Dialog ref="dialog" />
         <CRow class="p-2">
-            <CCol md="9" sm="9">
-                <CInput
-                    size="sm"
-                    v-model="searchText"
-                    v-on:keyup.enter="search"
-                >
-                    <template #prepend>
-                        <CButton
-                            color="primary"
-                            size="sm"
-                            v-on:click="search"
-                            :disabled="loading"
-                        >
-                            <CIcon name="cil-magnifying-glass" size="sm" />
-                        </CButton>
-                    </template>
-                </CInput>
+            <CCol :md="9" :sm="9">
+                <CInputGroup class="mb-3">
+                    <CButton color="primary" size="sm">
+                        <CIcon name="cil-magnifying-glass" size="sm" />
+                    </CButton>
+                    <CFormInput size="sm" v-model="search" />
+                </CInputGroup>
             </CCol>
-            <CCol md="3" sm="3" class="text-right">
+            <CCol :md="3" :sm="3" class="text-right">
                 <CButton
                     color="primary"
                     size="sm"
@@ -125,7 +115,7 @@ export default {
     },
     data() {
         return {
-            searchText: null,
+            search: null,
             loading: false,
             options: {},
             sortBy: "updated_at",
@@ -152,17 +142,6 @@ export default {
             ],
         };
     },
-    watch: {
-        options: {
-            handler() {
-                this.fetch();
-            },
-        },
-        loading() {
-            this.disableItemsPerPage = this.loading;
-            this.disablePagination = this.loading;
-        },
-    },
     mounted() {
         this.fetch();
     },
@@ -182,7 +161,7 @@ export default {
                 search: self.searchText,
             };
             this.$store
-                .dispatch("goods/purchase/get", data)
+                .dispatch("goods/purchases/get", data)
                 .then((response) => {
                     self.loading = false;
                 })
@@ -208,7 +187,7 @@ export default {
                 extension: "pdf",
             };
             this.$store
-                .dispatch("goods/purchase/export", data)
+                .dispatch("goods/purchases/export", data)
                 .then((response) => {
                     self.loading = false;
                 })
@@ -235,7 +214,7 @@ export default {
                         }
                         self.loading = true;
                         this.$store
-                            .dispatch("goods/purchase/update", {
+                            .dispatch("goods/purchases/update", {
                                 id: item.id,
                                 status: action.status,
                             })
@@ -277,7 +256,7 @@ export default {
                             return;
                         }
                         this.$store
-                            .dispatch("goods/purchase/delete", { id: item.id })
+                            .dispatch("goods/purchases/delete", { id: item.id })
                             .then((response) => {
                                 self.loading = false;
                                 self.fetch();

@@ -178,7 +178,7 @@
                             <CButton color="primary" size="sm">
                                 <CIcon name="cil-magnifying-glass" size="sm" />
                             </CButton>
-                            <CFormInput size="sm" v-model="search" />
+                            <CFormInput size="sm" v-model="table.item.search" />
                         </CInputGroup>
                     </CCol>
                 </CRow>
@@ -190,7 +190,7 @@
                     :loading="fetchLoading.table"
                     :mobile-breakpoint="0"
                 >
-                    <template v-slot:[`item.32-S`]="{ item }">
+                    <template v-slot:[`item.32-S`]="{ index, item }">
                         <v-text-field
                             v-if="item['32-S']"
                             v-model="item['32-S'].unit"
@@ -200,6 +200,7 @@
                             required
                             dense
                             clearable
+                            @change="change(index, item)"
                         ></v-text-field>
                     </template>
                     <template v-slot:[`item.34-M`]="{ item }">
@@ -479,35 +480,24 @@ export default {
                 .then((response) => {
                     self.loading = false;
                     self.errors = {};
-                    self.$router.back();
+                    self.$router.push({ path: "purchases" });
                 })
                 .catch((error) => {
                     self.loading = false;
                     self.errors = error.response.data?.data;
                 });
         },
-        isRowEditable(value) {
-            return goodsSizes.find((obj) => obj.name === value);
-        },
-        isCurrencyRow(value) {
-            const rows = ["unit_price", "cost"];
-            const idx = rows.indexOf(value);
-            return idx > -1 ? true : false;
-        },
-        save(idx) {
-            let item = this.items[idx];
-            let sizes = goodsSizes;
-            let totalunit = 0;
+        change(index, item) {
+            const sizes = goodsSizes;
+            let total = 0;
             for (let size of sizes) {
-                if (item[size.name]) {
-                    totalunit += item[size.name].unit;
+                const key = size.name;
+                if (item[key]) {
+                    total += item[key].unit * 1;
                 }
             }
-            this.items[idx].total_unit = totalunit;
-            this.items[idx].cost = totalunit * this.items[idx].unit_price;
-            this.updateTable();
-        },
-        updateTable() {
+            this.items[index].total_unit = total;
+            this.items[index].cost = total * this.items[index].unit_price;
             this.totalunit = 0;
             this.subtotal = 0;
             for (let item of this.items) {

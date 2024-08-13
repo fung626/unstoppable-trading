@@ -99,7 +99,7 @@ export default {
             switch (type) {
                 case "RouterPush":
                     this.$router.push({
-                        name: "ExchangeRateDetails",
+                        path: "exchange-rate/details",
                         params: { base: item.base, symbol: item.symbol },
                     });
                     break;

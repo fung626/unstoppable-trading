@@ -11,13 +11,14 @@ use App\Http\Controllers\API\Goods\CategoryController;
 use App\Http\Controllers\API\Goods\GoodsController;
 use App\Http\Controllers\API\Goods\ItemController;
 use App\Http\Controllers\API\Goods\PurchaseController;
+use App\Http\Controllers\API\Goods\Purchase\InvoiceController as PurchaseInvoiceController;
 use App\Http\Controllers\API\Goods\Purchase\StocktakeController;
 use App\Http\Controllers\API\Goods\ShippingAlterationController;
 use App\Http\Controllers\API\Goods\ShippingController;
 use App\Http\Controllers\API\Goods\ShippingPurchaseQuickSearchController;
 use App\Http\Controllers\API\Goods\Shipping\AlterationController;
 use App\Http\Controllers\API\Goods\Shipping\AvailableShippingItemController;
-use App\Http\Controllers\API\Goods\Shipping\InvoiceController;
+use App\Http\Controllers\API\Goods\Shipping\InvoiceController as ShippingInvoiceController;
 use App\Http\Controllers\API\Goods\Shipping\MailerController;
 use App\Http\Controllers\API\Goods\Shipping\PackingController;
 use App\Http\Controllers\API\Goods\StockCalendarController;
@@ -163,6 +164,12 @@ Route::prefix('goods/purchases')->middleware(['auth:api', 'scopes:purchases', 'l
     Route::post('export', [PurchaseController::class, 'export']);
 });
 
+Route::prefix('goods/purchases/invoices')->middleware(['auth:api', 'scopes:purchases', 'localization'])->group(function () {
+    Route::get('items', [PurchaseInvoiceController::class, 'items']);
+    Route::get('details', [PurchaseInvoiceController::class, 'details']);
+    Route::post('export', [PurchaseInvoiceController::class, 'export']);
+});
+
 Route::prefix('goods/purchases/stocktakes')->middleware(['auth:api', 'scopes:stocktakes', 'localization'])->group(function () {
     Route::post('create', [StocktakeController::class, 'post']);
     Route::get('details', [StocktakeController::class, 'details']);
@@ -195,7 +202,7 @@ Route::prefix('goods/shippings/mailer')->middleware(['auth:api', 'scopes:shippin
 });
 
 Route::prefix('goods/shippings/invoices')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
-    Route::post('export', [InvoiceController::class, 'export']);
+    Route::post('export', [ShippingInvoiceController::class, 'export']);
 });
 
 Route::prefix('goods/items')->middleware(['auth:api', 'scopes:goods', 'localization'])->group(function () {

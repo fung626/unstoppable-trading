@@ -5,10 +5,11 @@ import queryString from "query-string";
 import router from "../../router";
 import axios from "../../utils/myAxios";
 import * as types from "./mutation-types";
+
 const { t } = i18n.global;
 
-const endpoint = "/api/goods/purchase/invoice/";
-const name = "goods/purchase/invoice";
+const endpoint = "/api/goods/purchases/invoices/";
+const name = "goods/purchases/invoices";
 
 export default {
     [`${name}/items`]({ commit, dispatch }, payload) {

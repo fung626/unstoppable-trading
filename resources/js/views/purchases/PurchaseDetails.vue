@@ -8,22 +8,24 @@
         <CCardBody>
             <CRow class="p-2">
                 <CCol class="text-right">
-                    <CButton
-                        color="primary"
-                        size="sm"
-                        v-on:click="download"
-                        :disabled="loading"
-                    >
-                        <CIcon name="cil-cloud-download" size="sm" />
-                    </CButton>
-                    <CButton
-                        color="primary"
-                        size="sm"
-                        v-on:click="reload"
-                        :disabled="loading"
-                    >
-                        <CIcon name="cil-reload" size="sm" />
-                    </CButton>
+                    <CButtonGroup>
+                        <CButton
+                            color="primary"
+                            size="sm"
+                            v-on:click="download"
+                            :disabled="loading"
+                        >
+                            <CIcon name="cil-cloud-download" size="sm" />
+                        </CButton>
+                        <CButton
+                            color="primary"
+                            size="sm"
+                            v-on:click="reload"
+                            :disabled="loading"
+                        >
+                            <CIcon name="cil-reload" size="sm" />
+                        </CButton>
+                    </CButtonGroup>
                 </CCol>
             </CRow>
             <CRow>
@@ -32,7 +34,7 @@
                         class="m-4"
                         v-if="data.barcode"
                         :value="data.barcode"
-                        :options="{ text: ' ', format: 'CODE39', height: 28 }"
+                        :options="{ title: ' ', format: 'CODE39', height: 28 }"
                     ></barcode>
                 </CCol>
             </CRow>
@@ -85,18 +87,18 @@ export default {
     name: "PurchaseDetails",
     components: {},
     computed: {
-        ...mapState(["goods/purchase/invoice"]),
+        ...mapState(["goods/purchases/invoices"]),
         data() {
-            return this["goods/purchase/invoice"].detailsData;
+            return this["goods/purchases/invoices"].detailsData;
         },
         headerItems() {
-            return this["goods/purchase/invoice"].detailsData.header_items;
+            return this["goods/purchases/invoices"].detailsData.header_items;
         },
         purchaseItems() {
-            return this["goods/purchase/invoice"].detailsData.purchase_items;
+            return this["goods/purchases/invoices"].detailsData.purchase_items;
         },
         footerItems() {
-            return this["goods/purchase/invoice"].detailsData.footer_items;
+            return this["goods/purchases/invoices"].detailsData.footer_items;
         },
     },
     data() {
@@ -106,25 +108,25 @@ export default {
             table: {
                 header: {
                     headers: [
-                        { text: "X1", value: "X1" },
-                        { text: "X2", value: "X2" },
-                        { text: "X3", value: "X3" },
-                        { text: "X4", value: "X4" },
-                        { text: "X5", value: "X5" },
-                        { text: "X6", value: "X6" },
+                        { title: "X1", value: "X1" },
+                        { title: "X2", value: "X2" },
+                        { title: "X3", value: "X3" },
+                        { title: "X4", value: "X4" },
+                        { title: "X5", value: "X5" },
+                        { title: "X6", value: "X6" },
                     ],
                 },
                 footer: {
                     headers: [
                         {
-                            text: "",
+                            title: "",
                             value: "X1",
                             align: "right",
                             width: "80%",
                             sortable: false,
                         },
                         {
-                            text: "",
+                            title: "",
                             value: "X2",
                             align: "left",
                             width: "20%",
@@ -134,28 +136,28 @@ export default {
                 },
                 item: {
                     headers: [
-                        { text: "#ID", value: "id" },
+                        { title: "#ID", value: "id" },
                         { title: this.$t("type"), value: "type" },
                         { title: this.$t("goodsname"), value: "name" },
                         { title: this.$t("cup"), value: "cup" },
                         { title: this.$t("color"), value: "color" },
-                        { text: "32-S", value: "32-S.unit" },
-                        { text: "34-M", value: "34-M.unit" },
-                        { text: "36-L", value: "36-L.unit" },
-                        { text: "38-XL", value: "38-XL.unit" },
-                        { text: "40-Q", value: "40-Q.unit" },
-                        { text: "42-EQ", value: "42-EQ.unit" },
-                        { text: "44-Free", value: "44-Free.unit" },
+                        { title: "32-S", value: "32-S.unit" },
+                        { title: "34-M", value: "34-M.unit" },
+                        { title: "36-L", value: "36-L.unit" },
+                        { title: "38-XL", value: "38-XL.unit" },
+                        { title: "40-Q", value: "40-Q.unit" },
+                        { title: "42-EQ", value: "42-EQ.unit" },
+                        { title: "44-Free", value: "44-Free.unit" },
                         {
-                            text: `${this.$t("unitprice")}($)`,
+                            title: `${this.$t("unitprice")}($)`,
                             value: "formatted_unit_price",
                         },
                         {
-                            text: `${this.$t("totalunit")}`,
+                            title: `${this.$t("totalunit")}`,
                             value: "total_unit",
                         },
                         {
-                            text: `${this.$t("cost")}($)`,
+                            title: `${this.$t("cost")}($)`,
                             value: "formatted_cost",
                         },
                     ],
@@ -177,7 +179,7 @@ export default {
                 id: self.$route.params.id,
             };
             this.$store
-                .dispatch("goods/purchase/invoice/details", data)
+                .dispatch("goods/purchases/invoice/details", data)
                 .then((response) => {
                     self.loading = false;
                 })
@@ -196,7 +198,7 @@ export default {
                 extension: "pdf",
             };
             this.$store
-                .dispatch("goods/purchase/invoice/export", data)
+                .dispatch("goods/purchases/invoice/export", data)
                 .then((response) => {
                     self.loading = false;
                 })

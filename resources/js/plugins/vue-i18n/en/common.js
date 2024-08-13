@@ -17,6 +17,7 @@ export default {
     salesreport: "Sales Report",
     topsales: "Top Sales",
     topstocks: "Top Stocks",
+    warehouses: "Warehouses",
     management: "Management",
     home: "Home",
     dashboard: "Dashboard",
