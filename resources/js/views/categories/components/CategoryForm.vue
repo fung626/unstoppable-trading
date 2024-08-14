@@ -1,4 +1,5 @@
 <template>
+    <Snackbar />
     <CCard class="border-0">
         <v-progress-linear
             :active="fetchLoading"
@@ -17,7 +18,7 @@
                     dense
                     clearable
                 ></v-text-field>
-                <v-text-field
+                <v-textarea
                     v-model="formData.description"
                     :label="$t('description')"
                     :error="errors.description ? true : false"
@@ -25,7 +26,7 @@
                     outlined
                     dense
                     clearable
-                ></v-text-field>
+                ></v-textarea>
                 <hr />
                 <CButton @click="update" color="primary" class="px-4">
                     {{ $t("button.update") }}
@@ -42,18 +43,22 @@
 </template>
 <script>
 //
+import { Snackbar } from "@/components";
 
 export default {
     name: "CategoryForm",
     props: {
-        id: null
+        id: null,
+    },
+    components: {
+        Snackbar,
     },
     data() {
         return {
             formData: {},
             errors: {},
             fetchLoading: false,
-            updateLoading: false
+            updateLoading: false,
         };
     },
     mounted() {
@@ -66,16 +71,16 @@ export default {
                 return;
             }
             let data = {
-                id: self.$props.id
+                id: self.$props.id,
             };
             self.fetchLoading = true;
             this.$store
-                .dispatch("goods/category/details", data)
-                .then(response => {
+                .dispatch("categories/details", data)
+                .then((response) => {
                     self.formData = JSON.parse(JSON.stringify(response.data));
                     self.fetchLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.fetchLoading = false;
                 });
         },
@@ -86,18 +91,21 @@ export default {
             }
             self.updateLoading = true;
             this.$store
-                .dispatch("goods/category/update", self.formData)
-                .then(response => {
-                    self.formData = JSON.parse(JSON.stringify(response.data));
+                .dispatch("categories/update", self.formData)
+                .then((response) => {
+                    // console.log(response);
+                    self.formData = JSON.parse(
+                        JSON.stringify(response.data.data)
+                    );
                     self.errors = {};
                     self.updateLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.errors = error.response.data?.data;
                     self.updateLoading = false;
                 });
-        }
-    }
+        },
+    },
 };
 </script>
 

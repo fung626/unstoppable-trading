@@ -3,28 +3,27 @@
         <CCol>
             <CCard class="p-2">
                 <CCardBody>
-                    <CTabs
-                        variant="pills"
-                        @update:activeTab="index => activeTabUpdated(index)"
-                    >
-                        <CTab
-                            :title="tab.values[0].toUpperCase()"
-                            :active="tab.index === 0 ? true : false"
-                        >
-                            <hr />
-                            <CategoryForm
-                                :id="this.$route.params.id"
-                            ></CategoryForm>
-                        </CTab>
-                        <CTab
-                            :title="tab.values[1].toUpperCase()"
-                            :active="tab.index === 1 ? true : false"
-                        >
-                            <hr />
-                            <GoodsTable
-                                :categoryId="this.$route.params.id"
-                            ></GoodsTable>
-                        </CTab>
+                    <CTabs :activeItemKey="0">
+                        <CTabList variant="pills">
+                            <CTab :itemKey="0">
+                                {{ tab.values[0].toUpperCase() }}
+                            </CTab>
+                            <CTab :itemKey="1">
+                                {{ tab.values[1].toUpperCase() }}
+                            </CTab>
+                        </CTabList>
+                        <CTabContent>
+                            <CTabPanel class="p-3" :itemKey="0">
+                                <CategoryForm
+                                    :id="this.$route.params.id"
+                                ></CategoryForm>
+                            </CTabPanel>
+                            <CTabPanel class="p-3" :itemKey="1">
+                                <GoodsTable
+                                    :categoryId="this.$route.params.id"
+                                ></GoodsTable>
+                            </CTabPanel>
+                        </CTabContent>
                     </CTabs>
                 </CCardBody>
             </CCard>
@@ -33,25 +32,22 @@
 </template>
 <script>
 //
-import CategoryForm from "./components/CategoryForm";
-import GoodsTable from "../goods/components/GoodsTable";
+import GoodsTable from "../goods/components/GoodsTable.vue";
+import CategoryForm from "./components/CategoryForm.vue";
 
 export default {
     name: "CategoryDetails",
     components: {
         CategoryForm,
-        GoodsTable
+        GoodsTable,
     },
     data() {
         return {
             tab: {
                 values: [this.$t("info"), this.$t("goods")],
-                index: 0
-            }
+                index: 0,
+            },
         };
     },
-    methods: {
-        activeTabUpdated(index) {}
-    }
 };
 </script>
