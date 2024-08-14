@@ -1,10 +1,12 @@
 <script setup>
 import { useColorModes } from "@coreui/vue";
 import { onMounted, ref } from "vue";
-
+import { useTheme } from "vuetify";
 import TheBreadcrumb from "./TheBreadcrumb.vue";
 
 const headerClassNames = ref("mb-4 p-0");
+
+const theme = useTheme();
 
 const { colorMode, setColorMode } = useColorModes(
     "coreui-free-vue-admin-template-theme"
@@ -42,7 +44,7 @@ onMounted(() => {
                 </CNavItem>
             </CHeaderNav> -->
             <CHeaderNav class="ms-auto">
-                <CNavItem>
+                <!-- <CNavItem>
                     <CNavLink href="#">
                         <CIcon icon="cil-bell" size="lg" />
                     </CNavLink>
@@ -56,7 +58,7 @@ onMounted(() => {
                     <CNavLink href="#">
                         <CIcon icon="cil-envelope-open" size="lg" />
                     </CNavLink>
-                </CNavItem>
+                </CNavItem> -->
             </CHeaderNav>
             <CHeaderNav>
                 <li class="nav-item py-1">
@@ -82,7 +84,12 @@ onMounted(() => {
                             class="d-flex align-items-center"
                             component="button"
                             type="button"
-                            @click="setColorMode('light')"
+                            @click="
+                                () => {
+                                    theme.global.name.value = 'light';
+                                    setColorMode('light');
+                                }
+                            "
                         >
                             <CIcon class="me-2" icon="cil-sun" size="lg" />
                             Light
@@ -92,7 +99,12 @@ onMounted(() => {
                             class="d-flex align-items-center"
                             component="button"
                             type="button"
-                            @click="setColorMode('dark')"
+                            @click="
+                                () => {
+                                    theme.global.name.value = 'dark';
+                                    setColorMode('dark');
+                                }
+                            "
                         >
                             <CIcon class="me-2" icon="cil-moon" size="lg" />
                             Dark
