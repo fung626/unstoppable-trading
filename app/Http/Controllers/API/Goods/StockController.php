@@ -18,6 +18,11 @@ class StockController extends Controller
         'goods',
     ];
 
+    public function __construct()
+    {
+        set_time_limit(60);
+    }
+
     public function get(Request $request)
     {
 

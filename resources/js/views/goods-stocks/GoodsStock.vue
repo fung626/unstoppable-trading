@@ -41,20 +41,20 @@
             <template v-slot:loading>
                 <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
             </template>
-            <!-- <template v-slot:[`item.32-S`]="{ item }">
+            <template v-slot:[`item.32-S`]="{ item }">
                 <div v-if="item['32-S']">
                     <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on">
+                        <template v-slot:activator="{ props }">
+                            <span v-bind="props">
                                 {{ item["32-S"].stock_unit }}
                             </span>
                         </template>
                         <span>
-                            <barcode
+                            <vue-barcode
                                 v-if="item['32-S'].barcode"
                                 :value="item['32-S'].barcode"
                                 :options="{ format: 'CODE39', height: 32 }"
-                            ></barcode>
+                            ></vue-barcode>
                         </span>
                     </v-tooltip>
                 </div>
@@ -63,17 +63,17 @@
             <template v-slot:[`item.34-M`]="{ item }">
                 <div v-if="item['34-M']">
                     <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on">
+                        <template v-slot:activator="{ props }">
+                            <span v-bind="props" v-on="on">
                                 {{ item["34-M"].stock_unit }}
                             </span>
                         </template>
                         <span>
-                            <barcode
+                            <vue-barcode
                                 v-if="item['34-M'].barcode"
                                 :value="item['34-M'].barcode"
                                 :options="{ format: 'CODE39', height: 32 }"
-                            ></barcode>
+                            ></vue-barcode>
                         </span>
                     </v-tooltip>
                 </div>
@@ -82,17 +82,17 @@
             <template v-slot:[`item.36-L`]="{ item }">
                 <div v-if="item['36-L']">
                     <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on">
+                        <template v-slot:activator="{ props }">
+                            <span v-bind="props" v-on="on">
                                 {{ item["36-L"].stock_unit }}
                             </span>
                         </template>
                         <span>
-                            <barcode
+                            <vue-barcode
                                 v-if="item['36-L'].barcode"
                                 :value="item['36-L'].barcode"
                                 :options="{ format: 'CODE39', height: 32 }"
-                            ></barcode>
+                            ></vue-barcode>
                         </span>
                     </v-tooltip>
                 </div>
@@ -101,17 +101,17 @@
             <template v-slot:[`item.38-XL`]="{ item }">
                 <div v-if="item['38-XL']">
                     <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on">
+                        <template v-slot:activator="{ props }">
+                            <span v-bind="props" v-on="on">
                                 {{ item["38-XL"].stock_unit }}
                             </span>
                         </template>
                         <span>
-                            <barcode
+                            <vue-barcode
                                 v-if="item['38-XL'].barcode"
                                 :value="item['38-XL'].barcode"
                                 :options="{ format: 'CODE39', height: 32 }"
-                            ></barcode>
+                            ></vue-barcode>
                         </span>
                     </v-tooltip>
                 </div>
@@ -120,17 +120,17 @@
             <template v-slot:[`item.40-Q`]="{ item }">
                 <div v-if="item['40-Q']">
                     <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on">
+                        <template v-slot:activator="{ props }">
+                            <span v-bind="props" v-on="on">
                                 {{ item["40-Q"].stock_unit }}
                             </span>
                         </template>
                         <span>
-                            <barcode
+                            <vue-barcode
                                 v-if="item['40-Q'].barcode"
                                 :value="item['40-Q'].barcode"
                                 :options="{ format: 'CODE39', height: 32 }"
-                            ></barcode>
+                            ></vue-barcode>
                         </span>
                     </v-tooltip>
                 </div>
@@ -139,17 +139,17 @@
             <template v-slot:[`item.42-EQ`]="{ item }">
                 <div v-if="item['42-EQ']">
                     <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on">
+                        <template v-slot:activator="{ props }">
+                            <span v-bind="props" v-on="on">
                                 {{ item["42-EQ"].stock_unit }}
                             </span>
                         </template>
                         <span>
-                            <barcode
+                            <vue-barcode
                                 v-if="item['42-EQ'].barcode"
                                 :value="item['42-EQ'].barcode"
                                 :options="{ format: 'CODE39', height: 32 }"
-                            ></barcode>
+                            ></vue-barcode>
                         </span>
                     </v-tooltip>
                 </div>
@@ -158,22 +158,22 @@
             <template v-slot:[`item.44-Free`]="{ item }">
                 <div v-if="item['44-Free']">
                     <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on">
+                        <template v-slot:activator="{ props }">
+                            <span v-bind="props" v-on="on">
                                 {{ item["44-Free"].stock_unit }}
                             </span>
                         </template>
                         <span>
-                            <barcode
+                            <vue-barcode
                                 v-if="item['44-Free'].barcode"
                                 :value="item['44-Free'].barcode"
                                 :options="{ format: 'CODE39', height: 32 }"
-                            ></barcode>
+                            ></vue-barcode>
                         </span>
                     </v-tooltip>
                 </div>
                 <div v-else>－</div>
-            </template> -->
+            </template>
             <template v-slot:[`item.actions`]="{ item }">
                 <CButtonGroup>
                     <CButton
@@ -222,13 +222,13 @@ export default {
                 { title: this.$t("type"), value: "goods.type" },
                 { title: this.$t("cup"), value: "cup" },
                 { title: this.$t("color"), value: "color" },
-                { text: "32-S", value: "32-S", sortable: false },
-                { text: "34-M", value: "34-M", sortable: false },
-                { text: "36-L", value: "36-L", sortable: false },
-                { text: "38-XL", value: "38-XL", sortable: false },
-                { text: "40-Q", value: "40-Q", sortable: false },
-                { text: "42-EQ", value: "42-EQ", sortable: false },
-                { text: "44-Free", value: "44-Free", sortable: false },
+                { title: "32-S", value: "32-S", sortable: false },
+                { title: "34-M", value: "34-M", sortable: false },
+                { title: "36-L", value: "36-L", sortable: false },
+                { title: "38-XL", value: "38-XL", sortable: false },
+                { title: "40-Q", value: "40-Q", sortable: false },
+                { title: "42-EQ", value: "42-EQ", sortable: false },
+                { title: "44-Free", value: "44-Free", sortable: false },
                 {
                     title: this.$t("totalunit"),
                     value: "total_unit",
@@ -268,6 +268,11 @@ export default {
             this.$store
                 .dispatch("goods/stocks/get", data)
                 .then((response) => {
+                    let res = JSON.parse(JSON.stringify(response.data));
+                    self.items = res.data;
+                    self.serverItemsLength = res.total;
+                    self.pageCount = res.last_page;
+                    self.page = res.current_page;
                     self.loading = false;
                 })
                 .catch((error) => {
@@ -310,20 +315,9 @@ export default {
                     break;
                 case "RouterPush":
                     let route = action.route;
-                    switch (route) {
-                        case "purchases/create":
-                            this.$router.push({
-                                path: route,
-                                params: { id: item.goods.supplier.id },
-                            });
-                            break;
-                        case "GoodsDetails":
-                            this.$router.push({
-                                path: route,
-                                params: { id: item.goods.id },
-                            });
-                            break;
-                    }
+                    this.$router.push({
+                        path: route,
+                    });
                     break;
             }
             // console.log(id, key);

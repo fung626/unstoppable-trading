@@ -56,7 +56,7 @@
                             clearable
                             @change="change(index, item)"
                         ></v-text-field>
-                        <span v-else>N/A</span>
+                        <span v-else>－</span>
                     </div>
                 </template>
                 <template v-slot:[`item.34-M`]="{ index, item }">
@@ -72,7 +72,7 @@
                             clearable
                             @change="change(index, item)"
                         ></v-text-field>
-                        <span v-else>N/A</span>
+                        <span v-else>－</span>
                     </div>
                 </template>
                 <template v-slot:[`item.36-L`]="{ index, item }">
@@ -88,7 +88,7 @@
                             clearable
                             @change="change(index, item)"
                         ></v-text-field>
-                        <span v-else>N/A</span>
+                        <span v-else>－</span>
                     </div>
                 </template>
                 <template v-slot:[`item.38-XL`]="{ index, item }">
@@ -104,7 +104,7 @@
                             clearable
                             @change="change(index, item)"
                         ></v-text-field>
-                        <span v-else>N/A</span>
+                        <span v-else>－</span>
                     </div>
                 </template>
                 <template v-slot:[`item.40-Q`]="{ index, item }">
@@ -120,7 +120,7 @@
                             clearable
                             @change="change(index, item)"
                         ></v-text-field>
-                        <span v-else>N/A</span>
+                        <span v-else>－</span>
                     </div>
                 </template>
                 <template v-slot:[`item.42-EQ`]="{ index, item }">
@@ -136,7 +136,7 @@
                             clearable
                             @change="change(index, item)"
                         ></v-text-field>
-                        <span v-else>N/A</span>
+                        <span v-else>－</span>
                     </div>
                 </template>
                 <template v-slot:[`item.44-Free`]="{ index, item }">
@@ -152,7 +152,7 @@
                             clearable
                             @change="change(index, item)"
                         ></v-text-field>
-                        <span v-else>N/A</span>
+                        <span v-else>－</span>
                     </div>
                 </template>
                 <template v-slot:[`body.append`]>

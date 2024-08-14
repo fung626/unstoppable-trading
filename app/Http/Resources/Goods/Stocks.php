@@ -59,7 +59,7 @@ class Stocks extends ResourceCollection
                     'title' => __('New Purchase'),
                     'color' => "info",
                     'type' => "RouterPush",
-                    'route' => "/purchases/create",
+                    'route' => "/purchases/create/" . $item->goods->supplier->id,
                     'disabled' => false,
                 ],
                 [
@@ -67,7 +67,7 @@ class Stocks extends ResourceCollection
                     'title' => __('Details'),
                     'color' => "primary",
                     'type' => "RouterPush",
-                    'route' => "/goods/details",
+                    'route' => "/goods/details/" . $item->goods->id,
                     'disabled' => false,
                 ],
             ];
