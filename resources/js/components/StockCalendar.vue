@@ -90,12 +90,14 @@
 <script>
 //
 import { calendarTypes } from "@/constants";
+import moment from "moment";
+import { useDate } from "vuetify";
 import { mapState } from "vuex";
 
 export default {
     name: "StockCalendar",
     props: {
-        type: null,
+        cType: null,
     },
     components: {},
     computed: {
@@ -154,7 +156,11 @@ export default {
         };
     },
     mounted() {
-        // this.fetch();
+        const adapter = useDate();
+        this.fetch({
+            start: adapter.startOfDay(adapter.startOfMonth(new Date())),
+            end: adapter.endOfDay(adapter.endOfMonth(new Date())),
+        });
     },
     methods: {
         fetch({ start, end }) {
@@ -164,10 +170,11 @@ export default {
             }
             self.loading = true;
             let data = {
-                type: this.stockType,
-                from: start.date,
-                to: end.date,
+                type: this.cType,
+                from: moment(start).format("Y-MM-DD"),
+                to: moment(end).format("Y-MM-DD"),
             };
+            // console.log(data);
             this.$store
                 .dispatch("goods/stocks/calendar/get", data)
                 .then((response) => {

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <StockCalendar type="shipping" />
+        <StockCalendar cType="shipping" />
         <ShippingTable />
     </div>
 </template>

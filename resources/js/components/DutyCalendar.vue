@@ -39,9 +39,17 @@
                 @click:event="showEvent"
                 @update:pages="fetch"
             >
-                <!-- <template v-slot:event="{ event }">
-                    {{ event.name }}
-                </template> -->
+                <template v-slot:event="{ event }">
+                    <div
+                        class="d-flex rounded-pill shadow-lg px-3 py-1 mx-2"
+                        :style="{
+                            backgroundColor: event.color,
+                            color: 'white',
+                        }"
+                    >
+                        {{ event.title }}
+                    </div>
+                </template>
             </v-calendar>
         </CCardBody>
     </CCard>
@@ -59,31 +67,27 @@ export default {
     props: {
         userId: null,
     },
-    // setup() {
-    //    const calendar = ref(null);
-    //    return { calendar };
-    // },
     computed: {
         ...mapState(["users/duty/calendar"]),
         events() {
             let temp = [];
-            let events = [];
+            // let events = [];
             if (this["users/duty/calendar"]) {
                 let data = this["users/duty/calendar"].data;
                 for (const item of data) {
                     let format = "H:mm";
-                    let name = item["user"] ? item["user"]["name"] : "";
                     let start = new Date(item["start"]);
                     let end = new Date(item["end"]);
+                    let name = item["user"] ? `${item["user"]["name"]} - ` : "";
+                    let time = `${moment(start).format(format)} - ${moment(
+                        end
+                    ).format(format)}`;
                     temp.push({
-                        title: ` ${moment(start).format(format)} - ${moment(
-                            end
-                        ).format(format)} ${name} `,
+                        title: `${name} ${time}`,
+                        user: name,
                         start: start,
                         end: end,
                         color: item.color ? item.color : "cyan",
-                        allDay: false,
-                        // timed: true,
                     });
                 }
             }
@@ -126,8 +130,8 @@ export default {
             self.loading = true;
             let data = {
                 user_id: this.userId,
-                from: start.date,
-                to: end.date,
+                from: moment(start).format("Y-MM-DD"),
+                to: moment(end).format("Y-MM-DD"),
             };
             this.$store
                 .dispatch("users/duty/calendar/get", data)
