@@ -150,7 +150,7 @@ export default {
             this.type = type;
             switch (type) {
                 case "Shipping":
-                    this.title = `${this.$t("shipping.title")}${this.$t(
+                    this.title = `${this.$t("shippings.title")}${this.$t(
                         "scanner"
                     )}`;
                     if (item && "barcode" in item) {

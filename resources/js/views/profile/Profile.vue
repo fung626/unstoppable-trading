@@ -3,24 +3,23 @@
         <CCol>
             <CCard class="p-4">
                 <CCardBody>
-                    <CTabs
-                        variant="pills"
-                        @update:activeTab="(index) => activeTabUpdated(index)"
-                    >
-                        <CTab
-                            :title="tab.values[0].toUpperCase()"
-                            :active="tab.index === 0 ? true : false"
-                        >
-                            <hr />
-                            <ProfileInfoForm></ProfileInfoForm>
-                        </CTab>
-                        <CTab
-                            :title="tab.values[1].toUpperCase()"
-                            :active="tab.index === 1 ? true : false"
-                        >
-                            <hr />
-                            <PasswordForm></PasswordForm>
-                        </CTab>
+                    <CTabs :activeItemKey="0">
+                        <CTabList variant="pills">
+                            <CTab :itemKey="0">
+                                {{ tab.values[0].toUpperCase() }}
+                            </CTab>
+                            <CTab :itemKey="1">
+                                {{ tab.values[1].toUpperCase() }}
+                            </CTab>
+                        </CTabList>
+                        <CTabContent>
+                            <CTabPanel class="p-3" :itemKey="0">
+                                <ProfileInfoForm></ProfileInfoForm>
+                            </CTabPanel>
+                            <CTabPanel class="p-3" :itemKey="1">
+                                <PasswordForm></PasswordForm>
+                            </CTabPanel>
+                        </CTabContent>
                     </CTabs>
                 </CCardBody>
             </CCard>
@@ -45,9 +44,6 @@ export default {
                 index: 0,
             },
         };
-    },
-    methods: {
-        activeTabUpdated(index) {},
     },
 };
 </script>

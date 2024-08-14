@@ -2,7 +2,7 @@
     <div>
         <Dialog ref="dialog" />
         <CRow class="p-2">
-            <CCol :md="9" :sm="9">
+            <CCol :md="10" :sm="10">
                 <CInputGroup class="mb-3">
                     <CButton color="primary" size="sm">
                         <CIcon name="cil-magnifying-glass" size="sm" />
@@ -10,7 +10,7 @@
                     <CFormInput size="sm" v-model="search" />
                 </CInputGroup>
             </CCol>
-            <CCol :md="3" :sm="3" class="text-right">
+            <CCol :md="2" :sm="2" class="text-right">
                 <CButtonGroup role="group">
                     <CButton color="primary" size="sm" v-on:click="add">
                         <CIcon name="cil-plus" size="sm" />
@@ -82,21 +82,20 @@ export default {
             loading: false,
             mobile: window.innerWidth < 769,
             items: [],
-            // page: 1,
             pageCount: 0,
             serverItemsLength: 0,
             options: {
                 page: 1,
                 itemsPerPage: 5,
-                sortBy: null,
+                sortBy: "sector",
                 sortDesc: false,
             },
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { title: this.$t("sector"), value: "sector" },
-                { title: this.$t("shelf"), value: "shelf" },
-                { title: this.$t("segment"), value: "segment" },
+                { title: this.$t("sector"), value: "sector", sortable: true },
+                { title: this.$t("shelf"), value: "shelf", sortable: true },
+                { title: this.$t("segment"), value: "segment", sortable: true },
                 {
                     title: this.$t("stockunit"),
                     value: "stock_unit",
@@ -148,9 +147,6 @@ export default {
                 .catch((error) => {
                     self.loading = false;
                 });
-        },
-        search() {
-            this.fetch({ ...this.options });
         },
         add() {
             this.$router.push({ path: "warehouses/create" });

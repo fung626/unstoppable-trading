@@ -17,7 +17,7 @@
             <CCol v-if="isPermissionGranted('shipping')" sm="12" lg="4">
                 <CWidgetIcon
                     :header="`${$t('barcode')}${$t('scanner')}`"
-                    :text="`${$t('goods')}${$t('shipping.title')}`"
+                    :text="`${$t('goods')}${$t('shippings.title')}`"
                     color="success"
                 >
                     <CButton class="text-white" size="lg" @click="shipping">

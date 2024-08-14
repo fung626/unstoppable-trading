@@ -63,8 +63,5 @@ export default {
             },
         };
     },
-    methods: {
-        activeTabUpdated(index) {},
-    },
 };
 </script>

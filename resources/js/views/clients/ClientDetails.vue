@@ -1,4 +1,5 @@
 <template>
+    <Snackbar />
     <CRow>
         <CCol>
             <CCard class="p-2">
@@ -32,12 +33,14 @@
 </template>
 <script>
 //
+import { Snackbar } from "@/components";
 import ShippingTable from "../shippings/components/ShippingTable.vue";
 import ClientForm from "./components/ClientForm.vue";
 
 export default {
     name: "ClientDetails",
     components: {
+        Snackbar,
         ClientForm,
         ShippingTable,
     },
@@ -48,9 +51,6 @@ export default {
                 index: 0,
             },
         };
-    },
-    methods: {
-        activeTabUpdated(index) {},
     },
 };
 </script>

@@ -112,22 +112,19 @@ export default {
             ],
         };
     },
-    watch: {
-        options: {
-            handler() {
-                this.fetch();
-            },
-        },
-        loading() {
-            this.disableItemsPerPage = this.loading;
-            this.disablePagination = this.loading;
-        },
+    mounted() {
+        window.addEventListener("resize", this.onResize);
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.onResize);
     },
     methods: {
+        onResize() {
+            this.mobile = window.innerWidth < 769;
+        },
         fetch({ page, itemsPerPage, sortBy, search }) {
             let self = this;
             self.loading = true;
-            // const { page, itemsPerPage, sortBy, sortDesc } = self.options;
             let data = {
                 page: page,
                 per_page: itemsPerPage,
@@ -148,9 +145,6 @@ export default {
                 .catch((error) => {
                     self.loading = false;
                 });
-        },
-        search() {
-            this.fetch({ ...this.options });
         },
         add() {
             this.$router.push({ path: "/clients/create" });

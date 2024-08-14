@@ -1,5 +1,16 @@
 {
     "shippings": {
         "title": "Shippings"
+    },
+    "shipping": {
+        "invoice": "Shipping invoice",
+        "status": {
+            "pending": "Pending",
+            "PENDING": "Pending",
+            "processing": "Processing",
+            "PROCESSING": "Processing",
+            "delivered": "Delivered",
+            "DELIVERED": "Delivered"
+        }
     }
 }

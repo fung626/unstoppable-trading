@@ -1,4 +1,5 @@
 <template>
+    <Snackbar />
     <CCard class="p-4">
         <CCardBody>
             <h4>{{ $t("create") }}</h4>
@@ -119,11 +120,14 @@
     </CCard>
 </template>
 <script>
+import { Snackbar } from "@/components";
 import { countryCodes, currencies } from "@/constants";
 
 export default {
     name: "CreateClient",
-    components: {},
+    components: {
+        Snackbar,
+    },
     props: {
         id: null,
     },

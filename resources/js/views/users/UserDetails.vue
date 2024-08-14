@@ -85,7 +85,6 @@ export default {
         this.fetch();
     },
     methods: {
-        activeTabUpdated(index) {},
         fetch() {
             let self = this;
             if (self.loading) {

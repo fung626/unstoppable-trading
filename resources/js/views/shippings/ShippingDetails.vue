@@ -5,7 +5,7 @@
                 <CCardBody>
                     <CTabs
                         variant="pills"
-                        @update:activeTab="index => activeTabUpdated(index)"
+                        @update:activeTab="(index) => activeTabUpdated(index)"
                     >
                         <CTab
                             :title="tab.values[0].toUpperCase()"
@@ -51,22 +51,22 @@ export default {
     components: {
         ShippingInvoice,
         NewShippingItemTable,
-        ShippingAlterationTable
+        ShippingAlterationTable,
     },
     data() {
         return {
             tab: {
                 values: [
                     `${this.$t("shipping.invoice")}`,
-                    `${this.$t("create")}${this.$t("shipping.title")}`,
-                    this.$t("alteration")
+                    `${this.$t("create")}${this.$t("shippings.title")}`,
+                    this.$t("alteration"),
                 ],
-                index: 0
-            }
+                index: 0,
+            },
         };
     },
     methods: {
-        activeTabUpdated(index) {}
-    }
+        activeTabUpdated(index) {},
+    },
 };
 </script>

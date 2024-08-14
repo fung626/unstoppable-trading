@@ -1,4 +1,5 @@
 <template>
+    <Snackbar />
     <CCard class="p-4">
         <CCardBody>
             <h4>{{ $t("create") }}</h4>
@@ -26,7 +27,7 @@
                             clearable
                         ></v-text-field>
                     </CCol>
-                    <CCol md="6" sm="6">
+                    <CCol :md="6" :sm="6">
                         <v-text-field
                             v-model="segment"
                             :label="$t('segment')"
@@ -38,13 +39,13 @@
                         ></v-text-field>
                     </CCol>
                 </CRow>
-                <v-text-field
+                <v-textarea
                     v-model="description"
                     :label="$t('description')"
                     outlined
                     dense
                     clearable
-                ></v-text-field>
+                ></v-textarea>
                 <hr />
                 <CButton @click="submit" color="primary" class="px-4">
                     {{ $t("button.submit") }}
@@ -61,9 +62,13 @@
 </template>
 <script>
 //
+import { Snackbar } from "@/components";
 
 export default {
     name: "CreateWarehouse",
+    components: {
+        Snackbar,
+    },
     data() {
         return {
             sector: null,

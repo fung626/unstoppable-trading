@@ -16,7 +16,7 @@
                 <CWidgetIcon
                     :header="data.last_30days_shipping_costs"
                     :text="`${$t('last-some-days', { days: '30' })}${$t(
-                        'shipping.title'
+                        'shippings.title'
                     )}${$t('price.cost')}`"
                     color="primary"
                 >

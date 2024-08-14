@@ -117,7 +117,7 @@ export default {
         },
         open(item) {
             this.title = `
-            ${this.$t("shipping.title")}－${item.goods.name}－${item.color}`;
+            ${this.$t("shippings.title")}－${item.goods.name}－${item.color}`;
             this.dialog = true;
             let data = this.shippingData;
             let subData = goodsSizes;

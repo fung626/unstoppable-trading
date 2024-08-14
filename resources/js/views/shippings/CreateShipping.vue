@@ -11,7 +11,7 @@
             <CCardBody>
                 <CRow class="px-2">
                     <CCol md="9" sm="9">
-                        <h4>{{ $t("create") }}{{ $t("shipping.title") }}</h4>
+                        <h4>{{ $t("create") }}{{ $t("shippings.title") }}</h4>
                     </CCol>
                     <CCol md="3" sm="3" class="text-right">
                         <CButton

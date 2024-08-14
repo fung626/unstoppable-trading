@@ -201,7 +201,7 @@ export default {
                     fileLink.href = fileURL;
                     fileLink.setAttribute(
                         "download",
-                        `${t("shipping.title")}-${moment().format(
+                        `${t("shippings.title")}-${moment().format(
                             "dddd, Do MMMM YYYY"
                         )}.pdf`
                     );
