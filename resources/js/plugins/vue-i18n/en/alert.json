@@ -1,0 +1,8 @@
+{
+    "alert": {
+        "title": "Alert",
+        "update": "Are you sure you want to update this record?",
+        "delete": "Are you sure you want to delete this record?",
+        "shipping": "Please enter unit"
+    }
+}

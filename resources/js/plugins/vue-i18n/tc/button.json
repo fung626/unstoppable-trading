@@ -1,0 +1,16 @@
+{
+    "button": {
+        "jumpto": "跳至",
+        "details": "詳細",
+        "submit": "提交",
+        "confirm": "確定",
+        "update": "更新",
+        "edit": "更改",
+        "add": "新增",
+        "delete": "刪除",
+        "cancel": "取消",
+        "clear": "清除",
+        "close": "關閉",
+        "export": "匯出"
+    }
+}

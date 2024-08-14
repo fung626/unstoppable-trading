@@ -16,7 +16,7 @@ export default [
         ? [
               {
                   component: "CNavItem",
-                  name: t("salesreport"),
+                  name: t("sales-reports"),
                   to: "/salesreport",
                   icon: "cil-chart-line",
               },
@@ -26,7 +26,7 @@ export default [
         ? [
               {
                   component: "CNavItem",
-                  name: t("user"),
+                  name: t("users"),
                   to: "/user",
                   icon: "cil-contact",
               },
@@ -56,7 +56,7 @@ export default [
         ? [
               {
                   component: "CNavItem",
-                  name: t("purchase.title"),
+                  name: t("purchases.title"),
                   to: "/purchase",
                   icon: "cil-storage",
               },
@@ -66,7 +66,7 @@ export default [
         ? [
               {
                   component: "CNavItem",
-                  name: t("shipping.title"),
+                  name: t("shippings.title"),
                   to: "/shipping",
                   icon: "cil-truck",
               },
@@ -76,7 +76,7 @@ export default [
         ? [
               {
                   component: "CNavItem",
-                  name: t("supplier"),
+                  name: t("suppliers"),
                   to: "/supplier",
                   icon: "cil-people",
               },
@@ -86,7 +86,7 @@ export default [
         ? [
               {
                   component: "CNavItem",
-                  name: t("category"),
+                  name: t("categories"),
                   to: "/category",
                   icon: "cil-short-text",
               },
@@ -96,7 +96,7 @@ export default [
         ? [
               {
                   component: "CNavItem",
-                  name: t("warehouse"),
+                  name: t("warehouses"),
                   to: "/warehouse",
                   icon: "cil-room",
               },
@@ -106,7 +106,7 @@ export default [
         ? [
               {
                   component: "CNavItem",
-                  name: t("client"),
+                  name: t("clients"),
                   to: "/client",
                   icon: "cil-people",
               },

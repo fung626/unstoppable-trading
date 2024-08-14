@@ -4,7 +4,7 @@
             <CCol col="12" sm="6" lg="6">
                 <CWidgetIcon
                     :header="data.last_30days_stock_costs"
-                    :text="`${$t('lastsomedays', { days: '30' })}${$t(
+                    :text="`${$t('last-some-days', { days: '30' })}${$t(
                         'stock'
                     )}${$t('price.cost')}`"
                     color="primary"
@@ -15,7 +15,7 @@
             <CCol col="12" sm="6" lg="6">
                 <CWidgetIcon
                     :header="data.last_30days_shipping_costs"
-                    :text="`${$t('lastsomedays', { days: '30' })}${$t(
+                    :text="`${$t('last-some-days', { days: '30' })}${$t(
                         'shipping.title'
                     )}${$t('price.cost')}`"
                     color="primary"
@@ -33,8 +33,8 @@
             <CCol col="12" sm="6" lg="3">
                 <CWidgetIcon
                     :header="data.average_inventory"
-                    :text="`${$t('lastthreemonths')}${$t(
-                        'averageinventory'
+                    :text="`${$t('last-three-months')}${$t(
+                        'average-inventory'
                     )}${$t('price.cost')}`"
                     color="primary"
                 >
@@ -44,8 +44,8 @@
             <CCol col="12" sm="6" lg="3">
                 <CWidgetIcon
                     :header="data.inventory_turnover"
-                    :text="`${$t('lastthreemonths')}${$t(
-                        'inventoryturnover'
+                    :text="`${$t('last-three-months')}${$t(
+                        'inventory-turnover'
                     )}${$t('price.cost')}`"
                     color="primary"
                 >
@@ -55,7 +55,7 @@
             <CCol col="12" sm="6" lg="3">
                 <CWidgetIcon
                     :header="data.inventory_change"
-                    :text="`${$t('price.cost')}${$t('inventorychange')}`"
+                    :text="`${$t('price.cost')}${$t('inventory-change')}`"
                     color="primary"
                 >
                     <CIcon name="cil-chart-line" width="24" />

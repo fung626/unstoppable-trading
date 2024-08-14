@@ -179,6 +179,7 @@ export default {
             self.options.itemsPerPage = itemsPerPage;
             self.options.sortBy = sortBy;
             let data = {
+                client_id: self.$props.clientId,
                 page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,

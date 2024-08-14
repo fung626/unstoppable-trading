@@ -1,0 +1,17 @@
+{
+    "snackbar": {
+        "fail": {
+            "token": "無效登入認證",
+            "login": "登入失敗",
+            "update": "更新記錄失敗",
+            "create": "新增記錄失敗",
+            "delete": "刪除記錄失敗"
+        },
+        "success": {
+            "login": "成功登入",
+            "updated": "成功更新記錄",
+            "created": "成功新增記錄",
+            "deleted": "成功刪除記錄"
+        }
+    }
+}

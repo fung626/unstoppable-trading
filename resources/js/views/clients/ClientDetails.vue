@@ -32,7 +32,7 @@
 </template>
 <script>
 //
-import ShippingTable from "../shipping/components/ShippingTable.vue";
+import ShippingTable from "../shippings/components/ShippingTable.vue";
 import ClientForm from "./components/ClientForm.vue";
 
 export default {
@@ -44,7 +44,7 @@ export default {
     data() {
         return {
             tab: {
-                values: [this.$t("info"), this.$t("shipping.title")],
+                values: [this.$t("info"), this.$t("shippings.title")],
                 index: 0,
             },
         };

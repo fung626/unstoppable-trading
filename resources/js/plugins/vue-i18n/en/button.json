@@ -1,0 +1,16 @@
+{
+    "button": {
+        "jumpto": "Jump to",
+        "details": "Details",
+        "submit": "Submit",
+        "confirm": "Confirm",
+        "update": "update",
+        "edit": "Edit",
+        "add": "Add",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "clear": "Clear",
+        "close": "Close",
+        "export": "Export"
+    }
+}

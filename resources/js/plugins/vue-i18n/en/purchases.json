@@ -1,0 +1,17 @@
+{
+    "purchases": {
+        "title": "Purchases"
+    },
+    "purchase": {
+        "title": "Purchase",
+        "invoice": "Purchase Invoice",
+        "status": {
+            "pending": "Pending",
+            "PENDING": "Pending",
+            "processing": "Processing",
+            "PROCESSING": "Processing",
+            "delivered": "Delivered",
+            "DELIVERED": "Delivered"
+        }
+    }
+}

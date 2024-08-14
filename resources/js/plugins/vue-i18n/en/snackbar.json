@@ -1,0 +1,17 @@
+{
+    "snackbar": {
+        "fail": {
+            "token": "Invalid token",
+            "login": "Fail to login",
+            "update": "Fail to update",
+            "create": "Fail to create",
+            "delete": "Fail to delete"
+        },
+        "success": {
+            "login": "Successfully Login",
+            "updated": "Successfully Updated",
+            "created": "Successfully Created",
+            "deleted": "Successfully deleted"
+        }
+    }
+}

@@ -101,7 +101,6 @@
                     :items="currencies"
                     :label="$t('currency')"
                     item-title="name"
-                    item-title="value"
                     item-value="value"
                     required
                     outlined

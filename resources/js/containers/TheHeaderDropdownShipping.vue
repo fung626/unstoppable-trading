@@ -49,9 +49,9 @@ import { mapState } from "vuex";
 export default {
     name: "TheHeaderDropdownShipping",
     computed: {
-        ...mapState(["goods/shipping"]),
+        ...mapState(["goods/shippings"]),
         data() {
-            return this["goods/shipping"].shippingData;
+            return this["goods/shippings"].shippingData;
         },
     },
     methods: {

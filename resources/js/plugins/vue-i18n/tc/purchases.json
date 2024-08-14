@@ -1,0 +1,17 @@
+{
+    "purchases": {
+        "title": "訂貨"
+    },
+    "purchase": {
+        "title": "訂貨",
+        "invoice": "訂貨單",
+        "status": {
+            "pending": "待確定",
+            "PENDING": "待確定",
+            "processing": "處理中",
+            "PROCESSING": "處理中",
+            "delivered": "已交付",
+            "DELIVERED": "已交付"
+        }
+    }
+}

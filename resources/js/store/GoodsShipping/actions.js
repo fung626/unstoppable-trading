@@ -8,7 +8,7 @@ import * as types from "./mutation-types";
 
 const { t } = i18n.global;
 const endpoint = "/api/goods/shippings/";
-const name = "goods/shipping";
+const name = "goods/shippings";
 
 export default {
     [`${name}/add`]({ commit, dispatch }, payload) {

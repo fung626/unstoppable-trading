@@ -66,9 +66,9 @@ import { goodsSizes } from "../constants";
 export default {
     name: "CreateShippingDialog",
     computed: {
-        ...mapState(["goods/shipping"]),
+        ...mapState(["goods/shippings"]),
         shippingData() {
-            return this["goods/shipping"].shippingData;
+            return this["goods/shippings"].shippingData;
         },
     },
     data() {

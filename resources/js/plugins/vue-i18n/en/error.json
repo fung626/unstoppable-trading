@@ -1,0 +1,11 @@
+{
+    "error": {
+        "exceedstockunit": "Exceed stock unit",
+        "camera": "Device not compatible"
+    },
+    "hint": {
+        "duty": {
+            "date": "You may select multi date to create more than one duty with same time range"
+        }
+    }
+}

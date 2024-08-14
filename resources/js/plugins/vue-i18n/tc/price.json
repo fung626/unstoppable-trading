@@ -1,0 +1,8 @@
+{
+    "price": {
+        "cost": "成本價",
+        "retail": "零售價",
+        "wholesale": "批發價"
+    },
+    "subtotal": "總金額"
+}

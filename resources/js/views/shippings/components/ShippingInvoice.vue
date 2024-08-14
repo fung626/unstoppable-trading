@@ -196,22 +196,22 @@ export default {
         id: null,
     },
     computed: {
-        ...mapState(["goods/shipping"]),
+        ...mapState(["goods/shippings"]),
         data() {
-            return this["goods/shipping"].detailsData;
+            return this["goods/shippings"].detailsData;
         },
         headerItems() {
-            return this["goods/shipping"].detailsData.header_items;
+            return this["goods/shippings"].detailsData.header_items;
         },
         shippingItems() {
             return JSON.parse(
                 JSON.stringify(
-                    this["goods/shipping"].detailsData.shipping_items
+                    this["goods/shippings"].detailsData.shipping_items
                 )
             );
         },
         footerItems() {
-            return this["goods/shipping"].detailsData.footer_items;
+            return this["goods/shippings"].detailsData.footer_items;
         },
     },
     components: {
