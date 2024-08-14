@@ -168,6 +168,12 @@ export default {
             ],
         };
     },
+    mounted() {
+        window.addEventListener("resize", this.onResize);
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.onResize);
+    },
     methods: {
         onResize() {
             this.mobile = window.innerWidth < 769;

@@ -13,13 +13,29 @@
                     </h4>
                     <div class="small text-medium-emphasis"></div>
                 </CCol>
+                <CCol class="text-right">
+                    <CButton
+                        color="primary"
+                        size="sm"
+                        v-on:click="fetch"
+                        :disabled="loading"
+                    >
+                        <CIcon name="cil-reload" size="sm" />
+                    </CButton>
+                </CCol>
             </CRow>
-            <CChartLine
+            <!-- <CChartLine
                 type="line"
                 style="height: 320px; max-height: 320px; margin-top: 40px"
                 :datasets="data.datasets"
                 :labels="data.labels"
                 :options="options"
+            /> -->
+            <CChartLine
+                style="height: 320px; max-height: 320px; margin-top: 40px"
+                :wrapper="false"
+                :options="options"
+                :data="data"
             />
         </CCardBody>
     </CCard>
@@ -106,9 +122,11 @@ export default {
             this.$store
                 .dispatch("sales-reports/chart/get", data)
                 .then((response) => {
+                    console.log(response);
                     self.loading = false;
                 })
                 .catch((error) => {
+                    console.log(error);
                     self.loading = false;
                 });
         },

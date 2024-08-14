@@ -7,7 +7,7 @@
             "details": "Details"
         },
         "sales-reports": {
-            "home": "Sales Report",
+            "home": "Home",
             "table": "Table",
             "create": "Create",
             "details": "Details"
@@ -32,6 +32,12 @@
         },
         "purchases": {
             "home": "Purchases",
+            "table": "Table",
+            "create": "Create",
+            "details": "Details"
+        },
+        "shippings": {
+            "home": "Shippings",
             "table": "Table",
             "create": "Create",
             "details": "Details"

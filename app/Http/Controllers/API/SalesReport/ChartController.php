@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 class ChartController extends Controller
 {
     //
+    public function __construct()
+    {
+        set_time_limit(90);
+    }
+
     public function get(Request $request)
     {
         $from = Carbon::now()->addMonth(-12);

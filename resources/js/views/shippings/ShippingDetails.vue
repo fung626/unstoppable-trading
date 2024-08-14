@@ -3,37 +3,35 @@
         <CCol>
             <CCard class="p-2">
                 <CCardBody>
-                    <CTabs
-                        variant="pills"
-                        @update:activeTab="(index) => activeTabUpdated(index)"
-                    >
-                        <CTab
-                            :title="tab.values[0].toUpperCase()"
-                            :active="tab.index === 0 ? true : false"
-                        >
-                            <hr />
-                            <ShippingInvoice
-                                :id="this.$route.params.id"
-                            ></ShippingInvoice>
-                        </CTab>
-                        <CTab
-                            :title="tab.values[1].toUpperCase()"
-                            :active="tab.index === 1 ? true : false"
-                        >
-                            <hr />
-                            <NewShippingItemTable
-                                :goodsShipId="this.$route.params.id"
-                            ></NewShippingItemTable>
-                        </CTab>
-                        <CTab
-                            :title="tab.values[2].toUpperCase()"
-                            :active="tab.index === 2 ? true : false"
-                        >
-                            <hr />
-                            <ShippingAlterationTable
-                                :goodsShipId="this.$route.params.id"
-                            ></ShippingAlterationTable>
-                        </CTab>
+                    <CTabs :activeItemKey="0">
+                        <CTabList variant="pills">
+                            <CTab :itemKey="0">
+                                {{ tab.values[0].toUpperCase() }}
+                            </CTab>
+                            <CTab :itemKey="1">
+                                {{ tab.values[1].toUpperCase() }}
+                            </CTab>
+                            <CTab :itemKey="2">
+                                {{ tab.values[2].toUpperCase() }}
+                            </CTab>
+                        </CTabList>
+                        <CTabContent>
+                            <CTabPanel class="p-3" :itemKey="0">
+                                <ShippingInvoice
+                                    :id="this.$route.params.id"
+                                ></ShippingInvoice>
+                            </CTabPanel>
+                            <CTabPanel class="p-3" :itemKey="1">
+                                <NewShippingItemTable
+                                    :goodsShipId="this.$route.params.id"
+                                ></NewShippingItemTable>
+                            </CTabPanel>
+                            <CTabPanel class="p-3" :itemKey="2">
+                                <ShippingAlterationTable
+                                    :goodsShipId="this.$route.params.id"
+                                ></ShippingAlterationTable>
+                            </CTabPanel>
+                        </CTabContent>
                     </CTabs>
                 </CCardBody>
             </CCard>
@@ -64,9 +62,6 @@ export default {
                 index: 0,
             },
         };
-    },
-    methods: {
-        activeTabUpdated(index) {},
     },
 };
 </script>

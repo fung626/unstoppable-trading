@@ -75,16 +75,13 @@
                 ref="calendar"
                 v-model="focus"
                 :weekdays="weekday"
-                :type="type"
+                :view-mode="type"
                 :events="events"
                 :event-overlap-mode="mode"
                 :event-overlap-threshold="30"
                 @click:event="showEvent"
-                @change="fetch"
+                @update:pages="fetch"
             >
-                <template v-slot:event="{ event }">
-                    {{ event.name }}
-                </template>
             </v-calendar>
         </CCardBody>
     </CCard>
@@ -98,7 +95,7 @@ import { mapState } from "vuex";
 export default {
     name: "StockCalendar",
     props: {
-        stockType: null,
+        type: null,
     },
     components: {},
     computed: {
@@ -140,7 +137,7 @@ export default {
     data() {
         return {
             loading: false,
-            focus: "",
+            focus: [new Date()],
             type: "month",
             types: calendarTypes,
             mode: "stack",

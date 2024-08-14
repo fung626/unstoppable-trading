@@ -7,7 +7,7 @@
             "details": "詳細"
         },
         "sales-reports": {
-            "home": "銷售報告",
+            "home": "主頁",
             "table": "清單",
             "create": "新增",
             "details": "詳細"
@@ -32,6 +32,12 @@
         },
         "purchases": {
             "home": "入貨",
+            "table": "清單",
+            "create": "新增",
+            "details": "詳細"
+        },
+        "shippings": {
+            "home": "出貨",
             "table": "清單",
             "create": "新增",
             "details": "詳細"
