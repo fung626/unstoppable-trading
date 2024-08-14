@@ -101,7 +101,7 @@ Route::prefix('users')->middleware(['auth:api', 'scopes:users', 'localization'])
     Route::post('permission/update', [PermissionController::class, 'update']);
     // duty
     Route::post('duty/create', [DutyController::class, 'post']);
-    Route::post('duty/update', [DutyController::class, 'post']);
+    Route::post('duty/update', [DutyController::class, 'update']);
     Route::post('duty/get', [DutyController::class, 'get']);
     Route::get('duty/details', [DutyController::class, 'details']);
     Route::delete('duty/delete', [DutyController::class, 'delete']);

@@ -10,25 +10,30 @@ use Illuminate\Support\Facades\DB;
 class TopSalesController extends Controller
 {
     //
+    public function __construct()
+    {
+        set_time_limit(60);
+    }
+
     public function get(Request $request)
     {
         // ALTER TABLE dev_unstoppabletrading.goods CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
         $result = Stock::with(['goods', 'goodsItem'])
             ->select([
-                'goods_item.id as id',
+                'goods_items.id as id',
                 'goods.name',
                 'goods.type',
-                'goods_item.cup',
-                'goods_item.size',
-                'goods_item.color',
-                'goods_item.barcode',
+                'goods_items.cup',
+                'goods_items.size',
+                'goods_items.color',
+                'goods_items.barcode',
                 DB::raw('abs(goods_stocks.unit) as unit'),
             ])
             ->leftJoin('goods', 'goods.id', '=', 'goods_stocks.goods_id')
-            ->leftJoin('goods_item', 'goods_item.id', '=', 'goods_stocks.goods_item_id')
+            ->leftJoin('goods_items', 'goods_items.id', '=', 'goods_stocks.goods_item_id')
             ->where('goods_stocks.type', 'SHIPPING')
             ->orderBy('unit', 'DESC')
-            ->groupBy('goods_item.id')
+            ->groupBy('goods_items.id')
             ->get();
         $response = config('response.common.success');
         $response['data'] = $result;

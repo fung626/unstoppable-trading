@@ -97,11 +97,15 @@ export default {
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { title: "#ID", value: "id" },
-                { title: this.$t("email"), value: "email" },
-                { title: this.$t("phone"), value: "phone" },
+                { title: "#ID", value: "id", sortable: true },
+                { title: this.$t("email"), value: "email", sortable: true },
+                { title: this.$t("phone"), value: "phone", sortable: true },
                 { title: this.$t("role"), value: "role" },
-                { title: this.$t("updatedat"), value: "updated_at" },
+                {
+                    title: this.$t("updatedat"),
+                    value: "updated_at",
+                    sortable: true,
+                },
                 {
                     title: this.$t("actions"),
                     value: "actions",
@@ -192,11 +196,12 @@ export default {
                         )
                     ) {
                         let self = this;
+                        self.loading = true;
                         this.$store
                             .dispatch("users/delete", { id: id })
                             .then((response) => {
                                 self.loading = false;
-                                self.fetch();
+                                self.fetch({ ...this.options });
                             })
                             .catch((error) => {
                                 self.loading = false;

@@ -29,7 +29,7 @@ const routes = [
             },
             {
                 path: "sales-reports",
-                name: "route.salesreport.home",
+                name: "route.sales-reports.home",
                 component: {
                     render() {
                         return h(resolveComponent("router-view"));
@@ -38,9 +38,9 @@ const routes = [
                 children: [
                     {
                         path: "",
-                        name: "route.salesreports.table",
+                        name: "route.sales-reports.table",
                         component: import(
-                            "@/views/sales-reports/SalesReport.vue"
+                            "@/views/sales-reports/SalesReports.vue"
                         ),
                     },
                 ],
@@ -156,7 +156,7 @@ const routes = [
                         path: "",
                         name: "route.purchases.table",
                         component: () =>
-                            import("@/views/purchases/Purchase.vue"),
+                            import("@/views/purchases/Purchases.vue"),
                     },
                     {
                         path: "create/:id",
@@ -191,7 +191,7 @@ const routes = [
                         path: "",
                         name: "route.shippings.table",
                         component: () =>
-                            import("@/views/shippings/Shipping.vue"),
+                            import("@/views/shippings/Shippings.vue"),
                     },
                     {
                         path: "create",
@@ -220,7 +220,7 @@ const routes = [
                         path: "",
                         name: "route.suppliers.table",
                         component: () =>
-                            import("@/views/suppliers/Supplier.vue"),
+                            import("@/views/suppliers/Suppliers.vue"),
                     },
                     {
                         path: "create",
@@ -249,7 +249,7 @@ const routes = [
                         path: "",
                         name: "route.categories.table",
                         component: () =>
-                            import("@/views/categories/Category.vue"),
+                            import("@/views/categories/Categories.vue"),
                     },
                     {
                         path: "create",
@@ -278,7 +278,7 @@ const routes = [
                         path: "",
                         name: "route.warehouses.table",
                         component: () =>
-                            import("@/views/warehouses/Warehouse.vue"),
+                            import("@/views/warehouses/Warehouses.vue"),
                     },
                     {
                         path: "create",

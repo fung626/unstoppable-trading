@@ -128,23 +128,37 @@ class UserController extends Controller
             });
         });
 
-        if ($request->filled(['sort_by', 'sort_desc'])) {
+        if ($request->filled(['sort_by'])) {
             $sortBys = request('sort_by');
-            $sortDescs = request('sort_desc');
-            $index = 0;
             foreach ($sortBys as $sortBy) {
-                $sortDesc = $sortDescs[$index];
-                if ($sortBy === "name") {
-                    $query->orderBy('name_tc', $sortDesc ? 'DESC' : 'ASC');
-                    $query->orderBy('name_en', $sortDesc ? 'DESC' : 'ASC');
-                } else {
-                    if ($sortBy !== "action") {
-                        $query->orderBy($sortBy, $sortDesc ? 'DESC' : 'ASC');
+                if ($sortBy["key"] && $sortBy["order"]) {
+                    if ($sortBy["key"] === "name") {
+                        $query->orderBy('name_tc', $sortBy["order"]);
+                        $query->orderBy('name_en', $sortBy["order"]);
+                    } else {
+                        $query->orderBy($sortBy["key"], $sortBy["order"]);
                     }
                 }
-                $index++;
             }
         }
+
+        // if ($request->filled(['sort_by', 'sort_desc'])) {
+        //     $sortBys = request('sort_by');
+        //     $sortDescs = request('sort_desc');
+        //     $index = 0;
+        //     foreach ($sortBys as $sortBy) {
+        //         $sortDesc = $sortDescs[$index];
+        //         if ($sortBy === "name") {
+        //             $query->orderBy('name_tc', $sortDesc ? 'DESC' : 'ASC');
+        //             $query->orderBy('name_en', $sortDesc ? 'DESC' : 'ASC');
+        //         } else {
+        //             if ($sortBy !== "action") {
+        //                 $query->orderBy($sortBy, $sortDesc ? 'DESC' : 'ASC');
+        //             }
+        //         }
+        //         $index++;
+        //     }
+        // }
 
         $response = config('response.common.success');
         if ($request->filled(['per_page', 'page'])) {

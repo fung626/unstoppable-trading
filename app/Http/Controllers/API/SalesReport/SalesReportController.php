@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 class SalesReportController extends Controller
 {
     //
+    public function __construct()
+    {
+        set_time_limit(60);
+    }
+
     public function get(Request $request)
     {
         $from = Carbon::now()->addMonth(-3);

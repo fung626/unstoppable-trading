@@ -10,7 +10,7 @@ import { StockCalendar } from "@/components";
 import ShippingTable from "./components/ShippingTable.vue";
 
 export default {
-    name: "Shipping",
+    name: "Shippings",
     components: {
         ShippingTable,
         StockCalendar,

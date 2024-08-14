@@ -8,5 +8,5 @@ export default {
     state: state,
     mutations: mutations,
     getters: getters,
-    actions: actions
+    actions: actions,
 };

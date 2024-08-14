@@ -1,4 +1,4 @@
-const name = "salesreport";
+const name = "sales-reports";
 
 export default {
     [`${name}/data`](state) {
@@ -6,5 +6,5 @@ export default {
     },
     [`${name}/daily/data`](state) {
         return state.dailyData;
-    }
+    },
 };

@@ -140,17 +140,6 @@ export default {
             },
         };
     },
-    watch: {
-        options: {
-            handler() {
-                this.fetch(self.options);
-            },
-        },
-        loading() {
-            this.disableItemsPerPage = this.loading;
-            this.disablePagination = this.loading;
-        },
-    },
     mounted() {
         window.addEventListener("resize", this.onResize);
     },
@@ -235,11 +224,12 @@ export default {
                         )
                     ) {
                         let self = this;
+                        self.loading = true;
                         this.$store
-                            .dispatch("users/duty/delete", { id: id })
+                            .dispatch("users/duty/delete", { id: `${item.id}` })
                             .then((response) => {
                                 self.loading = false;
-                                self.fetch();
+                                self.fetch({ ...this.options });
                             })
                             .catch((error) => {
                                 self.loading = false;

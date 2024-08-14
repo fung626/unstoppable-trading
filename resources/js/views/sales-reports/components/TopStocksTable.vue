@@ -17,8 +17,9 @@
             class="my-2 elevation-1"
             :headers="headers"
             :items="items"
-            :options.sync="options"
             :loading="loading"
+            @update:options="fetch"
+            :mobile="mobile"
             :hide-default-footer="true"
         >
         </v-data-table>
@@ -31,9 +32,9 @@ import { mapState } from "vuex";
 export default {
     name: "TopStocksTable",
     computed: {
-        ...mapState(["salesreport/topstocks"]),
+        ...mapState(["sales-reports/top-stocks"]),
         items() {
-            return this["salesreport/topstocks"].data;
+            return this["sales-reports/top-stocks"].data;
         },
     },
     data() {
@@ -75,7 +76,7 @@ export default {
             const {} = self.options;
             let data = {};
             this.$store
-                .dispatch("salesreport/topstocks/get", data)
+                .dispatch("sales-reports/top-stocks/get", data)
                 .then((response) => {
                     self.loading = false;
                 })

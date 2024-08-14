@@ -153,6 +153,7 @@ export default {
                 return;
             }
             self.updateLoading = true;
+            console.log(self.formData);
             this.$store
                 .dispatch("users/duty/update", self.formData)
                 .then((response) => {

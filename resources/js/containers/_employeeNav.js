@@ -17,7 +17,7 @@ export default [
               {
                   component: "CNavItem",
                   name: t("sales-reports"),
-                  to: "/salesreport",
+                  to: "/sales-reportS",
                   icon: "cil-chart-line",
               },
           ]

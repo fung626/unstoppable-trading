@@ -29,7 +29,7 @@ class BarcodeController extends Controller
 
         // dd($results);
         $response['data'] = [
-            'goods_item' => $item,
+            'goods_items' => $item,
             'formatted_goods' => GoodsLib::formatPurchaseItems($item ? $item->goods_id : null),
             'purchase' => Purchase::where(['id' => request('code')])->first(),
         ];

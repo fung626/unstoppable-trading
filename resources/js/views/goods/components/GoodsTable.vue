@@ -2,7 +2,7 @@
     <div>
         <Dialog ref="dialog" />
         <CRow class="p-2">
-            <CCol :md="9" :sm="9">
+            <CCol :md="10" :sm="10">
                 <CInputGroup class="mb-3">
                     <CButton color="primary" size="sm">
                         <CIcon name="cil-magnifying-glass" size="sm" />
@@ -10,7 +10,7 @@
                     <CFormInput size="sm" v-model="search" />
                 </CInputGroup>
             </CCol>
-            <CCol md="3" sm="3" class="text-right">
+            <CCol :md="2" s:m="2" class="text-right">
                 <CButtonGroup role="group">
                     <CButton
                         color="primary"
@@ -61,7 +61,7 @@
             </template>
             <template v-slot:[`item.warehouses`]="{ item }">
                 <v-chip
-                    class="mr-2"
+                    class="mr-2 my-2"
                     v-for="warehouse in item.warehouses"
                     :key="warehouse.id"
                     color="primary"
@@ -76,7 +76,7 @@
             </template>
             <template v-slot:[`item.categories`]="{ item }">
                 <v-chip
-                    class="mr-2"
+                    class="mr-2 my-2"
                     v-for="cat in item.categories"
                     :key="cat.id"
                     color="primary"
@@ -113,7 +113,6 @@
 <script>
 //
 import { Dialog } from "@/components";
-import { mapState } from "vuex";
 
 export default {
     name: "GoodsTable",
@@ -124,21 +123,6 @@ export default {
     },
     components: {
         Dialog,
-    },
-    computed: {
-        ...mapState(["goods"]),
-        serverItemsLength() {
-            return this.goods.data?.total;
-        },
-        pageCount() {
-            return this.goods.data?.last_page;
-        },
-        page() {
-            return this.goods.data?.current_page;
-        },
-        items() {
-            return this.goods.data?.data;
-        },
     },
     data() {
         return {
@@ -271,11 +255,12 @@ export default {
                         )
                     ) {
                         let self = this;
+                        self.loading = false;
                         this.$store
                             .dispatch("goods/delete", { id: item.id })
                             .then((response) => {
                                 self.loading = false;
-                                self.fetch();
+                                self.fetch({ ...this.options });
                             })
                             .catch((error) => {
                                 self.loading = false;

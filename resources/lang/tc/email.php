@@ -14,7 +14,7 @@ return [
                 'color' => '顏色',
                 'size' => '尺寸',
                 'barcode' => '條碼',
-                'stock' => '存貨',
+                'stock' => '庫存',
             ],
         ],
     ],

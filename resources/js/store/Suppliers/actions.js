@@ -151,7 +151,7 @@ export default {
     [`${name}/delete`]({ commit, dispatch }, payload) {
         return new Promise((resolve, reject) => {
             axios
-                .post(`${endpoint}delete`, payload)
+                .delete(`${endpoint}delete`, { data: payload })
                 .then(function (response) {
                     if (!response.data.error) {
                         let res = response.data;

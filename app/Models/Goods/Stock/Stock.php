@@ -60,7 +60,7 @@ class Stock extends Model
         return $this->belongsTo(Item::class, 'goods_item_id');
     }
 
-    public function stockTake()
+    public function stocktake()
     {
         return $this->hasOne(Content::class, 'goods_stock_id');
     }

@@ -159,7 +159,7 @@ class DutyController extends Controller
             'date' => request('date'),
             'start' => request('date') . ' ' . request('formatted_start'),
             'end' => request('date') . ' ' . request('formatted_end'),
-            'color' => equest('color'),
+            'color' => request('color'),
         ]);
 
         $response = config('response.common.success');

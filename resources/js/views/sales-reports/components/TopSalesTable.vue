@@ -14,11 +14,13 @@
             </CCol>
         </CRow>
         <v-data-table
-            class="my-2 elevation-1"
             :headers="headers"
             :items="items"
-            :options.sync="options"
+            :items-length="serverItemsLength"
+            :search="search"
             :loading="loading"
+            @update:options="fetch"
+            :mobile="mobile"
             :hide-default-footer="true"
         >
         </v-data-table>
@@ -31,15 +33,26 @@ import { mapState } from "vuex";
 export default {
     name: "TopSalesTable",
     computed: {
-        ...mapState(["salesreport/topsales"]),
+        ...mapState(["sales-reports/top-sales"]),
         items() {
-            return this["salesreport/topsales"].data;
+            return this["sales-reports/top-sales"].data;
         },
     },
     data() {
         return {
+            search: null,
             loading: false,
-            options: {},
+            mobile: window.innerWidth < 769,
+            items: [],
+            page: 1,
+            pageCount: 0,
+            serverItemsLength: 0,
+            options: {
+                page: 1,
+                itemsPerPage: 5,
+                sortBy: null,
+                sortDesc: false,
+            },
             headers: [
                 { title: this.$t("name"), value: "name", sortable: false },
                 { title: this.$t("type"), value: "type", sortable: false },
@@ -54,28 +67,34 @@ export default {
             ],
         };
     },
-    watch: {
-        options: {
-            handler() {
-                this.fetch();
-            },
-        },
-        loading() {},
-    },
     mounted() {
-        this.fetch();
+        window.addEventListener("resize", this.onResize);
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.onResize);
     },
     methods: {
-        fetch() {
+        onResize() {
+            this.mobile = window.innerWidth < 769;
+        },
+        fetch({ page, itemsPerPage, sortBy, search }) {
             let self = this;
             if (self.loading) {
                 return;
             }
             self.loading = true;
-            const {} = self.options;
-            let data = {};
+            self.options.page = page;
+            self.options.itemsPerPage = itemsPerPage;
+            self.options.sortBy = sortBy;
+            let data = {
+                page: page,
+                per_page: itemsPerPage,
+                sort_by: sortBy,
+                sort_desc: null,
+                search: search,
+            };
             this.$store
-                .dispatch("salesreport/topsales/get", data)
+                .dispatch("sales-reports/top-sales/get", data)
                 .then((response) => {
                     self.loading = false;
                 })

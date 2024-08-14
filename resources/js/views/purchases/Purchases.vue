@@ -1,8 +1,9 @@
 <template>
     <div>
+        <!-- <StockCalendar stockType="purchase" /> -->
         <Dialog ref="dialog" />
         <CRow class="p-2">
-            <CCol :md="10" :sm="10">
+            <CCol :md="9" :sm="9">
                 <CInputGroup class="mb-3">
                     <CButton color="primary" size="sm">
                         <CIcon name="cil-magnifying-glass" size="sm" />
@@ -10,15 +11,22 @@
                     <CFormInput size="sm" v-model="search" />
                 </CInputGroup>
             </CCol>
-            <CCol :md="2" :sm="2" class="text-right">
+            <CCol :md="3" :sm="3" class="text-right">
                 <CButtonGroup role="group">
-                    <CButton color="primary" size="sm" v-on:click="add">
-                        <CIcon name="cil-plus" size="sm" />
-                    </CButton>
-                    <CButton color="primary" size="sm" v-on:click="download">
+                    <CButton
+                        color="primary"
+                        size="sm"
+                        v-on:click="download"
+                        :disabled="loading"
+                    >
                         <CIcon name="cil-cloud-download" size="sm" />
                     </CButton>
-                    <CButton color="primary" size="sm" v-on:click="reload">
+                    <CButton
+                        color="primary"
+                        size="sm"
+                        v-on:click="reload"
+                        :disabled="loading"
+                    >
                         <CIcon name="cil-reload" size="sm" />
                     </CButton>
                 </CButtonGroup>
@@ -44,11 +52,35 @@
             <template v-slot:loading>
                 <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
             </template>
+            <template v-slot:[`item.status`]="{ item }">
+                <div v-if="item.status">
+                    {{ $t(`purchase.status.${item.status}`) }}
+                </div>
+            </template>
+            <template v-slot:[`item.date`]="{ item }">
+                <div v-if="item.date">
+                    {{ this.$formatDate(item.date) }}
+                </div>
+            </template>
             <template v-slot:[`item.created_at`]="{ item }">
                 {{ this.$formatDate(item.created_at) }}
             </template>
             <template v-slot:[`item.updated_at`]="{ item }">
                 {{ this.$formatDate(item.updated_at) }}
+            </template>
+            <template v-slot:[`item.status_actions`]="{ item }">
+                <CButtonGroup>
+                    <CButton
+                        v-for="action in item.status_actions"
+                        :key="action.key"
+                        :color="action.color"
+                        :disabled="action.disabled"
+                        size="sm"
+                        @click="click(item, action)"
+                    >
+                        {{ action.title }}
+                    </CButton>
+                </CButtonGroup>
             </template>
             <template v-slot:[`item.actions`]="{ item }">
                 <CButtonGroup>
@@ -58,7 +90,7 @@
                         :color="action.color"
                         :disabled="action.disabled"
                         size="sm"
-                        @click="click(item.id, action.type)"
+                        @click="click(item, action)"
                     >
                         {{ action.title }}
                     </CButton>
@@ -69,12 +101,13 @@
 </template>
 <script>
 //
-import { Dialog } from "@/components";
+import { Dialog, StockCalendar } from "@/components";
 
 export default {
-    name: "Category",
+    name: "Purchases",
     components: {
         Dialog,
+        StockCalendar,
     },
     data() {
         return {
@@ -82,19 +115,29 @@ export default {
             loading: false,
             mobile: window.innerWidth < 769,
             items: [],
+            page: 1,
             pageCount: 0,
             serverItemsLength: 0,
             options: {
                 page: 1,
                 itemsPerPage: 5,
-                sortBy: "name",
+                sortBy: "supplier.name",
                 sortDesc: false,
             },
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { title: this.$t("name"), value: "name" },
+                { title: this.$t("number"), value: "generated_id" },
+                { title: this.$t("supplier"), value: "supplier.name" },
+                { title: this.$t("creator"), value: "users.name" },
+                { title: this.$t("subtotal"), value: "subtotal" },
+                { title: this.$t("status"), value: "status" },
+                { title: this.$t("date"), value: "date" },
                 { title: this.$t("updatedat"), value: "updated_at" },
+                {
+                    text: `${this.$t("status")}${this.$t("actions")}`,
+                    value: "status_actions",
+                },
                 {
                     title: this.$t("actions"),
                     value: "actions",
@@ -127,8 +170,9 @@ export default {
                 search: search,
             };
             this.$store
-                .dispatch("categories/get", data)
+                .dispatch("goods/purchases/get", data)
                 .then((response) => {
+                    // console.log(response);
                     let res = JSON.parse(JSON.stringify(response.data));
                     self.items = res.data;
                     self.serverItemsLength = res.total;
@@ -141,7 +185,7 @@ export default {
                 });
         },
         add() {
-            this.$router.push({ path: "categories/create" });
+            this.$router.push({ path: "purchases/create" });
         },
         download() {
             let self = this;
@@ -155,7 +199,7 @@ export default {
                 extension: "pdf",
             };
             this.$store
-                .dispatch("categories/export", data)
+                .dispatch("goods/purchases/export", data)
                 .then((response) => {
                     self.loading = false;
                 })
@@ -166,11 +210,39 @@ export default {
         reload() {
             this.fetch({ ...this.options });
         },
-        async click(id, type) {
+        async click(item, action) {
+            let type = action.type;
             switch (type) {
+                case "UpdateStatus":
+                    if (
+                        await this.$refs.dialog.open(
+                            this.$t("alert.title"),
+                            this.$t("alert.update")
+                        )
+                    ) {
+                        let self = this;
+                        if (self.loading) {
+                            return;
+                        }
+                        self.loading = true;
+                        this.$store
+                            .dispatch("goods/purchases/update", {
+                                id: item.id,
+                                status: action.status,
+                            })
+                            .then((response) => {
+                                self.loading = false;
+                                self.fetch({ ...this.options });
+                            })
+                            .catch((error) => {
+                                self.loading = false;
+                            });
+                    }
+                    break;
                 case "RouterPush":
+                    let route = action.route;
                     this.$router.push({
-                        path: `categories/details/${id}`,
+                        path: route,
                     });
                     break;
                 case "Delete":
@@ -181,11 +253,15 @@ export default {
                         )
                     ) {
                         let self = this;
+                        if (self.loading) {
+                            return;
+                        }
+                        self.loading = true;
                         this.$store
-                            .dispatch("goods/categories/delete", { id: id })
+                            .dispatch("goods/purchases/delete", { id: item.id })
                             .then((response) => {
                                 self.loading = false;
-                                self.fetch();
+                                self.fetch({ ...this.options });
                             })
                             .catch((error) => {
                                 self.loading = false;

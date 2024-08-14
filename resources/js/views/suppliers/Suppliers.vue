@@ -77,7 +77,7 @@
 import { Dialog } from "@/components";
 
 export default {
-    name: "Supplier",
+    name: "Suppliers",
     components: {
         Dialog,
     },
@@ -168,7 +168,7 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                search: self.searchText,
+                search: self.search,
                 extension: "pdf",
             };
             this.$store
@@ -181,7 +181,7 @@ export default {
                 });
         },
         reload() {
-            this.fetch();
+            this.fetch({ ...this.options });
         },
         async click(id, type) {
             switch (type) {
@@ -198,11 +198,12 @@ export default {
                         )
                     ) {
                         let self = this;
+                        self.loading = true;
                         this.$store
-                            .dispatch(`goods/suppliers/delete/${id}`)
+                            .dispatch("goods/suppliers/delete", { id: id })
                             .then((response) => {
                                 self.loading = false;
-                                self.fetch();
+                                self.fetch({ ...this.options });
                             })
                             .catch((error) => {
                                 self.loading = false;

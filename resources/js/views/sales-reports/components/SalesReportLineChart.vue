@@ -9,7 +9,7 @@
             <CRow>
                 <CCol>
                     <h4 class="card-title mb-0">
-                        {{ $t("salesreport") }}
+                        {{ $t("sales-report") }}
                     </h4>
                     <div class="small text-medium-emphasis"></div>
                 </CCol>
@@ -32,13 +32,13 @@ import { mapState } from "vuex";
 export default {
     name: "SalesReportLineChart",
     components: {
-        CChartLine
+        CChartLine,
     },
     computed: {
-        ...mapState(["salesreport/chart"]),
+        ...mapState(["sales-reports/chart"]),
         data() {
-            return JSON.parse(JSON.stringify(this["salesreport/chart"].data));
-        }
+            return JSON.parse(JSON.stringify(this["sales-reports/chart"].data));
+        },
     },
     data() {
         return {
@@ -47,18 +47,18 @@ export default {
                 responsive: true,
                 maintainAspectRatio: false,
                 tooltips: {
-                    mode: "index"
+                    mode: "index",
                 },
                 legend: {
-                    display: false
+                    display: false,
                 },
                 scales: {
                     xAxes: [
                         {
                             gridLines: {
-                                drawOnChartArea: false
-                            }
-                        }
+                                drawOnChartArea: false,
+                            },
+                        },
                     ],
                     yAxes: [
                         {
@@ -68,28 +68,28 @@ export default {
                                     return `${Number(
                                         value
                                     ).abbreviateAmount()}`;
-                                }
-                            }
-                        }
-                    ]
+                                },
+                            },
+                        },
+                    ],
                 },
                 pan: {
                     enabled: true,
-                    mode: "x"
+                    mode: "x",
                 },
                 zoom: {
                     enabled: true,
-                    mode: "x"
+                    mode: "x",
                 },
                 elements: {
                     point: {
                         radius: 0,
                         hitRadius: 10,
                         hoverRadius: 4,
-                        hoverBorderWidth: 3
-                    }
-                }
-            }
+                        hoverBorderWidth: 3,
+                    },
+                },
+            },
         };
     },
     mounted() {
@@ -104,14 +104,14 @@ export default {
             let data = {};
             self.loading = true;
             this.$store
-                .dispatch("salesreport/chart/get", data)
-                .then(response => {
+                .dispatch("sales-reports/chart/get", data)
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
-        }
-    }
+        },
+    },
 };
 </script>

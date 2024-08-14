@@ -1,27 +1,31 @@
 <template>
     <CContainer lg>
-        <CRow>
-            <CCol col="12" sm="6" lg="6">
-                <CWidgetIcon
-                    :header="data.last_30days_stock_costs"
-                    :text="`${$t('last-some-days', { days: '30' })}${$t(
+        <CRow class="py-2">
+            <CCol class="py-2" :col="12" :sm="6" :lg="6">
+                <CWidgetStatsF
+                    color="primary"
+                    :title="`${$t('last-some-days', { days: '30' })}${$t(
                         'stock'
                     )}${$t('price.cost')}`"
-                    color="primary"
+                    :value="data.last_30days_stock_cost"
                 >
-                    <CIcon name="cib-server-fault" width="24" />
-                </CWidgetIcon>
+                    <template #icon>
+                        <CIcon icon="cib-server-fault" size="xl" />
+                    </template>
+                </CWidgetStatsF>
             </CCol>
-            <CCol col="12" sm="6" lg="6">
-                <CWidgetIcon
-                    :header="data.last_30days_shipping_costs"
-                    :text="`${$t('last-some-days', { days: '30' })}${$t(
+            <CCol class="py-2" :col="12" :sm="6" :lg="6">
+                <CWidgetStatsF
+                    color="primary"
+                    :title="`${$t('last-some-days', { days: '30' })}${$t(
                         'shippings.title'
                     )}${$t('price.cost')}`"
-                    color="primary"
+                    :value="data.last_30days_shipping_costs"
                 >
-                    <CIcon name="cib-codeship" width="24" />
-                </CWidgetIcon>
+                    <template #icon>
+                        <CIcon icon="cib-server-fault" size="xl" />
+                    </template>
+                </CWidgetStatsF>
             </CCol>
         </CRow>
         <CRow>
@@ -29,46 +33,54 @@
                 <SalesReportLineChart />
             </CCol>
         </CRow>
-        <CRow>
-            <CCol col="12" sm="6" lg="3">
-                <CWidgetIcon
-                    :header="data.average_inventory"
-                    :text="`${$t('last-three-months')}${$t(
+        <CRow class="py-2">
+            <CCol class="py-2" :col="12" :sm="6" :lg="3">
+                <CWidgetStatsF
+                    color="primary"
+                    :title="`${$t('last-three-months')}${$t(
                         'average-inventory'
                     )}${$t('price.cost')}`"
-                    color="primary"
+                    :value="data.average_inventory"
                 >
-                    <CIcon name="cil-chart-line" width="24" />
-                </CWidgetIcon>
+                    <template #icon>
+                        <CIcon icon="cil-chart-line" size="xl" />
+                    </template>
+                </CWidgetStatsF>
             </CCol>
-            <CCol col="12" sm="6" lg="3">
-                <CWidgetIcon
-                    :header="data.inventory_turnover"
-                    :text="`${$t('last-three-months')}${$t(
+            <CCol class="py-2" :col="12" :sm="6" :lg="3">
+                <CWidgetStatsF
+                    color="primary"
+                    :title="`${$t('last-three-months')}${$t(
                         'inventory-turnover'
                     )}${$t('price.cost')}`"
-                    color="primary"
+                    :value="data.inventory_turnover"
                 >
-                    <CIcon name="cil-chart-line" width="24" />
-                </CWidgetIcon>
+                    <template #icon>
+                        <CIcon icon="cil-chart-line" size="xl" />
+                    </template>
+                </CWidgetStatsF>
             </CCol>
-            <CCol col="12" sm="6" lg="3">
-                <CWidgetIcon
-                    :header="data.inventory_change"
-                    :text="`${$t('price.cost')}${$t('inventory-change')}`"
+            <CCol class="py-2" :col="12" :sm="6" :lg="3">
+                <CWidgetStatsF
                     color="primary"
+                    :title="`${$t('price.cost')}${$t('inventory-change')}`"
+                    :value="data.inventory_change"
                 >
-                    <CIcon name="cil-chart-line" width="24" />
-                </CWidgetIcon>
+                    <template #icon>
+                        <CIcon icon="cil-chart-line" size="xl" />
+                    </template>
+                </CWidgetStatsF>
             </CCol>
-            <CCol col="12" sm="6" lg="3">
-                <CWidgetIcon
-                    :header="data.inventory_dio"
-                    :text="`${$t('daysinventoryoutstanding')}`"
+            <CCol class="py-2" :col="12" :sm="6" :lg="3">
+                <CWidgetStatsF
                     color="primary"
+                    :title="`${$t('days-inventory-outstanding')}`"
+                    :value="data.inventory_dio"
                 >
-                    <CIcon name="cil-chart-line" width="24" />
-                </CWidgetIcon>
+                    <template #icon>
+                        <CIcon icon="cil-chart-line" size="xl" />
+                    </template>
+                </CWidgetStatsF>
             </CCol>
         </CRow>
         <CRow>
@@ -78,7 +90,7 @@
                         <CRow>
                             <CCol sm="12">
                                 <h4 class="card-title mb-0">
-                                    {{ $t("topsales") }}
+                                    {{ $t("top-sales") }}
                                 </h4>
                                 <div class="small text-medium-emphasis"></div>
                             </CCol>
@@ -95,7 +107,7 @@
                         <CRow>
                             <CCol sm="12">
                                 <h4 class="card-title mb-0">
-                                    {{ $t("topstocks") }}
+                                    {{ $t("top-stocks") }}
                                 </h4>
                                 <div class="small text-medium-emphasis"></div>
                             </CCol>
@@ -115,16 +127,16 @@ import TopSalesTable from "./components/TopSalesTable.vue";
 import TopStocksTable from "./components/TopStocksTable.vue";
 
 export default {
-    name: "SalesReport",
+    name: "SalesReports",
     components: {
         SalesReportLineChart,
         TopSalesTable,
         TopStocksTable,
     },
     computed: {
-        ...mapState(["salesreport"]),
+        ...mapState(["sales-reports"]),
         data() {
-            return JSON.parse(JSON.stringify(this["salesreport"].data));
+            return JSON.parse(JSON.stringify(this["sales-reports"].data));
         },
     },
     data() {
@@ -144,7 +156,7 @@ export default {
             let data = {};
             self.loading = true;
             this.$store
-                .dispatch("salesreport/get", data)
+                .dispatch("sales-reports/get", data)
                 .then((response) => {
                     self.loading = false;
                 })

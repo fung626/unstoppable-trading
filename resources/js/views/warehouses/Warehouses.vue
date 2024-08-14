@@ -189,11 +189,12 @@ export default {
                         )
                     ) {
                         let self = this;
+                        self.loading = true;
                         this.$store
                             .dispatch("goods/warehouses/delete", { id: id })
                             .then((response) => {
                                 self.loading = false;
-                                self.fetch();
+                                self.fetch({ ...this.options });
                             })
                             .catch((error) => {
                                 self.loading = false;
