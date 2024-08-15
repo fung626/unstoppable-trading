@@ -51,7 +51,7 @@ export default createStore({
         // API
         dashboard: Dashboard,
         auth: Auth,
-        exchangerate: ExchangeRate,
+        ["exchange-rate"]: ExchangeRate,
         profile: Profile,
         user: User,
         ["users/duty"]: UserDuty,
@@ -85,7 +85,7 @@ export default createStore({
         suppliers: Suppliers,
         warehouses: Warehouses,
         clients: Clients,
-        ["chart/purchaseline"]: PurchaseLineChart,
+        ["chart/purchase-line"]: PurchaseLineChart,
         // UI
         ["ui/sidebar"]: UISidebar,
         ["ui/alart"]: UIAlert,

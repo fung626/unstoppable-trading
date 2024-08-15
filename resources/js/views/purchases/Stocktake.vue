@@ -218,13 +218,12 @@
             </div>
             <hr />
             <CButton @click="confirm" color="primary" class="px-4">
-                {{ $t("button.submit") }}
                 <v-progress-circular
                     v-if="submitLoading"
                     indeterminate
-                    color="primary"
                     :size="15"
                 ></v-progress-circular>
+                {{ $t("button.submit") }}
             </CButton>
         </CCardBody>
     </CCard>

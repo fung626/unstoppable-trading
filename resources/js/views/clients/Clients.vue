@@ -125,6 +125,9 @@ export default {
         fetch({ page, itemsPerPage, sortBy, search }) {
             let self = this;
             self.loading = true;
+            self.options.page = page;
+            self.options.itemsPerPage = itemsPerPage;
+            self.options.sortBy = sortBy;
             let data = {
                 page: page,
                 per_page: itemsPerPage,

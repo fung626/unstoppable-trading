@@ -3,20 +3,21 @@
         <CCardBody>
             <h4>
                 {{
-                    `${$t("shipping.invoice")}/${$t("purchase.invoice")} ${$t(
-                        "quicksearch"
-                    )}`
+                    `${$t("quicksearch")} ${$t("shipping.invoice")} / ${$t(
+                        "purchase.invoice"
+                    )} `
                 }}
             </h4>
             <hr />
             <CRow>
-                <CCol md="10" sm="10">
+                <CCol>
                     <v-autocomplete
-                        v-model="data"
+                        v-model="value"
+                        v-model:search="search"
                         :items="autocomplete.data.items"
-                        :loading="autocomplete.data.loading"
-                        :search-input.sync="autocomplete.data.search"
                         :disabled="autocomplete.data.loading"
+                        :loading="autocomplete.data.loading"
+                        @update:search="autocomplete.data.search"
                         required
                         outlined
                         dense
@@ -27,12 +28,14 @@
                         return-object
                     ></v-autocomplete>
                 </CCol>
-                <CCol md="2" sm="2">
+            </CRow>
+            <CRow>
+                <CCol class="text-right">
                     <CButton
                         @click="details"
                         color="primary"
                         class="btn-block px-4"
-                        size="lg"
+                        size="sm"
                         :disabled="autocomplete.data.loading || !data"
                     >
                         {{ $t("details") }}
@@ -48,7 +51,8 @@ export default {
     name: "ShippingPurchaseQuickSearch",
     data() {
         return {
-            data: null,
+            value: null,
+            search: null,
             autocomplete: {
                 data: {
                     items: [],
@@ -58,7 +62,7 @@ export default {
         };
     },
     watch: {
-        "autocomplete.data.search": function (newVal, oldVal) {
+        search: function (newVal, oldVal) {
             // console.log(newVal);
             let self = this;
             let cli = self.autocomplete.data;
@@ -85,20 +89,19 @@ export default {
         },
     },
     methods: {
+        fetch() {},
         details() {
             if (this.data) {
                 const { id, type } = this.data;
                 switch (type) {
                     case "SHIPPING":
                         this.$router.push({
-                            name: "ShippingDetails",
-                            params: { id: id },
+                            path: `shippings/details/${id}`,
                         });
                         break;
                     case "PURCHASE":
                         this.$router.push({
-                            name: "PurchaseDetails",
-                            params: { id: id },
+                            path: `purchases/details/${id}`,
                         });
                         break;
                 }

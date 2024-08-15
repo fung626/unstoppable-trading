@@ -1,7 +1,7 @@
-const name = "chart/purchaseline";
+const name = "chart/purchase-line";
 
 export default {
     [`${name}/data`](state) {
         return state.data;
-    }
+    },
 };

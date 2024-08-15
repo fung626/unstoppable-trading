@@ -120,13 +120,12 @@
                 ></v-select>
                 <hr />
                 <CButton @click="update" color="primary" class="px-4">
-                    {{ $t("button.submit") }}
                     <v-progress-circular
                         v-if="updateLoading"
                         indeterminate
-                        color="primary"
                         :size="15"
                     ></v-progress-circular>
+                    {{ $t("button.submit") }}
                 </CButton>
             </form>
         </CCardBody>

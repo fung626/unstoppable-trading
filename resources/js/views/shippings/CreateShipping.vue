@@ -297,13 +297,12 @@
                     </v-data-table>
                     <hr />
                     <CButton @click="submit" color="primary" class="px-4">
-                        {{ $t("button.submit") }}
                         <v-progress-circular
                             v-if="loading"
                             indeterminate
-                            color="primary"
                             :size="15"
                         ></v-progress-circular>
+                        {{ $t("button.submit") }}
                     </CButton>
                 </form>
             </CCardBody>

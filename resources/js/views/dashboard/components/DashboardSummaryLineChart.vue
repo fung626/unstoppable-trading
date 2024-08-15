@@ -18,10 +18,10 @@
                     </CCol>
                 </CRow>
                 <CChartLine
-                    style="height:300px"
-                    :datasets="datasets"
-                    :labels="labels"
+                    style="height: 300px; max-height: 300px; margin-top: 40px"
+                    :wrapper="false"
                     :options="options"
+                    :data="data"
                 />
             </CCardBody>
         </CCard>
@@ -36,19 +36,10 @@ export default {
     name: "DashboardSummaryLineChart",
     components: { CChartLine },
     computed: {
-        ...mapState(["chart/purchaseline"]),
-        labels() {
-            return this["chart/purchaseline"].data?.labels
-                ? this["chart/purchaseline"].data?.labels
-                : [];
+        ...mapState(["chart/purchase-line"]),
+        data() {
+            return JSON.parse(JSON.stringify(this["chart/purchase-line"].data));
         },
-        datasets() {
-            let datasets = this["chart/purchaseline"].data?.datasets;
-            if (datasets) {
-                return JSON.parse(JSON.stringify(datasets));
-            }
-            return [];
-        }
     },
     data() {
         return {
@@ -57,18 +48,18 @@ export default {
                 responsive: true,
                 maintainAspectRatio: false,
                 tooltips: {
-                    mode: "index"
+                    mode: "index",
                 },
                 legend: {
-                    display: false
+                    display: false,
                 },
                 scales: {
                     xAxes: [
                         {
                             gridLines: {
-                                drawOnChartArea: false
-                            }
-                        }
+                                drawOnChartArea: false,
+                            },
+                        },
                     ],
                     yAxes: [
                         {
@@ -78,28 +69,28 @@ export default {
                                     return `${Number(
                                         value
                                     ).abbreviateAmount()}`;
-                                }
-                            }
-                        }
-                    ]
+                                },
+                            },
+                        },
+                    ],
                 },
                 pan: {
                     enabled: true,
-                    mode: "x"
+                    mode: "x",
                 },
                 zoom: {
                     enabled: true,
-                    mode: "x"
+                    mode: "x",
                 },
                 elements: {
                     point: {
                         radius: 0,
                         hitRadius: 10,
                         hoverRadius: 4,
-                        hoverBorderWidth: 3
-                    }
-                }
-            }
+                        hoverBorderWidth: 3,
+                    },
+                },
+            },
         };
     },
     mounted() {
@@ -110,17 +101,17 @@ export default {
             let self = this;
             self.loading = true;
             this.$store
-                .dispatch("chart/purchaseline/get")
-                .then(response => {
+                .dispatch("chart/purchase-line/get")
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
         reload() {
             this.fetch();
-        }
-    }
+        },
+    },
 };
 </script>

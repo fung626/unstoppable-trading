@@ -32,13 +32,12 @@
                 dense
             ></v-text-field>
             <CButton @click="update" color="primary" class="px-4">
-                {{ $t("button.update") }}
                 <v-progress-circular
                     v-if="loading"
                     indeterminate
-                    color="primary"
                     :size="15"
                 ></v-progress-circular>
+                {{ $t("button.update") }}
             </CButton>
         </form>
     </div>
@@ -53,7 +52,7 @@ export default {
             newPassword: "",
             confirmPassword: "",
             errors: {},
-            loading: false
+            loading: false,
         };
     },
     watch: {},
@@ -67,23 +66,23 @@ export default {
             let data = {
                 old_password: self.oldPassword,
                 new_password: self.newPassword,
-                confirm_password: self.confirmPassword
+                confirm_password: self.confirmPassword,
             };
             this.$store
                 .dispatch("profile/password/update", data)
-                .then(response => {
+                .then((response) => {
                     self.oldPassword = "";
                     self.newPassword = "";
                     self.confirmPassword = "";
                     self.errors = {};
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.errors = error.response.data?.data;
                     self.loading = false;
                 });
-        }
-    }
+        },
+    },
 };
 </script>
 

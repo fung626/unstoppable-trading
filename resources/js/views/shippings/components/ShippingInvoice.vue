@@ -188,7 +188,7 @@
 import { Dialog } from "@/components";
 import { goodsSizes } from "@/constants";
 import { mapState } from "vuex";
-import ShippingReturnDialog from "./ShippingReturnDialog";
+import ShippingReturnDialog from "./ShippingReturnDialog.vue";
 
 export default {
     name: "ShippingInvoice",

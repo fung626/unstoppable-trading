@@ -12,18 +12,17 @@
                     class="py-4"
                     v-model="summary"
                     inset
-                    :label="
-                        `${$t('summary')}${$t('email')}${$t('notification')}`
-                    "
+                    :label="`${$t('summary')}${$t('email')}${$t(
+                        'notification'
+                    )}`"
                 ></v-switch>
                 <CButton @click="update" color="primary" class="px-4">
-                    {{ $t("button.update") }}
                     <v-progress-circular
                         v-if="updateLoading"
                         indeterminate
-                        color="primary"
                         :size="15"
                     ></v-progress-circular>
+                    {{ $t("button.update") }}
                 </CButton>
             </form>
         </CCardBody>
@@ -36,13 +35,13 @@ import { mapState } from "vuex";
 export default {
     name: "NotificationSettings",
     computed: {
-        ...mapState(["profile/notification"])
+        ...mapState(["profile/notification"]),
     },
     data() {
         return {
             summary: false,
             fetchLoading: false,
-            updateLoading: false
+            updateLoading: false,
         };
     },
     mounted() {
@@ -57,12 +56,12 @@ export default {
             self.fetchLoading = true;
             this.$store
                 .dispatch("profile/notification/get", {})
-                .then(response => {
+                .then((response) => {
                     let res = response.data;
                     self.summary = res.summary ? res.summary : false;
                     self.fetchLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.fetchLoading = false;
                 });
         },
@@ -73,19 +72,19 @@ export default {
             }
             self.updateLoading = true;
             let data = {
-                summary: self.summary
+                summary: self.summary,
             };
             this.$store
                 .dispatch("profile/notification/update", data)
-                .then(response => {
+                .then((response) => {
                     let res = response.data;
                     self.summary = res.summary ? res.summary : false;
                     self.updateLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.updateLoading = false;
                 });
-        }
-    }
+        },
+    },
 };
 </script>

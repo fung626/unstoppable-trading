@@ -90,13 +90,12 @@
                         class="px-4"
                         :disabled="!formData.editable"
                     >
-                        {{ $t("button.update") }}
                         <v-progress-circular
                             v-if="updateLoading"
                             indeterminate
-                            color="primary"
                             :size="15"
                         ></v-progress-circular>
+                        {{ $t("button.update") }}
                     </CButton>
                 </form>
             </CCardBody>

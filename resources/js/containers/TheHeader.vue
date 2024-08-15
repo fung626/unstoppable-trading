@@ -124,6 +124,7 @@ onMounted(() => {
                 <li class="nav-item py-1">
                     <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
                 </li>
+                <TheHeaderDropdownAccnt />
             </CHeaderNav>
         </CContainer>
         <CContainer class="px-4" fluid>
@@ -134,8 +135,12 @@ onMounted(() => {
 
 <script>
 import { mapState } from "vuex";
+import TheHeaderDropdownAccnt from "./TheHeaderDropdownAccnt.vue";
 
 export default {
+    components: {
+        TheHeaderDropdownAccnt,
+    },
     computed: {
         ...mapState(["ui/sidebar"]),
     },

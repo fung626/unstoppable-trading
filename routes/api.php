@@ -5,6 +5,7 @@ use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
 use App\Http\Controllers\API\Client\ClientController;
 use App\Http\Controllers\API\Config\WebController;
+use App\Http\Controllers\API\DashboardController;
 use App\Http\Controllers\API\ExchangeRateController;
 use App\Http\Controllers\API\Goods\BarcodeController;
 use App\Http\Controllers\API\Goods\CategoryController;
@@ -69,6 +70,10 @@ Route::prefix('auth')->middleware(['web', 'localization'])->group(function () {
 
 Route::prefix('config')->middleware(['localization'])->group(function () {
     Route::get('web/get', [WebController::class, 'get']);
+});
+
+Route::prefix('dashboard')->middleware(['auth:api', 'localization'])->group(function () {
+    Route::get('get', [DashboardController::class, 'get']);
 });
 
 Route::prefix('sales-reports')->middleware(['auth:api', 'scopes:sales-report', 'localization'])->group(function () {
@@ -151,7 +156,7 @@ Route::prefix('goods')->middleware(['auth:api', 'scopes:goods', 'localization'])
     Route::get('details', [GoodsController::class, 'details']);
     Route::delete('delete', [GoodsController::class, 'delete']);
     Route::post('export', [GoodsController::class, 'export']);
-    Route::post('shipping/purchase/quicksearch/get', [ShippingPurchaseQuickSearchController::class, 'get']);
+    Route::post('shippings/purchase/quicksearch/get', [ShippingPurchaseQuickSearchController::class, 'get']);
 });
 
 Route::prefix('goods/contents')->middleware(['auth:api', 'scopes:goods', 'localization'])->group(function () {
@@ -242,7 +247,7 @@ Route::prefix('goods/barcode')->middleware(['auth:api', 'scopes:goods', 'localiz
 });
 
 Route::prefix('statistics/chart')->middleware(['auth:api', 'localization'])->group(function () {
-    Route::post('purchase-line/get', [PurchaseLineController::class, 'get']);
+    Route::get('purchase-line/get', [PurchaseLineController::class, 'get']);
 });
 
 Route::prefix('statistics/dashboard')->middleware(['auth:api', 'localization'])->group(function () {

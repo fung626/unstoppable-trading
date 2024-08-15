@@ -2,42 +2,67 @@
     <CContainer lg>
         <!-- <WidgetsDropdown /> -->
         <ScannerDialog ref="scannerDialog" />
-        <CRow>
-            <CCol v-if="isPermissionGranted('goods')" sm="12" lg="4">
-                <CWidgetIcon
-                    :header="`${$t('barcode')}${$t('scanner')}`"
-                    :text="`${$t('goods')}${$t('search')}`"
+        <CRow class="pb-2">
+            <CCol
+                v-if="isPermissionGranted('goods')"
+                :sm="12"
+                :lg="4"
+                class="py-2"
+            >
+                <CWidgetStatsF
                     color="primary"
+                    :title="`${$t('barcode')}${$t('scanner')}`"
+                    :value="`${$t('goods')}${$t('search')}`"
                 >
-                    <CButton class="text-white" size="lg" @click="search">
-                        <CIcon name="cil-barcode" size="lg" />
-                    </CButton>
-                </CWidgetIcon>
+                    <template #icon>
+                        <CButton class="text-white" size="lg" @click="search">
+                            <CIcon name="cil-barcode" size="lg" />
+                        </CButton>
+                    </template>
+                </CWidgetStatsF>
             </CCol>
-            <CCol v-if="isPermissionGranted('shipping')" sm="12" lg="4">
-                <CWidgetIcon
-                    :header="`${$t('barcode')}${$t('scanner')}`"
-                    :text="`${$t('goods')}${$t('shippings.title')}`"
-                    color="success"
+            <CCol
+                v-if="isPermissionGranted('shippings')"
+                :sm="12"
+                :lg="4"
+                class="py-2"
+            >
+                <CWidgetStatsF
+                    color="primary"
+                    :title="`${$t('barcode')}${$t('scanner')}`"
+                    :value="`${$t('goods')}${$t('shippings.title')}`"
                 >
-                    <CButton class="text-white" size="lg" @click="shipping">
-                        <CIcon name="cil-barcode" size="lg" />
-                    </CButton>
-                </CWidgetIcon>
+                    <template #icon>
+                        <CButton class="text-white" size="lg" @click="shipping">
+                            <CIcon name="cil-barcode" size="lg" />
+                        </CButton>
+                    </template>
+                </CWidgetStatsF>
             </CCol>
-            <CCol v-if="isPermissionGranted('stocktake')" sm="12" lg="4">
-                <CWidgetIcon
-                    :header="`${$t('barcode')}${$t('scanner')}`"
-                    :text="`${$t('stocktake')}`"
+            <CCol
+                v-if="isPermissionGranted('stocktakes')"
+                :sm="12"
+                :lg="4"
+                class="py-2"
+            >
+                <CWidgetStatsF
                     color="info"
+                    :title="`${$t('barcode')}${$t('scanner')}`"
+                    :value="`${$t('stocktake')}`"
                 >
-                    <CButton class="text-white" size="lg" @click="stocktake">
-                        <CIcon name="cil-barcode" size="lg" />
-                    </CButton>
-                </CWidgetIcon>
+                    <template #icon>
+                        <CButton
+                            class="text-white"
+                            size="lg"
+                            @click="stocktake"
+                        >
+                            <CIcon name="cil-barcode" size="lg" />
+                        </CButton>
+                    </template>
+                </CWidgetStatsF>
             </CCol>
         </CRow>
-        <CRow>
+        <CRow class="py-2">
             <CCol>
                 <ShippingPurchaseQuickSearch
                     v-if="
@@ -47,22 +72,26 @@
                 />
             </CCol>
         </CRow>
-        <DashboardSummaryLineChart v-if="$store.getters.isAdmin" />
+        <CRow class="py-2">
+            <CCol>
+                <DashboardSummaryLineChart v-if="$store.getters.isAdmin" />
+            </CCol>
+        </CRow>
         <div v-if="$store.getters.isAdmin">
             <DutyCalendar />
         </div>
         <div v-else>
             <DutyCalendar :userId="$store.getters.authUser.id" />
         </div>
-        <ExchangeRate v-if="isPermissionGranted('exchangerate')" />
-        <CRow v-if="$store.getters.isAdmin">
-            <CCol md="12">
+        <!-- <ExchangeRate v-if="isPermissionGranted('exchange-rate')" /> -->
+        <CRow v-if="$store.getters.isAdmin" class="py-2">
+            <CCol>
                 <CCard>
                     <CCardBody>
                         <CRow>
-                            <CCol sm="12" lg="6">
+                            <CCol :sm="12" :lg="6">
                                 <CRow>
-                                    <CCol sm="12">
+                                    <CCol :sm="12">
                                         <CCallout color="warning">
                                             <small class="text-muted">
                                                 {{ $t("stock") }}
@@ -75,9 +104,9 @@
                                     </CCol>
                                 </CRow>
                             </CCol>
-                            <CCol sm="12" lg="6">
+                            <CCol :sm="12" :lg="6">
                                 <CRow>
-                                    <CCol sm="12">
+                                    <CCol :sm="12">
                                         <CCallout color="danger">
                                             <small class="text-muted">
                                                 {{ $t("goods") }}

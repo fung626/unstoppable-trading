@@ -6,9 +6,9 @@
             color="cyan"
         ></v-progress-linear>
         <CCardBody>
-            <h4>{{ $t("exchangerate") }}</h4>
+            <h4>{{ $t("exchange-rate") }}</h4>
             <CRow>
-                <CCol md="3" sm="3">
+                <CCol :md="3" :sm="3">
                     <v-text-field
                         v-model="baseAmount"
                         :disabled="loading"
@@ -19,7 +19,7 @@
                         clearable
                     ></v-text-field>
                 </CCol>
-                <CCol md="3" sm="3">
+                <CCol :md="3" :sm="3">
                     <v-select
                         v-model="base"
                         :items="currencies"
@@ -32,7 +32,7 @@
                         dense
                     ></v-select>
                 </CCol>
-                <CCol md="3" sm="3">
+                <CCol :md="3" :sm="3">
                     <v-text-field
                         v-model="symbolAmount"
                         :disabled="loading"
@@ -43,7 +43,7 @@
                         clearable
                     ></v-text-field>
                 </CCol>
-                <CCol md="3" sm="3">
+                <CCol :md="3" :sm="3">
                     <v-select
                         v-model="symbol"
                         :items="currencies"
@@ -141,7 +141,7 @@ export default {
                 symbol: self.symbol,
             };
             this.$store
-                .dispatch("exchangerate/details", data)
+                .dispatch("exchange-rate/details", data)
                 .then((response) => {
                     let res = response.data.data;
                     self.base = res.base;

@@ -37,13 +37,12 @@
                                                 color="primary"
                                                 class="px-4"
                                             >
-                                                {{ $t("login") }}
                                                 <v-progress-circular
                                                     v-if="fetching"
                                                     indeterminate
-                                                    color="primary"
                                                     :size="15"
                                                 ></v-progress-circular>
+                                                {{ $t("login") }}
                                             </CButton>
                                         </CCol>
                                         <CCol col="6" class="text-right">

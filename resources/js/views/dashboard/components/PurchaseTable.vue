@@ -11,22 +11,24 @@
                 </CInputGroup>
             </CCol>
             <CCol :md="3" :sm="3" class="text-right">
-                <CButton
-                    color="primary"
-                    size="sm"
-                    v-on:click="download"
-                    :disabled="loading"
-                >
-                    <CIcon name="cil-cloud-download" size="sm" />
-                </CButton>
-                <CButton
-                    color="primary"
-                    size="sm"
-                    v-on:click="reload"
-                    :disabled="loading"
-                >
-                    <CIcon name="cil-reload" size="sm" />
-                </CButton>
+                <CButtonGroup>
+                    <CButton
+                        color="primary"
+                        size="sm"
+                        v-on:click="download"
+                        :disabled="loading"
+                    >
+                        <CIcon name="cil-cloud-download" size="sm" />
+                    </CButton>
+                    <CButton
+                        color="primary"
+                        size="sm"
+                        v-on:click="reload"
+                        :disabled="loading"
+                    >
+                        <CIcon name="cil-reload" size="sm" />
+                    </CButton>
+                </CButtonGroup>
             </CCol>
         </CRow>
         <v-data-table
@@ -99,18 +101,18 @@ export default {
         Dialog,
     },
     computed: {
-        ...mapState(["goods/purchase"]),
+        ...mapState(["goods/purchases"]),
         serverItemsLength() {
-            return this["goods/purchase"].data?.total;
+            return this["goods/purchases"].data?.total;
         },
         pageCount() {
-            return this["goods/purchase"].data?.last_page;
+            return this["goods/purchases"].data?.last_page;
         },
         page() {
-            return this["goods/purchase"].data?.current_page;
+            return this["goods/purchases"].data?.current_page;
         },
         items() {
-            return this["goods/purchase"].data?.data;
+            return this["goods/purchases"].data?.data;
         },
     },
     data() {
@@ -142,23 +144,22 @@ export default {
             ],
         };
     },
-    mounted() {
-        this.fetch();
-    },
     methods: {
-        fetch(reset = false) {
+        fetch({ page, itemsPerPage, sortBy, search }) {
             let self = this;
             if (self.loading) {
                 return;
             }
             self.loading = true;
-            const { page, itemsPerPage, sortBy, sortDesc } = self.options;
+            self.options.page = page;
+            self.options.itemsPerPage = itemsPerPage;
+            self.options.sortBy = sortBy;
             let data = {
-                page: reset ? 1 : page,
+                page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-                sort_desc: sortDesc,
-                search: self.searchText,
+                sort_desc: null,
+                search: search,
             };
             this.$store
                 .dispatch("goods/purchases/get", data)
@@ -256,7 +257,9 @@ export default {
                             return;
                         }
                         this.$store
-                            .dispatch("goods/purchases/delete", { id: item.id })
+                            .dispatch("goods/purchases/delete", {
+                                id: item.id,
+                            })
                             .then((response) => {
                                 self.loading = false;
                                 self.fetch();

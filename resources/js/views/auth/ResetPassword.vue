@@ -41,13 +41,12 @@
                                     dense
                                 ></v-text-field>
                                 <button type="submit" class="btn btn-primary">
-                                    {{ $t("button.submit") }}
                                     <v-progress-circular
                                         v-if="submitting"
                                         indeterminate
-                                        color="primary"
                                         :size="15"
                                     ></v-progress-circular>
+                                    {{ $t("button.submit") }}
                                 </button>
                             </CForm>
                         </CCardBody>
@@ -64,7 +63,7 @@ import { Snackbar } from "@/components";
 export default {
     name: "ResetPassword",
     components: {
-        Snackbar
+        Snackbar,
     },
     data() {
         return {
@@ -72,7 +71,7 @@ export default {
             fetching: false,
             submitting: false,
             password: null,
-            confirmPassword: null
+            confirmPassword: null,
         };
     },
     mounted() {
@@ -86,15 +85,15 @@ export default {
             }
             let data = {
                 id: self.$route.params.id,
-                token: self.$route.params.token
+                token: self.$route.params.token,
             };
             self.fetching = true;
             self.$store
                 .dispatch("auth/forgot/password/find", data)
-                .then(function(response) {
+                .then(function (response) {
                     self.fetching = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.fetching = false;
                     self.errors = error.response.data?.data;
                 });
@@ -108,25 +107,25 @@ export default {
                 id: this.$route.params.id,
                 token: this.$route.params.token,
                 password: self.password,
-                confirm_password: self.confirmPassword
+                confirm_password: self.confirmPassword,
             };
             self.submitting = true;
             self.$store
                 .dispatch("auth/forgot/password/reset", data)
-                .then(function(response) {
+                .then(function (response) {
                     self.submitting = false;
                     self.errors = {};
                     self.$store.dispatch("snackbar/show", {
-                        text: self.$t("auth.resetpassword.success")
+                        text: self.$t("auth.resetpassword.success"),
                     });
                     self.$router.push({ name: "Login" });
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.submitting = false;
                     self.errors = error.response.data?.data;
                 });
-        }
-    }
+        },
+    },
 };
 </script>
 

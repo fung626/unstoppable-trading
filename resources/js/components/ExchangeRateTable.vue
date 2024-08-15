@@ -42,9 +42,9 @@ import { mapState } from "vuex";
 export default {
     name: "ExchangeRateTable",
     computed: {
-        ...mapState(["exchangerate"]),
+        ...mapState(["exchange-rate"]),
         items() {
-            return this.exchangerate.data;
+            return this.exchange - rate.data;
         },
     },
     data() {
@@ -83,7 +83,7 @@ export default {
                 symbol: self.symbol,
             };
             this.$store
-                .dispatch("exchangerate/get", data)
+                .dispatch("exchange-rate/get", data)
                 .then((response) => {
                     self.loading = false;
                 })

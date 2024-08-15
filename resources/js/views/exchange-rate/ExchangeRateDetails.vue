@@ -43,13 +43,12 @@
                         persistent-hint
                     ></v-text-field>
                     <CButton @click="update" color="primary" class="px-4">
-                        {{ $t("button.update") }}
                         <v-progress-circular
                             v-if="updateLoading"
                             indeterminate
-                            color="primary"
                             :size="15"
                         ></v-progress-circular>
+                        {{ $t("button.update") }}
                     </CButton>
                 </form>
             </CCardBody>
@@ -65,7 +64,7 @@ export default {
             formData: {},
             errors: {},
             fetchLoading: false,
-            updateLoading: false
+            updateLoading: false,
         };
     },
     computed: {
@@ -76,7 +75,7 @@ export default {
                 return `1 ${base} = ${1 * rate} ${symbol}`;
             }
             return "";
-        }
+        },
     },
     mounted() {
         this.fetch();
@@ -89,12 +88,12 @@ export default {
             }
             let data = {
                 base: self.$route.params.base,
-                symbol: self.$route.params.symbol
+                symbol: self.$route.params.symbol,
             };
             self.fetchLoading = true;
             this.$store
-                .dispatch("exchangerate/details", data)
-                .then(response => {
+                .dispatch("exchange-rate/details", data)
+                .then((response) => {
                     // console.log(response.data);
                     self.formData = JSON.parse(
                         JSON.stringify(response.data.data)
@@ -102,7 +101,7 @@ export default {
                     self.errors = {};
                     self.fetchLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.errors = error.response.data?.data;
                     self.fetchLoading = false;
                 });
@@ -114,18 +113,18 @@ export default {
             }
             self.updateLoading = true;
             this.$store
-                .dispatch("exchangerate/update", self.formData)
-                .then(response => {
+                .dispatch("exchange-rate/update", self.formData)
+                .then((response) => {
                     self.formData = JSON.parse(JSON.stringify(response.data));
                     self.errors = {};
                     self.updateLoading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.errors = error.response.data?.data;
                     self.updateLoading = false;
                 });
-        }
-    }
+        },
+    },
 };
 </script>
 

@@ -1,5 +1,25 @@
 <template>
-    <CDropdown
+    <CDropdown placement="bottom-end" variant="nav-item">
+        <CDropdownToggle class="py-0 pe-0" :caret="false">
+            <CAvatar :src="avatar" size="md" />
+        </CDropdownToggle>
+        <CDropdownMenu class="pt-0">
+            <CDropdownHeader
+                component="h6"
+                class="bg-body-secondary text-body-secondary fw-semibold mb-2 rounded-top"
+            >
+                {{ $t("account") }}
+            </CDropdownHeader>
+            <CDropdownItem href="/profile">
+                <CIcon icon="cil-user" /> {{ $t("profile") }}
+            </CDropdownItem>
+            <CDropdownItem @click="logout">
+                <CIcon icon="cil-lock-locked" />
+                {{ $t("logout") }}
+            </CDropdownItem>
+        </CDropdownMenu>
+    </CDropdown>
+    <!-- <CDropdown
         inNav
         class="c-header-nav-items"
         placement="bottom-end"
@@ -28,7 +48,7 @@
         <CDropdownItem @click="logout()">
             <CIcon name="cil-lock-locked" /> {{ $t("logout") }}
         </CDropdownItem>
-    </CDropdown>
+    </CDropdown> -->
 </template>
 
 <script>
@@ -43,7 +63,7 @@ export default {
         logout() {
             // let self = this;
             this.$store.dispatch("auth/logout");
-            this.$router.push({ name: "Login" });
+            this.$router.push({ path: "/login" });
         },
     },
 };

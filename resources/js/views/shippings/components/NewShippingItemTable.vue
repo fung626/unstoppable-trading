@@ -203,7 +203,7 @@
 <script>
 //
 import { mapState } from "vuex";
-import NewShippingItemDialog from "./NewShippingItemDialog";
+import NewShippingItemDialog from "./NewShippingItemDialog.vue";
 
 export default {
     name: "NewShippingItemTable",

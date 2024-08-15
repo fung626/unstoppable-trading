@@ -40,9 +40,9 @@
 </template>
 <script>
 //
-import NewShippingItemTable from "./components/NewShippingItemTable";
-import ShippingAlterationTable from "./components/ShippingAlterationTable";
-import ShippingInvoice from "./components/ShippingInvoice";
+import NewShippingItemTable from "./components/NewShippingItemTable.vue";
+import ShippingAlterationTable from "./components/ShippingAlterationTable.vue";
+import ShippingInvoice from "./components/ShippingInvoice.vue";
 
 export default {
     name: "ShippingDetails",
