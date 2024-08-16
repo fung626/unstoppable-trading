@@ -6,33 +6,42 @@
             color="cyan"
         ></v-progress-linear>
         <CCardBody>
-            <CRow class="align-items-start">
-                <CCol
-                    :md="3"
-                    :sm="6"
-                    v-for="(_, key) in formData.items"
-                    v-bind:key="`${key}`"
-                >
+            <CRow
+                class="d-flex align-items-center align-items-start border-bottom"
+                v-for="(_, key) in formData.items"
+                v-bind:key="`${key}`"
+            >
+                <CCol class="h-100" :md="9" :sm="6">
+                    <div class="d-flex flex-column">
+                        <span class="h-100">
+                            {{ $t(`permission.${key}.title`) }}
+                        </span>
+                        <span class="h-100">
+                            {{ $t(`permission.${key}.description`) }}
+                        </span>
+                    </div>
+                </CCol>
+                <CCol :md="3" :sm="6">
                     <div v-if="formData.user.role === 'ADMIN'" class="p-2">
                         <v-switch
                             v-model="formData.items[key]"
                             color="indigo"
-                            :label="$t(`permission.${key}`)"
                             inset
                             disabled
+                            hide-details
                         ></v-switch>
                     </div>
                     <div v-else class="p-2">
                         <v-switch
                             v-model="formData.items[key]"
-                            :label="$t(`permission.${key}`)"
                             color="indigo"
                             inset
+                            hide-details
                         ></v-switch>
                     </div>
                 </CCol>
             </CRow>
-            <form>
+            <form class="py-2">
                 <CButton @click="update" color="primary" class="px-4">
                     <v-progress-circular
                         v-if="updateLoading"

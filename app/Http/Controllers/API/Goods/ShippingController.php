@@ -128,16 +128,12 @@ class ShippingController extends Controller
                 });
             });
 
-        if ($request->filled(['sort_by', 'sort_desc'])) {
+        if ($request->filled(['sort_by'])) {
             $sortBys = request('sort_by');
-            $sortDescs = request('sort_desc');
-            $index = 0;
             foreach ($sortBys as $sortBy) {
-                $sortDesc = $sortDescs[$index];
-                if ($sortBy !== "actions") {
-                    $query->orderBy($sortBy, $sortDesc ? 'DESC' : 'ASC');
+                if ($sortBy["key"] && $sortBy["order"]) {
+                    $query->orderBy($sortBy["key"], $sortBy["order"]);
                 }
-                $index++;
             }
         }
 
@@ -363,18 +359,15 @@ class ShippingController extends Controller
                 });
             });
 
-        if ($request->filled(['sort_by', 'sort_desc'])) {
+        if ($request->filled(['sort_by'])) {
             $sortBys = request('sort_by');
-            $sortDescs = request('sort_desc');
-            $index = 0;
             foreach ($sortBys as $sortBy) {
-                $sortDesc = $sortDescs[$index];
-                if ($sortBy !== "actions") {
-                    $query->orderBy($sortBy, $sortDesc ? 'DESC' : 'ASC');
+                if ($sortBy["key"] && $sortBy["order"]) {
+                    $query->orderBy($sortBy["key"], $sortBy["order"]);
                 }
-                $index++;
             }
         }
+
         $result = $query->get();
         $headers = [
             __('Number'),

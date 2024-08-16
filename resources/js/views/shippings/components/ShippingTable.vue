@@ -206,6 +206,9 @@ export default {
                     self.loading = false;
                 });
         },
+        add() {
+            this.$router.push({ path: "shippings/create" });
+        },
         download() {
             let self = this;
             self.loading = true;

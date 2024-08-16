@@ -53,12 +53,20 @@ onMounted(() => {
                     <CNavLink href="#">
                         <CIcon icon="cil-list" size="lg" />
                     </CNavLink>
-                </CNavItem>
-                <CNavItem>
-                    <CNavLink href="#">
-                        <CIcon icon="cil-envelope-open" size="lg" />
-                    </CNavLink>
                 </CNavItem> -->
+                <CNavItem class="position-relative">
+                    <CNavLink href="#">
+                        <CIcon icon="cil-send" size="lg" />
+                    </CNavLink>
+
+                    <CBadge
+                        color="danger"
+                        position="top-end"
+                        shape="rounded-pill"
+                    >
+                        99+
+                    </CBadge>
+                </CNavItem>
             </CHeaderNav>
             <CHeaderNav>
                 <li class="nav-item py-1">

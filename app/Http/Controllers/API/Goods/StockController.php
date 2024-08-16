@@ -58,16 +58,15 @@ class StockController extends Controller
             ->join('goods', 'goods.id', '=', 'goods_items.goods_id')
             ->groupBy(['goods_id', 'color', 'cup']);
 
-        if ($request->filled(['sort_by', 'sort_desc'])) {
+        if ($request->filled(['sort_by'])) {
             $sortBys = request('sort_by');
-            $sortDescs = request('sort_desc');
-            $index = 0;
+            $order = 'DESC';
             foreach ($sortBys as $sortBy) {
-                $sortDesc = $sortDescs[$index];
-                $query->orderBy($sortBy, $sortDesc ? 'DESC' : 'ASC');
-                $index++;
+                if ($sortBy["key"] && $sortBy["order"]) {
+                    $query->orderBy($sortBy["key"], $sortBy["order"]);
+                }
             }
-            $query->orderBy('goods_items.updated_at', $sortDesc ? 'DESC' : 'ASC');
+            $query->orderBy('goods_items.updated_at', $order);
         }
 
         $response = config('response.common.success');
@@ -127,16 +126,15 @@ class StockController extends Controller
             ->join('goods', 'goods.id', '=', 'goods_items.goods_id')
             ->groupBy(['goods_id', 'color', 'cup']);
 
-        if ($request->filled(['sort_by', 'sort_desc'])) {
+        if ($request->filled(['sort_by'])) {
             $sortBys = request('sort_by');
-            $sortDescs = request('sort_desc');
-            $index = 0;
+            $order = 'DESC';
             foreach ($sortBys as $sortBy) {
-                $sortDesc = $sortDescs[$index];
-                $query->orderBy($sortBy, $sortDesc ? 'DESC' : 'ASC');
-                $index++;
+                if ($sortBy["key"] && $sortBy["order"]) {
+                    $query->orderBy($sortBy["key"], $sortBy["order"]);
+                }
             }
-            $query->orderBy('goods_items.updated_at', $sortDesc ? 'DESC' : 'ASC');
+            $query->orderBy('goods_items.updated_at', $order);
         }
 
         $headers = [];

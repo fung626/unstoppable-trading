@@ -15,13 +15,10 @@
                         v-model="value"
                         v-model:search="search"
                         :items="autocomplete.data.items"
-                        :disabled="autocomplete.data.loading"
                         :loading="autocomplete.data.loading"
-                        @update:search="autocomplete.data.search"
                         required
                         outlined
                         dense
-                        hide-no-data
                         hide-selected
                         item-title="name"
                         item-value="id"
@@ -36,7 +33,7 @@
                         color="primary"
                         class="btn-block px-4"
                         size="sm"
-                        :disabled="autocomplete.data.loading || !data"
+                        :disabled="autocomplete.data.loading || !value"
                     >
                         {{ $t("details") }}
                     </CButton>
@@ -47,6 +44,8 @@
 </template>
 
 <script>
+import { debounce } from "lodash";
+
 export default {
     name: "ShippingPurchaseQuickSearch",
     data() {
@@ -63,22 +62,30 @@ export default {
     },
     watch: {
         search: function (newVal, oldVal) {
-            // console.log(newVal);
-            let self = this;
-            let cli = self.autocomplete.data;
-            if (newVal == "") {
-                self.data = null;
-            }
-            if ((newVal == oldVal && newVal != "") || !newVal || cli.loading) {
+            this.fetch(this, newVal, oldVal);
+        },
+    },
+    methods: {
+        fetch: debounce((self, newVal, oldVal) => {
+            // let cli = self.autocomplete.data;
+            if ((newVal == oldVal && newVal != "") || !newVal || newVal == "") {
                 return;
             }
+            const found = self.autocomplete.data.items.find(
+                (x) => x.name === newVal
+            );
+            if (found) {
+                return;
+            }
+            // console.log(newVal, oldVal);
             self.autocomplete.data.loading = true;
             let data = {
                 search: newVal,
             };
-            this.$store
+            self.$store
                 .dispatch("goods/shippings/purchase/quicksearch/get", data)
                 .then((response) => {
+                    console.log(response);
                     // let data = response.data;
                     self.autocomplete.data.items = response.data;
                     self.autocomplete.data.loading = false;
@@ -86,13 +93,10 @@ export default {
                 .catch((error) => {
                     self.autocomplete.data.loading = false;
                 });
-        },
-    },
-    methods: {
-        fetch() {},
+        }, 300),
         details() {
-            if (this.data) {
-                const { id, type } = this.data;
+            if (this.value) {
+                const { id, type } = this.value;
                 switch (type) {
                     case "SHIPPING":
                         this.$router.push({

@@ -91,26 +91,16 @@
                 ></v-autocomplete>
             </template>
             <template v-slot:[`item.barcode`]="{ item }">
-                <v-edit-dialog
-                    :return-value.sync="item.barcode"
-                    :save-text="$t('button.confirm')"
-                    :cancel-text="$t('button.cancel')"
-                    large
-                >
-                    <barcode
+                <div class="d-flex justify-content-center">
+                    <vue-barcode
                         v-if="item.barcode"
                         :value="item.barcode"
-                        :options="{ format: 'CODE39', height: 32 }"
-                    ></barcode>
-                    <template v-slot:input>
-                        <v-text-field
-                            v-model="item.barcode"
-                            :label="$t('button.edit')"
-                            single-line
-                            counter
-                        ></v-text-field>
-                    </template>
-                </v-edit-dialog>
+                        :options="{
+                            format: 'CODE39',
+                            height: 36,
+                        }"
+                    ></vue-barcode>
+                </div>
             </template>
             <template v-slot:[`item.updated_at`]="{ item }">
                 <div v-if="item.updated_at">
@@ -168,10 +158,10 @@ export default {
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { title: this.$t("cup"), value: "cup" },
-                { title: this.$t("color"), value: "color" },
-                { title: this.$t("size"), value: "size" },
-                { title: this.$t("barcode"), value: "barcode" },
+                { title: this.$t("cup"), value: "cup", sortable: true },
+                { title: this.$t("color"), value: "color", sortable: true },
+                { title: this.$t("size"), value: "size", sortable: true },
+                { title: this.$t("barcode"), value: "barcode", sortable: true },
                 {
                     title: this.$t("stockunit"),
                     value: "stock_unit",
@@ -217,7 +207,7 @@ export default {
                 .dispatch("goods/items/get", data)
                 .then((response) => {
                     let res = JSON.parse(JSON.stringify(response.data));
-                    self.headers = res.headers;
+                    // self.headers = res.headers;
                     self.items = res.data;
                     self.serverItemsLength = res.total;
                     self.pageCount = res.last_page;
@@ -227,9 +217,6 @@ export default {
                 .catch((error) => {
                     self.loading = false;
                 });
-        },
-        search() {
-            this.fetch({ ...this.options });
         },
         add() {
             this.items = [

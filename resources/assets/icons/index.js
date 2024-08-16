@@ -78,6 +78,7 @@ import {
     cilPuzzle,
     cilReload,
     cilRoom,
+    cilSend,
     cilSettings,
     cilShieldAlt,
     cilShortText,
@@ -99,6 +100,7 @@ import {
 export const iconsSet = Object.assign(
     {},
     {
+        cilSend,
         cilArrowBottom,
         cilArrowRight,
         cilArrowTop,

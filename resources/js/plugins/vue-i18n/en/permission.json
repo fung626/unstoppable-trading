@@ -1,14 +1,44 @@
 {
     "permission": {
-        "goods": "Goods",
-        "users": "Users",
-        "stocks": "Stocks",
-        "clients": "Clients",
-        "purchases": "Purchases",
-        "shippings": "Shippings",
-        "suppliers": "Suppliers",
-        "categories": "Categories",
-        "warehouses": "Warehouses",
-        "sales-reports": "Sales Reports"
+        "goods": {
+            "title": "Goods",
+            "description": "Allow to create/edit/view goods data"
+        },
+        "users": {
+            "title": "Users",
+            "description": "Allow to create/edit/view users data"
+        },
+        "stocks": {
+            "title": "Stocks",
+            "description": "Allow to create/edit/view stocks data"
+        },
+        "clients": {
+            "title": "Clients",
+            "description": "Allow to create/edit/view clients data"
+        },
+        "purchases": {
+            "title": "Purchases",
+            "description": "Allow to create/edit/view purchases data"
+        },
+        "shippings": {
+            "title": "Shippings",
+            "description": "Allow to create/edit/view shippings data"
+        },
+        "suppliers": {
+            "title": "Suppliers",
+            "description": "Allow to create/edit/view suppliers data"
+        },
+        "categories": {
+            "title": "Clients",
+            "description": "Allow to create/edit/view categories data"
+        },
+        "warehouses": {
+            "title": "Warehouses",
+            "description": "Allow to create/edit/view warehouses data"
+        },
+        "sales-reports": {
+            "title": "Sales Reports",
+            "description": "Allow to view sales reports data"
+        }
     }
 }

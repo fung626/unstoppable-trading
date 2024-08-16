@@ -9,24 +9,20 @@
                 </v-toolbar-title>
             </v-toolbar>
             <div class="d-flex justify-content-center">
-                <barcode
+                <vue-barcode
                     class="m-4"
                     v-if="item && item.barcode"
                     :value="item.barcode"
                     :options="{ format: 'CODE39', height: 32 }"
-                ></barcode>
+                ></vue-barcode>
             </div>
             <div class="d-flex justify-content-center">
-                <vue-number-input
-                    class="my-4"
-                    size="small"
+                <v-number-input
+                    class="px-4"
                     v-model="unit"
-                    :min="0"
+                    control-variant="split"
                     :max="item ? item.stock_unit : 0"
-                    inline
-                    center
-                    controls
-                ></vue-number-input>
+                ></v-number-input>
             </div>
             <v-card-actions class="pt-3">
                 <v-spacer></v-spacer>

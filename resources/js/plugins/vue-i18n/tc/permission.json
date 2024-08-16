@@ -1,14 +1,44 @@
 {
     "permission": {
-        "goods": "貨物",
-        "users": "用户",
-        "stocks": "庫存",
-        "clients": "客戶",
-        "purchases": "購買",
-        "shippings": "出貨",
-        "suppliers": "供應商",
-        "categories": "類別",
-        "warehouses": "貨倉",
-        "sales-reports": "銷售報告"
+        "goods": {
+            "title": "貨物",
+            "description": "允許建立/編輯/檢閱貨物資料"
+        },
+        "users": {
+            "title": "用户",
+            "description": "允許建立/編輯/檢閱用户資料"
+        },
+        "stocks": {
+            "title": "庫存",
+            "description": "允許建立/編輯/檢閱庫存資料"
+        },
+        "clients": {
+            "title": "客戶",
+            "description": "允許建立/編輯/檢閱客戶資料"
+        },
+        "purchases": {
+            "title": "購買",
+            "description": "允許建立/編輯/檢閱購買資料"
+        },
+        "shippings": {
+            "title": "出貨",
+            "description": "允許建立/編輯/檢閱出貨資料"
+        },
+        "suppliers": {
+            "title": "供應商",
+            "description": "允許建立/編輯/檢閱供應商資料"
+        },
+        "categories": {
+            "title": "類別",
+            "description": "允許建立/編輯/檢閱類別資料"
+        },
+        "warehouses": {
+            "title": "貨倉",
+            "description": "允許建立/編輯/檢閱貨倉資料"
+        },
+        "sales-reports": {
+            "title": "銷售報告",
+            "description": "允許檢閱貨倉資料"
+        }
     }
 }

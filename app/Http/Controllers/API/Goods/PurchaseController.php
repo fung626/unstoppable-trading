@@ -165,16 +165,12 @@ class PurchaseController extends Controller
             ->join('suppliers', 'suppliers.id', '=', 'goods_purchases.supplier_id')
             ->join('users', 'users.id', '=', 'goods_purchases.user_id');
 
-        if ($request->filled(['sort_by', 'sort_desc'])) {
+        if ($request->filled(['sort_by'])) {
             $sortBys = request('sort_by');
-            $sortDescs = request('sort_desc');
-            $index = 0;
             foreach ($sortBys as $sortBy) {
-                $sortDesc = $sortDescs[$index];
-                if ($sortBy !== "actions") {
-                    $query->orderBy($sortBy, $sortDesc ? 'DESC' : 'ASC');
+                if ($sortBy["key"] && $sortBy["order"]) {
+                    $query->orderBy($sortBy["key"], $sortBy["order"]);
                 }
-                $index++;
             }
         }
 
@@ -328,16 +324,12 @@ class PurchaseController extends Controller
             ->join('supplier', 'supplier.id', '=', 'goods_purchases.supplier_id')
             ->join('users', 'users.id', '=', 'goods_purchases.user_id');
 
-        if ($request->filled(['sort_by', 'sort_desc'])) {
+        if ($request->filled(['sort_by'])) {
             $sortBys = request('sort_by');
-            $sortDescs = request('sort_desc');
-            $index = 0;
             foreach ($sortBys as $sortBy) {
-                $sortDesc = $sortDescs[$index];
-                if ($sortBy !== "actions") {
-                    $query->orderBy($sortBy, $sortDesc ? 'DESC' : 'ASC');
+                if ($sortBy["key"] && $sortBy["order"]) {
+                    $query->orderBy($sortBy["key"], $sortBy["order"]);
                 }
-                $index++;
             }
         }
 

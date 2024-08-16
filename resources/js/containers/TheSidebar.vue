@@ -44,8 +44,6 @@ import { TheSidebarNav } from "./TheSidebarNav.js";
 
 <script>
 import { mapState } from "vuex";
-import _adminNav from "./_adminNav";
-import _employeeNav from "./_employeeNav";
 
 export default {
     computed: {
@@ -64,14 +62,6 @@ export default {
         toggleUnfoldable() {
             this.$store.dispatch("ui/sidebar/toggleUnfoldable");
         },
-    },
-    mounted() {
-        if (this.$store.getters.isAdmin) {
-            this.nav = _adminNav;
-        } else {
-            this.nav = _employeeNav;
-        }
-        // this.nav = _adminNav;
     },
 };
 </script>

@@ -7,10 +7,14 @@ import {
 } from "@coreui/vue";
 import { defineComponent, h, onMounted, ref, resolveComponent } from "vue";
 import { RouterLink, useRoute } from "vue-router";
-import nav from "./_adminNav.js";
+import store from "../store";
 
 import simplebar from "simplebar-vue";
 import "simplebar-vue/dist/simplebar.min.css";
+import _adminNav from "./_adminNav";
+import _employeeNav from "./_employeeNav";
+
+const { isAdmin } = store.getters;
 
 const normalizePath = (path) =>
     decodeURI(path)
@@ -46,12 +50,18 @@ const isActiveItem = (route, item) => {
 
 const TheSidebarNav = defineComponent({
     name: "TheSidebarNav",
+    data() {
+        return {
+            nav: [],
+            buffor: [],
+        };
+    },
     components: {
         CNavItem,
         CNavGroup,
         CNavTitle,
     },
-    setup() {
+    setup(props, context) {
         const route = useRoute();
         const firstRender = ref(true);
 
@@ -85,7 +95,6 @@ const TheSidebarNav = defineComponent({
                     }
                 );
             }
-
             return item.to
                 ? h(
                       RouterLink,
@@ -153,7 +162,10 @@ const TheSidebarNav = defineComponent({
                     as: simplebar,
                 },
                 {
-                    default: () => nav.map((item) => renderItem(item)),
+                    default: () =>
+                        isAdmin
+                            ? _adminNav.map((item) => renderItem(item))
+                            : _employeeNav.map((item) => renderItem(item)),
                 }
             );
     },

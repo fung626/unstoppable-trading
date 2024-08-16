@@ -318,12 +318,26 @@ import {
     goodsSizes,
     shippingStatus,
 } from "@/constants";
+import { mapState } from "vuex";
 
 export default {
     name: "CreateShipping",
     components: {
         Dialog,
         ScannerDialog,
+    },
+    computed: {
+        ...mapState(["goods/shipping"]),
+        shippingData() {
+            return this["goods/shipping"].shippingData;
+        },
+        items() {
+            let data = this["goods/shipping"].formattedShipData;
+            if (data) {
+                return JSON.parse(JSON.stringify(data));
+            }
+            return [];
+        },
     },
     data() {
         return {

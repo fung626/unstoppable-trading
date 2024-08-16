@@ -75,7 +75,7 @@ export default {
                     this.$t("info"),
                     this.$t("employee"),
                     this.$t("duty"),
-                    this.$t("permission"),
+                    this.$t("permissions"),
                 ],
                 index: 0,
             },

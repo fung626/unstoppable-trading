@@ -1,4 +1,5 @@
 <template>
+    <Snackbar />
     <CCard class="border-0">
         <v-progress-linear
             :active="fetchLoading"
@@ -84,12 +85,16 @@
 </template>
 <script>
 //
+import { Snackbar } from "@/components";
 import { roles } from "@/constants";
 
 export default {
     name: "UserForm",
     props: {
         id: null,
+    },
+    components: {
+        Snackbar,
     },
     data() {
         return {

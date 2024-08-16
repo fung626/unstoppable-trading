@@ -14,7 +14,7 @@
                     dense
                     clearable
                 ></v-text-field>
-                <v-text-field
+                <v-textarea
                     v-model="description"
                     :label="$t('description')"
                     :error="errors.description ? true : false"
@@ -22,7 +22,7 @@
                     outlined
                     dense
                     clearable
-                ></v-text-field>
+                ></v-textarea>
                 <CButton @click="submit" color="primary" class="px-4">
                     <v-progress-circular
                         v-if="loading"

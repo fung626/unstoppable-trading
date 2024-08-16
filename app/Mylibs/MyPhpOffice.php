@@ -64,9 +64,11 @@ class MyPhpOffice
             $index++;
         }
 
-        $now = Carbon::now()->format('Y-m-d_H:i:s');
+        $now = Carbon::now()->format('Y-m-d_His');
         $docname = 'export_' . strtolower($name) . '_table_' . $now;
         $path = storage_path(self::$tempPath . $docname . '.docx');
+        // dd($path);
+
         $phpWord->save($path);
 
         if ($extension === 'pdf') {
@@ -84,7 +86,7 @@ class MyPhpOffice
             unlink($path); // delete the docx file manually
             $path = storage_path(self::$tempPath . $docname . '.' . $extension);
         }
-
+        // dd($path);
         return $path;
     }
 
@@ -113,7 +115,7 @@ class MyPhpOffice
             $outdir = storage_path(self::$tempPath);
             // $command = "libreoffice --headless --convert-to pdf $path --outdir $outdir";
             // $process = new Process(['libreoffice', '--headless', "--convert-to pdf $path", "--outdir $outdir"]);
-            $process = new Process(["libreoffice", '--headless', '--convert-to', request('extension'), $path, '--outdir', $outdir]);
+            $process = new Process(["libreoffice", '--headless', '--convert-to', request('extension'), $path, '--outdir', $x]);
             // $process->run();
             try {
                 $process->mustRun();

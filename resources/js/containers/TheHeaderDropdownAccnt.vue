@@ -13,6 +13,12 @@
             <CDropdownItem href="/profile">
                 <CIcon icon="cil-user" /> {{ $t("profile") }}
             </CDropdownItem>
+            <CDropdownItem
+                v-if="$store.getters.isEmployee"
+                :to="`leave/create/${$store.getters.authUser.id}`"
+            >
+                <CIcon name="cil-spreadsheet" /> {{ $t("leave") }}
+            </CDropdownItem>
             <CDropdownItem @click="logout">
                 <CIcon icon="cil-lock-locked" />
                 {{ $t("logout") }}
