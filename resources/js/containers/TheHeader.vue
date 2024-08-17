@@ -54,7 +54,7 @@ onMounted(() => {
                         <CIcon icon="cil-list" size="lg" />
                     </CNavLink>
                 </CNavItem> -->
-                <CNavItem class="position-relative">
+                <!-- <CNavItem class="position-relative">
                     <CNavLink href="#">
                         <CIcon icon="cil-send" size="lg" />
                     </CNavLink>
@@ -66,8 +66,9 @@ onMounted(() => {
                     >
                         99+
                     </CBadge>
-                </CNavItem>
+                </CNavItem> -->
             </CHeaderNav>
+            <TheHeaderDropdownShipping />
             <CHeaderNav>
                 <li class="nav-item py-1">
                     <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
@@ -144,10 +145,12 @@ onMounted(() => {
 <script>
 import { mapState } from "vuex";
 import TheHeaderDropdownAccnt from "./TheHeaderDropdownAccnt.vue";
+import TheHeaderDropdownShipping from "./TheHeaderDropdownShipping.vue";
 
 export default {
     components: {
         TheHeaderDropdownAccnt,
+        TheHeaderDropdownShipping,
     },
     computed: {
         ...mapState(["ui/sidebar"]),

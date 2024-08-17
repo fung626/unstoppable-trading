@@ -80,8 +80,9 @@ export default {
     },
     methods: {
         open(id, item) {
-            this.title = `
-            ${this.$t("shippings.title")}－${item.goods.name}－${item.color}`;
+            this.title = `${this.$t("shippings.title")}－${item.goods.name}－${
+                item.color
+            }`;
             this.dialog = true;
             this.id = id;
             this.item = item;

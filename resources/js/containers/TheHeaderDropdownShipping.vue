@@ -1,46 +1,41 @@
 <template>
-    <div>
-        <CDropdown
-            inNav
-            class="c-header-nav-items"
-            placement="bottom-end"
-            add-menu-classes="pt-0"
-        >
-            <template #toggler>
-                <CHeaderNavLink>
-                    <CHeaderNavLink>
-                        <CIcon name="cil-truck" />
-                        <div v-if="show()">
-                            <CBadge color="info">
-                                {{ data.length }}
-                            </CBadge>
-                        </div>
-                    </CHeaderNavLink>
-                </CHeaderNavLink>
-            </template>
-            <CDropdownHeader tag="div" class="text-center" color="light">
-                <strong>{{ $t("shippings.title") }}{{ $t("table") }}</strong>
-            </CDropdownHeader>
-            <div v-if="show()">
-                <CDropdownItem v-for="item in data" :key="item.id">
-                    {{ item.goods.name }} － {{ item.color }} {{ item.size }} －
-                    {{ $t("unit") }} {{ item.unit }}
+    <CHeaderNav v-if="show()">
+        <CDropdown variant="nav-item" placement="bottom-end">
+            <CDropdownToggle :caret="false">
+                <CIcon name="cil-truck" />
+                <CBadge color="danger" position="top-end" shape="rounded-pill">
+                    {{ data.length > 99 ? "99+" : data.length }}
+                </CBadge>
+            </CDropdownToggle>
+            <CDropdownMenu class="pt-0">
+                <CDropdownHeader
+                    component="h6"
+                    class="bg-body-secondary text-body-secondary fw-semibold mb-2 rounded-top"
+                >
+                    <strong>
+                        {{ $t("shippings.title") }}{{ $t("table") }}
+                    </strong>
+                </CDropdownHeader>
+                <div v-if="show()">
+                    <CDropdownItem v-for="item in data" :key="item.id">
+                        {{ item.goods.name }} － {{ item.color }}
+                        {{ item.size }} － {{ $t("unit") }} {{ item.unit }}
+                    </CDropdownItem>
+                </div>
+                <div v-else>
+                    <CDropdownItem>
+                        {{ $t("empty") }}
+                    </CDropdownItem>
+                </div>
+                <CDropdownItem href="#/shippings/create">
+                    <CIcon icon="cil-check-alt" /> {{ $t("button.confirm") }}
                 </CDropdownItem>
-            </div>
-            <div v-else>
-                <CDropdownItem>
-                    {{ $t("empty") }}
+                <CDropdownItem @click="clear">
+                    <CIcon icon="cil-x" /> {{ $t("button.clear") }}
                 </CDropdownItem>
-            </div>
-            <CDropdownDivider />
-            <CDropdownItem to="/shipping/create">
-                {{ $t("button.confirm") }}
-            </CDropdownItem>
-            <CDropdownItem v-if="show()" @click="clear">
-                {{ $t("button.clear") }}
-            </CDropdownItem>
+            </CDropdownMenu>
         </CDropdown>
-    </div>
+    </CHeaderNav>
 </template>
 
 <script>

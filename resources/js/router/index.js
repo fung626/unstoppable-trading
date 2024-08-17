@@ -33,6 +33,11 @@ const routes = [
                 component: () => import("@/views/profile/Profile.vue"),
             },
             {
+                path: "leave/create/:id",
+                name: "leave",
+                component: () => import("@/views/leave/CreateLeave.vue"),
+            },
+            {
                 path: "sales-reports",
                 name: "route.sales-reports.home",
                 component: {

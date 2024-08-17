@@ -169,7 +169,7 @@
                         :search="table.item.search"
                         :loading="fetchLoading.table"
                     >
-                        <template v-slot:body="{ items, headers }">
+                        <!-- <template v-slot:body="{ items, headers }">
                             <tbody>
                                 <tr v-for="(item, idx) in items" :key="idx">
                                     <td
@@ -293,7 +293,7 @@
                                     </td>
                                 </tr>
                             </tbody>
-                        </template>
+                        </template> -->
                     </v-data-table>
                     <hr />
                     <CButton @click="submit" color="primary" class="px-4">
@@ -327,12 +327,12 @@ export default {
         ScannerDialog,
     },
     computed: {
-        ...mapState(["goods/shipping"]),
+        ...mapState(["goods/shippings"]),
         shippingData() {
-            return this["goods/shipping"].shippingData;
+            return this["goods/shippings"].shippingData;
         },
         items() {
-            let data = this["goods/shipping"].formattedShipData;
+            let data = this["goods/shippings"].formattedShipData;
             if (data) {
                 return JSON.parse(JSON.stringify(data));
             }
@@ -369,25 +369,25 @@ export default {
                 item: {
                     search: "",
                     headers: [
-                        { text: "#ID", value: "id" },
+                        { title: "#ID", value: "id" },
                         { title: this.$t("name"), value: "name" },
                         { title: this.$t("type"), value: "type" },
                         { title: this.$t("cup"), value: "cup" },
                         { title: this.$t("color"), value: "color" },
-                        { text: "32-S", value: "32-S" },
-                        { text: "34-M", value: "34-M" },
-                        { text: "36-L", value: "36-L" },
-                        { text: "38-XL", value: "38-XL" },
-                        { text: "40-Q", value: "40-Q" },
-                        { text: "42-EQ", value: "42-EQ" },
-                        { text: "44-Free", value: "44-Free" },
+                        { title: "32-S", value: "32-S" },
+                        { title: "34-M", value: "34-M" },
+                        { title: "36-L", value: "36-L" },
+                        { title: "38-XL", value: "38-XL" },
+                        { title: "40-Q", value: "40-Q" },
+                        { title: "42-EQ", value: "42-EQ" },
+                        { title: "44-Free", value: "44-Free" },
                         {
-                            text: `${this.$t("unitprice")}($)`,
+                            title: `${this.$t("unitprice")}($)`,
                             value: "unit_price",
                         },
                         { title: this.$t("totalunit"), value: "total_unit" },
                         {
-                            text: `${this.$t("cost")}($)`,
+                            title: `${this.$t("cost")}($)`,
                             value: "cost",
                         },
                     ],
@@ -421,6 +421,7 @@ export default {
     },
     methods: {
         fetch() {
+            console.log("fetch");
             let self = this;
             if (self.fetchLoading.table || this.shippingData.length === 0) {
                 return;
@@ -432,6 +433,7 @@ export default {
             this.$store
                 .dispatch("goods/shippings/format", data)
                 .then((response) => {
+                    console.log(response);
                     self.updateTable();
                     self.fetchLoading.table = false;
                 })

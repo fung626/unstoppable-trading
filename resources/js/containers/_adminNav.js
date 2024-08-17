@@ -31,7 +31,7 @@ export default [
         component: "CNavItem",
         name: t("duty"),
         to: "/duty",
-        icon: "cil-view-quilt",
+        icon: "cil-calendar-check",
     },
     {
         component: "CNavItem",
