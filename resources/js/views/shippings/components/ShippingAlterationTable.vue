@@ -41,15 +41,6 @@
         </CRow>
         <v-data-table
             class="elevation-1"
-            :page="page"
-            :pageCount="pageCount"
-            :headers="headers"
-            :items="items"
-            :options.sync="options"
-            :server-items-length="serverItemsLength"
-            :loading="loading"
-            :sort-by.sync="sortBy"
-            :sort-desc.sync="sortDesc"
             :footer-props="{
                 disableItemsPerPage: disableItemsPerPage,
                 disablePagination: disablePagination,
@@ -86,7 +77,7 @@ export default {
     },
     data() {
         return {
-            searchText: null,
+            search: null,
             page: 1,
             serverItemsLength: 0,
             pageCount: 0,
@@ -99,35 +90,35 @@ export default {
             disablePagination: false,
             headers: [
                 {
-                    text: `${this.$t("name")}`,
+                    title: `${this.$t("name")}`,
                     value: "item.goods.name",
                 },
                 {
-                    text: `${this.$t("type")}`,
+                    title: `${this.$t("type")}`,
                     value: "item.goods.type",
                 },
                 {
-                    text: `${this.$t("size")}`,
+                    title: `${this.$t("size")}`,
                     value: "item.size",
                 },
                 {
-                    text: `${this.$t("color")}`,
+                    title: `${this.$t("color")}`,
                     value: "item.color",
                 },
                 {
-                    text: `${this.$t("barcode")}`,
+                    title: `${this.$t("barcode")}`,
                     value: "item.barcode",
                 },
                 {
-                    text: `${this.$t("unit")}`,
+                    title: `${this.$t("unit")}`,
                     value: "unit",
                 },
                 {
-                    text: `${this.$t("altered")}${this.$t("unit")}`,
+                    title: `${this.$t("altered")}${this.$t("unit")}`,
                     value: "altered_unit",
                 },
                 {
-                    text: `${this.$t("alteration")}${this.$t("type")}`,
+                    title: `${this.$t("alteration")}${this.$t("type")}`,
                     value: "type",
                 },
                 { title: this.$t("updatedat"), value: "updated_at" },

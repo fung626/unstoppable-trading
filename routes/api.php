@@ -10,6 +10,7 @@ use App\Http\Controllers\API\ExchangeRateController;
 use App\Http\Controllers\API\Goods\BarcodeController;
 use App\Http\Controllers\API\Goods\CategoryController;
 use App\Http\Controllers\API\Goods\ContentController;
+use App\Http\Controllers\API\Goods\CreateShippingConfigController;
 use App\Http\Controllers\API\Goods\GoodsController;
 use App\Http\Controllers\API\Goods\ItemController;
 use App\Http\Controllers\API\Goods\PurchaseController;
@@ -196,6 +197,10 @@ Route::prefix('goods/shippings')->middleware(['auth:api', 'scopes:shippings', 'l
     Route::post('update', [ShippingController::class, 'update']);
     Route::post('export', [ShippingController::class, 'export']);
     Route::post('format', [ShippingController::class, 'format']);
+});
+
+Route::prefix('goods/create-shipping-config')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
+    Route::post('get', [CreateShippingConfigController::class, 'get']);
 });
 
 Route::prefix('goods/shippings/alteration')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {

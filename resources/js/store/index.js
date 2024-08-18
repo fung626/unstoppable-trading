@@ -9,6 +9,7 @@ import Dashboard from "./Dashboard";
 import ExchangeRate from "./ExchangeRate";
 import Goods from "./Goods";
 import GoodsContent from "./GoodsContent";
+import GoodsCreateShippingConfig from "./GoodsCreateShippingConfig";
 import GoodsItem from "./GoodsItem";
 import GoodsShipping from "./GoodsShipping";
 import GoodsShippingAlteration from "./GoodsShippingAlteration";
@@ -76,6 +77,7 @@ export default createStore({
         ["goods/purchases"]: Purchases,
         ["goods/purchases/invoices"]: PurchaseInvoice,
         ["goods/purchases/stocktakes"]: PurchaseStockTake,
+        ["goods/create-shipping-config"]: GoodsCreateShippingConfig,
         ["sales-reports"]: SalesReports,
         ["sales-reports/chart"]: SalesReportChart,
         ["sales-reports/stockchart"]: SalesReportStockChart,

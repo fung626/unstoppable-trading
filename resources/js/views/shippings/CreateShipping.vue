@@ -28,9 +28,9 @@
                 <form>
                     <v-autocomplete
                         v-model="client"
+                        v-model:search="search"
                         :items="autocomplete.client.items"
                         :loading="autocomplete.client.loading"
-                        @update:search="getClients"
                         required
                         outlined
                         dense
@@ -150,7 +150,7 @@
                     ></v-select>
                     <hr />
                     <CRow class="p-2">
-                        <CCol md="12" sm="12">
+                        <CCol>
                             <CInputGroup class="mb-3">
                                 <CButton color="primary" size="sm">
                                     <CIcon
@@ -158,7 +158,10 @@
                                         size="sm"
                                     />
                                 </CButton>
-                                <CFormInput size="sm" v-model="search" />
+                                <CFormInput
+                                    size="sm"
+                                    v-model="table.item.search"
+                                />
                             </CInputGroup>
                         </CCol>
                     </CRow>
@@ -169,6 +172,123 @@
                         :search="table.item.search"
                         :loading="fetchLoading.table"
                     >
+                        <template v-slot:loading>
+                            <v-skeleton-loader
+                                type="table-row@10"
+                            ></v-skeleton-loader>
+                        </template>
+                        <template v-slot:[`item.32-S`]="{ index, item }">
+                            <div>
+                                <v-text-field
+                                    v-if="item['32-S']"
+                                    v-model="item['32-S'].unit"
+                                    type="number"
+                                    variant="plain"
+                                    hide-details
+                                    required
+                                    dense
+                                    clearable
+                                    @change="change(index, item)"
+                                ></v-text-field>
+                                <span v-else>－</span>
+                            </div>
+                        </template>
+                        <template v-slot:[`item.34-M`]="{ index, item }">
+                            <div>
+                                <v-text-field
+                                    v-if="item['34-M']"
+                                    v-model="item['34-M'].unit"
+                                    type="number"
+                                    variant="plain"
+                                    hide-details
+                                    required
+                                    dense
+                                    clearable
+                                    @change="change(index, item)"
+                                ></v-text-field>
+                                <span v-else>－</span>
+                            </div>
+                        </template>
+                        <template v-slot:[`item.36-L`]="{ index, item }">
+                            <div>
+                                <v-text-field
+                                    v-if="item['36-L']"
+                                    v-model="item['36-L'].unit"
+                                    type="number"
+                                    variant="plain"
+                                    hide-details
+                                    required
+                                    dense
+                                    clearable
+                                    @change="change(index, item)"
+                                ></v-text-field>
+                                <span v-else>－</span>
+                            </div>
+                        </template>
+                        <template v-slot:[`item.38-XL`]="{ index, item }">
+                            <div>
+                                <v-text-field
+                                    v-if="item['38-XL']"
+                                    v-model="item['38-XL'].unit"
+                                    type="number"
+                                    variant="plain"
+                                    hide-details
+                                    required
+                                    dense
+                                    clearable
+                                    @change="change(index, item)"
+                                ></v-text-field>
+                                <span v-else>－</span>
+                            </div>
+                        </template>
+                        <template v-slot:[`item.40-Q`]="{ index, item }">
+                            <div>
+                                <v-text-field
+                                    v-if="item['40-Q']"
+                                    v-model="item['40-Q'].unit"
+                                    type="number"
+                                    variant="plain"
+                                    hide-details
+                                    required
+                                    dense
+                                    clearable
+                                    @change="change(index, item)"
+                                ></v-text-field>
+                                <span v-else>－</span>
+                            </div>
+                        </template>
+                        <template v-slot:[`item.42-EQ`]="{ index, item }">
+                            <div>
+                                <v-text-field
+                                    v-if="item['42-EQ']"
+                                    v-model="item['42-EQ'].unit"
+                                    type="number"
+                                    variant="plain"
+                                    hide-details
+                                    required
+                                    dense
+                                    clearable
+                                    @change="change(index, item)"
+                                ></v-text-field>
+                                <span v-else>－</span>
+                            </div>
+                        </template>
+                        <template v-slot:[`item.44-Free`]="{ index, item }">
+                            <div>
+                                <v-text-field
+                                    v-if="item['44-Free']"
+                                    v-model="item['44-Free'].unit"
+                                    type="number"
+                                    variant="plain"
+                                    hide-details
+                                    required
+                                    dense
+                                    clearable
+                                    @change="change(index, item)"
+                                ></v-text-field>
+                                <span v-else>－</span>
+                            </div>
+                        </template>
                         <!-- <template v-slot:body="{ items, headers }">
                             <tbody>
                                 <tr v-for="(item, idx) in items" :key="idx">
@@ -327,16 +447,17 @@ export default {
         ScannerDialog,
     },
     computed: {
+        ...mapState(["goods/create-shipping-config"]),
         ...mapState(["goods/shippings"]),
-        shippingData() {
-            return this["goods/shippings"].shippingData;
-        },
-        items() {
-            let data = this["goods/shippings"].formattedShipData;
+        config() {
+            let data = this["goods/create-shipping-config"].data;
             if (data) {
                 return JSON.parse(JSON.stringify(data));
             }
-            return [];
+            return {};
+        },
+        shippingData() {
+            return this["goods/shippings"].shippingData;
         },
     },
     data() {
@@ -346,6 +467,7 @@ export default {
                 table: false,
             },
             loading: false,
+            items: [],
             totalunit: 0,
             subtotal: 0,
             error: false,
@@ -405,41 +527,46 @@ export default {
         },
         client() {
             // console.log(this.client);
-            this.number = this.client.number;
-            this.name = this.client.name;
-            this.contact = this.client.contact;
-            this.phoneCountryCode = this.client.phone_country_code;
-            this.phone = this.client.phone;
-            this.email = this.client.email;
-            this.address = this.client.address;
-            this.currency = this.client.currency;
+            if (this.client) {
+                this.number = this.client.number;
+                this.name = this.client.name;
+                this.contact = this.client.contact;
+                this.phoneCountryCode = this.client.phone_country_code;
+                this.phone = this.client.phone;
+                this.email = this.client.email;
+                this.address = this.client.address;
+                this.currency = this.client.currency;
+            }
         },
     },
     mounted() {
         this.fetch();
-        this.getClients();
     },
     methods: {
         fetch() {
-            console.log("fetch");
             let self = this;
-            if (self.fetchLoading.table || this.shippingData.length === 0) {
+            if (self.fetchLoading.table) {
                 return;
             }
             self.fetchLoading.table = true;
+            self.autocomplete.client.loading = true;
             let data = {
                 items: this.shippingData,
             };
             this.$store
-                .dispatch("goods/shippings/format", data)
+                .dispatch("goods/create-shipping-config/get", data)
                 .then((response) => {
-                    console.log(response);
-                    self.updateTable();
+                    // console.log(response);
+                    self.autocomplete.client.items = response.data.clients;
+                    self.items = response.data.items;
                     self.fetchLoading.table = false;
+                    self.autocomplete.client.loading = false;
+                    self.updateTable();
                 })
                 .catch((error) => {
-                    self.updateTable();
                     self.fetchLoading.table = false;
+                    self.autocomplete.client.loading = false;
+                    self.updateTable();
                 });
         },
         submit() {
@@ -505,23 +632,6 @@ export default {
                 this.totalunit += item.total_unit;
                 this.subtotal += item.cost;
             }
-        },
-        getClients() {
-            let self = this;
-            let cli = self.autocomplete.client;
-            if (cli.items.length > 0 || cli.loading) {
-                return;
-            }
-            self.autocomplete.client.loading = true;
-            this.$store
-                .dispatch("clients/get", {})
-                .then((response) => {
-                    self.autocomplete.client.items = response.data;
-                    self.autocomplete.client.loading = false;
-                })
-                .catch((error) => {
-                    self.autocomplete.client.loading = false;
-                });
         },
         async scanner() {
             await this.$refs.scannerDialog.open("Shipping");

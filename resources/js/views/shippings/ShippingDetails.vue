@@ -17,19 +17,19 @@
                         </CTabList>
                         <CTabContent>
                             <CTabPanel class="p-3" :itemKey="0">
-                                <ShippingInvoice
+                                <!-- <ShippingInvoice
                                     :id="this.$route.params.id"
-                                ></ShippingInvoice>
+                                ></ShippingInvoice> -->
                             </CTabPanel>
                             <CTabPanel class="p-3" :itemKey="1">
-                                <NewShippingItemTable
+                                <!-- <NewShippingItemTable
                                     :goodsShipId="this.$route.params.id"
-                                ></NewShippingItemTable>
+                                ></NewShippingItemTable> -->
                             </CTabPanel>
                             <CTabPanel class="p-3" :itemKey="2">
-                                <ShippingAlterationTable
+                                <!-- <ShippingAlterationTable
                                     :goodsShipId="this.$route.params.id"
-                                ></ShippingAlterationTable>
+                                ></ShippingAlterationTable> -->
                             </CTabPanel>
                         </CTabContent>
                     </CTabs>
