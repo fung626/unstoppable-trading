@@ -149,11 +149,11 @@ export default {
                         { title: "42-EQ", value: "42-EQ.unit" },
                         { title: "44-Free", value: "44-Free.unit" },
                         {
-                            title: `${this.$t("unitprice")}($)`,
+                            title: `${this.$t("unit-price")}($)`,
                             value: "formatted_unit_price",
                         },
                         {
-                            title: `${this.$t("totalunit")}`,
+                            title: `${this.$t("total-unit")}`,
                             value: "total_unit",
                         },
                         {

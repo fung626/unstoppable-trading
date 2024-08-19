@@ -82,6 +82,8 @@
                     :headers="table.item.headers"
                     :items="shippingItems"
                     :search="search"
+                    hide-default-footer
+                    hide-default-header
                     :mobile-breakpoint="0"
                 >
                     <!-- <template v-slot:body="{ items, headers }">
@@ -193,11 +195,14 @@ export default {
             return this["goods/shippings"].detailsData.header_items;
         },
         shippingItems() {
-            return JSON.parse(
-                JSON.stringify(
-                    this["goods/shippings"].detailsData.shipping_items
-                )
-            );
+            if (this["goods/shippings"]) {
+                return JSON.parse(
+                    JSON.stringify(
+                        this["goods/shippings"].detailsData.shipping_items
+                    )
+                );
+            }
+            return [];
         },
         footerItems() {
             return this["goods/shippings"].detailsData.footer_items;
@@ -255,10 +260,10 @@ export default {
                         { title: "42-EQ", value: "42-EQ" },
                         { title: "44-Free", value: "44-Free" },
                         {
-                            title: `${this.$t("unitprice")}($)`,
+                            title: `${this.$t("unit-price")}($)`,
                             value: "formatted_unit_price",
                         },
-                        { title: this.$t("totalunit"), value: "total_unit" },
+                        { title: this.$t("total-unit"), value: "total_unit" },
                         {
                             title: `${this.$t("cost")}($)`,
                             value: "formatted_cost",

@@ -5,8 +5,8 @@ import axios from "../../utils/myAxios";
 import * as types from "./mutation-types";
 
 const { t } = i18n.global;
-const endpoint = "/api/goods/shippings/available/shipping/item/";
-const name = "goods/shippings/available/shipping/item";
+const endpoint = "/api/goods/shippings/available-shippings-items/";
+const name = "goods/shippings/available-shippings-items";
 
 export default {
     [`${name}/get`]({ commit, dispatch }, payload) {

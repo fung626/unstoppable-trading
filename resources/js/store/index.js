@@ -69,7 +69,7 @@ export default createStore({
             GoodsShippingPurchaseQuickSearch,
         ["goods/shippings/mailer"]: GoodsShipingMailer,
         ["goods/shippings/invoices"]: GoodsShippingInvoice,
-        ["goods/shippings/available/shipping/item"]:
+        ["goods/shippings/available-shippings-items"]:
             GoodsShipAvailableShippingItems,
         ["goods/shippings/alteration"]: GoodsShippingAlteration,
         ["goods/stocks"]: GoodsStock,

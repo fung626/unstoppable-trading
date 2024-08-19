@@ -140,7 +140,7 @@ export default {
                     value: "client_address",
                 },
                 {
-                    title: `${this.$t("totalunit")}`,
+                    title: `${this.$t("total-unit")}`,
                     value: "total_unit",
                     sortable: false,
                 },

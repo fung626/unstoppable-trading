@@ -208,7 +208,7 @@ Route::prefix('goods/shippings/alteration')->middleware(['auth:api', 'scopes:shi
     Route::post('export', [ShippingAlterationController::class, 'export']);
 });
 
-Route::prefix('goods/shippings/available/shippings/items')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
+Route::prefix('goods/shippings/available-shippings-items')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
     Route::post('get', [AvailableShippingItemController::class, 'get']);
 });
 

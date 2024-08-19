@@ -378,7 +378,7 @@
                                     <td></td>
                                     <td></td>
                                     <td class="p-2" colspan="4">
-                                        {{ $t("totalunit") }} {{ ": " }}
+                                        {{ $t("total-unit") }} {{ ": " }}
                                         <span v-if="totalunit">
                                             {{ totalunit.toLocaleString() }}
                                         </span>
@@ -504,10 +504,10 @@ export default {
                         { title: "42-EQ", value: "42-EQ" },
                         { title: "44-Free", value: "44-Free" },
                         {
-                            title: `${this.$t("unitprice")}($)`,
+                            title: `${this.$t("unit-price")}($)`,
                             value: "unit_price",
                         },
-                        { title: this.$t("totalunit"), value: "total_unit" },
+                        { title: this.$t("total-unit"), value: "total_unit" },
                         {
                             title: `${this.$t("cost")}($)`,
                             value: "cost",

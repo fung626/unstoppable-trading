@@ -202,20 +202,21 @@ export default {
         NewShippingItemDialog,
     },
     computed: {
-        ...mapState(["goods/shippings/available/shipping/item"]),
+        ...mapState(["goods/shippings/available-shippings-items"]),
         serverItemsLength() {
-            return this["goods/shippings/available/shipping/item"].data?.total;
+            return this["goods/shippings/available-shippings-items"].data
+                ?.total;
         },
         pageCount() {
-            return this["goods/shippings/available/shipping/item"].data
+            return this["goods/shippings/available-shippings-items"].data
                 ?.last_page;
         },
         page() {
-            return this["goods/shippings/available/shipping/item"].data
+            return this["goods/shippings/available-shippings-items"].data
                 ?.current_page;
         },
         items() {
-            return this["goods/shippings/available/shipping/item"].data?.data;
+            return this["goods/shippings/available-shippings-items"].data?.data;
         },
     },
     data() {
@@ -240,7 +241,7 @@ export default {
                 { title: "42-EQ", value: "42-EQ", sortable: false },
                 { title: "44-Free", value: "44-Free", sortable: false },
                 {
-                    title: this.$t("totalunit"),
+                    title: this.$t("total-unit"),
                     value: "total_unit",
                     sortable: false,
                 },
@@ -280,7 +281,7 @@ export default {
                 search: search,
             };
             this.$store
-                .dispatch("goods/shippings/available/shipping/item/get", data)
+                .dispatch("goods/shippings/available-shippings-items/get", data)
                 .then((response) => {
                     self.loading = false;
                 })

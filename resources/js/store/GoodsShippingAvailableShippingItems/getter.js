@@ -1,4 +1,4 @@
-const name = "goods/shippings/available/shipping/item";
+const name = "goods/shippings/available-shippings-items";
 
 export default {
     [`${name}/data`](state) {

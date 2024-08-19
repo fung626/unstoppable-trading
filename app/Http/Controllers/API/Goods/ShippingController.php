@@ -174,7 +174,7 @@ class ShippingController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id' => 'required|string|exists:goods_ship,id',
+            'id' => 'required|string|exists:goods_shippings,id',
             'type' => 'required|string',
         ]);
 

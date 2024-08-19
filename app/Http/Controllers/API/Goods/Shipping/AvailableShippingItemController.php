@@ -20,11 +20,15 @@ class AvailableShippingItemController extends Controller
         'goods',
     ];
 
+    public function __construct()
+    {
+        set_time_limit(60);
+    }
+
     public function get(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
-            'goods_shipping_id' => 'required|string|exists:goods_ship,id',
+            'goods_shipping_id' => 'required|string|exists:goods_shippings,id',
         ]);
 
         if ($validator->fails()) {

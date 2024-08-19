@@ -230,7 +230,7 @@ export default {
                 { title: "42-EQ", value: "42-EQ", sortable: false },
                 { title: "44-Free", value: "44-Free", sortable: false },
                 {
-                    title: this.$t("totalunit"),
+                    title: this.$t("total-unit"),
                     value: "total_unit",
                     sortable: false,
                 },

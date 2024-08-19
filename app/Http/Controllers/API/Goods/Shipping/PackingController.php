@@ -18,7 +18,7 @@ class PackingController extends Controller
     public function export(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'ship_id' => 'required_without:client_id|string|exists:goods_ship,id',
+            'ship_id' => 'required_without:client_id|string|exists:goods_shippings,id',
             'client_id' => 'required_without:ship_id|string|exists:clients,id',
         ]);
 
