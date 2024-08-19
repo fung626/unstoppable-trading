@@ -11,38 +11,40 @@
             <CCardBody>
                 <CRow class="p-2">
                     <CCol class="text-right">
-                        <CButton
-                            color="primary"
-                            size="sm"
-                            v-on:click="exportPackingInfo"
-                            :disabled="loading"
-                        >
-                            {{ $t("button.export") }}{{ $t("packing") }}
-                        </CButton>
-                        <CButton
-                            color="primary"
-                            size="sm"
-                            v-on:click="exportMailerInfo"
-                            :disabled="loading"
-                        >
-                            {{ $t("button.export") }}{{ $t("mailerinfo") }}
-                        </CButton>
-                        <CButton
-                            color="primary"
-                            size="sm"
-                            v-on:click="download"
-                            :disabled="loading"
-                        >
-                            <CIcon name="cil-cloud-download" size="sm" />
-                        </CButton>
-                        <CButton
-                            color="primary"
-                            size="sm"
-                            v-on:click="reload"
-                            :disabled="loading"
-                        >
-                            <CIcon name="cil-reload" size="sm" />
-                        </CButton>
+                        <CButtonGroup>
+                            <CButton
+                                color="primary"
+                                size="sm"
+                                v-on:click="exportPackingInfo"
+                                :disabled="loading"
+                            >
+                                {{ $t("button.export") }}{{ $t("packing") }}
+                            </CButton>
+                            <CButton
+                                color="primary"
+                                size="sm"
+                                v-on:click="exportMailerInfo"
+                                :disabled="loading"
+                            >
+                                {{ $t("button.export") }}{{ $t("mailerinfo") }}
+                            </CButton>
+                            <CButton
+                                color="primary"
+                                size="sm"
+                                v-on:click="download"
+                                :disabled="loading"
+                            >
+                                <CIcon name="cil-cloud-download" size="sm" />
+                            </CButton>
+                            <CButton
+                                color="primary"
+                                size="sm"
+                                v-on:click="reload"
+                                :disabled="loading"
+                            >
+                                <CIcon name="cil-reload" size="sm" />
+                            </CButton>
+                        </CButtonGroup>
                     </CCol>
                 </CRow>
                 <CRow class="p-2">
@@ -78,7 +80,7 @@
                 <v-data-table
                     class="my-2 elevation-1"
                     :headers="table.item.headers"
-                    :items="shipItems"
+                    :items="shippingItems"
                     :search="search"
                     :mobile-breakpoint="0"
                 >
@@ -289,9 +291,6 @@ export default {
         update() {},
         reload() {
             this.fetch();
-        },
-        isRowEditable(value) {
-            return goodsSizes.find((obj) => obj.name === value);
         },
         isCurrencyRow(value) {
             const rows = ["unit_price", "cost"];

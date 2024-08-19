@@ -2,45 +2,44 @@
     <div>
         <Dialog ref="dialog" />
         <CRow class="p-2">
-            <CCol md="9" sm="9">
-                <CInput
-                    size="sm"
-                    v-model="searchText"
-                    v-on:keyup.enter="search"
-                >
-                    <template #prepend>
-                        <CButton
-                            color="primary"
-                            size="sm"
-                            v-on:click="search"
-                            :disabled="loading"
-                        >
-                            <CIcon name="cil-magnifying-glass" size="sm" />
-                        </CButton>
-                    </template>
-                </CInput>
+            <CCol :md="10" :sm="10">
+                <CInputGroup class="mb-3">
+                    <CButton color="primary" size="sm">
+                        <CIcon name="cil-magnifying-glass" size="sm" />
+                    </CButton>
+                    <CFormInput size="sm" v-model="search" />
+                </CInputGroup>
             </CCol>
-            <CCol md="3" sm="3" class="text-right">
-                <CButton
-                    color="primary"
-                    size="sm"
-                    v-on:click="download"
-                    :disabled="loading"
-                >
-                    <CIcon name="cil-cloud-download" size="sm" />
-                </CButton>
-                <CButton
-                    color="primary"
-                    size="sm"
-                    v-on:click="reload"
-                    :disabled="loading"
-                >
-                    <CIcon name="cil-reload" size="sm" />
-                </CButton>
+            <CCol :md="2" :sm="2" class="text-right">
+                <CButtonGroup>
+                    <CButton
+                        color="primary"
+                        size="sm"
+                        v-on:click="download"
+                        :disabled="loading"
+                    >
+                        <CIcon name="cil-cloud-download" size="sm" />
+                    </CButton>
+                    <CButton
+                        color="primary"
+                        size="sm"
+                        v-on:click="reload"
+                        :disabled="loading"
+                    >
+                        <CIcon name="cil-reload" size="sm" />
+                    </CButton>
+                </CButtonGroup>
             </CCol>
         </CRow>
         <v-data-table
             class="elevation-1"
+            :headers="headers"
+            :items="items"
+            :items-length="serverItemsLength"
+            :search="search"
+            :loading="loading"
+            @update:options="fetch"
+            :mobile="mobile"
             :footer-props="{
                 disableItemsPerPage: disableItemsPerPage,
                 disablePagination: disablePagination,
@@ -78,11 +77,12 @@ export default {
     data() {
         return {
             search: null,
+            items: [],
+            loading: false,
+            mobile: window.innerWidth < 769,
             page: 1,
             serverItemsLength: 0,
             pageCount: 0,
-            items: [],
-            loading: false,
             options: {},
             sortBy: "updated_at",
             sortDesc: false,
@@ -125,33 +125,33 @@ export default {
             ],
         };
     },
-    watch: {
-        options: {
-            handler() {
-                this.fetch();
-            },
-        },
-        loading() {
-            this.disableItemsPerPage = this.loading;
-            this.disablePagination = this.loading;
-        },
+    mounted() {
+        window.addEventListener("resize", this.onResize);
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.onResize);
     },
     methods: {
-        fetch(reset = false) {
+        onResize() {
+            this.mobile = window.innerWidth < 769;
+        },
+        fetch({ page, itemsPerPage, sortBy, search }) {
             let self = this;
             self.loading = true;
-            const { page, itemsPerPage, sortBy, sortDesc } = self.options;
+            self.options.page = page;
+            self.options.itemsPerPage = itemsPerPage;
+            self.options.sortBy = sortBy;
             let data = {
-                goods_shipping_id: self.$props.goodsShipId,
-                page: reset ? 1 : page,
+                page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-                sort_desc: sortDesc,
-                keyword: self.searchText,
+                sort_desc: null,
+                search: search,
             };
             this.$store
                 .dispatch("goods/shippings/alteration/get", data)
                 .then((response) => {
+                    // console.log(response);
                     let res = JSON.parse(JSON.stringify(response.data));
                     self.items = res.data;
                     self.serverItemsLength = res.total;
@@ -175,7 +175,7 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                search: self.searchText,
+                search: self.search,
                 extension: "pdf",
             };
             this.$store

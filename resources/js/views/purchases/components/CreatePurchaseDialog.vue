@@ -1,39 +1,50 @@
 <template>
-    <CModal :visible="dialog" :centered="true" :title="title" size="lg">
+    <CModal
+        :visible="dialog"
+        :centered="true"
+        size="lg"
+        @close="() => (dialog = false)"
+    >
+        <CModalHeader>
+            <CModalTitle>{{ title }}</CModalTitle>
+        </CModalHeader>
         <v-progress-linear
             :active="loading"
             indeterminate
             color="cyan"
         ></v-progress-linear>
-        <StreamBarcodeReader
-            @decode="(a, b, c) => onDecode(a, b, c)"
-            @loaded="() => onLoaded()"
-            @error="() => error()"
-        ></StreamBarcodeReader>
-        <div v-if="readerError" class="d-flex justify-content-center">
-            <h4>{{ $t("error.camera") }}</h4>
-        </div>
-        <div class="d-flex justify-content-center">
-            <barcode
-                class="m-4"
-                v-if="barcode"
-                :value="barcode"
-                :options="{ format: 'CODE39', height: 32 }"
-            ></barcode>
-        </div>
-        <div class="d-flex justify-content-center">
-            <vue-number-input
-                class="my-4"
-                size="small"
-                v-model="unit"
-                width="100%"
-                :min="0"
-                inline
-                center
-                controls
-            ></vue-number-input>
-        </div>
-        <template #footer>
+        <CModalBody>
+            <StreamBarcodeReader
+                @decode="(a, b, c) => onDecode(a, b, c)"
+                @loaded="() => onLoaded()"
+                @error="() => error()"
+            ></StreamBarcodeReader>
+            <div v-if="readerError" class="d-flex justify-content-center">
+                <h4>{{ $t("error.camera") }}</h4>
+            </div>
+            <div class="d-flex justify-content-center">
+                <barcode
+                    class="m-4"
+                    v-if="barcode"
+                    :value="barcode"
+                    :options="{ format: 'CODE39', height: 32 }"
+                ></barcode>
+            </div>
+            <div class="d-flex justify-content-center">
+                <v-number-input
+                    class="my-4"
+                    size="small"
+                    v-model="unit"
+                    width="100%"
+                    :min="0"
+                    inline
+                    center
+                    controls
+                    control-variant="split"
+                ></v-number-input>
+            </div>
+        </CModalBody>
+        <CModalFooter>
             <CButton
                 @click="confirm"
                 :disabled="data === null"
@@ -47,7 +58,7 @@
             <CButton @click="cancel" color="secondary" class="px-4 ml-2">
                 {{ $t("button.cancel") }}
             </CButton>
-        </template>
+        </CModalFooter>
     </CModal>
 </template>
 

@@ -558,7 +558,9 @@ export default {
                 .then((response) => {
                     // console.log(response);
                     self.autocomplete.client.items = response.data.clients;
-                    self.items = response.data.items;
+                    self.items = JSON.parse(
+                        JSON.stringify(response.data.items)
+                    );
                     self.fetchLoading.table = false;
                     self.autocomplete.client.loading = false;
                     self.updateTable();
@@ -608,8 +610,8 @@ export default {
             const idx = rows.indexOf(value);
             return idx > -1 ? true : false;
         },
-        save(idx) {
-            let item = this.items[idx];
+        change(idx, item) {
+            // let item = this.items[idx];
             let sizes = goodsSizes;
             let totalunit = 0;
             for (let size of sizes) {

@@ -1,5 +1,8 @@
 <template>
-    <CModal :visible="dialog" :centered="true" :title="title">
+    <CModal :visible="dialog" :centered="true" @close="() => (dialog = false)">
+        <CModalHeader>
+            <CModalTitle>{{ title }}</CModalTitle>
+        </CModalHeader>
         <div class="mb-4">
             <v-progress-linear
                 :active="loading"
@@ -7,55 +10,59 @@
                 color="cyan"
             ></v-progress-linear>
         </div>
-        <div v-for="size in goodsSizes" :key="size.name">
-            <CRow>
-                <CCol>
-                    <div class="d-flex justify-content-center">
-                        {{ size.name }}
-                    </div>
-                </CCol>
-            </CRow>
-            <CRow>
-                <CCol>
-                    <div class="d-flex justify-content-center">
-                        <div v-if="item && item[size.name]">
-                            <vue-number-input
-                                size="small"
-                                v-model="item[size.name].unit"
-                                :min="0"
-                                :max="
-                                    item[size.name]
-                                        ? item[size.name].stock_unit
-                                        : 0
-                                "
-                                inline
-                                center
-                                controls
-                            ></vue-number-input>
+        <CModalBody>
+            <div v-for="size in goodsSizes" :key="size.name">
+                <CRow>
+                    <CCol>
+                        <div class="d-flex justify-content-center">
+                            {{ size.name }}
                         </div>
-                        <div v-else>
-                            <vue-number-input
-                                size="small"
-                                v-model="empty"
-                                :min="0"
-                                :max="0"
-                                inline
-                                center
-                                controls
-                            ></vue-number-input>
+                    </CCol>
+                </CRow>
+                <CRow>
+                    <CCol>
+                        <div class="d-flex justify-content-center">
+                            <div v-if="item && item[size.name]">
+                                <v-number-input
+                                    size="small"
+                                    v-model="item[size.name].unit"
+                                    :min="0"
+                                    :max="
+                                        item[size.name]
+                                            ? item[size.name].stock_unit
+                                            : 0
+                                    "
+                                    inline
+                                    center
+                                    controls
+                                    control-variant="split"
+                                ></v-number-input>
+                            </div>
+                            <div v-else>
+                                <v-number-input
+                                    size="small"
+                                    v-model="empty"
+                                    :min="0"
+                                    :max="0"
+                                    inline
+                                    center
+                                    controls
+                                    control-variant="split"
+                                ></v-number-input>
+                            </div>
                         </div>
-                    </div>
-                </CCol>
-            </CRow>
-        </div>
-        <template #footer>
+                    </CCol>
+                </CRow>
+            </div>
+        </CModalBody>
+        <CModalFooter>
             <CButton @click="confirm" color="danger" class="px-4">
                 {{ $t("button.confirm") }}
             </CButton>
             <CButton @click="cancel" color="secondary" class="px-4 ml-2">
                 {{ $t("button.cancel") }}
             </CButton>
-        </template>
+        </CModalFooter>
     </CModal>
 </template>
 
@@ -110,14 +117,16 @@ export default {
                     let res = JSON.parse(JSON.stringify(response.data));
                     self.items = res;
                     self.loading = false;
+                    console.log(res);
                 })
                 .catch((error) => {
                     self.loading = false;
                 });
         },
         open(item) {
-            this.title = `
-            ${this.$t("shippings.title")}－${item.goods.name}－${item.color}`;
+            this.title = `${this.$t("shippings.title")}－${item.goods.name}－${
+                item.color
+            }`;
             this.dialog = true;
             let data = this.shippingData;
             let subData = goodsSizes;

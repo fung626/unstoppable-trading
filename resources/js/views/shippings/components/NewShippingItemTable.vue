@@ -2,25 +2,15 @@
     <div>
         <NewShippingItemDialog ref="dialog" />
         <CRow class="p-2">
-            <CCol md="9" sm="9">
-                <CInput
-                    size="sm"
-                    v-model="searchText"
-                    v-on:keyup.enter="search"
-                >
-                    <template #prepend>
-                        <CButton
-                            color="primary"
-                            size="sm"
-                            v-on:click="search"
-                            :disabled="loading"
-                        >
-                            <CIcon name="cil-magnifying-glass" size="sm" />
-                        </CButton>
-                    </template>
-                </CInput>
+            <CCol :md="10" :sm="10">
+                <CInputGroup class="mb-3">
+                    <CButton color="primary" size="sm">
+                        <CIcon name="cil-magnifying-glass" size="sm" />
+                    </CButton>
+                    <CFormInput size="sm" v-model="search" />
+                </CInputGroup>
             </CCol>
-            <CCol md="3" sm="3" class="text-right">
+            <CCol :md="2" :sm="2" class="text-right">
                 <CButton
                     color="primary"
                     size="sm"
@@ -33,15 +23,13 @@
         </CRow>
         <v-data-table
             class="my-2 elevation-1"
-            :page="page"
-            :pageCount="pageCount"
             :headers="headers"
             :items="items"
-            :options.sync="options"
-            :server-items-length="serverItemsLength"
+            :items-length="serverItemsLength"
+            :search="search"
             :loading="loading"
-            :sort-by.sync="sortBy"
-            :sort-desc.sync="sortDesc"
+            @update:options="fetch"
+            :mobile="mobile"
             :footer-props="{
                 disableItemsPerPage: disableItemsPerPage,
                 disablePagination: disablePagination,
@@ -232,7 +220,7 @@ export default {
     },
     data() {
         return {
-            searchText: null,
+            search: null,
             loading: false,
             options: {},
             sortBy: "goods.name",
@@ -244,13 +232,13 @@ export default {
                 { title: this.$t("type"), value: "goods.type" },
                 { title: this.$t("cup"), value: "cup" },
                 { title: this.$t("color"), value: "color" },
-                { text: "32-S", value: "32-S", sortable: false },
-                { text: "34-M", value: "34-M", sortable: false },
-                { text: "36-L", value: "36-L", sortable: false },
-                { text: "38-XL", value: "38-XL", sortable: false },
-                { text: "40-Q", value: "40-Q", sortable: false },
-                { text: "42-EQ", value: "42-EQ", sortable: false },
-                { text: "44-Free", value: "44-Free", sortable: false },
+                { title: "32-S", value: "32-S", sortable: false },
+                { title: "34-M", value: "34-M", sortable: false },
+                { title: "36-L", value: "36-L", sortable: false },
+                { title: "38-XL", value: "38-XL", sortable: false },
+                { title: "40-Q", value: "40-Q", sortable: false },
+                { title: "42-EQ", value: "42-EQ", sortable: false },
+                { title: "44-Free", value: "44-Free", sortable: false },
                 {
                     title: this.$t("totalunit"),
                     value: "total_unit",
@@ -264,35 +252,32 @@ export default {
             ],
         };
     },
-    watch: {
-        options: {
-            handler() {
-                this.fetch();
-            },
-        },
-        loading() {
-            this.disableItemsPerPage = this.loading;
-            this.disablePagination = this.loading;
-        },
-    },
     mounted() {
-        this.fetch();
+        window.addEventListener("resize", this.onResize);
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.onResize);
     },
     methods: {
-        fetch(reset = false) {
+        onResize() {
+            this.mobile = window.innerWidth < 769;
+        },
+        fetch({ page, itemsPerPage, sortBy, search }) {
             let self = this;
             if (self.loading) {
                 return;
             }
             self.loading = true;
-            const { page, itemsPerPage, sortBy, sortDesc } = self.options;
+            self.options.page = page;
+            self.options.itemsPerPage = itemsPerPage;
+            self.options.sortBy = sortBy;
             let data = {
                 goods_shipping_id: self.$props.goodsShipId,
-                page: reset ? 1 : page,
+                page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-                sort_desc: sortDesc,
-                search: self.searchText,
+                sort_desc: null,
+                search: search,
             };
             this.$store
                 .dispatch("goods/shippings/available/shipping/item/get", data)
@@ -303,11 +288,8 @@ export default {
                     self.loading = false;
                 });
         },
-        search() {
-            this.fetch({ ...this.options });
-        },
         reload() {
-            this.fetch();
+            this.fetch({ ...this.options });
         },
         async click(item, action) {
             let self = this;

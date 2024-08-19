@@ -17,7 +17,7 @@
                 ></barcode>
             </div>
             <div class="d-flex justify-content-center">
-                <vue-number-input
+                <v-number-input
                     class="my-4"
                     size="small"
                     v-model="unit"
@@ -25,7 +25,8 @@
                     inline
                     center
                     controls
-                ></vue-number-input>
+                    control-variant="split"
+                ></v-number-input>
             </div>
             <v-card-actions class="pt-3">
                 <v-spacer></v-spacer>
