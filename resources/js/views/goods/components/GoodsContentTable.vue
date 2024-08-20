@@ -188,9 +188,6 @@ export default {
                     self.loading = false;
                 });
         },
-        search() {
-            this.fetch({ ...this.options });
-        },
         add() {
             this.items = [
                 ...this.items,

@@ -163,9 +163,6 @@ export default {
                     self.loading = false;
                 });
         },
-        search() {
-            this.fetch({ ...this.options });
-        },
         download() {
             let self = this;
             self.loading = true;

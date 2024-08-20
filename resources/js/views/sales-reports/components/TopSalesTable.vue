@@ -102,9 +102,6 @@ export default {
                     self.loading = false;
                 });
         },
-        search() {
-            this.fetch({ ...this.options });
-        },
         reload() {
             this.fetch();
         },

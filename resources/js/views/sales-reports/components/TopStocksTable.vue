@@ -55,14 +55,6 @@ export default {
             ],
         };
     },
-    watch: {
-        options: {
-            handler() {
-                this.fetch();
-            },
-        },
-        loading() {},
-    },
     mounted() {
         this.fetch();
     },
@@ -83,9 +75,6 @@ export default {
                 .catch((error) => {
                     self.loading = false;
                 });
-        },
-        search() {
-            this.fetch({ ...this.options });
         },
         reload() {
             this.fetch();

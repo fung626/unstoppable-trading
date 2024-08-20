@@ -79,88 +79,137 @@
                 </CRow>
                 <v-data-table
                     class="my-2 elevation-1"
+                    :loading="loading"
                     :headers="table.item.headers"
                     :items="shippingItems"
                     :search="search"
                     hide-default-footer
-                    hide-default-header
                     :mobile-breakpoint="0"
                 >
-                    <!-- <template v-slot:body="{ items, headers }">
-                        <tbody>
-                            <tr v-for="(item, idx) in items" :key="idx">
-                                <td v-for="(header, key) in headers" :key="key">
-                                    <div
-                                        v-if="
-                                            isRowEditable(header.value) &&
-                                            item[header.value]
-                                        "
-                                    >
-                                        <div v-if="data.status === 'DELIVERED'">
-                                            {{ item[header.value].unit }}
-                                        </div>
-                                        <div v-else>
-                                            <v-edit-dialog
-                                                :return-value.sync="
-                                                    item[header.value].unit
-                                                "
-                                                @save="save(item['id'] - 1)"
-                                                :save-text="
-                                                    $t('button.confirm')
-                                                "
-                                                :cancel-text="
-                                                    $t('button.cancel')
-                                                "
-                                                large
-                                            >
-                                                {{ item[header.value].unit }}
-                                                <template v-slot:input>
-                                                    <vue-number-input
-                                                        class="m-4"
-                                                        size="small"
-                                                        v-model="
-                                                            item[header.value]
-                                                                .unit
-                                                        "
-                                                        :min="0"
-                                                        :max="
-                                                            item[header.value]
-                                                                .stock_unit
-                                                        "
-                                                        inline
-                                                        center
-                                                        controls
-                                                    ></vue-number-input>
-                                                </template>
-                                            </v-edit-dialog>
-                                        </div>
-                                    </div>
-                                    <div
-                                        v-else-if="isRowEditable(header.value)"
-                                    >
-                                        －
-                                    </div>
-                                    <div v-else-if="header.value === 'actions'">
-                                        <CButtonGroup>
-                                            <CButton
-                                                v-for="action in item[
-                                                    header.value
-                                                ]"
-                                                :key="action.key"
-                                                :color="action.color"
-                                                :disabled="action.disabled"
-                                                size="sm"
-                                                @click="click(item, action)"
-                                            >
-                                                {{ action.title }}
-                                            </CButton>
-                                        </CButtonGroup>
-                                    </div>
-                                    <div v-else>{{ item[header.value] }}</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </template> -->
+                    <template v-slot:loading>
+                        <v-skeleton-loader
+                            type="table-row@10"
+                        ></v-skeleton-loader>
+                    </template>
+                    <template v-slot:[`item.32-S`]="{ index, item }">
+                        <div>
+                            <v-text-field
+                                v-if="item['32-S']"
+                                v-model="item['32-S'].unit"
+                                type="number"
+                                variant="plain"
+                                hide-details
+                                required
+                                dense
+                                clearable
+                                @change="change(index, item)"
+                            ></v-text-field>
+                        </div>
+                    </template>
+                    <template v-slot:[`item.34-M`]="{ index, item }">
+                        <div>
+                            <v-text-field
+                                v-if="item['34-M']"
+                                v-model="item['34-M'].unit"
+                                type="number"
+                                variant="plain"
+                                hide-details
+                                required
+                                dense
+                                clearable
+                                @change="change(index, item)"
+                            ></v-text-field>
+                        </div>
+                    </template>
+                    <template v-slot:[`item.36-L`]="{ index, item }">
+                        <div>
+                            <v-text-field
+                                v-if="item['36-L']"
+                                v-model="item['36-L'].unit"
+                                type="number"
+                                variant="plain"
+                                hide-details
+                                required
+                                dense
+                                clearable
+                                @change="change(index, item)"
+                            ></v-text-field>
+                        </div>
+                    </template>
+                    <template v-slot:[`item.38-XL`]="{ index, item }">
+                        <div>
+                            <v-text-field
+                                v-if="item['38-XL']"
+                                v-model="item['38-XL'].unit"
+                                type="number"
+                                variant="plain"
+                                hide-details
+                                required
+                                dense
+                                clearable
+                                @change="change(index, item)"
+                            ></v-text-field>
+                        </div>
+                    </template>
+                    <template v-slot:[`item.40-Q`]="{ index, item }">
+                        <div>
+                            <v-text-field
+                                v-if="item['40-Q']"
+                                v-model="item['40-Q'].unit"
+                                type="number"
+                                variant="plain"
+                                hide-details
+                                required
+                                dense
+                                clearable
+                                @change="change(index, item)"
+                            ></v-text-field>
+                        </div>
+                    </template>
+                    <template v-slot:[`item.42-EQ`]="{ index, item }">
+                        <div>
+                            <v-text-field
+                                v-if="item['42-EQ']"
+                                v-model="item['42-EQ'].unit"
+                                type="number"
+                                variant="plain"
+                                hide-details
+                                required
+                                dense
+                                clearable
+                                @change="change(index, item)"
+                            ></v-text-field>
+                        </div>
+                    </template>
+                    <template v-slot:[`item.44-Free`]="{ index, item }">
+                        <div>
+                            <v-text-field
+                                v-if="item['44-Free']"
+                                v-model="item['44-Free'].unit"
+                                type="number"
+                                variant="plain"
+                                hide-details
+                                required
+                                dense
+                                clearable
+                                @change="change(index, item)"
+                            ></v-text-field>
+                        </div>
+                    </template>
+                    <template v-slot:[`item.actions`]="{ item }">
+                        <CButtonGroup>
+                            <CButton
+                                v-for="action in item.actions"
+                                :key="action.key"
+                                :color="action.color"
+                                :disabled="action.disabled"
+                                size="sm"
+                                @click="click(item, action)"
+                            >
+                                {{ action.title }}
+                            </CButton>
+                        </CButtonGroup>
+                    </template>
                 </v-data-table>
                 <v-data-table
                     class="my-4 elevation-1"
