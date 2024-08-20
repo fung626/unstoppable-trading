@@ -10,7 +10,7 @@
             >
                 {{ $t("account") }}
             </CDropdownHeader>
-            <CDropdownItem href="/profile">
+            <CDropdownItem href="#/profile">
                 <CIcon icon="cil-user" /> {{ $t("profile") }}
             </CDropdownItem>
             <CDropdownItem
