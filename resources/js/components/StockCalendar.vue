@@ -7,54 +7,14 @@
         ></v-progress-linear>
         <CCardBody>
             <CRow class="p-2">
-                <CCol sm="12">
+                <CCol>
                     <h4 class="card-title mb-0">
                         {{ $t("calendar.title") }}
                     </h4>
                 </CCol>
             </CRow>
             <CRow class="p-2">
-                <CCol class="d-block d-md-none" sm="12">
-                    <div class="d-flex justify-content-end">
-                        <CButtonGroup>
-                            <CButton
-                                v-for="t in types"
-                                :key="t.value"
-                                :color="t.value === type ? 'primary' : 'light'"
-                                :disabled="loading"
-                                @click="onTypeClick(t)"
-                            >
-                                {{ t.name }}
-                            </CButton>
-                        </CButtonGroup>
-                    </div>
-                </CCol>
-                <CCol class="d-block d-md-none" sm="12">
-                    <div class="d-flex justify-content-between">
-                        <CButton
-                            @click="prev"
-                            color="light"
-                            :disabled="loading"
-                        >
-                            <v-icon>mdi-chevron-left</v-icon>
-                        </CButton>
-                        <CButton
-                            @click="next"
-                            color="light"
-                            :disabled="loading"
-                        >
-                            <v-icon>mdi-chevron-right</v-icon>
-                        </CButton>
-                    </div>
-                </CCol>
-            </CRow>
-            <CRow class="p-2">
-                <CCol class="d-none d-md-block" sm="6">
-                    <CButton @click="prev" color="light" :disabled="loading">
-                        <v-icon>mdi-chevron-left</v-icon>
-                    </CButton>
-                </CCol>
-                <CCol class="d-none d-md-block text-right" sm="6">
+                <CCol class="text-right">
                     <CButtonGroup>
                         <CButton
                             v-for="t in types"
@@ -66,9 +26,6 @@
                             {{ t.name }}
                         </CButton>
                     </CButtonGroup>
-                    <CButton @click="next" color="light" :disabled="loading">
-                        <v-icon>mdi-chevron-right</v-icon>
-                    </CButton>
                 </CCol>
             </CRow>
             <v-calendar
