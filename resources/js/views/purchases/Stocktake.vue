@@ -188,7 +188,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td class="p-2">{{ $t("subtotal") }}</td>
+                        <td class="p-2">{{ $t("subtotal") }} {{ ": " }}</td>
                         <td class="p-2" colspan="4">
                             <span v-if="subtotal">
                                 {{ "$ " }}

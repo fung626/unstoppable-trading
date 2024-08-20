@@ -289,131 +289,58 @@
                                 <span v-else>－</span>
                             </div>
                         </template>
-                        <!-- <template v-slot:body="{ items, headers }">
-                            <tbody>
-                                <tr v-for="(item, idx) in items" :key="idx">
-                                    <td
-                                        v-for="(header, key) in headers"
-                                        :key="key"
-                                    >
-                                        <div
-                                            v-if="
-                                                isRowEditable(header.value) &&
-                                                item[header.value]
-                                            "
-                                        >
-                                            <v-edit-dialog
-                                                :v-model:propName="
-                                                    item[header.value].unit
-                                                "
-                                                @save="save(idx)"
-                                                :save-text="
-                                                    $t('button.confirm')
-                                                "
-                                                :cancel-text="
-                                                    $t('button.cancel')
-                                                "
-                                                large
-                                            >
-                                                {{ item[header.value].unit }}
-                                                <template v-slot:input>
-                                                    <vue-number-input
-                                                        class="m-4"
-                                                        size="small"
-                                                        v-model="
-                                                            item[header.value]
-                                                                .unit
-                                                        "
-                                                        :min="0"
-                                                        :max="
-                                                            item[header.value]
-                                                                ? item[
-                                                                      header
-                                                                          .value
-                                                                  ].stock_unit
-                                                                : 0
-                                                        "
-                                                        inline
-                                                        center
-                                                        controls
-                                                    ></vue-number-input>
-                                                </template>
-                                            </v-edit-dialog>
-                                        </div>
-                                        <div
-                                            v-else-if="
-                                                isRowEditable(header.value)
-                                            "
-                                        >
-                                            －
-                                        </div>
-                                        <div
-                                            v-else-if="
-                                                isCurrencyRow(header.value)
-                                            "
-                                        >
-                                            <div v-if="item[header.value]">
-                                                {{
-                                                    `${item[
-                                                        header.value
-                                                    ].toLocaleString()}`
-                                                }}
-                                            </div>
-                                        </div>
-                                        <div v-else>
-                                            {{ item[header.value] }}
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="p-2" colspan="4">
-                                        {{ $t("total-unit") }} {{ ": " }}
-                                        <span v-if="totalunit">
-                                            {{ totalunit.toLocaleString() }}
-                                        </span>
-                                        <span v-else>
-                                            {{ "0".toLocaleString() }}
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="p-2" colspan="4">
-                                        {{ $t("subtotal") }} {{ ": " }}
-                                        <span v-if="subtotal">
-                                            {{ "$" }}
-                                            {{ subtotal.toLocaleString() }}
-                                            {{ currency }}
-                                        </span>
-                                        <span v-else>
-                                            {{ "0".toLocaleString() }}
-                                            {{ currency }}
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </template> -->
+                        <template v-slot:[`body.append`]>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="p-2">
+                                    {{ $t("total-unit") }} {{ ": " }}
+                                </td>
+                                <td class="p-2" colspan="4">
+                                    <span v-if="totalunit">
+                                        {{ totalunit.toLocaleString() }}
+                                    </span>
+                                    <span v-else>
+                                        {{ "0".toLocaleString() }}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="p-2">
+                                    {{ $t("subtotal") }} {{ ": " }}
+                                </td>
+                                <td class="p-2" colspan="4">
+                                    <span v-if="subtotal">
+                                        {{ "$ " }}
+                                        {{ subtotal.toLocaleString() }}
+                                        {{ currency }}
+                                    </span>
+                                    <span v-else>
+                                        {{ "$ " }}
+                                        {{ "0".toLocaleString() }}
+                                        {{ currency }}
+                                    </span>
+                                </td>
+                            </tr>
+                        </template>
                     </v-data-table>
                     <hr />
                     <CButton @click="submit" color="primary" class="px-4">
