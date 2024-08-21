@@ -174,12 +174,13 @@ export default {
                 ...self.formData,
                 id: self.$props.id,
                 joined_at: self.formData.joined_at
-                    ? self.formData.joined_at.toMyDateString()
+                    ? new Date(self.formData.joined_at).toMyDateString()
                     : null,
                 left_at: self.formData.left_at
-                    ? self.formData.left_at.toMyDateString()
+                    ? new Date(self.formData.left_at).toMyDateString()
                     : null,
             };
+            // console.log(data);
             this.$store
                 .dispatch("users/employee/update", data)
                 .then((response) => {

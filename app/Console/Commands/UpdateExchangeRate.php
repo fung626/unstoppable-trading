@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Http;
 
 class UpdateExchangeRate extends Command
 {
@@ -26,5 +27,6 @@ class UpdateExchangeRate extends Command
     public function handle()
     {
         //
+        $response = Http::get('http://example.com');
     }
 }
