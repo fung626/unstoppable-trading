@@ -13,10 +13,10 @@
                             <CTab :itemKey="0">
                                 {{ tab.values[0].toUpperCase() }}
                             </CTab>
-                            <CTab :itemKey="1">
+                            <CTab v-if="isEmployee()" :itemKey="1">
                                 {{ tab.values[1].toUpperCase() }}
                             </CTab>
-                            <CTab :itemKey="2">
+                            <CTab v-if="isEmployee()" :itemKey="2">
                                 {{ tab.values[2].toUpperCase() }}
                             </CTab>
                             <CTab :itemKey="3">
@@ -29,12 +29,20 @@
                                     :id="this.$route.params.id"
                                 ></UserForm>
                             </CTabPanel>
-                            <CTabPanel class="p-3" :itemKey="1">
+                            <CTabPanel
+                                v-if="isEmployee()"
+                                class="p-3"
+                                :itemKey="1"
+                            >
                                 <EmployeeForm
                                     :id="this.$route.params.id"
                                 ></EmployeeForm>
                             </CTabPanel>
-                            <CTabPanel class="p-3" :itemKey="2">
+                            <CTabPanel
+                                v-if="isEmployee()"
+                                class="p-3"
+                                :itemKey="2"
+                            >
                                 <DutyCalendar
                                     :userId="this.$route.params.id"
                                 ></DutyCalendar>
@@ -77,7 +85,6 @@ export default {
                     this.$t("duty"),
                     this.$t("permissions"),
                 ],
-                index: 0,
             },
         };
     },
@@ -104,6 +111,12 @@ export default {
                 .catch((error) => {
                     self.loading = false;
                 });
+        },
+        isEmployee() {
+            if (this.data) {
+                return this.data.role === "EMPLOYEE";
+            }
+            return false;
         },
     },
 };

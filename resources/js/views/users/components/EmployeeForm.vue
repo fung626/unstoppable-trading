@@ -45,42 +45,35 @@
                         ></v-text-field>
                     </CCol>
                 </CRow>
-                <v-menu v-model="datepicker.joinedat.menu" min-width="auto">
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
+                <CRow>
+                    <CCol md="6" sm="6">
+                        <v-date-input
+                            :label="$t('joined-at')"
                             v-model="formData.joined_at"
-                            :label="$t('joinedat')"
-                            v-bind="attrs"
-                            v-on="on"
-                            outlined
-                            dense
+                            prepend-icon=""
                             clearable
-                        ></v-text-field>
-                    </template>
-                    <v-date-picker
-                        v-model="formData.joined_at"
-                        no-title
-                        @input="datepicker.joinedat.menu = false"
-                    ></v-date-picker>
-                </v-menu>
-                <v-menu v-model="datepicker.leftat.menu" min-width="auto">
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
+                            outlined
+                        ></v-date-input>
+                    </CCol>
+                    <CCol md="6" sm="6">
+                        <v-date-input
+                            :label="$t('left-at')"
                             v-model="formData.left_at"
-                            :label="$t('leftat')"
-                            v-bind="attrs"
-                            v-on="on"
-                            outlined
-                            dense
+                            prepend-icon=""
                             clearable
-                        ></v-text-field>
-                    </template>
-                    <v-date-picker
-                        v-model="formData.left_at"
-                        no-title
-                        @input="datepicker.leftat.menu = false"
-                    ></v-date-picker>
-                </v-menu>
+                            outlined
+                        ></v-date-input>
+                    </CCol>
+                </CRow>
+                <v-text-field
+                    :label="$t('annual-leave-days')"
+                    v-model="formData.annual_leave_days"
+                    type="number"
+                    required
+                    outlined
+                    dense
+                    clearable
+                ></v-text-field>
                 <v-select
                     v-model="formData.type"
                     :items="employeeTypes"
@@ -180,6 +173,12 @@ export default {
             let data = {
                 ...self.formData,
                 id: self.$props.id,
+                joined_at: self.formData.joined_at
+                    ? self.formData.joined_at.toMyDateString()
+                    : null,
+                left_at: self.formData.left_at
+                    ? self.formData.left_at.toMyDateString()
+                    : null,
             };
             this.$store
                 .dispatch("users/employee/update", data)
