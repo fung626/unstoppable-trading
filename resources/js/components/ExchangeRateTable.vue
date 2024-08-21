@@ -11,7 +11,6 @@
             class="elevation-1"
             :headers="headers"
             :items="items"
-            :options.sync="options"
             :loading="loading"
             :hide-default-footer="true"
         >

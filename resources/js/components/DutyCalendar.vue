@@ -37,20 +37,30 @@
                 :events="events"
                 :event-overlap-mode="mode"
                 :event-overlap-threshold="30"
-                @click:event="showEvent"
                 @update:pages="fetch"
             >
-                <!-- <template v-slot:event="{ event }">
-                    <div
-                        class="d-flex rounded-pill shadow-lg px-3 py-1 mx-2"
+                <template v-slot:event="{ event }">
+                    <button
+                        class="d-flex align-items-center rounded shadow-lg px-2 py-1 mx-2"
                         :style="{
-                            backgroundColor: event.color,
+                            backgroundColor: event.allDay
+                                ? '#3462E3'
+                                : '#5A5A5A',
                             color: 'white',
                         }"
+                        @click="click(event)"
                     >
-                        {{ event.title }}
-                    </div>
-                </template> -->
+                        <div
+                            class="rounded-circle p-2"
+                            :style="{
+                                backgroundColor: event.color,
+                                width: '6px',
+                                height: '6px',
+                            }"
+                        ></div>
+                        <span class="px-2">{{ event.title }}</span>
+                    </button>
+                </template>
             </v-calendar>
         </CCardBody>
     </CCard>
@@ -76,16 +86,16 @@ export default {
             if (this["users/duty/calendar"]) {
                 let data = this["users/duty/calendar"].data;
                 for (const item of data) {
-                    let format = "H:mm";
+                    // let format = "H:mm";
                     let start = new Date(item["start"]);
                     let end = new Date(item["end"]);
                     let name = item["user"] ? `${item["user"]["name"]} ` : "";
-                    let time = `${moment(start).format(format)} - ${moment(
-                        end
-                    ).format(format)}`;
+                    // let time = `${moment(start).format(format)} - ${moment(
+                    //     end
+                    // ).format(format)}`;
                     temp.push({
-                        title: `${name} ${time}`,
-                        user: name,
+                        title: `${name}`,
+                        data: item,
                         start: start,
                         end: end,
                         color: item.color ? item.color : "cyan",
@@ -143,11 +153,10 @@ export default {
                     self.loading = false;
                 });
         },
-        showEvent({ nativeEvent, event }) {
-            // console.log(event);
-        },
-        onTypeClick(type) {
-            this.type = type.value;
+
+        click(event) {
+            console.log(event);
+            // this.type = type.value;
             // this.$forceUpdate();
         },
         allowed() {

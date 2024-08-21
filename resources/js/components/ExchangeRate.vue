@@ -1,5 +1,5 @@
 <template>
-    <CCard>
+    <CCard class="my-2">
         <v-progress-linear
             :active="loading"
             indeterminate
@@ -60,14 +60,14 @@
             <CRow v-if="updatedAt">
                 <CCol class="text-right text-muted">
                     {{ `${$t("updatedat")}:` }}
-                    {{ updatedAt | moment("dddd, Do MMMM YYYY HH:mm") }}
+                    {{ this.$formatDate(updatedAt) }}
                 </CCol>
             </CRow>
-            <CRow>
+            <!-- <CRow>
                 <CCol>
                     <ExchangeRateTable />
                 </CCol>
-            </CRow>
+            </CRow> -->
         </CCardBody>
     </CCard>
 </template>

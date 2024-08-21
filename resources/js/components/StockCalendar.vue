@@ -40,6 +40,28 @@
                 @click:event="showEvent"
                 @update:pages="fetch"
             >
+                <template v-slot:event="{ event }">
+                    <button
+                        class="d-flex align-items-center rounded shadow-lg px-2 py-1 mx-2"
+                        :style="{
+                            backgroundColor: event.allDay
+                                ? '#3462E3'
+                                : '#5A5A5A',
+                            color: 'white',
+                        }"
+                        @click="click(event)"
+                    >
+                        <div
+                            class="rounded-circle p-2"
+                            :style="{
+                                backgroundColor: event.color,
+                                width: '6px',
+                                height: '6px',
+                            }"
+                        ></div>
+                        <span class="px-2">{{ event.title }}</span>
+                    </button>
+                </template>
             </v-calendar>
         </CCardBody>
     </CCard>
@@ -83,7 +105,7 @@ export default {
                     let start = new Date(item["created_at"]);
                     let end = new Date(item["created_at"]);
                     temp.push({
-                        name: `${item["generated_id"]} - ${status}`,
+                        name: `${item["generated_id"]}`,
                         start: start,
                         end: end,
                         color: color,

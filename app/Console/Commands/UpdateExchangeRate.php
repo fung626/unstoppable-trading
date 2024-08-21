@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Models\ExchangeRates;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class UpdateExchangeRate extends Command
 {
@@ -12,7 +14,7 @@ class UpdateExchangeRate extends Command
      *
      * @var string
      */
-    protected $signature = 'app:update-exchange-rate';
+    protected $signature = 'app:update-exchange-rate {base}';
 
     /**
      * The console command description.
@@ -27,6 +29,25 @@ class UpdateExchangeRate extends Command
     public function handle()
     {
         //
-        $response = Http::get('http://example.com');
+        try {
+            $path = env('FOREX_API') . '/' . $this->argument('base');
+            $response = Http::get($path);
+            $json = $response->json();
+            if (isset($json['result']) == "success") {
+                // dd($json["base_code"], $json["conversion_rates"]);
+                foreach ($json["conversion_rates"] as $key => $item) {
+                    // dd($key);
+                    ExchangeRates::updateOrCreate([
+                        'base' => $json["base_code"],
+                        'symbol' => $key,
+                    ], [
+                        'rate' => $item,
+                    ]);
+                }
+            }
+        } catch (ProcessFailedException $exception) {
+            Log::error($exception->getMessage());
+        }
+
     }
 }

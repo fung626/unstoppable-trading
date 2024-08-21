@@ -41,6 +41,12 @@ export default {
             return this.$store.getters["snackbar/text"];
         },
     },
+    mounted() {
+        this.close();
+    },
+    unmounted() {
+        this.close();
+    },
     methods: {
         close() {
             this.$store.dispatch("snackbar/close");

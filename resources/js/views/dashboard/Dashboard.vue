@@ -83,7 +83,7 @@
         <div v-else>
             <DutyCalendar :userId="$store.getters.authUser.id" />
         </div>
-        <!-- <ExchangeRate v-if="isPermissionGranted('exchange-rate')" /> -->
+        <ExchangeRate />
         <CRow v-if="$store.getters.isAdmin" class="py-2">
             <CCol>
                 <CCard>
