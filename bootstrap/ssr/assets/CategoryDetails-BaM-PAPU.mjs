@@ -1,0 +1,764 @@
+import { G as GoodsTable } from "./GoodsTable-DZ7DrhK8.mjs";
+import { _ as _export_sfc, S as Snackbar } from "../app.mjs";
+import { resolveComponent, withCtx, openBlock, createBlock, createCommentVNode, createTextVNode, toDisplayString, createVNode, withModifiers, useSSRContext } from "vue";
+import { ssrRenderComponent, ssrInterpolate } from "vue/server-renderer";
+import { VProgressCircular } from "vuetify/lib/components/VProgressCircular/index.mjs";
+import { VProgressLinear } from "vuetify/lib/components/VProgressLinear/index.mjs";
+import { VTextField } from "vuetify/lib/components/VTextField/index.mjs";
+import { VTextarea } from "vuetify/lib/components/VTextarea/index.mjs";
+import "vuetify/lib/components/VChip/index.mjs";
+import "vuetify/lib/components/VDataTable/index.mjs";
+import "vuetify/lib/components/VSkeletonLoader/index.mjs";
+import "vue-i18n";
+import "@coreui/icons";
+import "@chenfengyuan/vue-barcode";
+import "@chenfengyuan/vue-number-input";
+import "@coreui/icons-vue";
+import "@coreui/vue";
+import "@vee-validate/i18n";
+import "@vee-validate/rules";
+import "moment";
+import "vee-validate";
+import "vue3-popper";
+import "lodash";
+import "vuex";
+import "uuid";
+import "vuetify/lib/components/VCard/index.mjs";
+import "vuetify/lib/components/VDialog/index.mjs";
+import "vuetify/lib/components/VGrid/index.mjs";
+import "vuetify/lib/components/VToolbar/index.mjs";
+import "vuetify";
+import "vuetify/lib/components/VSelect/index.mjs";
+import "vue-barcode-reader";
+import "vuetify/lib/components/VAutocomplete/index.mjs";
+import "vuetify/lib/components/VBtn/index.mjs";
+import "vuetify/lib/components/VSnackbar/index.mjs";
+import "vuetify/lib/components/VColorPicker/index.mjs";
+import "vuetify/lib/components/VMenu/index.mjs";
+import "vuetify/components";
+import "vuetify/directives";
+import "vuetify/labs/components";
+import "vue-router";
+import "secure-ls";
+import "vuex-persistedstate";
+import "axios";
+import "query-string";
+import "simplebar-vue";
+const _sfc_main$1 = {
+  name: "CategoryForm",
+  props: {
+    id: null
+  },
+  components: {
+    Snackbar
+  },
+  data() {
+    return {
+      formData: {},
+      errors: {},
+      fetchLoading: false,
+      updateLoading: false
+    };
+  },
+  mounted() {
+    this.fetch();
+  },
+  methods: {
+    fetch() {
+      let self = this;
+      if (self.fetchLoading) {
+        return;
+      }
+      let data = {
+        id: self.$props.id
+      };
+      self.fetchLoading = true;
+      this.$store.dispatch("categories/details", data).then((response) => {
+        self.formData = JSON.parse(JSON.stringify(response.data));
+        self.fetchLoading = false;
+      }).catch((error) => {
+        self.fetchLoading = false;
+      });
+    },
+    update() {
+      let self = this;
+      if (self.updateLoading) {
+        return;
+      }
+      self.updateLoading = true;
+      this.$store.dispatch("categories/update", self.formData).then((response) => {
+        self.formData = JSON.parse(
+          JSON.stringify(response.data.data)
+        );
+        self.errors = {};
+        self.updateLoading = false;
+      }).catch((error) => {
+        var _a;
+        self.errors = (_a = error.response.data) == null ? void 0 : _a.data;
+        self.updateLoading = false;
+      });
+    }
+  }
+};
+function _sfc_ssrRender$1(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
+  const _component_Snackbar = resolveComponent("Snackbar");
+  const _component_CCard = resolveComponent("CCard");
+  const _component_CCardBody = resolveComponent("CCardBody");
+  const _component_CButton = resolveComponent("CButton");
+  _push(`<!--[-->`);
+  _push(ssrRenderComponent(_component_Snackbar, null, null, _parent));
+  _push(ssrRenderComponent(_component_CCard, { class: "border-0" }, {
+    default: withCtx((_, _push2, _parent2, _scopeId) => {
+      if (_push2) {
+        _push2(ssrRenderComponent(VProgressLinear, {
+          active: $data.fetchLoading,
+          indeterminate: "",
+          color: "cyan"
+        }, null, _parent2, _scopeId));
+        _push2(ssrRenderComponent(_component_CCardBody, null, {
+          default: withCtx((_2, _push3, _parent3, _scopeId2) => {
+            if (_push3) {
+              _push3(`<form data-v-34ac1229${_scopeId2}>`);
+              _push3(ssrRenderComponent(VTextField, {
+                modelValue: $data.formData.name,
+                "onUpdate:modelValue": ($event) => $data.formData.name = $event,
+                label: _ctx.$t("name"),
+                error: $data.errors.name ? true : false,
+                "error-messages": $data.errors.name,
+                required: "",
+                outlined: "",
+                dense: "",
+                clearable: ""
+              }, null, _parent3, _scopeId2));
+              _push3(ssrRenderComponent(VTextarea, {
+                modelValue: $data.formData.description,
+                "onUpdate:modelValue": ($event) => $data.formData.description = $event,
+                label: _ctx.$t("description"),
+                error: $data.errors.description ? true : false,
+                "error-messages": $data.errors.description,
+                outlined: "",
+                dense: "",
+                clearable: ""
+              }, null, _parent3, _scopeId2));
+              _push3(`<hr data-v-34ac1229${_scopeId2}>`);
+              _push3(ssrRenderComponent(_component_CButton, {
+                onClick: $options.update,
+                color: "primary",
+                class: "px-4"
+              }, {
+                default: withCtx((_3, _push4, _parent4, _scopeId3) => {
+                  if (_push4) {
+                    if ($data.updateLoading) {
+                      _push4(ssrRenderComponent(VProgressCircular, {
+                        indeterminate: "",
+                        size: 15
+                      }, null, _parent4, _scopeId3));
+                    } else {
+                      _push4(`<!---->`);
+                    }
+                    _push4(` ${ssrInterpolate(_ctx.$t("button.update"))}`);
+                  } else {
+                    return [
+                      $data.updateLoading ? (openBlock(), createBlock(VProgressCircular, {
+                        key: 0,
+                        indeterminate: "",
+                        size: 15
+                      })) : createCommentVNode("", true),
+                      createTextVNode(" " + toDisplayString(_ctx.$t("button.update")), 1)
+                    ];
+                  }
+                }),
+                _: 1
+              }, _parent3, _scopeId2));
+              _push3(`</form>`);
+            } else {
+              return [
+                createVNode("form", {
+                  onSubmit: withModifiers(() => {
+                  }, ["prevent"])
+                }, [
+                  createVNode(VTextField, {
+                    modelValue: $data.formData.name,
+                    "onUpdate:modelValue": ($event) => $data.formData.name = $event,
+                    label: _ctx.$t("name"),
+                    error: $data.errors.name ? true : false,
+                    "error-messages": $data.errors.name,
+                    required: "",
+                    outlined: "",
+                    dense: "",
+                    clearable: ""
+                  }, null, 8, ["modelValue", "onUpdate:modelValue", "label", "error", "error-messages"]),
+                  createVNode(VTextarea, {
+                    modelValue: $data.formData.description,
+                    "onUpdate:modelValue": ($event) => $data.formData.description = $event,
+                    label: _ctx.$t("description"),
+                    error: $data.errors.description ? true : false,
+                    "error-messages": $data.errors.description,
+                    outlined: "",
+                    dense: "",
+                    clearable: ""
+                  }, null, 8, ["modelValue", "onUpdate:modelValue", "label", "error", "error-messages"]),
+                  createVNode("hr"),
+                  createVNode(_component_CButton, {
+                    onClick: $options.update,
+                    color: "primary",
+                    class: "px-4"
+                  }, {
+                    default: withCtx(() => [
+                      $data.updateLoading ? (openBlock(), createBlock(VProgressCircular, {
+                        key: 0,
+                        indeterminate: "",
+                        size: 15
+                      })) : createCommentVNode("", true),
+                      createTextVNode(" " + toDisplayString(_ctx.$t("button.update")), 1)
+                    ]),
+                    _: 1
+                  }, 8, ["onClick"])
+                ], 40, ["onSubmit"])
+              ];
+            }
+          }),
+          _: 1
+        }, _parent2, _scopeId));
+      } else {
+        return [
+          createVNode(VProgressLinear, {
+            active: $data.fetchLoading,
+            indeterminate: "",
+            color: "cyan"
+          }, null, 8, ["active"]),
+          createVNode(_component_CCardBody, null, {
+            default: withCtx(() => [
+              createVNode("form", {
+                onSubmit: withModifiers(() => {
+                }, ["prevent"])
+              }, [
+                createVNode(VTextField, {
+                  modelValue: $data.formData.name,
+                  "onUpdate:modelValue": ($event) => $data.formData.name = $event,
+                  label: _ctx.$t("name"),
+                  error: $data.errors.name ? true : false,
+                  "error-messages": $data.errors.name,
+                  required: "",
+                  outlined: "",
+                  dense: "",
+                  clearable: ""
+                }, null, 8, ["modelValue", "onUpdate:modelValue", "label", "error", "error-messages"]),
+                createVNode(VTextarea, {
+                  modelValue: $data.formData.description,
+                  "onUpdate:modelValue": ($event) => $data.formData.description = $event,
+                  label: _ctx.$t("description"),
+                  error: $data.errors.description ? true : false,
+                  "error-messages": $data.errors.description,
+                  outlined: "",
+                  dense: "",
+                  clearable: ""
+                }, null, 8, ["modelValue", "onUpdate:modelValue", "label", "error", "error-messages"]),
+                createVNode("hr"),
+                createVNode(_component_CButton, {
+                  onClick: $options.update,
+                  color: "primary",
+                  class: "px-4"
+                }, {
+                  default: withCtx(() => [
+                    $data.updateLoading ? (openBlock(), createBlock(VProgressCircular, {
+                      key: 0,
+                      indeterminate: "",
+                      size: 15
+                    })) : createCommentVNode("", true),
+                    createTextVNode(" " + toDisplayString(_ctx.$t("button.update")), 1)
+                  ]),
+                  _: 1
+                }, 8, ["onClick"])
+              ], 40, ["onSubmit"])
+            ]),
+            _: 1
+          })
+        ];
+      }
+    }),
+    _: 1
+  }, _parent));
+  _push(`<!--]-->`);
+}
+const _sfc_setup$1 = _sfc_main$1.setup;
+_sfc_main$1.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/views/categories/components/CategoryForm.vue");
+  return _sfc_setup$1 ? _sfc_setup$1(props, ctx) : void 0;
+};
+const CategoryForm = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["ssrRender", _sfc_ssrRender$1], ["__scopeId", "data-v-34ac1229"]]);
+const _sfc_main = {
+  name: "CategoryDetails",
+  components: {
+    CategoryForm,
+    GoodsTable
+  },
+  data() {
+    return {
+      tab: {
+        values: [this.$t("info"), this.$t("goods")],
+        index: 0
+      }
+    };
+  }
+};
+function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
+  const _component_CRow = resolveComponent("CRow");
+  const _component_CCol = resolveComponent("CCol");
+  const _component_CCard = resolveComponent("CCard");
+  const _component_CCardBody = resolveComponent("CCardBody");
+  const _component_CTabs = resolveComponent("CTabs");
+  const _component_CTabList = resolveComponent("CTabList");
+  const _component_CTab = resolveComponent("CTab");
+  const _component_CTabContent = resolveComponent("CTabContent");
+  const _component_CTabPanel = resolveComponent("CTabPanel");
+  const _component_CategoryForm = resolveComponent("CategoryForm");
+  const _component_GoodsTable = resolveComponent("GoodsTable");
+  _push(ssrRenderComponent(_component_CRow, _attrs, {
+    default: withCtx((_, _push2, _parent2, _scopeId) => {
+      if (_push2) {
+        _push2(ssrRenderComponent(_component_CCol, null, {
+          default: withCtx((_2, _push3, _parent3, _scopeId2) => {
+            if (_push3) {
+              _push3(ssrRenderComponent(_component_CCard, { class: "p-2" }, {
+                default: withCtx((_3, _push4, _parent4, _scopeId3) => {
+                  if (_push4) {
+                    _push4(ssrRenderComponent(_component_CCardBody, null, {
+                      default: withCtx((_4, _push5, _parent5, _scopeId4) => {
+                        if (_push5) {
+                          _push5(ssrRenderComponent(_component_CTabs, { activeItemKey: 0 }, {
+                            default: withCtx((_5, _push6, _parent6, _scopeId5) => {
+                              if (_push6) {
+                                _push6(ssrRenderComponent(_component_CTabList, { variant: "pills" }, {
+                                  default: withCtx((_6, _push7, _parent7, _scopeId6) => {
+                                    if (_push7) {
+                                      _push7(ssrRenderComponent(_component_CTab, { itemKey: 0 }, {
+                                        default: withCtx((_7, _push8, _parent8, _scopeId7) => {
+                                          if (_push8) {
+                                            _push8(`${ssrInterpolate($data.tab.values[0].toUpperCase())}`);
+                                          } else {
+                                            return [
+                                              createTextVNode(toDisplayString($data.tab.values[0].toUpperCase()), 1)
+                                            ];
+                                          }
+                                        }),
+                                        _: 1
+                                      }, _parent7, _scopeId6));
+                                      _push7(ssrRenderComponent(_component_CTab, { itemKey: 1 }, {
+                                        default: withCtx((_7, _push8, _parent8, _scopeId7) => {
+                                          if (_push8) {
+                                            _push8(`${ssrInterpolate($data.tab.values[1].toUpperCase())}`);
+                                          } else {
+                                            return [
+                                              createTextVNode(toDisplayString($data.tab.values[1].toUpperCase()), 1)
+                                            ];
+                                          }
+                                        }),
+                                        _: 1
+                                      }, _parent7, _scopeId6));
+                                    } else {
+                                      return [
+                                        createVNode(_component_CTab, { itemKey: 0 }, {
+                                          default: withCtx(() => [
+                                            createTextVNode(toDisplayString($data.tab.values[0].toUpperCase()), 1)
+                                          ]),
+                                          _: 1
+                                        }),
+                                        createVNode(_component_CTab, { itemKey: 1 }, {
+                                          default: withCtx(() => [
+                                            createTextVNode(toDisplayString($data.tab.values[1].toUpperCase()), 1)
+                                          ]),
+                                          _: 1
+                                        })
+                                      ];
+                                    }
+                                  }),
+                                  _: 1
+                                }, _parent6, _scopeId5));
+                                _push6(ssrRenderComponent(_component_CTabContent, null, {
+                                  default: withCtx((_6, _push7, _parent7, _scopeId6) => {
+                                    if (_push7) {
+                                      _push7(ssrRenderComponent(_component_CTabPanel, {
+                                        class: "p-3",
+                                        itemKey: 0
+                                      }, {
+                                        default: withCtx((_7, _push8, _parent8, _scopeId7) => {
+                                          if (_push8) {
+                                            _push8(ssrRenderComponent(_component_CategoryForm, {
+                                              id: this.$route.params.id
+                                            }, null, _parent8, _scopeId7));
+                                          } else {
+                                            return [
+                                              createVNode(_component_CategoryForm, {
+                                                id: this.$route.params.id
+                                              }, null, 8, ["id"])
+                                            ];
+                                          }
+                                        }),
+                                        _: 1
+                                      }, _parent7, _scopeId6));
+                                      _push7(ssrRenderComponent(_component_CTabPanel, {
+                                        class: "p-3",
+                                        itemKey: 1
+                                      }, {
+                                        default: withCtx((_7, _push8, _parent8, _scopeId7) => {
+                                          if (_push8) {
+                                            _push8(ssrRenderComponent(_component_GoodsTable, {
+                                              categoryId: this.$route.params.id
+                                            }, null, _parent8, _scopeId7));
+                                          } else {
+                                            return [
+                                              createVNode(_component_GoodsTable, {
+                                                categoryId: this.$route.params.id
+                                              }, null, 8, ["categoryId"])
+                                            ];
+                                          }
+                                        }),
+                                        _: 1
+                                      }, _parent7, _scopeId6));
+                                    } else {
+                                      return [
+                                        createVNode(_component_CTabPanel, {
+                                          class: "p-3",
+                                          itemKey: 0
+                                        }, {
+                                          default: withCtx(() => [
+                                            createVNode(_component_CategoryForm, {
+                                              id: this.$route.params.id
+                                            }, null, 8, ["id"])
+                                          ]),
+                                          _: 1
+                                        }),
+                                        createVNode(_component_CTabPanel, {
+                                          class: "p-3",
+                                          itemKey: 1
+                                        }, {
+                                          default: withCtx(() => [
+                                            createVNode(_component_GoodsTable, {
+                                              categoryId: this.$route.params.id
+                                            }, null, 8, ["categoryId"])
+                                          ]),
+                                          _: 1
+                                        })
+                                      ];
+                                    }
+                                  }),
+                                  _: 1
+                                }, _parent6, _scopeId5));
+                              } else {
+                                return [
+                                  createVNode(_component_CTabList, { variant: "pills" }, {
+                                    default: withCtx(() => [
+                                      createVNode(_component_CTab, { itemKey: 0 }, {
+                                        default: withCtx(() => [
+                                          createTextVNode(toDisplayString($data.tab.values[0].toUpperCase()), 1)
+                                        ]),
+                                        _: 1
+                                      }),
+                                      createVNode(_component_CTab, { itemKey: 1 }, {
+                                        default: withCtx(() => [
+                                          createTextVNode(toDisplayString($data.tab.values[1].toUpperCase()), 1)
+                                        ]),
+                                        _: 1
+                                      })
+                                    ]),
+                                    _: 1
+                                  }),
+                                  createVNode(_component_CTabContent, null, {
+                                    default: withCtx(() => [
+                                      createVNode(_component_CTabPanel, {
+                                        class: "p-3",
+                                        itemKey: 0
+                                      }, {
+                                        default: withCtx(() => [
+                                          createVNode(_component_CategoryForm, {
+                                            id: this.$route.params.id
+                                          }, null, 8, ["id"])
+                                        ]),
+                                        _: 1
+                                      }),
+                                      createVNode(_component_CTabPanel, {
+                                        class: "p-3",
+                                        itemKey: 1
+                                      }, {
+                                        default: withCtx(() => [
+                                          createVNode(_component_GoodsTable, {
+                                            categoryId: this.$route.params.id
+                                          }, null, 8, ["categoryId"])
+                                        ]),
+                                        _: 1
+                                      })
+                                    ]),
+                                    _: 1
+                                  })
+                                ];
+                              }
+                            }),
+                            _: 1
+                          }, _parent5, _scopeId4));
+                        } else {
+                          return [
+                            createVNode(_component_CTabs, { activeItemKey: 0 }, {
+                              default: withCtx(() => [
+                                createVNode(_component_CTabList, { variant: "pills" }, {
+                                  default: withCtx(() => [
+                                    createVNode(_component_CTab, { itemKey: 0 }, {
+                                      default: withCtx(() => [
+                                        createTextVNode(toDisplayString($data.tab.values[0].toUpperCase()), 1)
+                                      ]),
+                                      _: 1
+                                    }),
+                                    createVNode(_component_CTab, { itemKey: 1 }, {
+                                      default: withCtx(() => [
+                                        createTextVNode(toDisplayString($data.tab.values[1].toUpperCase()), 1)
+                                      ]),
+                                      _: 1
+                                    })
+                                  ]),
+                                  _: 1
+                                }),
+                                createVNode(_component_CTabContent, null, {
+                                  default: withCtx(() => [
+                                    createVNode(_component_CTabPanel, {
+                                      class: "p-3",
+                                      itemKey: 0
+                                    }, {
+                                      default: withCtx(() => [
+                                        createVNode(_component_CategoryForm, {
+                                          id: this.$route.params.id
+                                        }, null, 8, ["id"])
+                                      ]),
+                                      _: 1
+                                    }),
+                                    createVNode(_component_CTabPanel, {
+                                      class: "p-3",
+                                      itemKey: 1
+                                    }, {
+                                      default: withCtx(() => [
+                                        createVNode(_component_GoodsTable, {
+                                          categoryId: this.$route.params.id
+                                        }, null, 8, ["categoryId"])
+                                      ]),
+                                      _: 1
+                                    })
+                                  ]),
+                                  _: 1
+                                })
+                              ]),
+                              _: 1
+                            })
+                          ];
+                        }
+                      }),
+                      _: 1
+                    }, _parent4, _scopeId3));
+                  } else {
+                    return [
+                      createVNode(_component_CCardBody, null, {
+                        default: withCtx(() => [
+                          createVNode(_component_CTabs, { activeItemKey: 0 }, {
+                            default: withCtx(() => [
+                              createVNode(_component_CTabList, { variant: "pills" }, {
+                                default: withCtx(() => [
+                                  createVNode(_component_CTab, { itemKey: 0 }, {
+                                    default: withCtx(() => [
+                                      createTextVNode(toDisplayString($data.tab.values[0].toUpperCase()), 1)
+                                    ]),
+                                    _: 1
+                                  }),
+                                  createVNode(_component_CTab, { itemKey: 1 }, {
+                                    default: withCtx(() => [
+                                      createTextVNode(toDisplayString($data.tab.values[1].toUpperCase()), 1)
+                                    ]),
+                                    _: 1
+                                  })
+                                ]),
+                                _: 1
+                              }),
+                              createVNode(_component_CTabContent, null, {
+                                default: withCtx(() => [
+                                  createVNode(_component_CTabPanel, {
+                                    class: "p-3",
+                                    itemKey: 0
+                                  }, {
+                                    default: withCtx(() => [
+                                      createVNode(_component_CategoryForm, {
+                                        id: this.$route.params.id
+                                      }, null, 8, ["id"])
+                                    ]),
+                                    _: 1
+                                  }),
+                                  createVNode(_component_CTabPanel, {
+                                    class: "p-3",
+                                    itemKey: 1
+                                  }, {
+                                    default: withCtx(() => [
+                                      createVNode(_component_GoodsTable, {
+                                        categoryId: this.$route.params.id
+                                      }, null, 8, ["categoryId"])
+                                    ]),
+                                    _: 1
+                                  })
+                                ]),
+                                _: 1
+                              })
+                            ]),
+                            _: 1
+                          })
+                        ]),
+                        _: 1
+                      })
+                    ];
+                  }
+                }),
+                _: 1
+              }, _parent3, _scopeId2));
+            } else {
+              return [
+                createVNode(_component_CCard, { class: "p-2" }, {
+                  default: withCtx(() => [
+                    createVNode(_component_CCardBody, null, {
+                      default: withCtx(() => [
+                        createVNode(_component_CTabs, { activeItemKey: 0 }, {
+                          default: withCtx(() => [
+                            createVNode(_component_CTabList, { variant: "pills" }, {
+                              default: withCtx(() => [
+                                createVNode(_component_CTab, { itemKey: 0 }, {
+                                  default: withCtx(() => [
+                                    createTextVNode(toDisplayString($data.tab.values[0].toUpperCase()), 1)
+                                  ]),
+                                  _: 1
+                                }),
+                                createVNode(_component_CTab, { itemKey: 1 }, {
+                                  default: withCtx(() => [
+                                    createTextVNode(toDisplayString($data.tab.values[1].toUpperCase()), 1)
+                                  ]),
+                                  _: 1
+                                })
+                              ]),
+                              _: 1
+                            }),
+                            createVNode(_component_CTabContent, null, {
+                              default: withCtx(() => [
+                                createVNode(_component_CTabPanel, {
+                                  class: "p-3",
+                                  itemKey: 0
+                                }, {
+                                  default: withCtx(() => [
+                                    createVNode(_component_CategoryForm, {
+                                      id: this.$route.params.id
+                                    }, null, 8, ["id"])
+                                  ]),
+                                  _: 1
+                                }),
+                                createVNode(_component_CTabPanel, {
+                                  class: "p-3",
+                                  itemKey: 1
+                                }, {
+                                  default: withCtx(() => [
+                                    createVNode(_component_GoodsTable, {
+                                      categoryId: this.$route.params.id
+                                    }, null, 8, ["categoryId"])
+                                  ]),
+                                  _: 1
+                                })
+                              ]),
+                              _: 1
+                            })
+                          ]),
+                          _: 1
+                        })
+                      ]),
+                      _: 1
+                    })
+                  ]),
+                  _: 1
+                })
+              ];
+            }
+          }),
+          _: 1
+        }, _parent2, _scopeId));
+      } else {
+        return [
+          createVNode(_component_CCol, null, {
+            default: withCtx(() => [
+              createVNode(_component_CCard, { class: "p-2" }, {
+                default: withCtx(() => [
+                  createVNode(_component_CCardBody, null, {
+                    default: withCtx(() => [
+                      createVNode(_component_CTabs, { activeItemKey: 0 }, {
+                        default: withCtx(() => [
+                          createVNode(_component_CTabList, { variant: "pills" }, {
+                            default: withCtx(() => [
+                              createVNode(_component_CTab, { itemKey: 0 }, {
+                                default: withCtx(() => [
+                                  createTextVNode(toDisplayString($data.tab.values[0].toUpperCase()), 1)
+                                ]),
+                                _: 1
+                              }),
+                              createVNode(_component_CTab, { itemKey: 1 }, {
+                                default: withCtx(() => [
+                                  createTextVNode(toDisplayString($data.tab.values[1].toUpperCase()), 1)
+                                ]),
+                                _: 1
+                              })
+                            ]),
+                            _: 1
+                          }),
+                          createVNode(_component_CTabContent, null, {
+                            default: withCtx(() => [
+                              createVNode(_component_CTabPanel, {
+                                class: "p-3",
+                                itemKey: 0
+                              }, {
+                                default: withCtx(() => [
+                                  createVNode(_component_CategoryForm, {
+                                    id: this.$route.params.id
+                                  }, null, 8, ["id"])
+                                ]),
+                                _: 1
+                              }),
+                              createVNode(_component_CTabPanel, {
+                                class: "p-3",
+                                itemKey: 1
+                              }, {
+                                default: withCtx(() => [
+                                  createVNode(_component_GoodsTable, {
+                                    categoryId: this.$route.params.id
+                                  }, null, 8, ["categoryId"])
+                                ]),
+                                _: 1
+                              })
+                            ]),
+                            _: 1
+                          })
+                        ]),
+                        _: 1
+                      })
+                    ]),
+                    _: 1
+                  })
+                ]),
+                _: 1
+              })
+            ]),
+            _: 1
+          })
+        ];
+      }
+    }),
+    _: 1
+  }, _parent));
+}
+const _sfc_setup = _sfc_main.setup;
+_sfc_main.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/views/categories/CategoryDetails.vue");
+  return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
+};
+const CategoryDetails = /* @__PURE__ */ _export_sfc(_sfc_main, [["ssrRender", _sfc_ssrRender]]);
+export {
+  CategoryDetails as default
+};

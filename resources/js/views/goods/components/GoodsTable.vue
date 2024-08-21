@@ -150,7 +150,7 @@ export default {
                     sortable: false,
                 },
                 {
-                    title: this.$t("stockunit"),
+                    title: this.$t("stock-unit"),
                     key: "stock_unit",
                     sortable: false,
                 },

@@ -3,6 +3,7 @@
         "title": "Alert",
         "update": "Are you sure you want to update this record?",
         "delete": "Are you sure you want to delete this record?",
+        "stocktake": "Are you sure you want to submit this stocktake?",
         "shipping": "Please enter unit"
     }
 }

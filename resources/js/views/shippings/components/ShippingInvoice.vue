@@ -99,9 +99,7 @@
                                 type="number"
                                 variant="plain"
                                 hide-details
-                                required
-                                dense
-                                clearable
+                                hide-spin-buttons
                                 @change="change(index, item)"
                             ></v-text-field>
                         </div>
@@ -114,9 +112,7 @@
                                 type="number"
                                 variant="plain"
                                 hide-details
-                                required
-                                dense
-                                clearable
+                                hide-spin-buttons
                                 @change="change(index, item)"
                             ></v-text-field>
                         </div>
@@ -129,9 +125,7 @@
                                 type="number"
                                 variant="plain"
                                 hide-details
-                                required
-                                dense
-                                clearable
+                                hide-spin-buttons
                                 @change="change(index, item)"
                             ></v-text-field>
                         </div>
@@ -144,9 +138,7 @@
                                 type="number"
                                 variant="plain"
                                 hide-details
-                                required
-                                dense
-                                clearable
+                                hide-spin-buttons
                                 @change="change(index, item)"
                             ></v-text-field>
                         </div>
@@ -159,9 +151,7 @@
                                 type="number"
                                 variant="plain"
                                 hide-details
-                                required
-                                dense
-                                clearable
+                                hide-spin-buttons
                                 @change="change(index, item)"
                             ></v-text-field>
                         </div>
@@ -174,9 +164,7 @@
                                 type="number"
                                 variant="plain"
                                 hide-details
-                                required
-                                dense
-                                clearable
+                                hide-spin-buttons
                                 @change="change(index, item)"
                             ></v-text-field>
                         </div>
@@ -189,9 +177,7 @@
                                 type="number"
                                 variant="plain"
                                 hide-details
-                                required
-                                dense
-                                clearable
+                                hide-spin-buttons
                                 @change="change(index, item)"
                             ></v-text-field>
                         </div>
@@ -351,8 +337,8 @@ export default {
             const idx = rows.indexOf(value);
             return idx > -1 ? true : false;
         },
-        save(idx) {
-            let item = this.shippingItems[idx];
+        change(idx, item) {
+            // let item = this.shippingItems[idx];
             if (item) {
                 let sizes = goodsSizes;
                 let totalunit = 0;

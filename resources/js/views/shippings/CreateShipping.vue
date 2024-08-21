@@ -171,6 +171,7 @@
                         :items="items"
                         :search="table.item.search"
                         :loading="fetchLoading.table"
+                        hide-default-footer
                     >
                         <template v-slot:loading>
                             <v-skeleton-loader
@@ -178,36 +179,30 @@
                             ></v-skeleton-loader>
                         </template>
                         <template v-slot:[`item.32-S`]="{ index, item }">
-                            <div>
+                            <div v-if="item['32-S']">
                                 <v-text-field
-                                    v-if="item['32-S']"
                                     v-model="item['32-S'].unit"
                                     type="number"
                                     variant="plain"
+                                    control-variant="split"
                                     hide-details
-                                    required
-                                    dense
-                                    clearable
                                     @change="change(index, item)"
                                 ></v-text-field>
-                                <span v-else>－</span>
                             </div>
+                            <span v-else>－</span>
                         </template>
                         <template v-slot:[`item.34-M`]="{ index, item }">
-                            <div>
+                            <div v-if="item['34-M']">
                                 <v-text-field
-                                    v-if="item['34-M']"
                                     v-model="item['34-M'].unit"
                                     type="number"
                                     variant="plain"
                                     hide-details
-                                    required
-                                    dense
-                                    clearable
+                                    hide-spin-buttons
                                     @change="change(index, item)"
                                 ></v-text-field>
-                                <span v-else>－</span>
                             </div>
+                            <span v-else>－</span>
                         </template>
                         <template v-slot:[`item.36-L`]="{ index, item }">
                             <div>
@@ -217,9 +212,7 @@
                                     type="number"
                                     variant="plain"
                                     hide-details
-                                    required
-                                    dense
-                                    clearable
+                                    hide-spin-buttons
                                     @change="change(index, item)"
                                 ></v-text-field>
                                 <span v-else>－</span>
@@ -233,9 +226,7 @@
                                     type="number"
                                     variant="plain"
                                     hide-details
-                                    required
-                                    dense
-                                    clearable
+                                    hide-spin-buttons
                                     @change="change(index, item)"
                                 ></v-text-field>
                                 <span v-else>－</span>
@@ -249,9 +240,7 @@
                                     type="number"
                                     variant="plain"
                                     hide-details
-                                    required
-                                    dense
-                                    clearable
+                                    hide-spin-buttons
                                     @change="change(index, item)"
                                 ></v-text-field>
                                 <span v-else>－</span>
@@ -265,9 +254,7 @@
                                     type="number"
                                     variant="plain"
                                     hide-details
-                                    required
-                                    dense
-                                    clearable
+                                    hide-spin-buttons
                                     @change="change(index, item)"
                                 ></v-text-field>
                                 <span v-else>－</span>
@@ -281,32 +268,44 @@
                                     type="number"
                                     variant="plain"
                                     hide-details
-                                    required
-                                    dense
-                                    clearable
+                                    hide-spin-buttons
                                     @change="change(index, item)"
                                 ></v-text-field>
                                 <span v-else>－</span>
                             </div>
                         </template>
+
+                        <template v-slot:[`item.unit_price`]="{ item }">
+                            <span v-if="item.unit_price">
+                                {{
+                                    `$ ${(
+                                        item.unit_price * 1
+                                    ).toLocaleString()}`
+                                }}
+                            </span>
+                            <span v-else>－</span>
+                        </template>
+                        <template v-slot:[`item.total_unit`]="{ item }">
+                            <span v-if="item.total_unit">
+                                {{ (item.total_unit * 1).toLocaleString() }}
+                            </span>
+                            <span v-else>－</span>
+                        </template>
+                        <template v-slot:[`item.cost`]="{ item }">
+                            <span v-if="item.cost">
+                                {{ `$ ${(item.cost * 1).toLocaleString()}` }}
+                            </span>
+                            <span v-else>－</span>
+                        </template>
                         <template v-slot:[`body.append`]>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="p-2">
-                                    {{ $t("total-unit") }} {{ ": " }}
+                                <td v-for="_ in [...Array(10)]"></td>
+                                <td class="p-2" colspan="2">
+                                    {{ `${$t("total-unit")}:` }}
                                 </td>
                                 <td class="p-2" colspan="4">
                                     <span v-if="totalunit">
-                                        {{ totalunit.toLocaleString() }}
+                                        {{ (totalunit * 1).toLocaleString() }}
                                     </span>
                                     <span v-else>
                                         {{ "0".toLocaleString() }}
@@ -314,24 +313,17 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="p-2">
-                                    {{ $t("subtotal") }} {{ ": " }}
+                                <td v-for="_ in [...Array(10)]"></td>
+                                <td class="p-2" colspan="2">
+                                    {{ `${$t("subtotal")}:` }}
                                 </td>
                                 <td class="p-2" colspan="4">
                                     <span v-if="subtotal">
-                                        {{ "$ " }}
-                                        {{ subtotal.toLocaleString() }}
-                                        {{ currency }}
+                                        {{
+                                            `$ ${(
+                                                subtotal * 1
+                                            ).toLocaleString()} ${currency}`
+                                        }}
                                     </span>
                                     <span v-else>
                                         {{ "$ " }}
@@ -522,22 +514,15 @@ export default {
                 .then((response) => {
                     self.loading = false;
                     self.$store.dispatch("goods/shippings/clear");
-                    self.$router.back();
+                    self.$router.push({ path: "#/shippings" });
                 })
                 .catch((error) => {
                     self.loading = false;
                     self.errors = error.response.data?.data;
                 });
         },
-        isRowEditable(value) {
-            return goodsSizes.find((obj) => obj.name === value);
-        },
-        isCurrencyRow(value) {
-            const rows = ["unit_price", "cost"];
-            const idx = rows.indexOf(value);
-            return idx > -1 ? true : false;
-        },
         change(idx, item) {
+            // console.log(idx, item);
             // let item = this.items[idx];
             let sizes = goodsSizes;
             let totalunit = 0;
@@ -545,7 +530,10 @@ export default {
                 if (item[size.name]) {
                     if (item[size.name].unit > item[size.name].stock_unit) {
                         item[size.name].unit = item[size.name].stock_unit;
-                        return false;
+                        return;
+                    } else if (item[size.name].unit < 0) {
+                        item[size.name].unit = 0;
+                        return;
                     }
                     totalunit += item[size.name].unit;
                 }
@@ -570,6 +558,10 @@ export default {
 </script>
 
 <style scoped>
+/* .num-wrapper {
+    max-width: 124px;
+    min-width: 124px;
+} */
 .v-select {
     font-size: 1em;
     font-weight: 100;

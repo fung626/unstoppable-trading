@@ -34,7 +34,8 @@
             "home": "Purchases",
             "table": "Table",
             "create": "Create",
-            "details": "Details"
+            "details": "Details",
+            "stocktakes": "Stocktakes"
         },
         "shippings": {
             "home": "Shippings",

@@ -188,6 +188,24 @@
     "/assets/materialdesignicons-webfont-PXm3-2wK.woff",
     "/assets/materialdesignicons-webfont-B7mPwVP_.ttf"
   ],
+  "resources/js/containers/TheHeaderDropdownAccnt.vue": [
+    "/assets/materialdesignicons-webfont-CSr8KVlo.eot",
+    "/assets/materialdesignicons-webfont-Dp5v-WZN.woff2",
+    "/assets/materialdesignicons-webfont-PXm3-2wK.woff",
+    "/assets/materialdesignicons-webfont-B7mPwVP_.ttf"
+  ],
+  "resources/js/containers/TheHeaderDropdownAccnt.vue?vue&type=style&index=0&scoped=1253102b&lang.css": [
+    "/assets/materialdesignicons-webfont-CSr8KVlo.eot",
+    "/assets/materialdesignicons-webfont-Dp5v-WZN.woff2",
+    "/assets/materialdesignicons-webfont-PXm3-2wK.woff",
+    "/assets/materialdesignicons-webfont-B7mPwVP_.ttf"
+  ],
+  "resources/js/containers/TheHeaderDropdownShipping.vue": [
+    "/assets/materialdesignicons-webfont-CSr8KVlo.eot",
+    "/assets/materialdesignicons-webfont-Dp5v-WZN.woff2",
+    "/assets/materialdesignicons-webfont-PXm3-2wK.woff",
+    "/assets/materialdesignicons-webfont-B7mPwVP_.ttf"
+  ],
   "resources/js/containers/TheSidebar.vue": [
     "/assets/materialdesignicons-webfont-CSr8KVlo.eot",
     "/assets/materialdesignicons-webfont-Dp5v-WZN.woff2",
@@ -663,6 +681,42 @@
     "/assets/materialdesignicons-webfont-B7mPwVP_.ttf"
   ],
   "resources/js/store/GoodsContent/state.js": [
+    "/assets/materialdesignicons-webfont-CSr8KVlo.eot",
+    "/assets/materialdesignicons-webfont-Dp5v-WZN.woff2",
+    "/assets/materialdesignicons-webfont-PXm3-2wK.woff",
+    "/assets/materialdesignicons-webfont-B7mPwVP_.ttf"
+  ],
+  "resources/js/store/GoodsCreateShippingConfig/actions.js": [
+    "/assets/materialdesignicons-webfont-CSr8KVlo.eot",
+    "/assets/materialdesignicons-webfont-Dp5v-WZN.woff2",
+    "/assets/materialdesignicons-webfont-PXm3-2wK.woff",
+    "/assets/materialdesignicons-webfont-B7mPwVP_.ttf"
+  ],
+  "resources/js/store/GoodsCreateShippingConfig/getter.js": [
+    "/assets/materialdesignicons-webfont-CSr8KVlo.eot",
+    "/assets/materialdesignicons-webfont-Dp5v-WZN.woff2",
+    "/assets/materialdesignicons-webfont-PXm3-2wK.woff",
+    "/assets/materialdesignicons-webfont-B7mPwVP_.ttf"
+  ],
+  "resources/js/store/GoodsCreateShippingConfig/index.js": [
+    "/assets/materialdesignicons-webfont-CSr8KVlo.eot",
+    "/assets/materialdesignicons-webfont-Dp5v-WZN.woff2",
+    "/assets/materialdesignicons-webfont-PXm3-2wK.woff",
+    "/assets/materialdesignicons-webfont-B7mPwVP_.ttf"
+  ],
+  "resources/js/store/GoodsCreateShippingConfig/mutation-types.js": [
+    "/assets/materialdesignicons-webfont-CSr8KVlo.eot",
+    "/assets/materialdesignicons-webfont-Dp5v-WZN.woff2",
+    "/assets/materialdesignicons-webfont-PXm3-2wK.woff",
+    "/assets/materialdesignicons-webfont-B7mPwVP_.ttf"
+  ],
+  "resources/js/store/GoodsCreateShippingConfig/mutation.js": [
+    "/assets/materialdesignicons-webfont-CSr8KVlo.eot",
+    "/assets/materialdesignicons-webfont-Dp5v-WZN.woff2",
+    "/assets/materialdesignicons-webfont-PXm3-2wK.woff",
+    "/assets/materialdesignicons-webfont-B7mPwVP_.ttf"
+  ],
+  "resources/js/store/GoodsCreateShippingConfig/state.js": [
     "/assets/materialdesignicons-webfont-CSr8KVlo.eot",
     "/assets/materialdesignicons-webfont-Dp5v-WZN.woff2",
     "/assets/materialdesignicons-webfont-PXm3-2wK.woff",
@@ -1785,329 +1839,357 @@
     "/assets/materialdesignicons-webfont-B7mPwVP_.ttf"
   ],
   "resources/js/views/auth/ForgotPassword.vue": [
-    "/assets/ForgotPassword-DfCTNNij.mjs",
-    "/assets/ForgotPassword-Dq0Jr_D_.css"
+    "/assets/ForgotPassword-D0gxrgPK.mjs",
+    "/assets/ForgotPassword-CsHClmgX.css"
   ],
-  "resources/js/views/auth/ForgotPassword.vue?vue&type=style&index=0&scoped=023a44ae&lang.css": [
-    "/assets/ForgotPassword-DfCTNNij.mjs",
-    "/assets/ForgotPassword-Dq0Jr_D_.css"
+  "resources/js/views/auth/ForgotPassword.vue?vue&type=style&index=0&scoped=2ff7c6f2&lang.css": [
+    "/assets/ForgotPassword-D0gxrgPK.mjs",
+    "/assets/ForgotPassword-CsHClmgX.css"
   ],
   "resources/js/views/auth/Login.vue": [
-    "/assets/Login-Di-qZRO7.mjs",
-    "/assets/Login-a4T7y5sm.css"
+    "/assets/Login-D_M3NVP3.mjs",
+    "/assets/Login-CTNHB6-x.css"
   ],
-  "resources/js/views/auth/Login.vue?vue&type=style&index=0&scoped=9c7af850&lang.css": [
-    "/assets/Login-Di-qZRO7.mjs",
-    "/assets/Login-a4T7y5sm.css"
+  "resources/js/views/auth/Login.vue?vue&type=style&index=0&scoped=fef92ec0&lang.css": [
+    "/assets/Login-D_M3NVP3.mjs",
+    "/assets/Login-CTNHB6-x.css"
   ],
   "resources/js/views/auth/ResetPassword.vue": [
-    "/assets/ResetPassword-xRlBsHVr.mjs",
-    "/assets/ResetPassword-BSKr7rwk.css"
+    "/assets/ResetPassword-Cr8P9dUW.mjs",
+    "/assets/ResetPassword-CHElQ1uQ.css"
   ],
-  "resources/js/views/auth/ResetPassword.vue?vue&type=style&index=0&scoped=b0bd8154&lang.css": [
-    "/assets/ResetPassword-xRlBsHVr.mjs",
-    "/assets/ResetPassword-BSKr7rwk.css"
+  "resources/js/views/auth/ResetPassword.vue?vue&type=style&index=0&scoped=33f0de70&lang.css": [
+    "/assets/ResetPassword-Cr8P9dUW.mjs",
+    "/assets/ResetPassword-CHElQ1uQ.css"
   ],
   "resources/js/views/categories/Categories.vue": [
-    "/assets/Categories-DRbGk7pw.mjs"
+    "/assets/Categories-DZUEICZK.mjs"
   ],
   "resources/js/views/categories/CategoryDetails.vue": [
-    "/assets/CategoryDetails-RUGatlAU.mjs",
-    "/assets/CategoryDetails-C8yuDaXi.css"
+    "/assets/CategoryDetails-BaM-PAPU.mjs",
+    "/assets/CategoryDetails-BgFNpP8U.css"
   ],
   "resources/js/views/categories/CreateCategory.vue": [
-    "/assets/CreateCategory-Cx66Otvd.mjs",
-    "/assets/CreateCategory-fuK00tWD.css"
+    "/assets/CreateCategory-BJROPcq0.mjs",
+    "/assets/CreateCategory-BHscF1Gp.css"
   ],
-  "resources/js/views/categories/CreateCategory.vue?vue&type=style&index=0&scoped=d6d482aa&lang.css": [
-    "/assets/CreateCategory-Cx66Otvd.mjs",
-    "/assets/CreateCategory-fuK00tWD.css"
+  "resources/js/views/categories/CreateCategory.vue?vue&type=style&index=0&scoped=b27be5cd&lang.css": [
+    "/assets/CreateCategory-BJROPcq0.mjs",
+    "/assets/CreateCategory-BHscF1Gp.css"
   ],
   "resources/js/views/categories/components/CategoryForm.vue": [
-    "/assets/CategoryDetails-RUGatlAU.mjs",
-    "/assets/CategoryDetails-C8yuDaXi.css"
+    "/assets/CategoryDetails-BaM-PAPU.mjs",
+    "/assets/CategoryDetails-BgFNpP8U.css"
   ],
-  "resources/js/views/categories/components/CategoryForm.vue?vue&type=style&index=0&scoped=8db58630&lang.css": [
-    "/assets/CategoryDetails-RUGatlAU.mjs",
-    "/assets/CategoryDetails-C8yuDaXi.css"
+  "resources/js/views/categories/components/CategoryForm.vue?vue&type=style&index=0&scoped=34ac1229&lang.css": [
+    "/assets/CategoryDetails-BaM-PAPU.mjs",
+    "/assets/CategoryDetails-BgFNpP8U.css"
   ],
   "resources/js/views/clients/ClientDetails.vue": [
-    "/assets/ClientDetails-B-Gj8ZyF.mjs",
-    "/assets/ClientDetails-BkQfEUgX.css"
+    "/assets/ClientDetails-Dl4gpIu1.mjs",
+    "/assets/ClientDetails-D7Rf3a3j.css"
   ],
   "resources/js/views/clients/Clients.vue": [
-    "/assets/Clients-BA8mDPgv.mjs"
+    "/assets/Clients-D8ypUFDR.mjs"
   ],
   "resources/js/views/clients/CreateClient.vue": [
-    "/assets/CreateClient-VX-NakYR.mjs",
-    "/assets/CreateClient-BgFHzn5u.css"
+    "/assets/CreateClient-CPnoUJoJ.mjs",
+    "/assets/CreateClient-CuPTUbUj.css"
   ],
-  "resources/js/views/clients/CreateClient.vue?vue&type=style&index=0&scoped=7ba43526&lang.css": [
-    "/assets/CreateClient-VX-NakYR.mjs",
-    "/assets/CreateClient-BgFHzn5u.css"
+  "resources/js/views/clients/CreateClient.vue?vue&type=style&index=0&scoped=e124ab1d&lang.css": [
+    "/assets/CreateClient-CPnoUJoJ.mjs",
+    "/assets/CreateClient-CuPTUbUj.css"
   ],
   "resources/js/views/clients/components/ClientForm.vue": [
-    "/assets/ClientDetails-B-Gj8ZyF.mjs",
-    "/assets/ClientDetails-BkQfEUgX.css"
+    "/assets/ClientDetails-Dl4gpIu1.mjs",
+    "/assets/ClientDetails-D7Rf3a3j.css"
   ],
-  "resources/js/views/clients/components/ClientForm.vue?vue&type=style&index=0&scoped=3939820a&lang.css": [
-    "/assets/ClientDetails-B-Gj8ZyF.mjs",
-    "/assets/ClientDetails-BkQfEUgX.css"
+  "resources/js/views/clients/components/ClientForm.vue?vue&type=style&index=0&scoped=38124139&lang.css": [
+    "/assets/ClientDetails-Dl4gpIu1.mjs",
+    "/assets/ClientDetails-D7Rf3a3j.css"
   ],
   "resources/js/views/dashboard/Dashboard.vue": [
-    "/assets/Dashboard-CP1vbcTr.mjs"
+    "/assets/Dashboard--p6X_4DB.mjs"
   ],
   "resources/js/views/dashboard/components/DashboardSummaryLineChart.vue": [
-    "/assets/Dashboard-CP1vbcTr.mjs"
+    "/assets/Dashboard--p6X_4DB.mjs"
   ],
   "resources/js/views/dashboard/components/PurchaseTable.vue": [
-    "/assets/Dashboard-CP1vbcTr.mjs"
+    "/assets/Dashboard--p6X_4DB.mjs"
   ],
   "resources/js/views/duty/CreateDuty.vue": [
-    "/assets/CreateDuty-B_a5CY2P.mjs",
+    "/assets/CreateDuty-DpuzOxC7.mjs",
     "/assets/CreateDuty-DBPl93kU.css"
   ],
   "resources/js/views/duty/CreateDuty.vue?vue&type=style&index=0&scoped=36be9bb4&lang.css": [
-    "/assets/CreateDuty-B_a5CY2P.mjs",
+    "/assets/CreateDuty-DpuzOxC7.mjs",
     "/assets/CreateDuty-DBPl93kU.css"
   ],
   "resources/js/views/duty/Duty.vue": [
-    "/assets/Duty-woYuIFnI.mjs"
+    "/assets/Duty-CpuwhZcp.mjs"
   ],
   "resources/js/views/duty/DutyDetails.vue": [
-    "/assets/DutyDetails-DucZrrKs.mjs",
-    "/assets/DutyDetails-CyFYdaeh.css"
+    "/assets/DutyDetails-svOc-V82.mjs",
+    "/assets/DutyDetails-DPqik6JF.css"
   ],
-  "resources/js/views/duty/DutyDetails.vue?vue&type=style&index=0&scoped=fb0abc3f&lang.css": [
-    "/assets/DutyDetails-DucZrrKs.mjs",
-    "/assets/DutyDetails-CyFYdaeh.css"
+  "resources/js/views/duty/DutyDetails.vue?vue&type=style&index=0&scoped=e70c6fe0&lang.css": [
+    "/assets/DutyDetails-svOc-V82.mjs",
+    "/assets/DutyDetails-DPqik6JF.css"
   ],
   "resources/js/views/goods-stocks/GoodsStock.vue": [
-    "/assets/GoodsStock-BVN1xz1e.mjs"
+    "/assets/GoodsStock-BWQ5Voii.mjs"
   ],
   "resources/js/views/goods/CreateGoods.vue": [
-    "/assets/CreateGoods-08JpGzF3.mjs",
-    "/assets/CreateGoods-CAnJl7Rn.css"
+    "/assets/CreateGoods-CaStxpGg.mjs",
+    "/assets/CreateGoods-CPlL7eMP.css"
   ],
-  "resources/js/views/goods/CreateGoods.vue?vue&type=style&index=0&scoped=5dc49d27&lang.css": [
-    "/assets/CreateGoods-08JpGzF3.mjs",
-    "/assets/CreateGoods-CAnJl7Rn.css"
+  "resources/js/views/goods/CreateGoods.vue?vue&type=style&index=0&scoped=22431a15&lang.css": [
+    "/assets/CreateGoods-CaStxpGg.mjs",
+    "/assets/CreateGoods-CPlL7eMP.css"
   ],
   "resources/js/views/goods/Goods.vue": [
-    "/assets/Goods-Dm8_6a94.mjs"
+    "/assets/Goods-Dks4lTpi.mjs"
   ],
   "resources/js/views/goods/GoodsDetails.vue": [
-    "/assets/GoodsDetails-sdSNRBP_.mjs",
-    "/assets/GoodsDetails-BEqZFzb8.css"
+    "/assets/GoodsDetails-Dz1SPH1c.mjs",
+    "/assets/GoodsDetails-qbgEVako.css"
   ],
   "resources/js/views/goods/components/GoodsContentTable.vue": [
-    "/assets/GoodsDetails-sdSNRBP_.mjs",
-    "/assets/GoodsDetails-BEqZFzb8.css"
+    "/assets/GoodsDetails-Dz1SPH1c.mjs",
+    "/assets/GoodsDetails-qbgEVako.css"
   ],
   "resources/js/views/goods/components/GoodsForm.vue": [
-    "/assets/GoodsDetails-sdSNRBP_.mjs",
-    "/assets/GoodsDetails-BEqZFzb8.css"
+    "/assets/GoodsDetails-Dz1SPH1c.mjs",
+    "/assets/GoodsDetails-qbgEVako.css"
   ],
-  "resources/js/views/goods/components/GoodsForm.vue?vue&type=style&index=0&scoped=c0166ff6&lang.css": [
-    "/assets/GoodsDetails-sdSNRBP_.mjs",
-    "/assets/GoodsDetails-BEqZFzb8.css"
+  "resources/js/views/goods/components/GoodsForm.vue?vue&type=style&index=0&scoped=f9ebed7c&lang.css": [
+    "/assets/GoodsDetails-Dz1SPH1c.mjs",
+    "/assets/GoodsDetails-qbgEVako.css"
   ],
   "resources/js/views/goods/components/GoodsItemTable.vue": [
-    "/assets/GoodsDetails-sdSNRBP_.mjs",
-    "/assets/GoodsDetails-BEqZFzb8.css"
+    "/assets/GoodsDetails-Dz1SPH1c.mjs",
+    "/assets/GoodsDetails-qbgEVako.css"
   ],
-  "resources/js/views/goods/components/GoodsItemTable.vue?vue&type=style&index=0&scoped=29ba8819&lang.css": [
-    "/assets/GoodsDetails-sdSNRBP_.mjs",
-    "/assets/GoodsDetails-BEqZFzb8.css"
+  "resources/js/views/goods/components/GoodsItemTable.vue?vue&type=style&index=0&scoped=5734978f&lang.css": [
+    "/assets/GoodsDetails-Dz1SPH1c.mjs",
+    "/assets/GoodsDetails-qbgEVako.css"
   ],
   "resources/js/views/goods/components/GoodsTable.vue": [
-    "/assets/GoodsTable-D2KyInIT.mjs"
+    "/assets/GoodsTable-DZ7DrhK8.mjs"
   ],
   "resources/js/views/goods/components/ShippingDialog.vue": [
-    "/assets/GoodsDetails-sdSNRBP_.mjs",
-    "/assets/GoodsDetails-BEqZFzb8.css"
+    "/assets/GoodsDetails-Dz1SPH1c.mjs",
+    "/assets/GoodsDetails-qbgEVako.css"
+  ],
+  "resources/js/views/leave/CreateLeave.vue": [
+    "/assets/CreateLeave-BsmFLrwy.mjs",
+    "/assets/CreateLeave-Ch0ZNEIk.css"
+  ],
+  "resources/js/views/leave/CreateLeave.vue?vue&type=style&index=0&scoped=188dfbe7&lang.css": [
+    "/assets/CreateLeave-BsmFLrwy.mjs",
+    "/assets/CreateLeave-Ch0ZNEIk.css"
+  ],
+  "resources/js/views/profile/Profile.vue": [
+    "/assets/Profile-BnAvR5Ze.mjs",
+    "/assets/Profile-BcpxpJXz.css"
+  ],
+  "resources/js/views/profile/components/PasswordForm.vue": [
+    "/assets/Profile-BnAvR5Ze.mjs",
+    "/assets/Profile-BcpxpJXz.css"
+  ],
+  "resources/js/views/profile/components/PasswordForm.vue?vue&type=style&index=0&scoped=8010ef54&lang.css": [
+    "/assets/Profile-BnAvR5Ze.mjs",
+    "/assets/Profile-BcpxpJXz.css"
+  ],
+  "resources/js/views/profile/components/ProfileInfoForm.vue": [
+    "/assets/Profile-BnAvR5Ze.mjs",
+    "/assets/Profile-BcpxpJXz.css"
+  ],
+  "resources/js/views/profile/components/ProfileInfoForm.vue?vue&type=style&index=0&scoped=598aa536&lang.css": [
+    "/assets/Profile-BnAvR5Ze.mjs",
+    "/assets/Profile-BcpxpJXz.css"
   ],
   "resources/js/views/purchases/CreatePurchase.vue": [
-    "/assets/CreatePurchase-BQXo0iUa.mjs",
-    "/assets/CreatePurchase-B6uxBGuE.css"
+    "/assets/CreatePurchase-B8q53oYC.mjs",
+    "/assets/CreatePurchase-BRtal5tJ.css"
   ],
-  "resources/js/views/purchases/CreatePurchase.vue?vue&type=style&index=0&scoped=f4b095a8&lang.css": [
-    "/assets/CreatePurchase-BQXo0iUa.mjs",
-    "/assets/CreatePurchase-B6uxBGuE.css"
+  "resources/js/views/purchases/CreatePurchase.vue?vue&type=style&index=0&scoped=dfaa7a0c&lang.css": [
+    "/assets/CreatePurchase-B8q53oYC.mjs",
+    "/assets/CreatePurchase-BRtal5tJ.css"
   ],
   "resources/js/views/purchases/PurchaseDetails.vue": [
-    "/assets/PurchaseDetails-aVB-HO_p.mjs",
-    "/assets/PurchaseDetails-IftxjH_b.css"
+    "/assets/PurchaseDetails-BY5RPnpw.mjs",
+    "/assets/PurchaseDetails-BSWQfNu0.css"
   ],
-  "resources/js/views/purchases/PurchaseDetails.vue?vue&type=style&index=0&scoped=9dc7d61d&lang.css": [
-    "/assets/PurchaseDetails-aVB-HO_p.mjs",
-    "/assets/PurchaseDetails-IftxjH_b.css"
+  "resources/js/views/purchases/PurchaseDetails.vue?vue&type=style&index=0&scoped=71046b97&lang.css": [
+    "/assets/PurchaseDetails-BY5RPnpw.mjs",
+    "/assets/PurchaseDetails-BSWQfNu0.css"
   ],
   "resources/js/views/purchases/Purchases.vue": [
-    "/assets/Purchases-BZz699xf.mjs"
+    "/assets/Purchases-m0vPfKGm.mjs"
   ],
   "resources/js/views/purchases/Stocktake.vue": [
-    "/assets/Stocktake-TeNZ3uOm.mjs",
-    "/assets/Stocktake-CLOHomLP.css"
+    "/assets/Stocktake-Bu0zhoEk.mjs",
+    "/assets/Stocktake-yfR242Dy.css"
   ],
-  "resources/js/views/purchases/Stocktake.vue?vue&type=style&index=0&scoped=9ae403eb&lang.css": [
-    "/assets/Stocktake-TeNZ3uOm.mjs",
-    "/assets/Stocktake-CLOHomLP.css"
+  "resources/js/views/purchases/Stocktake.vue?vue&type=style&index=0&scoped=be5cd610&lang.css": [
+    "/assets/Stocktake-Bu0zhoEk.mjs",
+    "/assets/Stocktake-yfR242Dy.css"
   ],
   "resources/js/views/purchases/components/CreatePurchaseDialog.vue": [
-    "/assets/CreatePurchase-BQXo0iUa.mjs",
-    "/assets/CreatePurchase-B6uxBGuE.css"
+    "/assets/CreatePurchase-B8q53oYC.mjs",
+    "/assets/CreatePurchase-BRtal5tJ.css"
   ],
   "resources/js/views/purchases/components/StocktakeDialog.vue": [
-    "/assets/Stocktake-TeNZ3uOm.mjs",
-    "/assets/Stocktake-CLOHomLP.css"
+    "/assets/Stocktake-Bu0zhoEk.mjs",
+    "/assets/Stocktake-yfR242Dy.css"
   ],
   "resources/js/views/sales-reports/SalesReports.vue": [
-    "/assets/SalesReports-BFt3Ov4c.mjs"
+    "/assets/SalesReports-DcgdNbG0.mjs"
   ],
   "resources/js/views/sales-reports/components/SalesReportLineChart.vue": [
-    "/assets/SalesReports-BFt3Ov4c.mjs"
+    "/assets/SalesReports-DcgdNbG0.mjs"
   ],
   "resources/js/views/sales-reports/components/TopSalesTable.vue": [
-    "/assets/SalesReports-BFt3Ov4c.mjs"
+    "/assets/SalesReports-DcgdNbG0.mjs"
   ],
   "resources/js/views/sales-reports/components/TopStocksTable.vue": [
-    "/assets/SalesReports-BFt3Ov4c.mjs"
+    "/assets/SalesReports-DcgdNbG0.mjs"
   ],
   "resources/js/views/shippings/CreateShipping.vue": [
-    "/assets/CreateShipping-Cr6ZgrXL.mjs",
-    "/assets/CreateShipping-OXQ7DSt0.css"
+    "/assets/CreateShipping--SOReJlZ.mjs",
+    "/assets/CreateShipping-Bk9jKVNL.css"
   ],
-  "resources/js/views/shippings/CreateShipping.vue?vue&type=style&index=0&scoped=f9e01f4c&lang.css": [
-    "/assets/CreateShipping-Cr6ZgrXL.mjs",
-    "/assets/CreateShipping-OXQ7DSt0.css"
+  "resources/js/views/shippings/CreateShipping.vue?vue&type=style&index=0&scoped=a806eda2&lang.css": [
+    "/assets/CreateShipping--SOReJlZ.mjs",
+    "/assets/CreateShipping-Bk9jKVNL.css"
   ],
   "resources/js/views/shippings/ShippingDetails.vue": [
-    "/assets/ShippingDetails-CyhzPMPf.mjs",
-    "/assets/ShippingDetails-KxDhhvqy.css"
+    "/assets/ShippingDetails-CZRha0im.mjs",
+    "/assets/ShippingDetails-Btm-2VIg.css"
   ],
   "resources/js/views/shippings/Shippings.vue": [
-    "/assets/Shippings-CjNTeDbj.mjs"
+    "/assets/Shippings-C4xCm5Pj.mjs"
   ],
   "resources/js/views/shippings/components/NewShippingItemDialog.vue": [
-    "/assets/ShippingDetails-CyhzPMPf.mjs",
-    "/assets/ShippingDetails-KxDhhvqy.css"
+    "/assets/ShippingDetails-CZRha0im.mjs",
+    "/assets/ShippingDetails-Btm-2VIg.css"
   ],
   "resources/js/views/shippings/components/NewShippingItemTable.vue": [
-    "/assets/ShippingDetails-CyhzPMPf.mjs",
-    "/assets/ShippingDetails-KxDhhvqy.css"
+    "/assets/ShippingDetails-CZRha0im.mjs",
+    "/assets/ShippingDetails-Btm-2VIg.css"
   ],
   "resources/js/views/shippings/components/ShippingAlterationTable.vue": [
-    "/assets/ShippingDetails-CyhzPMPf.mjs",
-    "/assets/ShippingDetails-KxDhhvqy.css"
+    "/assets/ShippingDetails-CZRha0im.mjs",
+    "/assets/ShippingDetails-Btm-2VIg.css"
   ],
-  "resources/js/views/shippings/components/ShippingAlterationTable.vue?vue&type=style&index=0&scoped=623d7071&lang.css": [
-    "/assets/ShippingDetails-CyhzPMPf.mjs",
-    "/assets/ShippingDetails-KxDhhvqy.css"
+  "resources/js/views/shippings/components/ShippingAlterationTable.vue?vue&type=style&index=0&scoped=41674617&lang.css": [
+    "/assets/ShippingDetails-CZRha0im.mjs",
+    "/assets/ShippingDetails-Btm-2VIg.css"
   ],
   "resources/js/views/shippings/components/ShippingInvoice.vue": [
-    "/assets/ShippingDetails-CyhzPMPf.mjs",
-    "/assets/ShippingDetails-KxDhhvqy.css"
+    "/assets/ShippingDetails-CZRha0im.mjs",
+    "/assets/ShippingDetails-Btm-2VIg.css"
   ],
   "resources/js/views/shippings/components/ShippingReturnDialog.vue": [
-    "/assets/ShippingDetails-CyhzPMPf.mjs",
-    "/assets/ShippingDetails-KxDhhvqy.css"
+    "/assets/ShippingDetails-CZRha0im.mjs",
+    "/assets/ShippingDetails-Btm-2VIg.css"
   ],
   "resources/js/views/shippings/components/ShippingTable.vue": [
-    "/assets/ShippingTable-Dl6-1QcN.mjs",
-    "/assets/ShippingTable-CCUPF7fN.css"
+    "/assets/ShippingTable-Bx_n_M6C.mjs",
+    "/assets/ShippingTable-DoNWXfr0.css"
   ],
-  "resources/js/views/shippings/components/ShippingTable.vue?vue&type=style&index=0&scoped=9c32cd97&lang.css": [
-    "/assets/ShippingTable-Dl6-1QcN.mjs",
-    "/assets/ShippingTable-CCUPF7fN.css"
+  "resources/js/views/shippings/components/ShippingTable.vue?vue&type=style&index=0&scoped=513f1df4&lang.css": [
+    "/assets/ShippingTable-Bx_n_M6C.mjs",
+    "/assets/ShippingTable-DoNWXfr0.css"
   ],
   "resources/js/views/suppliers/CreateSupplier.vue": [
-    "/assets/CreateSupplier-Bgt6ddCB.mjs",
-    "/assets/CreateSupplier-Cbee0D1f.css"
+    "/assets/CreateSupplier-BMnpMC3y.mjs",
+    "/assets/CreateSupplier-52ntGQUy.css"
   ],
-  "resources/js/views/suppliers/CreateSupplier.vue?vue&type=style&index=0&scoped=8ed5be41&lang.css": [
-    "/assets/CreateSupplier-Bgt6ddCB.mjs",
-    "/assets/CreateSupplier-Cbee0D1f.css"
+  "resources/js/views/suppliers/CreateSupplier.vue?vue&type=style&index=0&scoped=cff76550&lang.css": [
+    "/assets/CreateSupplier-BMnpMC3y.mjs",
+    "/assets/CreateSupplier-52ntGQUy.css"
   ],
   "resources/js/views/suppliers/SupplierDetails.vue": [
-    "/assets/SupplierDetails-CCjp9e0N.mjs",
-    "/assets/SupplierDetails-DULKsmNb.css"
+    "/assets/SupplierDetails-BCP91hrV.mjs",
+    "/assets/SupplierDetails-DinoXdRV.css"
   ],
   "resources/js/views/suppliers/Suppliers.vue": [
-    "/assets/Suppliers-DLMHK5FN.mjs"
+    "/assets/Suppliers-DP-s90Nc.mjs"
   ],
   "resources/js/views/suppliers/components/SupplierForm.vue": [
-    "/assets/SupplierDetails-CCjp9e0N.mjs",
-    "/assets/SupplierDetails-DULKsmNb.css"
+    "/assets/SupplierDetails-BCP91hrV.mjs",
+    "/assets/SupplierDetails-DinoXdRV.css"
   ],
-  "resources/js/views/suppliers/components/SupplierForm.vue?vue&type=style&index=0&scoped=e9f09a7f&lang.css": [
-    "/assets/SupplierDetails-CCjp9e0N.mjs",
-    "/assets/SupplierDetails-DULKsmNb.css"
+  "resources/js/views/suppliers/components/SupplierForm.vue?vue&type=style&index=0&scoped=8297ead7&lang.css": [
+    "/assets/SupplierDetails-BCP91hrV.mjs",
+    "/assets/SupplierDetails-DinoXdRV.css"
   ],
   "resources/js/views/users/CreateUser.vue": [
-    "/assets/CreateUser-BkP7nH5x.mjs",
-    "/assets/CreateUser-DBGOUQOW.css"
+    "/assets/CreateUser-Cx8eiLhb.mjs",
+    "/assets/CreateUser-CgDeSg5j.css"
   ],
-  "resources/js/views/users/CreateUser.vue?vue&type=style&index=0&scoped=dbbd970f&lang.css": [
-    "/assets/CreateUser-BkP7nH5x.mjs",
-    "/assets/CreateUser-DBGOUQOW.css"
+  "resources/js/views/users/CreateUser.vue?vue&type=style&index=0&scoped=9a4a23c6&lang.css": [
+    "/assets/CreateUser-Cx8eiLhb.mjs",
+    "/assets/CreateUser-CgDeSg5j.css"
   ],
   "resources/js/views/users/UserDetails.vue": [
-    "/assets/UserDetails-B7cWtFP-.mjs",
-    "/assets/UserDetails-WWVu4RfT.css"
+    "/assets/UserDetails-DBFaZOFK.mjs",
+    "/assets/UserDetails-BphVE0KE.css"
   ],
-  "resources/js/views/users/UserDetails.vue?vue&type=style&index=0&scoped=e08f2dcb&lang.css": [
-    "/assets/UserDetails-B7cWtFP-.mjs",
-    "/assets/UserDetails-WWVu4RfT.css"
+  "resources/js/views/users/UserDetails.vue?vue&type=style&index=0&scoped=f4dfa060&lang.css": [
+    "/assets/UserDetails-DBFaZOFK.mjs",
+    "/assets/UserDetails-BphVE0KE.css"
   ],
   "resources/js/views/users/Users.vue": [
-    "/assets/Users-BBzv1uMR.mjs"
+    "/assets/Users-uQXWIIrj.mjs"
   ],
   "resources/js/views/users/components/EmployeeForm.vue": [
-    "/assets/UserDetails-B7cWtFP-.mjs",
-    "/assets/UserDetails-WWVu4RfT.css"
+    "/assets/UserDetails-DBFaZOFK.mjs",
+    "/assets/UserDetails-BphVE0KE.css"
   ],
-  "resources/js/views/users/components/EmployeeForm.vue?vue&type=style&index=0&scoped=93561c43&lang.css": [
-    "/assets/UserDetails-B7cWtFP-.mjs",
-    "/assets/UserDetails-WWVu4RfT.css"
+  "resources/js/views/users/components/EmployeeForm.vue?vue&type=style&index=0&scoped=3f29e4db&lang.css": [
+    "/assets/UserDetails-DBFaZOFK.mjs",
+    "/assets/UserDetails-BphVE0KE.css"
   ],
   "resources/js/views/users/components/PermissionForm.vue": [
-    "/assets/UserDetails-B7cWtFP-.mjs",
-    "/assets/UserDetails-WWVu4RfT.css"
+    "/assets/UserDetails-DBFaZOFK.mjs",
+    "/assets/UserDetails-BphVE0KE.css"
   ],
-  "resources/js/views/users/components/PermissionForm.vue?vue&type=style&index=0&scoped=f0ca257a&lang.css": [
-    "/assets/UserDetails-B7cWtFP-.mjs",
-    "/assets/UserDetails-WWVu4RfT.css"
+  "resources/js/views/users/components/PermissionForm.vue?vue&type=style&index=0&scoped=f15a316c&lang.css": [
+    "/assets/UserDetails-DBFaZOFK.mjs",
+    "/assets/UserDetails-BphVE0KE.css"
   ],
   "resources/js/views/users/components/UserForm.vue": [
-    "/assets/UserDetails-B7cWtFP-.mjs",
-    "/assets/UserDetails-WWVu4RfT.css"
+    "/assets/UserDetails-DBFaZOFK.mjs",
+    "/assets/UserDetails-BphVE0KE.css"
   ],
-  "resources/js/views/users/components/UserForm.vue?vue&type=style&index=0&scoped=187df9a3&lang.css": [
-    "/assets/UserDetails-B7cWtFP-.mjs",
-    "/assets/UserDetails-WWVu4RfT.css"
+  "resources/js/views/users/components/UserForm.vue?vue&type=style&index=0&scoped=c6c64433&lang.css": [
+    "/assets/UserDetails-DBFaZOFK.mjs",
+    "/assets/UserDetails-BphVE0KE.css"
   ],
   "resources/js/views/warehouses/CreateWarehouse.vue": [
-    "/assets/CreateWarehouse-Cur8UBWx.mjs",
+    "/assets/CreateWarehouse-BJAtzE2R.mjs",
     "/assets/CreateWarehouse-CdRz8-85.css"
   ],
   "resources/js/views/warehouses/CreateWarehouse.vue?vue&type=style&index=0&scoped=f78ff360&lang.css": [
-    "/assets/CreateWarehouse-Cur8UBWx.mjs",
+    "/assets/CreateWarehouse-BJAtzE2R.mjs",
     "/assets/CreateWarehouse-CdRz8-85.css"
   ],
   "resources/js/views/warehouses/WarehouseDetails.vue": [
-    "/assets/WarehouseDetails-B2xaiu0g.mjs",
-    "/assets/WarehouseDetails-DJGDa6_L.css"
+    "/assets/WarehouseDetails-CJcIlCwf.mjs",
+    "/assets/WarehouseDetails-Dxf8sAH5.css"
   ],
   "resources/js/views/warehouses/Warehouses.vue": [
-    "/assets/Warehouses-BRWWyK-n.mjs"
+    "/assets/Warehouses-DJm9iVBA.mjs"
   ],
   "resources/js/views/warehouses/components/WarehouseForm.vue": [
-    "/assets/WarehouseDetails-B2xaiu0g.mjs",
-    "/assets/WarehouseDetails-DJGDa6_L.css"
+    "/assets/WarehouseDetails-CJcIlCwf.mjs",
+    "/assets/WarehouseDetails-Dxf8sAH5.css"
   ],
-  "resources/js/views/warehouses/components/WarehouseForm.vue?vue&type=style&index=0&scoped=99887615&lang.css": [
-    "/assets/WarehouseDetails-B2xaiu0g.mjs",
-    "/assets/WarehouseDetails-DJGDa6_L.css"
+  "resources/js/views/warehouses/components/WarehouseForm.vue?vue&type=style&index=0&scoped=effae746&lang.css": [
+    "/assets/WarehouseDetails-CJcIlCwf.mjs",
+    "/assets/WarehouseDetails-Dxf8sAH5.css"
   ]
 }

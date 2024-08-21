@@ -37,7 +37,6 @@
                 :items-length="serverItemsLength"
                 :search="search"
                 :loading="fetchLoading"
-                @update:options="fetch"
                 :mobile-breakpoint="0"
             >
                 <template v-slot:loading>
@@ -51,9 +50,7 @@
                             type="number"
                             variant="plain"
                             hide-details
-                            required
-                            dense
-                            clearable
+                            hide-spin-buttons
                             @change="change(index, item)"
                         ></v-text-field>
                         <span v-else>－</span>
@@ -67,9 +64,7 @@
                             type="number"
                             variant="plain"
                             hide-details
-                            required
-                            dense
-                            clearable
+                            hide-spin-buttons
                             @change="change(index, item)"
                         ></v-text-field>
                         <span v-else>－</span>
@@ -83,9 +78,7 @@
                             type="number"
                             variant="plain"
                             hide-details
-                            required
-                            dense
-                            clearable
+                            hide-spin-buttons
                             @change="change(index, item)"
                         ></v-text-field>
                         <span v-else>－</span>
@@ -99,9 +92,7 @@
                             type="number"
                             variant="plain"
                             hide-details
-                            required
-                            dense
-                            clearable
+                            hide-spin-buttons
                             @change="change(index, item)"
                         ></v-text-field>
                         <span v-else>－</span>
@@ -115,9 +106,7 @@
                             type="number"
                             variant="plain"
                             hide-details
-                            required
-                            dense
-                            clearable
+                            hide-spin-buttons
                             @change="change(index, item)"
                         ></v-text-field>
                         <span v-else>－</span>
@@ -131,9 +120,7 @@
                             type="number"
                             variant="plain"
                             hide-details
-                            required
-                            dense
-                            clearable
+                            hide-spin-buttons
                             @change="change(index, item)"
                         ></v-text-field>
                         <span v-else>－</span>
@@ -147,30 +134,39 @@
                             type="number"
                             variant="plain"
                             hide-details
-                            required
-                            dense
-                            clearable
+                            hide-spin-buttons
                             @change="change(index, item)"
                         ></v-text-field>
                         <span v-else>－</span>
                     </div>
                 </template>
+                <template v-slot:[`item.unit_price`]="{ item }">
+                    <span v-if="item.cost">
+                        {{ `$ ${(item.cost * 1).toLocaleString()}` }}
+                    </span>
+                    <span v-else>－</span>
+                </template>
+                <template v-slot:[`item.total_unit`]="{ item }">
+                    <span v-if="item.total_unit">
+                        {{ (item.total_unit * 1).toLocaleString() }}
+                    </span>
+                    <span v-else>－</span>
+                </template>
+                <template v-slot:[`item.cost`]="{ item }">
+                    <span v-if="item.cost">
+                        {{ `$ ${(item.cost * 1).toLocaleString()}` }}
+                    </span>
+                    <span v-else>－</span>
+                </template>
                 <template v-slot:[`body.append`]>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="p-2">{{ $t("total-unit") }}</td>
+                        <td v-for="_ in [...Array(10)]"></td>
+                        <td class="p-2" colspan="2">
+                            {{ `${$t("total-unit")}:` }}
+                        </td>
                         <td class="p-2" colspan="4">
                             <span v-if="totalunit">
-                                {{ totalunit.toLocaleString() }}
+                                {{ `${(totalunit * 1).toLocaleString()}` }}
                             </span>
                             <span v-else>
                                 {{ "0".toLocaleString() }}
@@ -178,27 +174,20 @@
                         </td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="p-2">{{ $t("subtotal") }} {{ ": " }}</td>
+                        <td v-for="_ in [...Array(10)]"></td>
+                        <td class="p-2" colspan="2">
+                            {{ `${$t("subtotal")}: ` }}
+                        </td>
                         <td class="p-2" colspan="4">
                             <span v-if="subtotal">
-                                {{ "$ " }}
-                                {{ subtotal.toLocaleString() }}
-                                {{ currency }}
+                                {{
+                                    `$ ${(
+                                        subtotal * 1
+                                    ).toLocaleString()} ${currency}`
+                                }}
                             </span>
                             <span v-else>
-                                {{ "$ " }}
-                                {{ "0".toLocaleString() }}
-                                {{ currency }}
+                                {{ `$ ${"0".toLocaleString()} ${currency}` }}
                             </span>
                         </td>
                     </tr>
@@ -208,13 +197,13 @@
                 <div class="bg-yellow" style="height: 25px; width: 25px">
                     &nbsp;
                 </div>
-                <span class="px-2">{{ "*" }} {{ $t("defaultunit") }}</span>
+                <span class="px-2"> {{ `*${$t("default-unit")}` }}</span>
             </div>
             <div class="d-flex p-2">
                 <div class="bg-green" style="height: 25px; width: 25px">
                     &nbsp;
                 </div>
-                <span class="px-2">{{ "*" }} {{ $t("updatedunit") }}</span>
+                <span class="px-2"> {{ `*${$t("updated-unit")}` }}</span>
             </div>
             <hr />
             <CButton @click="confirm" color="primary" class="px-4">
@@ -295,6 +284,7 @@ export default {
             this.$store
                 .dispatch("goods/purchases/invoices/items", data)
                 .then((response) => {
+                    // console.log(response);
                     self.fetchLoading = false;
                     self.items = JSON.parse(JSON.stringify(response.data));
                     self.updateTotal();

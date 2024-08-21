@@ -13,11 +13,8 @@
             <CDropdownItem href="#/profile">
                 <CIcon icon="cil-user" /> {{ $t("profile") }}
             </CDropdownItem>
-            <CDropdownItem
-                v-if="$store.getters.isEmployee"
-                :to="`leave/create/${$store.getters.authUser.id}`"
-            >
-                <CIcon name="cil-spreadsheet" /> {{ $t("leave") }}
+            <CDropdownItem v-if="$store.getters.isEmployee" href="#/leaves">
+                <CIcon name="cil-description" /> {{ $t("leave") }}
             </CDropdownItem>
             <CDropdownItem @click="logout">
                 <CIcon icon="cil-lock-locked" />
@@ -25,36 +22,6 @@
             </CDropdownItem>
         </CDropdownMenu>
     </CDropdown>
-    <!-- <CDropdown
-        inNav
-        class="c-header-nav-items"
-        placement="bottom-end"
-        add-menu-classes="pt-0"
-    >
-        <template #toggler>
-            <CHeaderNavLink>
-                <div class="c-avatar">
-                    <img :src="avatar" class="c-avatar-img" />
-                </div>
-            </CHeaderNavLink>
-        </template>
-        <CDropdownHeader tag="div" class="text-center" color="light">
-            <strong>{{ $t("settings") }}</strong>
-        </CDropdownHeader>
-        <CDropdownItem to="/profile">
-            <CIcon name="cil-user" /> {{ $t("profile") }}
-        </CDropdownItem>
-        <CDropdownItem
-            v-if="$store.getters.isEmployee"
-            :to="`leave/create/${$store.getters.authUser.id}`"
-        >
-            <CIcon name="cil-spreadsheet" /> {{ $t("leave") }}
-        </CDropdownItem>
-        <CDropdownDivider />
-        <CDropdownItem @click="logout()">
-            <CIcon name="cil-lock-locked" /> {{ $t("logout") }}
-        </CDropdownItem>
-    </CDropdown> -->
 </template>
 
 <script>

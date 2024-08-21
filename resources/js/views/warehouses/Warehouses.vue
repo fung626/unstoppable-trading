@@ -97,7 +97,7 @@ export default {
                 { title: this.$t("shelf"), value: "shelf", sortable: true },
                 { title: this.$t("segment"), value: "segment", sortable: true },
                 {
-                    title: this.$t("stockunit"),
+                    title: this.$t("stock-unit"),
                     value: "stock_unit",
                     sortable: false,
                 },

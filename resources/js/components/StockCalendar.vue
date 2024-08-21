@@ -29,6 +29,7 @@
                 </CCol>
             </CRow>
             <v-calendar
+                class="p-4"
                 ref="calendar"
                 v-model="focus"
                 :weekdays="weekday"

@@ -227,20 +227,10 @@ export default {
                     break;
                 case "RouterPush":
                     let route = action.route;
-                    switch (route) {
-                        case "PurchaseDetails":
-                            this.$router.push({
-                                name: route,
-                                params: { id: item.id },
-                            });
-                            break;
-                        case "Stocktake":
-                            this.$router.push({
-                                name: route,
-                                params: { id: item.id },
-                            });
-                            break;
-                    }
+                    // console.log(route);
+                    this.$router.push({
+                        path: route,
+                    });
                     break;
                 case "Delete":
                     if (

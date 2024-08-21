@@ -33,9 +33,20 @@ const routes = [
                 component: () => import("@/views/profile/Profile.vue"),
             },
             {
-                path: "leave/create/:id",
-                name: "leave",
-                component: () => import("@/views/leave/CreateLeave.vue"),
+                path: "leaves",
+                name: "route.leaves.home",
+                component: {
+                    render() {
+                        return h(resolveComponent("router-view"));
+                    },
+                },
+                children: [
+                    {
+                        path: "create/:id",
+                        name: "route.leaves.create",
+                        component: import("@/views/leaves/CreateLeave.vue"),
+                    },
+                ],
             },
             {
                 path: "sales-reports",
@@ -181,8 +192,8 @@ const routes = [
                             import("@/views/purchases/PurchaseDetails.vue"),
                     },
                     {
-                        path: "stocktake/:id",
-                        name: "route.purchases.stocktake",
+                        path: "stocktakes/:id",
+                        name: "route.purchases.stocktakes",
                         component: () =>
                             import("@/views/purchases/Stocktake.vue"),
                     },

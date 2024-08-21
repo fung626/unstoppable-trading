@@ -163,7 +163,7 @@ export default {
                 { title: this.$t("size"), value: "size", sortable: true },
                 { title: this.$t("barcode"), value: "barcode", sortable: true },
                 {
-                    title: this.$t("stockunit"),
+                    title: this.$t("stock-unit"),
                     value: "stock_unit",
                     sortable: false,
                 },

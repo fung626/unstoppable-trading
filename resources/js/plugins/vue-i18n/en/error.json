@@ -1,6 +1,6 @@
 {
     "error": {
-        "exceedstockunit": "Exceed stock unit",
+        "exceed-stock-unit": "Exceed stock unit",
         "camera": "Device not compatible"
     },
     "hint": {

@@ -29,6 +29,7 @@
                 </CCol>
             </CRow>
             <v-calendar
+                class="p-4"
                 ref="calendar"
                 v-model="focus"
                 :weekdays="weekday"
@@ -39,7 +40,7 @@
                 @click:event="showEvent"
                 @update:pages="fetch"
             >
-                <template v-slot:event="{ event }">
+                <!-- <template v-slot:event="{ event }">
                     <div
                         class="d-flex rounded-pill shadow-lg px-3 py-1 mx-2"
                         :style="{
@@ -49,7 +50,7 @@
                     >
                         {{ event.title }}
                     </div>
-                </template>
+                </template> -->
             </v-calendar>
         </CCardBody>
     </CCard>
@@ -78,7 +79,7 @@ export default {
                     let format = "H:mm";
                     let start = new Date(item["start"]);
                     let end = new Date(item["end"]);
-                    let name = item["user"] ? `${item["user"]["name"]} - ` : "";
+                    let name = item["user"] ? `${item["user"]["name"]} ` : "";
                     let time = `${moment(start).format(format)} - ${moment(
                         end
                     ).format(format)}`;
