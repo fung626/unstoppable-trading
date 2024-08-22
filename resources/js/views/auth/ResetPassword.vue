@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wrapper min-vh-100 d-flex flex-row align-items-center">
         <Snackbar />
         <CContainer class="c-app flex-row align-items-center">
             <CRow class="justify-content-center">
@@ -105,13 +105,20 @@ export default {
             };
             self.fetching = true;
             self.$store
-                .dispatch("auth/forgot/password/find", data)
+                .dispatch("auth/forgotpassword/find", data)
                 .then(function (response) {
                     self.fetching = false;
                 })
                 .catch((error) => {
                     self.fetching = false;
                     self.errors = error.response.data?.data;
+                    self.$store.dispatch("snackbar/show", {
+                        color: "error",
+                        text: self.$t("auth.resetpassword.invalid"),
+                    });
+                    self.$router.push({
+                        path: "/login",
+                    });
                 });
         },
         submit() {
@@ -127,14 +134,15 @@ export default {
             };
             self.submitting = true;
             self.$store
-                .dispatch("auth/forgot/password/reset", data)
+                .dispatch("auth/forgotpassword/reset", data)
                 .then(function (response) {
                     self.submitting = false;
                     self.errors = {};
                     self.$store.dispatch("snackbar/show", {
+                        color: "success",
                         text: self.$t("auth.resetpassword.success"),
                     });
-                    self.$router.push({ name: "Login" });
+                    self.$router.push({ path: "/login" });
                 })
                 .catch((error) => {
                     self.submitting = false;

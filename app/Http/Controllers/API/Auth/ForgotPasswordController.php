@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
 // use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use App\Models\Auth\PasswordReset as PasswordResetModel;
+use App\Models\Auth\PasswordResetToken as PasswordResetTokenModel;
 use App\Models\User\Users;
 // use Illuminate\Auth\Notifications\ResetPassword;
 use Carbon\Carbon;
@@ -89,7 +89,7 @@ class ForgotPasswordController extends Controller
         }
 
         $user = Users::where('id', request('id'))->first();
-        $passwordReset = PasswordResetModel::where(['email' => $user->email])->first();
+        $passwordReset = PasswordResetTokenModel::where(['email' => $user->email])->first();
 
         if (!$passwordReset) {
             $response = config('response.common.fail.parameter');
@@ -102,7 +102,7 @@ class ForgotPasswordController extends Controller
         }
 
         if (Carbon::parse($passwordReset->created_at)->addMinutes(60)->isPast()) {
-            PasswordResetModel::where(['email' => $user->email])->delete();
+            PasswordResetTokenModel::where(['email' => $user->email])->delete();
             $response = config('response.common.fail.parameter');
             return response()->json($response, 400);
         }
@@ -114,7 +114,7 @@ class ForgotPasswordController extends Controller
                 ])->update([
                     'password' => bcrypt(request('confirm_password')),
                 ]);
-                PasswordResetModel::where(['email' => $user->email])->delete();
+                PasswordResetTokenModel::where(['email' => $user->email])->delete();
             });
         } catch (\Exception $e) {
             Log::error($e->getMessage());
@@ -142,7 +142,8 @@ class ForgotPasswordController extends Controller
         }
 
         $user = Users::where('id', request('id'))->first();
-        $passwordReset = PasswordResetModel::where(['email' => $user->email])->first();
+        $passwordReset = PasswordResetTokenModel::where(['email' => $user->email])->first();
+        // dd($user->email, $passwordReset);
 
         if (!$passwordReset) {
             $response = config('response.common.fail.parameter');
@@ -155,7 +156,7 @@ class ForgotPasswordController extends Controller
         }
 
         if (Carbon::parse($passwordReset->created_at)->addMinutes(60)->isPast()) {
-            PasswordResetModel::where(['email' => $user->email])->delete();
+            PasswordResetTokenModel::where(['email' => $user->email])->delete();
             $response = config('response.common.fail.parameter');
             return response()->json($response, 400);
         }

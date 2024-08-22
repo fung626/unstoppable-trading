@@ -28,7 +28,7 @@
                 </CWidgetStatsF>
             </CCol>
         </CRow>
-        <!-- <CRow>
+        <CRow>
             <CCol md="12">
                 <SalesReportLineChart />
             </CCol>
@@ -116,7 +116,7 @@
                     </CCardBody>
                 </CCard>
             </CCol>
-        </CRow> -->
+        </CRow>
     </CContainer>
 </template>
 <script>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wrapper min-vh-100 d-flex flex-row align-items-center">
         <Snackbar />
         <CContainer class="c-app flex-row align-items-center">
             <CRow class="justify-content-center">
@@ -86,7 +86,7 @@ export default {
             }
             self.submitting = true;
             self.$store
-                .dispatch("auth/forgot/password/email", {
+                .dispatch("auth/forgotpassword/email", {
                     email: self.email,
                 })
                 .then(function (response) {

@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         ResetPassword::createUrlUsing(function ($user, string $token) {
-            return env('APP_URL') . 'auth/forgot/password/reset/' . $user->id . '/' . $token;
+            return env('APP_URL') . '#/auth/forgotpassword/reset/' . $user->id . '/' . $token;
         });
 
         if (Str::contains(request()->path(), ['auth/password'])) {

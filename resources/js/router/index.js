@@ -44,7 +44,8 @@ const routes = [
                     {
                         path: "create/:id",
                         name: "route.leaves.create",
-                        component: import("@/views/leaves/CreateLeave.vue"),
+                        component: () =>
+                            import("@/views/leaves/CreateLeave.vue"),
                     },
                 ],
             },
@@ -60,14 +61,13 @@ const routes = [
                     {
                         path: "",
                         name: "route.sales-reports.table",
-                        component: import(
-                            "@/views/sales-reports/SalesReports.vue"
-                        ),
+                        component: () =>
+                            import("@/views/sales-reports/SalesReports.vue"),
                     },
                 ],
             },
             {
-                path: "/users",
+                path: "users",
                 name: "route.users.home",
                 component: {
                     render() {
@@ -367,9 +367,14 @@ const routes = [
         component: () => import("@/views/auth/ForgotPassword.vue"),
     },
     {
-        path: "/auth/forgot/password/reset/:id/:token",
-        name: "resetpassword",
+        path: "/auth/forgotpassword/reset/:id/:token",
+        name: "forgotpassword.reset",
         component: () => import("@/views/auth/ResetPassword.vue"),
+    },
+    {
+        path: "/:catchAll(.*)",
+        name: "not-found",
+        component: () => import("@/views/error/404.vue"),
     },
 ];
 

@@ -74,7 +74,7 @@ const { colorMode, setColorMode, isColorModeSet } = useColorModes(
 );
 
 onMounted(() => {
-    console.log(colorMode.value);
+    // console.log(colorMode.value);
     if (isColorModeSet) {
         setColorMode(colorMode.value);
     }

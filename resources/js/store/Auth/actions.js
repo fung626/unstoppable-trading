@@ -41,10 +41,10 @@ export default {
     [`${name}/logout`]({ commit }) {
         commit(types.LOGOUT);
     },
-    [`${name}/forgot/password/email`]({ commit, dispatch }, payload) {
+    [`${name}/forgotpassword/email`]({ commit, dispatch }, payload) {
         return new Promise((resolve, reject) => {
             axios
-                .post(`${endpoint}forgot/password/email`, payload)
+                .post(`${endpoint}forgotpassword/email`, payload)
                 .then(function (response) {
                     if (!response.data.error) {
                         dispatch("snackbar/show", {
@@ -72,10 +72,10 @@ export default {
                 });
         });
     },
-    [`${name}/forgot/password/find`]({ commit, dispatch }, payload) {
+    [`${name}/forgotpassword/find`]({ commit, dispatch }, payload) {
         return new Promise((resolve, reject) => {
             axios
-                .post(`${endpoint}forgot/password/find`, payload)
+                .post(`${endpoint}forgotpassword/find`, payload)
                 .then(function (response) {
                     if (!response.data.error) {
                         resolve(response);
@@ -95,10 +95,10 @@ export default {
                 });
         });
     },
-    [`${name}/forgot/password/reset`]({ commit, dispatch }, payload) {
+    [`${name}/forgotpassword/reset`]({ commit, dispatch }, payload) {
         return new Promise((resolve, reject) => {
             axios
-                .post(`${endpoint}forgot/password/reset`, payload)
+                .post(`${endpoint}forgotpassword/reset`, payload)
                 .then(function (response) {
                     if (!response.data.error) {
                         dispatch("snackbar/show", {

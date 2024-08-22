@@ -55,9 +55,9 @@ Route::prefix('test')->group(function () {
 
 Route::prefix('auth')->group(function () {
     Route::post('login', [LoginController::class, 'index']);
-    Route::post('forgot/password/email', [ForgotPasswordController::class, 'forgot']);
-    Route::post('forgot/password/reset', [ForgotPasswordController::class, 'reset']);
-    Route::post('forgot/password/find', [ForgotPasswordController::class, 'find']);
+    Route::post('forgotpassword/email', [ForgotPasswordController::class, 'forgot']);
+    Route::post('forgotpassword/reset', [ForgotPasswordController::class, 'reset']);
+    Route::post('forgotpassword/find', [ForgotPasswordController::class, 'find']);
 });
 
 Route::prefix('storage')->group(function () {
