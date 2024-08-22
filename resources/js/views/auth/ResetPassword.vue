@@ -57,6 +57,22 @@
     </div>
 </template>
 
+<script setup>
+import { useColorModes } from "@coreui/vue";
+import { onMounted } from "vue";
+
+const { colorMode, setColorMode, isColorModeSet } = useColorModes(
+    "unstoppable-trading-theme"
+);
+
+onMounted(() => {
+    // console.log(colorMode.value);
+    if (isColorModeSet) {
+        setColorMode(colorMode.value);
+    }
+});
+</script>
+
 <script>
 import { Snackbar } from "@/components";
 

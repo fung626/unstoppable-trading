@@ -8,9 +8,7 @@ const headerClassNames = ref("mb-4 p-0");
 
 const theme = useTheme();
 
-const { colorMode, setColorMode } = useColorModes(
-    "coreui-free-vue-admin-template-theme"
-);
+const { colorMode, setColorMode } = useColorModes("unstoppable-trading-theme");
 
 onMounted(() => {
     document.addEventListener("scroll", () => {

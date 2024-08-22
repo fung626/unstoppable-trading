@@ -42,6 +42,7 @@ const alert$1 = {
   title: "Alert",
   update: "Are you sure you want to update this record?",
   "delete": "Are you sure you want to delete this record?",
+  stocktake: "Are you sure you want to submit this stocktake?",
   shipping: "Please enter unit"
 };
 const __vite_glob_0_0 = {
@@ -177,9 +178,7 @@ const duty$1 = "Duty";
 const dutylist$1 = "Duty List";
 const leave$1 = "Leave";
 const traffic$1 = "Traffic";
-const joinedat$1 = "Joined at";
-const leftat$1 = "Left at";
-const rate$2 = "rate";
+const rate$1 = "rate";
 const __vite_glob_0_4 = {
   login: login$1,
   logout: logout$1,
@@ -290,10 +289,11 @@ const __vite_glob_0_4 = {
   dutylist: dutylist$1,
   leave: leave$1,
   traffic: traffic$1,
-  joinedat: joinedat$1,
-  leftat: leftat$1,
+  "joined-at": "Joined at",
+  "left-at": "Left at",
+  "annual-leave-days": "Annual Leave Days",
   "exchange-rate": "Exchange Rate",
-  rate: rate$2,
+  rate: rate$1,
   "average-inventory": "Average Inventory",
   "inventory-turnover": "Inventory Turnover",
   "inventory-change": "Inventory Change",
@@ -409,6 +409,10 @@ const __vite_glob_0_11 = {
   purchase: purchase$1
 };
 const route$1 = {
+  leaves: {
+    home: "leaves",
+    create: "Create"
+  },
   users: {
     home: "Users",
     table: "Table",
@@ -443,7 +447,8 @@ const route$1 = {
     home: "Purchases",
     table: "Table",
     create: "Create",
-    details: "Details"
+    details: "Details",
+    stocktakes: "Stocktakes"
   },
   shippings: {
     home: "Shippings",
@@ -519,6 +524,7 @@ const alert = {
   title: "提示",
   update: "您確定要更新此記錄嗎？",
   "delete": "您確定要刪除此記錄嗎？",
+  stocktake: "您確定要提交此盤點嗎？",
   shipping: "請輸入出貨數量"
 };
 const __vite_glob_1_0 = {
@@ -661,9 +667,7 @@ const duty = "更";
 const dutylist = "更表";
 const leave = "休假";
 const traffic = "流量";
-const joinedat = "加入日期";
-const leftat = "離職日期";
-const rate$1 = "匯率";
+const rate = "匯率";
 const __vite_glob_1_4 = {
   login,
   logout,
@@ -775,10 +779,11 @@ const __vite_glob_1_4 = {
   dutylist,
   leave,
   traffic,
-  joinedat,
-  leftat,
+  "joined-at": "加入日期",
+  "left-at": "離職日期",
+  "annual-leave-days": "年假天數",
   "exchange-rate": "匯率",
-  rate: rate$1,
+  rate,
   "average-inventory": "平均庫存",
   "inventory-turnover": "庫存周轉率",
   "inventory-change": "庫存變化",
@@ -894,6 +899,10 @@ const __vite_glob_1_11 = {
   purchase
 };
 const route = {
+  leaves: {
+    home: "休假",
+    create: "新增"
+  },
   users: {
     home: "用戶",
     table: "清單",
@@ -928,7 +937,8 @@ const route = {
     home: "入貨",
     table: "清單",
     create: "新增",
-    details: "詳細"
+    details: "詳細",
+    stocktakes: "盤點"
   },
   shippings: {
     home: "出貨",
@@ -2235,16 +2245,12 @@ const _sfc_main$f = {
       if (this["users/duty/calendar"]) {
         let data = this["users/duty/calendar"].data;
         for (const item of data) {
-          let format = "H:mm";
           let start2 = new Date(item["start"]);
           let end2 = new Date(item["end"]);
-          let name2 = item["user"] ? `${item["user"]["name"]} - ` : "";
-          let time = `${moment$1(start2).format(format)} - ${moment$1(
-            end2
-          ).format(format)}`;
+          let name2 = item["user"] ? `${item["user"]["name"]} ` : "";
           temp.push({
-            title: `${name2} ${time}`,
-            user: name2,
+            title: `${name2}`,
+            data: item,
             start: start2,
             end: end2,
             color: item.color ? item.color : "cyan"
@@ -2298,10 +2304,8 @@ const _sfc_main$f = {
         self.loading = false;
       });
     },
-    showEvent({ nativeEvent, event }) {
-    },
-    onTypeClick(type2) {
-      this.type = type2.value;
+    click(event) {
+      console.log(event);
     },
     allowed() {
       if (this.$store.getters.isAdmin) {
@@ -2311,6 +2315,9 @@ const _sfc_main$f = {
         return true;
       }
       return false;
+    },
+    onTypeClick(type2) {
+      this.type = type2.value;
     }
   }
 };
@@ -2480,6 +2487,7 @@ function _sfc_ssrRender$b(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                   _: 1
                 }, _parent3, _scopeId2));
                 _push3(ssrRenderComponent(_component_v_calendar, {
+                  class: "p-4",
                   ref: "calendar",
                   modelValue: $data.focus,
                   "onUpdate:modelValue": ($event) => $data.focus = $event,
@@ -2488,24 +2496,38 @@ function _sfc_ssrRender$b(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                   events: $options.events,
                   "event-overlap-mode": $data.mode,
                   "event-overlap-threshold": 30,
-                  "onClick:event": $options.showEvent,
                   "onUpdate:pages": $options.fetch
                 }, {
                   event: withCtx(({ event }, _push4, _parent4, _scopeId3) => {
                     if (_push4) {
-                      _push4(`<div class="d-flex rounded-pill shadow-lg px-3 py-1 mx-2" style="${ssrRenderStyle({
-                        backgroundColor: event.color,
+                      _push4(`<button class="d-flex align-items-center rounded shadow-lg px-2 py-1 mx-2" style="${ssrRenderStyle({
+                        backgroundColor: event.allDay ? "#3462E3" : "#5A5A5A",
                         color: "white"
-                      })}"${_scopeId3}>${ssrInterpolate(event.title)}</div>`);
+                      })}"${_scopeId3}><div class="rounded-circle p-2" style="${ssrRenderStyle({
+                        backgroundColor: event.color,
+                        width: "6px",
+                        height: "6px"
+                      })}"${_scopeId3}></div><span class="px-2"${_scopeId3}>${ssrInterpolate(event.title)}</span></button>`);
                     } else {
                       return [
-                        createVNode("div", {
-                          class: "d-flex rounded-pill shadow-lg px-3 py-1 mx-2",
+                        createVNode("button", {
+                          class: "d-flex align-items-center rounded shadow-lg px-2 py-1 mx-2",
                           style: {
-                            backgroundColor: event.color,
+                            backgroundColor: event.allDay ? "#3462E3" : "#5A5A5A",
                             color: "white"
-                          }
-                        }, toDisplayString(event.title), 5)
+                          },
+                          onClick: ($event) => $options.click(event)
+                        }, [
+                          createVNode("div", {
+                            class: "rounded-circle p-2",
+                            style: {
+                              backgroundColor: event.color,
+                              width: "6px",
+                              height: "6px"
+                            }
+                          }, null, 4),
+                          createVNode("span", { class: "px-2" }, toDisplayString(event.title), 1)
+                        ], 12, ["onClick"])
                       ];
                     }
                   }),
@@ -2559,6 +2581,7 @@ function _sfc_ssrRender$b(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                     _: 1
                   }),
                   createVNode(_component_v_calendar, {
+                    class: "p-4",
                     ref: "calendar",
                     modelValue: $data.focus,
                     "onUpdate:modelValue": ($event) => $data.focus = $event,
@@ -2567,20 +2590,30 @@ function _sfc_ssrRender$b(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                     events: $options.events,
                     "event-overlap-mode": $data.mode,
                     "event-overlap-threshold": 30,
-                    "onClick:event": $options.showEvent,
                     "onUpdate:pages": $options.fetch
                   }, {
                     event: withCtx(({ event }) => [
-                      createVNode("div", {
-                        class: "d-flex rounded-pill shadow-lg px-3 py-1 mx-2",
+                      createVNode("button", {
+                        class: "d-flex align-items-center rounded shadow-lg px-2 py-1 mx-2",
                         style: {
-                          backgroundColor: event.color,
+                          backgroundColor: event.allDay ? "#3462E3" : "#5A5A5A",
                           color: "white"
-                        }
-                      }, toDisplayString(event.title), 5)
+                        },
+                        onClick: ($event) => $options.click(event)
+                      }, [
+                        createVNode("div", {
+                          class: "rounded-circle p-2",
+                          style: {
+                            backgroundColor: event.color,
+                            width: "6px",
+                            height: "6px"
+                          }
+                        }, null, 4),
+                        createVNode("span", { class: "px-2" }, toDisplayString(event.title), 1)
+                      ], 12, ["onClick"])
                     ]),
                     _: 1
-                  }, 8, ["modelValue", "onUpdate:modelValue", "weekdays", "view-mode", "events", "event-overlap-mode", "onClick:event", "onUpdate:pages"])
+                  }, 8, ["modelValue", "onUpdate:modelValue", "weekdays", "view-mode", "events", "event-overlap-mode", "onUpdate:pages"])
                 ];
               }
             }),
@@ -2641,6 +2674,7 @@ function _sfc_ssrRender$b(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                   _: 1
                 }),
                 createVNode(_component_v_calendar, {
+                  class: "p-4",
                   ref: "calendar",
                   modelValue: $data.focus,
                   "onUpdate:modelValue": ($event) => $data.focus = $event,
@@ -2649,20 +2683,30 @@ function _sfc_ssrRender$b(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                   events: $options.events,
                   "event-overlap-mode": $data.mode,
                   "event-overlap-threshold": 30,
-                  "onClick:event": $options.showEvent,
                   "onUpdate:pages": $options.fetch
                 }, {
                   event: withCtx(({ event }) => [
-                    createVNode("div", {
-                      class: "d-flex rounded-pill shadow-lg px-3 py-1 mx-2",
+                    createVNode("button", {
+                      class: "d-flex align-items-center rounded shadow-lg px-2 py-1 mx-2",
                       style: {
-                        backgroundColor: event.color,
+                        backgroundColor: event.allDay ? "#3462E3" : "#5A5A5A",
                         color: "white"
-                      }
-                    }, toDisplayString(event.title), 5)
+                      },
+                      onClick: ($event) => $options.click(event)
+                    }, [
+                      createVNode("div", {
+                        class: "rounded-circle p-2",
+                        style: {
+                          backgroundColor: event.color,
+                          width: "6px",
+                          height: "6px"
+                        }
+                      }, null, 4),
+                      createVNode("span", { class: "px-2" }, toDisplayString(event.title), 1)
+                    ], 12, ["onClick"])
                   ]),
                   _: 1
-                }, 8, ["modelValue", "onUpdate:modelValue", "weekdays", "view-mode", "events", "event-overlap-mode", "onClick:event", "onUpdate:pages"])
+                }, 8, ["modelValue", "onUpdate:modelValue", "weekdays", "view-mode", "events", "event-overlap-mode", "onUpdate:pages"])
               ]),
               _: 1
             })
@@ -2686,14 +2730,26 @@ const _sfc_main$e = {
   name: "ExchangeRateTable",
   computed: {
     ...mapState(["exchange-rate"]),
+    base() {
+      return this["exchange-rate"].details.base;
+    },
+    symbol() {
+      return this["exchange-rate"].details.symbol;
+    },
     items() {
-      return this.exchange - rate.data;
+      if (Array.isArray(this["exchange-rate"].data)) {
+        return this["exchange-rate"].data;
+      }
+      return [];
+    },
+    details() {
+      return this["exchange-rate"].details;
     }
   },
   data() {
     return {
       loading: false,
-      options: {},
+      mobile: window.innerWidth < 769,
       headers: [
         { title: this.$t("Base"), value: "base" },
         { title: this.$t("Symbol"), value: "symbol" },
@@ -2708,13 +2764,20 @@ const _sfc_main$e = {
     };
   },
   watch: {
-    options: {
-      handler() {
-        this.fetch();
-      }
+    details: function(newVal, oldVal) {
+      this.fetch();
     }
   },
+  mounted() {
+    window.addEventListener("resize", this.onResize);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onResize);
+  },
   methods: {
+    onResize() {
+      this.mobile = window.innerWidth < 769;
+    },
     fetch() {
       let self = this;
       if (self.loading) {
@@ -2732,7 +2795,7 @@ const _sfc_main$e = {
       });
     },
     reload() {
-      this.fetch({ ...this.options });
+      this.fetch();
     },
     async click(item, action) {
       let type2 = action.type;
@@ -2831,8 +2894,8 @@ function _sfc_ssrRender$a(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
     class: "elevation-1",
     headers: $data.headers,
     items: $options.items,
-    options: $data.options,
     loading: $data.loading,
+    mobile: $data.mobile,
     "hide-default-footer": true
   }, {
     [`item.updated_at`]: withCtx(({ item }, _push2, _parent2, _scopeId) => {
@@ -2932,13 +2995,22 @@ const _sfc_main$d = {
   components: {
     ExchangeRateTable
   },
+  computed: {
+    ...mapState(["exchange-rate"]),
+    rate() {
+      if (this["exchange-rate"] && this["exchange-rate"].details) {
+        return this["exchange-rate"].details.rate;
+      }
+      return 0;
+    }
+  },
   data() {
     return {
       baseAmount: 0,
       base: "HKD",
       symbolAmount: 0,
       symbol: "TWD",
-      rate: 0,
+      // rate: 0,
       currencies,
       updatedAt: null,
       errors: {},
@@ -2947,56 +3019,59 @@ const _sfc_main$d = {
   },
   watch: {
     base: function(newVal, oldVal) {
-      if (newVal === this.symbol) {
-        currencies.forEach((element) => {
-          if (this.symbol != element.value) {
-            this.symbol = element.value;
+      let symbol = this.symbol;
+      if (newVal === symbol) {
+        for (const x of currencies) {
+          if (symbol !== x.value) {
+            symbol = x.value;
+            break;
           }
-        });
+        }
       }
       if (newVal != oldVal) {
-        this.fetch();
+        this.fetch(this.base, symbol);
       }
     },
     symbol: function(newVal, oldVal) {
-      if (newVal === this.base) {
-        currencies.forEach((element) => {
-          if (this.base != element.value) {
-            this.base = element.value;
+      let base = this.base;
+      if (newVal === base) {
+        for (const x of currencies) {
+          if (base !== x.value) {
+            base = x.value;
+            break;
           }
-        });
+        }
       }
       if (newVal != oldVal) {
-        this.fetch();
+        this.fetch(base, this.symbol);
       }
     },
     baseAmount: function(val) {
       this.symbolAmount = val * this.rate;
     },
     symbolAmount: function(val) {
-      this.baseAmount = val / this.rate;
+      this.baseAmount = val / this.rate * 1;
     }
   },
   mounted() {
-    this.fetch();
+    this.fetch(this.base, this.symbol);
   },
   methods: {
-    fetch() {
+    fetch(base, symbol) {
       let self = this;
-      if (self.loading || !self.base || !self.symbol) {
+      if (self.loading || !base || !symbol || self.base === base && self.symbol === symbol) {
         return;
       }
       self.loading = true;
       let data = {
-        base: self.base,
-        symbol: self.symbol
+        base,
+        symbol
       };
       this.$store.dispatch("exchange-rate/details", data).then((response) => {
         let res = response.data.data;
         self.base = res.base;
         self.symbol = res.symbol;
-        self.rate = res.rate;
-        self.symbolAmount = self.baseAmount * this.rate;
+        self.symbolAmount = self.baseAmount * self.rate;
         self.updatedAt = res.updated_at;
         self.loading = false;
         self.errors = {};
@@ -3014,7 +3089,7 @@ function _sfc_ssrRender$9(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
   const _component_CRow = resolveComponent("CRow");
   const _component_CCol = resolveComponent("CCol");
   const _component_ExchangeRateTable = resolveComponent("ExchangeRateTable");
-  _push(ssrRenderComponent(_component_CCard, _attrs, {
+  _push(ssrRenderComponent(_component_CCard, mergeProps({ class: "my-2" }, _attrs), {
     default: withCtx((_2, _push2, _parent2, _scopeId) => {
       if (_push2) {
         _push2(ssrRenderComponent(VProgressLinear, {
@@ -3259,10 +3334,10 @@ function _sfc_ssrRender$9(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                       _push4(ssrRenderComponent(_component_CCol, { class: "text-right text-muted" }, {
                         default: withCtx((_5, _push5, _parent5, _scopeId4) => {
                           if (_push5) {
-                            _push5(`${ssrInterpolate(`${_ctx.$t("updatedat")}:`)} ${ssrInterpolate($data.updatedAt | _ctx.moment("dddd, Do MMMM YYYY HH:mm"))}`);
+                            _push5(`${ssrInterpolate(`${_ctx.$t("updatedat")}:`)} ${ssrInterpolate(this.$formatDate($data.updatedAt))}`);
                           } else {
                             return [
-                              createTextVNode(toDisplayString(`${_ctx.$t("updatedat")}:`) + " " + toDisplayString($data.updatedAt | _ctx.moment("dddd, Do MMMM YYYY HH:mm")), 1)
+                              createTextVNode(toDisplayString(`${_ctx.$t("updatedat")}:`) + " " + toDisplayString(this.$formatDate($data.updatedAt)), 1)
                             ];
                           }
                         }),
@@ -3272,7 +3347,7 @@ function _sfc_ssrRender$9(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                       return [
                         createVNode(_component_CCol, { class: "text-right text-muted" }, {
                           default: withCtx(() => [
-                            createTextVNode(toDisplayString(`${_ctx.$t("updatedat")}:`) + " " + toDisplayString($data.updatedAt | _ctx.moment("dddd, Do MMMM YYYY HH:mm")), 1)
+                            createTextVNode(toDisplayString(`${_ctx.$t("updatedat")}:`) + " " + toDisplayString(this.$formatDate($data.updatedAt)), 1)
                           ]),
                           _: 1
                         })
@@ -3400,7 +3475,7 @@ function _sfc_ssrRender$9(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                   default: withCtx(() => [
                     createVNode(_component_CCol, { class: "text-right text-muted" }, {
                       default: withCtx(() => [
-                        createTextVNode(toDisplayString(`${_ctx.$t("updatedat")}:`) + " " + toDisplayString($data.updatedAt | _ctx.moment("dddd, Do MMMM YYYY HH:mm")), 1)
+                        createTextVNode(toDisplayString(`${_ctx.$t("updatedat")}:`) + " " + toDisplayString(this.$formatDate($data.updatedAt)), 1)
                       ]),
                       _: 1
                     })
@@ -3518,7 +3593,7 @@ function _sfc_ssrRender$9(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                 default: withCtx(() => [
                   createVNode(_component_CCol, { class: "text-right text-muted" }, {
                     default: withCtx(() => [
-                      createTextVNode(toDisplayString(`${_ctx.$t("updatedat")}:`) + " " + toDisplayString($data.updatedAt | _ctx.moment("dddd, Do MMMM YYYY HH:mm")), 1)
+                      createTextVNode(toDisplayString(`${_ctx.$t("updatedat")}:`) + " " + toDisplayString(this.$formatDate($data.updatedAt)), 1)
                     ]),
                     _: 1
                   })
@@ -4388,6 +4463,12 @@ const _sfc_main$a = {
       return this.$store.getters["snackbar/text"];
     }
   },
+  mounted() {
+    this.close();
+  },
+  unmounted() {
+    this.close();
+  },
   methods: {
     close() {
       this.$store.dispatch("snackbar/close");
@@ -4465,7 +4546,7 @@ const _sfc_main$9 = {
         let data = this["goods/stocks/calendar"].data;
         for (const item of data) {
           let color2 = "cyan";
-          let status2 = this.$t(
+          this.$t(
             `${this.stockType}status.${item["status"]}`
           );
           switch (item["status"]) {
@@ -4482,7 +4563,7 @@ const _sfc_main$9 = {
           let start2 = new Date(item["created_at"]);
           let end2 = new Date(item["created_at"]);
           temp.push({
-            name: `${item["generated_id"]} - ${status2}`,
+            name: `${item["generated_id"]}`,
             start: start2,
             end: end2,
             color: color2,
@@ -4703,6 +4784,7 @@ function _sfc_ssrRender$5(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                 _: 1
               }, _parent3, _scopeId2));
               _push3(ssrRenderComponent(_component_v_calendar, {
+                class: "p-4",
                 ref: "calendar",
                 modelValue: $data.focus,
                 "onUpdate:modelValue": ($event) => $data.focus = $event,
@@ -4713,7 +4795,42 @@ function _sfc_ssrRender$5(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                 "event-overlap-threshold": 30,
                 "onClick:event": $options.showEvent,
                 "onUpdate:pages": $options.fetch
-              }, null, _parent3, _scopeId2));
+              }, {
+                event: withCtx(({ event }, _push4, _parent4, _scopeId3) => {
+                  if (_push4) {
+                    _push4(`<button class="d-flex align-items-center rounded shadow-lg px-2 py-1 mx-2" style="${ssrRenderStyle({
+                      backgroundColor: event.allDay ? "#3462E3" : "#5A5A5A",
+                      color: "white"
+                    })}"${_scopeId3}><div class="rounded-circle p-2" style="${ssrRenderStyle({
+                      backgroundColor: event.color,
+                      width: "6px",
+                      height: "6px"
+                    })}"${_scopeId3}></div><span class="px-2"${_scopeId3}>${ssrInterpolate(event.title)}</span></button>`);
+                  } else {
+                    return [
+                      createVNode("button", {
+                        class: "d-flex align-items-center rounded shadow-lg px-2 py-1 mx-2",
+                        style: {
+                          backgroundColor: event.allDay ? "#3462E3" : "#5A5A5A",
+                          color: "white"
+                        },
+                        onClick: ($event) => _ctx.click(event)
+                      }, [
+                        createVNode("div", {
+                          class: "rounded-circle p-2",
+                          style: {
+                            backgroundColor: event.color,
+                            width: "6px",
+                            height: "6px"
+                          }
+                        }, null, 4),
+                        createVNode("span", { class: "px-2" }, toDisplayString(event.title), 1)
+                      ], 12, ["onClick"])
+                    ];
+                  }
+                }),
+                _: 1
+              }, _parent3, _scopeId2));
             } else {
               return [
                 createVNode(_component_CRow, { class: "p-2" }, {
@@ -4756,6 +4873,7 @@ function _sfc_ssrRender$5(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                   _: 1
                 }),
                 createVNode(_component_v_calendar, {
+                  class: "p-4",
                   ref: "calendar",
                   modelValue: $data.focus,
                   "onUpdate:modelValue": ($event) => $data.focus = $event,
@@ -4766,7 +4884,29 @@ function _sfc_ssrRender$5(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                   "event-overlap-threshold": 30,
                   "onClick:event": $options.showEvent,
                   "onUpdate:pages": $options.fetch
-                }, null, 8, ["modelValue", "onUpdate:modelValue", "weekdays", "view-mode", "events", "event-overlap-mode", "onClick:event", "onUpdate:pages"])
+                }, {
+                  event: withCtx(({ event }) => [
+                    createVNode("button", {
+                      class: "d-flex align-items-center rounded shadow-lg px-2 py-1 mx-2",
+                      style: {
+                        backgroundColor: event.allDay ? "#3462E3" : "#5A5A5A",
+                        color: "white"
+                      },
+                      onClick: ($event) => _ctx.click(event)
+                    }, [
+                      createVNode("div", {
+                        class: "rounded-circle p-2",
+                        style: {
+                          backgroundColor: event.color,
+                          width: "6px",
+                          height: "6px"
+                        }
+                      }, null, 4),
+                      createVNode("span", { class: "px-2" }, toDisplayString(event.title), 1)
+                    ], 12, ["onClick"])
+                  ]),
+                  _: 1
+                }, 8, ["modelValue", "onUpdate:modelValue", "weekdays", "view-mode", "events", "event-overlap-mode", "onClick:event", "onUpdate:pages"])
               ];
             }
           }),
@@ -4821,6 +4961,7 @@ function _sfc_ssrRender$5(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                 _: 1
               }),
               createVNode(_component_v_calendar, {
+                class: "p-4",
                 ref: "calendar",
                 modelValue: $data.focus,
                 "onUpdate:modelValue": ($event) => $data.focus = $event,
@@ -4831,7 +4972,29 @@ function _sfc_ssrRender$5(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                 "event-overlap-threshold": 30,
                 "onClick:event": $options.showEvent,
                 "onUpdate:pages": $options.fetch
-              }, null, 8, ["modelValue", "onUpdate:modelValue", "weekdays", "view-mode", "events", "event-overlap-mode", "onClick:event", "onUpdate:pages"])
+              }, {
+                event: withCtx(({ event }) => [
+                  createVNode("button", {
+                    class: "d-flex align-items-center rounded shadow-lg px-2 py-1 mx-2",
+                    style: {
+                      backgroundColor: event.allDay ? "#3462E3" : "#5A5A5A",
+                      color: "white"
+                    },
+                    onClick: ($event) => _ctx.click(event)
+                  }, [
+                    createVNode("div", {
+                      class: "rounded-circle p-2",
+                      style: {
+                        backgroundColor: event.color,
+                        width: "6px",
+                        height: "6px"
+                      }
+                    }, null, 4),
+                    createVNode("span", { class: "px-2" }, toDisplayString(event.title), 1)
+                  ], 12, ["onClick"])
+                ]),
+                _: 1
+              }, 8, ["modelValue", "onUpdate:modelValue", "weekdays", "view-mode", "events", "event-overlap-mode", "onClick:event", "onUpdate:pages"])
             ]),
             _: 1
           })
@@ -4996,7 +5159,7 @@ _sfc_main$8.setup = (props, ctx) => {
   return _sfc_setup$8 ? _sfc_setup$8(props, ctx) : void 0;
 };
 const TextFieldColorPicker = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["ssrRender", _sfc_ssrRender$4]]);
-const { colorMode } = useColorModes("coreui-free-vue-admin-template-theme");
+const { colorMode } = useColorModes("unstoppable-trading-theme");
 const vuetify = createVuetify({
   theme: {
     defaultTheme: colorMode.value
@@ -5196,9 +5359,7 @@ function _sfc_ssrRender$2(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                 _: 1
               }, _parent3, _scopeId2));
               if (_ctx.$store.getters.isEmployee) {
-                _push3(ssrRenderComponent(_component_CDropdownItem, {
-                  href: `${`#/leave/create/${_ctx.$store.getters.authUser.id}`}`
-                }, {
+                _push3(ssrRenderComponent(_component_CDropdownItem, { href: "#/leaves" }, {
                   default: withCtx((_4, _push4, _parent4, _scopeId3) => {
                     if (_push4) {
                       _push4(ssrRenderComponent(_component_CIcon, { name: "cil-description" }, null, _parent4, _scopeId3));
@@ -5249,14 +5410,14 @@ function _sfc_ssrRender$2(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
                 }),
                 _ctx.$store.getters.isEmployee ? (openBlock(), createBlock(_component_CDropdownItem, {
                   key: 0,
-                  href: `${`#/leave/create/${_ctx.$store.getters.authUser.id}`}`
+                  href: "#/leaves"
                 }, {
                   default: withCtx(() => [
                     createVNode(_component_CIcon, { name: "cil-description" }),
                     createTextVNode(" " + toDisplayString(_ctx.$t("leave")), 1)
                   ]),
                   _: 1
-                }, 8, ["href"])) : createCommentVNode("", true),
+                })) : createCommentVNode("", true),
                 createVNode(_component_CDropdownItem, { onClick: $options.logout }, {
                   default: withCtx(() => [
                     createVNode(_component_CIcon, { icon: "cil-lock-locked" }),
@@ -5303,14 +5464,14 @@ function _sfc_ssrRender$2(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
               }),
               _ctx.$store.getters.isEmployee ? (openBlock(), createBlock(_component_CDropdownItem, {
                 key: 0,
-                href: `${`#/leave/create/${_ctx.$store.getters.authUser.id}`}`
+                href: "#/leaves"
               }, {
                 default: withCtx(() => [
                   createVNode(_component_CIcon, { name: "cil-description" }),
                   createTextVNode(" " + toDisplayString(_ctx.$t("leave")), 1)
                 ]),
                 _: 1
-              }, 8, ["href"])) : createCommentVNode("", true),
+              })) : createCommentVNode("", true),
               createVNode(_component_CDropdownItem, { onClick: $options.logout }, {
                 default: withCtx(() => [
                   createVNode(_component_CIcon, { icon: "cil-lock-locked" }),
@@ -5333,7 +5494,7 @@ _sfc_main$5.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/containers/TheHeaderDropdownAccnt.vue");
   return _sfc_setup$5 ? _sfc_setup$5(props, ctx) : void 0;
 };
-const TheHeaderDropdownAccnt = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["ssrRender", _sfc_ssrRender$2], ["__scopeId", "data-v-1253102b"]]);
+const TheHeaderDropdownAccnt = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["ssrRender", _sfc_ssrRender$2], ["__scopeId", "data-v-9a5e2543"]]);
 const _sfc_main$4 = {
   name: "TheHeaderDropdownShipping",
   computed: {
@@ -5717,9 +5878,7 @@ const _sfc_main$3 = /* @__PURE__ */ Object.assign(__default__$1, {
   setup(__props) {
     const headerClassNames = ref("mb-4 p-0");
     const theme = useTheme();
-    const { colorMode: colorMode2, setColorMode } = useColorModes(
-      "coreui-free-vue-admin-template-theme"
-    );
+    const { colorMode: colorMode2, setColorMode } = useColorModes("unstoppable-trading-theme");
     onMounted(() => {
       document.addEventListener("scroll", () => {
         if (document.documentElement.scrollTop > 0) {
@@ -11749,7 +11908,7 @@ const routes = [
       {
         path: "dashboard",
         name: "dashboard",
-        component: () => import("./assets/Dashboard--p6X_4DB.mjs")
+        component: () => import("./assets/Dashboard-DikQaOk_.mjs")
       },
       {
         path: "profile",
@@ -11757,9 +11916,20 @@ const routes = [
         component: () => import("./assets/Profile-BnAvR5Ze.mjs")
       },
       {
-        path: "leave/create/:id",
-        name: "leave",
-        component: () => import("./assets/CreateLeave-BsmFLrwy.mjs")
+        path: "leaves",
+        name: "route.leaves.home",
+        component: {
+          render() {
+            return h(resolveComponent("router-view"));
+          }
+        },
+        children: [
+          {
+            path: "create/:id",
+            name: "route.leaves.create",
+            component: import("./assets/CreateLeave-BmAqZ-CN.mjs")
+          }
+        ]
       },
       {
         path: "sales-reports",
@@ -11799,7 +11969,7 @@ const routes = [
           {
             path: "details/:id",
             name: "route.users.details",
-            component: () => import("./assets/UserDetails-DBFaZOFK.mjs")
+            component: () => import("./assets/UserDetails-DUunhU9_.mjs")
           }
         ]
       },
@@ -11898,7 +12068,7 @@ const routes = [
           {
             path: "stocktakes/:id",
             name: "route.purchases.stocktakes",
-            component: () => import("./assets/Stocktake-Bu0zhoEk.mjs")
+            component: () => import("./assets/Stocktake-BwRNfev6.mjs")
           }
         ]
       },
@@ -12040,7 +12210,7 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: () => import("./assets/Login-D_M3NVP3.mjs"),
+    component: () => import("./assets/Login-CqeAFzbp.mjs"),
     beforeEnter(to, from, next2) {
       const isAuthenticated = store.getters.isAuthenticated;
       if (isAuthenticated) {
@@ -12053,12 +12223,12 @@ const routes = [
   {
     path: "/forgotpassword",
     name: "forgotpassword",
-    component: () => import("./assets/ForgotPassword-D0gxrgPK.mjs")
+    component: () => import("./assets/ForgotPassword-C31Pg8a6.mjs")
   },
   {
     path: "/auth/forgot/password/reset/:id/:token",
     name: "resetpassword",
-    component: () => import("./assets/ResetPassword-Cr8P9dUW.mjs")
+    component: () => import("./assets/ResetPassword-DtmGe9sp.mjs")
   }
 ];
 const router = createRouter({

@@ -31,12 +31,12 @@
                 :labels="data.labels"
                 :options="options"
             /> -->
-            <CChartLine
+            <!-- <CChartLine
                 style="height: 320px; max-height: 320px; margin-top: 40px"
                 :wrapper="false"
                 :options="options"
                 :data="data"
-            />
+            /> -->
         </CCardBody>
     </CCard>
 </template>

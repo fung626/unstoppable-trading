@@ -39,7 +39,17 @@ class ExchangeRateController extends Controller
 
     public function get(Request $request)
     {
-        $result = ExchangeRates::get();
+        $result = ExchangeRates::when($request->filled(['base']), function ($query) {
+            $base = trim(request('base'));
+            return $query->where(function ($query) use ($base) {
+                $query->where('base', $base);
+            });
+        })->when($request->filled(['symbol']), function ($query) {
+            $symbol = trim(request('symbol'));
+            return $query->where(function ($query) use ($symbol) {
+                $query->where('symbol', $symbol);
+            });
+        })->get();
         $response = config('response.common.success');
         $resource = new ExchangeRateCollection($result);
         $resource = $resource->resolve();

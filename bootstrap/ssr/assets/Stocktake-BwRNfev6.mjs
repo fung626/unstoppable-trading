@@ -1,5 +1,5 @@
 import { _ as _export_sfc, s as sizes, a as Dialog } from "../app.mjs";
-import Dashboard from "./Dashboard--p6X_4DB.mjs";
+import Dashboard from "./Dashboard-DikQaOk_.mjs";
 import { StreamBarcodeReader } from "vue-barcode-reader";
 import { resolveComponent, mergeProps, withCtx, createTextVNode, toDisplayString, createVNode, openBlock, createBlock, createCommentVNode, useSSRContext, Fragment, renderList } from "vue";
 import { ssrRenderComponent, ssrInterpolate, ssrRenderClass, ssrRenderList, ssrRenderStyle } from "vue/server-renderer";
@@ -606,7 +606,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
         _push2(ssrRenderComponent(_component_CCardBody, null, {
           default: withCtx((_2, _push3, _parent3, _scopeId2) => {
             if (_push3) {
-              _push3(`<h4 data-v-be5cd610${_scopeId2}>${ssrInterpolate(_ctx.$t("stocktake"))}</h4><hr data-v-be5cd610${_scopeId2}>`);
+              _push3(`<h4 data-v-1a5d460c${_scopeId2}>${ssrInterpolate(_ctx.$t("stocktake"))}</h4><hr data-v-1a5d460c${_scopeId2}>`);
               _push3(ssrRenderComponent(_component_CRow, { class: "p-2" }, {
                 default: withCtx((_3, _push4, _parent4, _scopeId3) => {
                   if (_push4) {
@@ -816,7 +816,6 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                 "items-length": $data.serverItemsLength,
                 search: $data.search,
                 loading: $data.fetchLoading,
-                "onUpdate:options": $options.fetch,
                 "mobile-breakpoint": 0
               }, {
                 loading: withCtx((_3, _push4, _parent4, _scopeId3) => {
@@ -830,7 +829,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                 }),
                 [`item.32-S`]: withCtx(({ index, item }, _push4, _parent4, _scopeId3) => {
                   if (_push4) {
-                    _push4(`<div class="${ssrRenderClass($options.bgColor(index, "32-S"))}" data-v-be5cd610${_scopeId3}>`);
+                    _push4(`<div class="${ssrRenderClass($options.bgColor(index, "32-S"))}" data-v-1a5d460c${_scopeId3}>`);
                     if (item["32-S"]) {
                       _push4(ssrRenderComponent(VTextField, {
                         modelValue: item["32-S"].unit,
@@ -842,7 +841,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                         onChange: ($event) => $options.change(index, item)
                       }, null, _parent4, _scopeId3));
                     } else {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>－</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>－</span>`);
                     }
                     _push4(`</div>`);
                   } else {
@@ -866,7 +865,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                 }),
                 [`item.34-M`]: withCtx(({ index, item }, _push4, _parent4, _scopeId3) => {
                   if (_push4) {
-                    _push4(`<div class="${ssrRenderClass($options.bgColor(index, "34-M"))}" data-v-be5cd610${_scopeId3}>`);
+                    _push4(`<div class="${ssrRenderClass($options.bgColor(index, "34-M"))}" data-v-1a5d460c${_scopeId3}>`);
                     if (item["34-M"]) {
                       _push4(ssrRenderComponent(VTextField, {
                         modelValue: item["34-M"].unit,
@@ -878,7 +877,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                         onChange: ($event) => $options.change(index, item)
                       }, null, _parent4, _scopeId3));
                     } else {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>－</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>－</span>`);
                     }
                     _push4(`</div>`);
                   } else {
@@ -902,7 +901,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                 }),
                 [`item.36-L`]: withCtx(({ index, item }, _push4, _parent4, _scopeId3) => {
                   if (_push4) {
-                    _push4(`<div class="${ssrRenderClass($options.bgColor(index, "36-L"))}" data-v-be5cd610${_scopeId3}>`);
+                    _push4(`<div class="${ssrRenderClass($options.bgColor(index, "36-L"))}" data-v-1a5d460c${_scopeId3}>`);
                     if (item["36-L"]) {
                       _push4(ssrRenderComponent(VTextField, {
                         modelValue: item["36-L"].unit,
@@ -914,7 +913,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                         onChange: ($event) => $options.change(index, item)
                       }, null, _parent4, _scopeId3));
                     } else {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>－</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>－</span>`);
                     }
                     _push4(`</div>`);
                   } else {
@@ -938,7 +937,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                 }),
                 [`item.38-XL`]: withCtx(({ index, item }, _push4, _parent4, _scopeId3) => {
                   if (_push4) {
-                    _push4(`<div class="${ssrRenderClass($options.bgColor(index, "38-XL"))}" data-v-be5cd610${_scopeId3}>`);
+                    _push4(`<div class="${ssrRenderClass($options.bgColor(index, "38-XL"))}" data-v-1a5d460c${_scopeId3}>`);
                     if (item["38-XL"]) {
                       _push4(ssrRenderComponent(VTextField, {
                         modelValue: item["38-XL"].unit,
@@ -950,7 +949,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                         onChange: ($event) => $options.change(index, item)
                       }, null, _parent4, _scopeId3));
                     } else {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>－</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>－</span>`);
                     }
                     _push4(`</div>`);
                   } else {
@@ -974,7 +973,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                 }),
                 [`item.40-Q`]: withCtx(({ index, item }, _push4, _parent4, _scopeId3) => {
                   if (_push4) {
-                    _push4(`<div class="${ssrRenderClass($options.bgColor(index, "40-Q"))}" data-v-be5cd610${_scopeId3}>`);
+                    _push4(`<div class="${ssrRenderClass($options.bgColor(index, "40-Q"))}" data-v-1a5d460c${_scopeId3}>`);
                     if (item["40-Q"]) {
                       _push4(ssrRenderComponent(VTextField, {
                         modelValue: item["40-Q"].unit,
@@ -986,7 +985,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                         onChange: ($event) => $options.change(index, item)
                       }, null, _parent4, _scopeId3));
                     } else {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>－</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>－</span>`);
                     }
                     _push4(`</div>`);
                   } else {
@@ -1010,7 +1009,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                 }),
                 [`item.42-EQ`]: withCtx(({ index, item }, _push4, _parent4, _scopeId3) => {
                   if (_push4) {
-                    _push4(`<div class="${ssrRenderClass($options.bgColor(index, "42-EQ"))}" data-v-be5cd610${_scopeId3}>`);
+                    _push4(`<div class="${ssrRenderClass($options.bgColor(index, "42-EQ"))}" data-v-1a5d460c${_scopeId3}>`);
                     if (item["42-EQ"]) {
                       _push4(ssrRenderComponent(VTextField, {
                         modelValue: item["42-EQ"].unit,
@@ -1022,7 +1021,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                         onChange: ($event) => $options.change(index, item)
                       }, null, _parent4, _scopeId3));
                     } else {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>－</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>－</span>`);
                     }
                     _push4(`</div>`);
                   } else {
@@ -1046,7 +1045,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                 }),
                 [`item.44-Free`]: withCtx(({ index, item }, _push4, _parent4, _scopeId3) => {
                   if (_push4) {
-                    _push4(`<div class="${ssrRenderClass($options.bgColor(index, "44-Free"))}" data-v-be5cd610${_scopeId3}>`);
+                    _push4(`<div class="${ssrRenderClass($options.bgColor(index, "44-Free"))}" data-v-1a5d460c${_scopeId3}>`);
                     if (item["44-Free"]) {
                       _push4(ssrRenderComponent(VTextField, {
                         modelValue: item["44-Free"].unit,
@@ -1058,7 +1057,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                         onChange: ($event) => $options.change(index, item)
                       }, null, _parent4, _scopeId3));
                     } else {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>－</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>－</span>`);
                     }
                     _push4(`</div>`);
                   } else {
@@ -1083,9 +1082,9 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                 [`item.unit_price`]: withCtx(({ item }, _push4, _parent4, _scopeId3) => {
                   if (_push4) {
                     if (item.cost) {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>${ssrInterpolate(`$ ${(item.cost * 1).toLocaleString()}`)}</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>${ssrInterpolate(`$ ${(item.cost * 1).toLocaleString()}`)}</span>`);
                     } else {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>－</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>－</span>`);
                     }
                   } else {
                     return [
@@ -1096,9 +1095,9 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                 [`item.total_unit`]: withCtx(({ item }, _push4, _parent4, _scopeId3) => {
                   if (_push4) {
                     if (item.total_unit) {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>${ssrInterpolate((item.total_unit * 1).toLocaleString())}</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>${ssrInterpolate((item.total_unit * 1).toLocaleString())}</span>`);
                     } else {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>－</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>－</span>`);
                     }
                   } else {
                     return [
@@ -1109,9 +1108,9 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                 [`item.cost`]: withCtx(({ item }, _push4, _parent4, _scopeId3) => {
                   if (_push4) {
                     if (item.cost) {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>${ssrInterpolate(`$ ${(item.cost * 1).toLocaleString()}`)}</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>${ssrInterpolate(`$ ${(item.cost * 1).toLocaleString()}`)}</span>`);
                     } else {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>－</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>－</span>`);
                     }
                   } else {
                     return [
@@ -1121,25 +1120,25 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                 }),
                 [`body.append`]: withCtx((_3, _push4, _parent4, _scopeId3) => {
                   if (_push4) {
-                    _push4(`<tr data-v-be5cd610${_scopeId3}><!--[-->`);
+                    _push4(`<tr data-v-1a5d460c${_scopeId3}><!--[-->`);
                     ssrRenderList([...Array(10)], (_4) => {
-                      _push4(`<td data-v-be5cd610${_scopeId3}></td>`);
+                      _push4(`<td data-v-1a5d460c${_scopeId3}></td>`);
                     });
-                    _push4(`<!--]--><td class="p-2" colspan="2" data-v-be5cd610${_scopeId3}>${ssrInterpolate(`${_ctx.$t("total-unit")}:`)}</td><td class="p-2" colspan="4" data-v-be5cd610${_scopeId3}>`);
+                    _push4(`<!--]--><td class="p-2" colspan="2" data-v-1a5d460c${_scopeId3}>${ssrInterpolate(`${_ctx.$t("total-unit")}:`)}</td><td class="p-2" colspan="4" data-v-1a5d460c${_scopeId3}>`);
                     if ($data.totalunit) {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>${ssrInterpolate(`${($data.totalunit * 1).toLocaleString()}`)}</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>${ssrInterpolate(`${($data.totalunit * 1).toLocaleString()}`)}</span>`);
                     } else {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>${ssrInterpolate("0".toLocaleString())}</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>${ssrInterpolate("0".toLocaleString())}</span>`);
                     }
-                    _push4(`</td></tr><tr data-v-be5cd610${_scopeId3}><!--[-->`);
+                    _push4(`</td></tr><tr data-v-1a5d460c${_scopeId3}><!--[-->`);
                     ssrRenderList([...Array(10)], (_4) => {
-                      _push4(`<td data-v-be5cd610${_scopeId3}></td>`);
+                      _push4(`<td data-v-1a5d460c${_scopeId3}></td>`);
                     });
-                    _push4(`<!--]--><td class="p-2" colspan="2" data-v-be5cd610${_scopeId3}>${ssrInterpolate(`${_ctx.$t("subtotal")}: `)}</td><td class="p-2" colspan="4" data-v-be5cd610${_scopeId3}>`);
+                    _push4(`<!--]--><td class="p-2" colspan="2" data-v-1a5d460c${_scopeId3}>${ssrInterpolate(`${_ctx.$t("subtotal")}: `)}</td><td class="p-2" colspan="4" data-v-1a5d460c${_scopeId3}>`);
                     if ($data.subtotal) {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>${ssrInterpolate(`$ ${($data.subtotal * 1).toLocaleString()} ${_ctx.currency}`)}</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>${ssrInterpolate(`$ ${($data.subtotal * 1).toLocaleString()} ${_ctx.currency}`)}</span>`);
                     } else {
-                      _push4(`<span data-v-be5cd610${_scopeId3}>${ssrInterpolate(`$ ${"0".toLocaleString()} ${_ctx.currency}`)}</span>`);
+                      _push4(`<span data-v-1a5d460c${_scopeId3}>${ssrInterpolate(`$ ${"0".toLocaleString()} ${_ctx.currency}`)}</span>`);
                     }
                     _push4(`</td></tr>`);
                   } else {
@@ -1179,7 +1178,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                 }),
                 _: 2
               }, _parent3, _scopeId2));
-              _push3(`<div class="d-flex p-2" data-v-be5cd610${_scopeId2}><div class="bg-yellow" style="${ssrRenderStyle({ "height": "25px", "width": "25px" })}" data-v-be5cd610${_scopeId2}>   </div><span class="px-2" data-v-be5cd610${_scopeId2}>${ssrInterpolate(`*${_ctx.$t("default-unit")}`)}</span></div><div class="d-flex p-2" data-v-be5cd610${_scopeId2}><div class="bg-green" style="${ssrRenderStyle({ "height": "25px", "width": "25px" })}" data-v-be5cd610${_scopeId2}>   </div><span class="px-2" data-v-be5cd610${_scopeId2}>${ssrInterpolate(`*${_ctx.$t("updated-unit")}`)}</span></div><hr data-v-be5cd610${_scopeId2}>`);
+              _push3(`<div class="d-flex p-2" data-v-1a5d460c${_scopeId2}><div class="bg-yellow" style="${ssrRenderStyle({ "height": "25px", "width": "25px" })}" data-v-1a5d460c${_scopeId2}>   </div><span class="px-2" data-v-1a5d460c${_scopeId2}>${ssrInterpolate(`*${_ctx.$t("default-unit")}`)}</span></div><div class="d-flex p-2" data-v-1a5d460c${_scopeId2}><div class="bg-green" style="${ssrRenderStyle({ "height": "25px", "width": "25px" })}" data-v-1a5d460c${_scopeId2}>   </div><span class="px-2" data-v-1a5d460c${_scopeId2}>${ssrInterpolate(`*${_ctx.$t("updated-unit")}`)}</span></div><hr data-v-1a5d460c${_scopeId2}>`);
               _push3(ssrRenderComponent(_component_CButton, {
                 onClick: $options.confirm,
                 color: "primary",
@@ -1278,7 +1277,6 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                   "items-length": $data.serverItemsLength,
                   search: $data.search,
                   loading: $data.fetchLoading,
-                  "onUpdate:options": $options.fetch,
                   "mobile-breakpoint": 0
                 }, {
                   loading: withCtx(() => [
@@ -1438,7 +1436,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                     ])
                   ]),
                   _: 2
-                }, 1032, ["headers", "items", "items-length", "search", "loading", "onUpdate:options"]),
+                }, 1032, ["headers", "items", "items-length", "search", "loading"]),
                 createVNode("div", { class: "d-flex p-2" }, [
                   createVNode("div", {
                     class: "bg-yellow",
@@ -1552,7 +1550,6 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                 "items-length": $data.serverItemsLength,
                 search: $data.search,
                 loading: $data.fetchLoading,
-                "onUpdate:options": $options.fetch,
                 "mobile-breakpoint": 0
               }, {
                 loading: withCtx(() => [
@@ -1712,7 +1709,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
                   ])
                 ]),
                 _: 2
-              }, 1032, ["headers", "items", "items-length", "search", "loading", "onUpdate:options"]),
+              }, 1032, ["headers", "items", "items-length", "search", "loading"]),
               createVNode("div", { class: "d-flex p-2" }, [
                 createVNode("div", {
                   class: "bg-yellow",
@@ -1758,7 +1755,7 @@ _sfc_main.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("resources/js/views/purchases/Stocktake.vue");
   return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
 };
-const Stocktake = /* @__PURE__ */ _export_sfc(_sfc_main, [["ssrRender", _sfc_ssrRender], ["__scopeId", "data-v-be5cd610"]]);
+const Stocktake = /* @__PURE__ */ _export_sfc(_sfc_main, [["ssrRender", _sfc_ssrRender], ["__scopeId", "data-v-1a5d460c"]]);
 export {
   Stocktake as default
 };

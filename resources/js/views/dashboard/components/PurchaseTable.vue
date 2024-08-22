@@ -2,7 +2,7 @@
     <div>
         <Dialog ref="dialog" />
         <CRow class="p-2">
-            <CCol :md="9" :sm="9">
+            <CCol :md="10" :sm="10">
                 <CInputGroup class="mb-3">
                     <CButton color="primary" size="sm">
                         <CIcon name="cil-magnifying-glass" size="sm" />
@@ -10,7 +10,7 @@
                     <CFormInput size="sm" v-model="search" />
                 </CInputGroup>
             </CCol>
-            <CCol :md="3" :sm="3" class="text-right">
+            <CCol :md="2" :sm="2" class="text-right">
                 <CButtonGroup>
                     <CButton
                         color="primary"

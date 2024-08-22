@@ -194,7 +194,7 @@
     "/assets/materialdesignicons-webfont-PXm3-2wK.woff",
     "/assets/materialdesignicons-webfont-B7mPwVP_.ttf"
   ],
-  "resources/js/containers/TheHeaderDropdownAccnt.vue?vue&type=style&index=0&scoped=1253102b&lang.css": [
+  "resources/js/containers/TheHeaderDropdownAccnt.vue?vue&type=style&index=0&scoped=9a5e2543&lang.css": [
     "/assets/materialdesignicons-webfont-CSr8KVlo.eot",
     "/assets/materialdesignicons-webfont-Dp5v-WZN.woff2",
     "/assets/materialdesignicons-webfont-PXm3-2wK.woff",
@@ -1839,28 +1839,28 @@
     "/assets/materialdesignicons-webfont-B7mPwVP_.ttf"
   ],
   "resources/js/views/auth/ForgotPassword.vue": [
-    "/assets/ForgotPassword-D0gxrgPK.mjs",
-    "/assets/ForgotPassword-CsHClmgX.css"
+    "/assets/ForgotPassword-C31Pg8a6.mjs",
+    "/assets/ForgotPassword-ka5OJRi-.css"
   ],
-  "resources/js/views/auth/ForgotPassword.vue?vue&type=style&index=0&scoped=2ff7c6f2&lang.css": [
-    "/assets/ForgotPassword-D0gxrgPK.mjs",
-    "/assets/ForgotPassword-CsHClmgX.css"
+  "resources/js/views/auth/ForgotPassword.vue?vue&type=style&index=0&scoped=6dc51d6f&lang.css": [
+    "/assets/ForgotPassword-C31Pg8a6.mjs",
+    "/assets/ForgotPassword-ka5OJRi-.css"
   ],
   "resources/js/views/auth/Login.vue": [
-    "/assets/Login-D_M3NVP3.mjs",
-    "/assets/Login-CTNHB6-x.css"
+    "/assets/Login-CqeAFzbp.mjs",
+    "/assets/Login-B0v3KoLM.css"
   ],
-  "resources/js/views/auth/Login.vue?vue&type=style&index=0&scoped=fef92ec0&lang.css": [
-    "/assets/Login-D_M3NVP3.mjs",
-    "/assets/Login-CTNHB6-x.css"
+  "resources/js/views/auth/Login.vue?vue&type=style&index=0&scoped=103bd3cd&lang.css": [
+    "/assets/Login-CqeAFzbp.mjs",
+    "/assets/Login-B0v3KoLM.css"
   ],
   "resources/js/views/auth/ResetPassword.vue": [
-    "/assets/ResetPassword-Cr8P9dUW.mjs",
-    "/assets/ResetPassword-CHElQ1uQ.css"
+    "/assets/ResetPassword-DtmGe9sp.mjs",
+    "/assets/ResetPassword-C6O-8CSO.css"
   ],
-  "resources/js/views/auth/ResetPassword.vue?vue&type=style&index=0&scoped=33f0de70&lang.css": [
-    "/assets/ResetPassword-Cr8P9dUW.mjs",
-    "/assets/ResetPassword-CHElQ1uQ.css"
+  "resources/js/views/auth/ResetPassword.vue?vue&type=style&index=0&scoped=e61347f1&lang.css": [
+    "/assets/ResetPassword-DtmGe9sp.mjs",
+    "/assets/ResetPassword-C6O-8CSO.css"
   ],
   "resources/js/views/categories/Categories.vue": [
     "/assets/Categories-DZUEICZK.mjs"
@@ -1909,13 +1909,13 @@
     "/assets/ClientDetails-D7Rf3a3j.css"
   ],
   "resources/js/views/dashboard/Dashboard.vue": [
-    "/assets/Dashboard--p6X_4DB.mjs"
+    "/assets/Dashboard-DikQaOk_.mjs"
   ],
   "resources/js/views/dashboard/components/DashboardSummaryLineChart.vue": [
-    "/assets/Dashboard--p6X_4DB.mjs"
+    "/assets/Dashboard-DikQaOk_.mjs"
   ],
   "resources/js/views/dashboard/components/PurchaseTable.vue": [
-    "/assets/Dashboard--p6X_4DB.mjs"
+    "/assets/Dashboard-DikQaOk_.mjs"
   ],
   "resources/js/views/duty/CreateDuty.vue": [
     "/assets/CreateDuty-DpuzOxC7.mjs",
@@ -1981,13 +1981,13 @@
     "/assets/GoodsDetails-Dz1SPH1c.mjs",
     "/assets/GoodsDetails-qbgEVako.css"
   ],
-  "resources/js/views/leave/CreateLeave.vue": [
-    "/assets/CreateLeave-BsmFLrwy.mjs",
-    "/assets/CreateLeave-Ch0ZNEIk.css"
+  "resources/js/views/leaves/CreateLeave.vue": [
+    "/assets/CreateLeave-BmAqZ-CN.mjs",
+    "/assets/CreateLeave-1ZCRPIMO.css"
   ],
-  "resources/js/views/leave/CreateLeave.vue?vue&type=style&index=0&scoped=188dfbe7&lang.css": [
-    "/assets/CreateLeave-BsmFLrwy.mjs",
-    "/assets/CreateLeave-Ch0ZNEIk.css"
+  "resources/js/views/leaves/CreateLeave.vue?vue&type=style&index=0&scoped=5b302dd5&lang.css": [
+    "/assets/CreateLeave-BmAqZ-CN.mjs",
+    "/assets/CreateLeave-1ZCRPIMO.css"
   ],
   "resources/js/views/profile/Profile.vue": [
     "/assets/Profile-BnAvR5Ze.mjs",
@@ -2029,20 +2029,20 @@
     "/assets/Purchases-m0vPfKGm.mjs"
   ],
   "resources/js/views/purchases/Stocktake.vue": [
-    "/assets/Stocktake-Bu0zhoEk.mjs",
-    "/assets/Stocktake-yfR242Dy.css"
+    "/assets/Stocktake-BwRNfev6.mjs",
+    "/assets/Stocktake-BPuhT6gj.css"
   ],
-  "resources/js/views/purchases/Stocktake.vue?vue&type=style&index=0&scoped=be5cd610&lang.css": [
-    "/assets/Stocktake-Bu0zhoEk.mjs",
-    "/assets/Stocktake-yfR242Dy.css"
+  "resources/js/views/purchases/Stocktake.vue?vue&type=style&index=0&scoped=1a5d460c&lang.css": [
+    "/assets/Stocktake-BwRNfev6.mjs",
+    "/assets/Stocktake-BPuhT6gj.css"
   ],
   "resources/js/views/purchases/components/CreatePurchaseDialog.vue": [
     "/assets/CreatePurchase-B8q53oYC.mjs",
     "/assets/CreatePurchase-BRtal5tJ.css"
   ],
   "resources/js/views/purchases/components/StocktakeDialog.vue": [
-    "/assets/Stocktake-Bu0zhoEk.mjs",
-    "/assets/Stocktake-yfR242Dy.css"
+    "/assets/Stocktake-BwRNfev6.mjs",
+    "/assets/Stocktake-BPuhT6gj.css"
   ],
   "resources/js/views/sales-reports/SalesReports.vue": [
     "/assets/SalesReports-DcgdNbG0.mjs"
@@ -2135,39 +2135,39 @@
     "/assets/CreateUser-CgDeSg5j.css"
   ],
   "resources/js/views/users/UserDetails.vue": [
-    "/assets/UserDetails-DBFaZOFK.mjs",
-    "/assets/UserDetails-BphVE0KE.css"
+    "/assets/UserDetails-DUunhU9_.mjs",
+    "/assets/UserDetails-DkwU___S.css"
   ],
-  "resources/js/views/users/UserDetails.vue?vue&type=style&index=0&scoped=f4dfa060&lang.css": [
-    "/assets/UserDetails-DBFaZOFK.mjs",
-    "/assets/UserDetails-BphVE0KE.css"
+  "resources/js/views/users/UserDetails.vue?vue&type=style&index=0&scoped=d6927023&lang.css": [
+    "/assets/UserDetails-DUunhU9_.mjs",
+    "/assets/UserDetails-DkwU___S.css"
   ],
   "resources/js/views/users/Users.vue": [
     "/assets/Users-uQXWIIrj.mjs"
   ],
   "resources/js/views/users/components/EmployeeForm.vue": [
-    "/assets/UserDetails-DBFaZOFK.mjs",
-    "/assets/UserDetails-BphVE0KE.css"
+    "/assets/UserDetails-DUunhU9_.mjs",
+    "/assets/UserDetails-DkwU___S.css"
   ],
-  "resources/js/views/users/components/EmployeeForm.vue?vue&type=style&index=0&scoped=3f29e4db&lang.css": [
-    "/assets/UserDetails-DBFaZOFK.mjs",
-    "/assets/UserDetails-BphVE0KE.css"
+  "resources/js/views/users/components/EmployeeForm.vue?vue&type=style&index=0&scoped=65d3f088&lang.css": [
+    "/assets/UserDetails-DUunhU9_.mjs",
+    "/assets/UserDetails-DkwU___S.css"
   ],
   "resources/js/views/users/components/PermissionForm.vue": [
-    "/assets/UserDetails-DBFaZOFK.mjs",
-    "/assets/UserDetails-BphVE0KE.css"
+    "/assets/UserDetails-DUunhU9_.mjs",
+    "/assets/UserDetails-DkwU___S.css"
   ],
   "resources/js/views/users/components/PermissionForm.vue?vue&type=style&index=0&scoped=f15a316c&lang.css": [
-    "/assets/UserDetails-DBFaZOFK.mjs",
-    "/assets/UserDetails-BphVE0KE.css"
+    "/assets/UserDetails-DUunhU9_.mjs",
+    "/assets/UserDetails-DkwU___S.css"
   ],
   "resources/js/views/users/components/UserForm.vue": [
-    "/assets/UserDetails-DBFaZOFK.mjs",
-    "/assets/UserDetails-BphVE0KE.css"
+    "/assets/UserDetails-DUunhU9_.mjs",
+    "/assets/UserDetails-DkwU___S.css"
   ],
   "resources/js/views/users/components/UserForm.vue?vue&type=style&index=0&scoped=c6c64433&lang.css": [
-    "/assets/UserDetails-DBFaZOFK.mjs",
-    "/assets/UserDetails-BphVE0KE.css"
+    "/assets/UserDetails-DUunhU9_.mjs",
+    "/assets/UserDetails-DkwU___S.css"
   ],
   "resources/js/views/warehouses/CreateWarehouse.vue": [
     "/assets/CreateWarehouse-BJAtzE2R.mjs",

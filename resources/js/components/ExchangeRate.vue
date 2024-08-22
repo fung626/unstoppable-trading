@@ -63,17 +63,18 @@
                     {{ this.$formatDate(updatedAt) }}
                 </CCol>
             </CRow>
-            <!-- <CRow>
+            <CRow>
                 <CCol>
                     <ExchangeRateTable />
                 </CCol>
-            </CRow> -->
+            </CRow>
         </CCardBody>
     </CCard>
 </template>
 
 <script>
 import { currencies } from "@/constants";
+import { mapState } from "vuex";
 import ExchangeRateTable from "./ExchangeRateTable.vue";
 
 export default {
@@ -81,13 +82,22 @@ export default {
     components: {
         ExchangeRateTable,
     },
+    computed: {
+        ...mapState(["exchange-rate"]),
+        rate() {
+            if (this["exchange-rate"] && this["exchange-rate"].details) {
+                return this["exchange-rate"].details.rate;
+            }
+            return 0;
+        },
+    },
     data() {
         return {
             baseAmount: 0,
             base: "HKD",
             symbolAmount: 0,
             symbol: "TWD",
-            rate: 0,
+            // rate: 0,
             currencies: currencies,
             updatedAt: null,
             errors: {},
@@ -96,49 +106,58 @@ export default {
     },
     watch: {
         base: function (newVal, oldVal) {
-            if (newVal === this.symbol) {
-                currencies.forEach((element) => {
-                    if (this.symbol != element.value) {
-                        this.symbol = element.value;
+            let symbol = this.symbol;
+            if (newVal === symbol) {
+                for (const x of currencies) {
+                    if (symbol !== x.value) {
+                        symbol = x.value;
+                        break;
                     }
-                });
+                }
             }
             if (newVal != oldVal) {
-                this.fetch();
+                this.fetch(this.base, symbol);
             }
         },
         symbol: function (newVal, oldVal) {
-            if (newVal === this.base) {
-                currencies.forEach((element) => {
-                    if (this.base != element.value) {
-                        this.base = element.value;
+            let base = this.base;
+            if (newVal === base) {
+                for (const x of currencies) {
+                    if (base !== x.value) {
+                        base = x.value;
+                        break;
                     }
-                });
+                }
             }
             if (newVal != oldVal) {
-                this.fetch();
+                this.fetch(base, this.symbol);
             }
         },
         baseAmount: function (val) {
             this.symbolAmount = val * this.rate;
         },
         symbolAmount: function (val) {
-            this.baseAmount = val / this.rate;
+            this.baseAmount = (val / this.rate) * 1;
         },
     },
     mounted() {
-        this.fetch();
+        this.fetch(this.base, this.symbol);
     },
     methods: {
-        fetch() {
+        fetch(base, symbol) {
             let self = this;
-            if (self.loading || !self.base || !self.symbol) {
+            if (
+                self.loading ||
+                !base ||
+                !symbol ||
+                (self.base === base && self.symbol === symbol)
+            ) {
                 return;
             }
             self.loading = true;
             let data = {
-                base: self.base,
-                symbol: self.symbol,
+                base: base,
+                symbol: symbol,
             };
             this.$store
                 .dispatch("exchange-rate/details", data)
@@ -146,8 +165,8 @@ export default {
                     let res = response.data.data;
                     self.base = res.base;
                     self.symbol = res.symbol;
-                    self.rate = res.rate;
-                    self.symbolAmount = self.baseAmount * this.rate;
+                    // self.rate = res.rate;
+                    self.symbolAmount = self.baseAmount * self.rate;
                     self.updatedAt = res.updated_at;
                     self.loading = false;
                     self.errors = {};

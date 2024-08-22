@@ -12,6 +12,7 @@
             :headers="headers"
             :items="items"
             :loading="loading"
+            :mobile="mobile"
             :hide-default-footer="true"
         >
             <template v-slot:[`item.updated_at`]="{ item }">
@@ -42,14 +43,26 @@ export default {
     name: "ExchangeRateTable",
     computed: {
         ...mapState(["exchange-rate"]),
+        base() {
+            return this["exchange-rate"].details.base;
+        },
+        symbol() {
+            return this["exchange-rate"].details.symbol;
+        },
         items() {
-            return this.exchange - rate.data;
+            if (Array.isArray(this["exchange-rate"].data)) {
+                return this["exchange-rate"].data;
+            }
+            return [];
+        },
+        details() {
+            return this["exchange-rate"].details;
         },
     },
     data() {
         return {
             loading: false,
-            options: {},
+            mobile: window.innerWidth < 769,
             headers: [
                 { title: this.$t("Base"), value: "base" },
                 { title: this.$t("Symbol"), value: "symbol" },
@@ -64,13 +77,20 @@ export default {
         };
     },
     watch: {
-        options: {
-            handler() {
-                this.fetch();
-            },
+        details: function (newVal, oldVal) {
+            this.fetch();
         },
     },
+    mounted() {
+        window.addEventListener("resize", this.onResize);
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.onResize);
+    },
     methods: {
+        onResize() {
+            this.mobile = window.innerWidth < 769;
+        },
         fetch() {
             let self = this;
             if (self.loading) {
@@ -91,7 +111,7 @@ export default {
                 });
         },
         reload() {
-            this.fetch({ ...this.options });
+            this.fetch();
         },
         async click(item, action) {
             let type = action.type;

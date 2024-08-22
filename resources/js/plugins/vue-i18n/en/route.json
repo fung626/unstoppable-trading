@@ -1,5 +1,9 @@
 {
     "route": {
+        "leaves": {
+            "home": "leaves",
+            "create": "Create"
+        },
         "users": {
             "home": "Users",
             "table": "Table",

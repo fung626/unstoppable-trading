@@ -1,5 +1,9 @@
 {
     "route": {
+        "leaves": {
+            "home": "休假",
+            "create": "新增"
+        },
         "users": {
             "home": "用戶",
             "table": "清單",

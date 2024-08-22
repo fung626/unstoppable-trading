@@ -6,7 +6,7 @@ import * as directives from "vuetify/directives";
 import * as labsComponents from "vuetify/labs/components";
 import "vuetify/styles";
 
-const { colorMode } = useColorModes("coreui-free-vue-admin-template-theme");
+const { colorMode } = useColorModes("unstoppable-trading-theme");
 
 // console.log(colorMode);
 

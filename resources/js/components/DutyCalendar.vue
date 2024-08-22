@@ -153,7 +153,6 @@ export default {
                     self.loading = false;
                 });
         },
-
         click(event) {
             console.log(event);
             // this.type = type.value;
@@ -167,6 +166,11 @@ export default {
                 return true;
             }
             return false;
+        },
+        onTypeClick(type) {
+            this.type = type.value;
+            // console.log(this.type);
+            // this.$forceUpdate();
         },
     },
 };

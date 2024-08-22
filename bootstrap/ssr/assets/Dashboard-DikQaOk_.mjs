@@ -418,20 +418,9 @@ const _sfc_main$1 = {
           break;
         case "RouterPush":
           let route = action.route;
-          switch (route) {
-            case "PurchaseDetails":
-              this.$router.push({
-                name: route,
-                params: { id: item.id }
-              });
-              break;
-            case "Stocktake":
-              this.$router.push({
-                name: route,
-                params: { id: item.id }
-              });
-              break;
-          }
+          this.$router.push({
+            path: route
+          });
           break;
         case "Delete":
           if (await this.$refs.dialog.open(
@@ -471,8 +460,8 @@ function _sfc_ssrRender$1(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
     default: withCtx((_, _push2, _parent2, _scopeId) => {
       if (_push2) {
         _push2(ssrRenderComponent(_component_CCol, {
-          md: 9,
-          sm: 9
+          md: 10,
+          sm: 10
         }, {
           default: withCtx((_2, _push3, _parent3, _scopeId2) => {
             if (_push3) {
@@ -559,8 +548,8 @@ function _sfc_ssrRender$1(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
           _: 1
         }, _parent2, _scopeId));
         _push2(ssrRenderComponent(_component_CCol, {
-          md: 3,
-          sm: 3,
+          md: 2,
+          sm: 2,
           class: "text-right"
         }, {
           default: withCtx((_2, _push3, _parent3, _scopeId2) => {
@@ -692,8 +681,8 @@ function _sfc_ssrRender$1(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
       } else {
         return [
           createVNode(_component_CCol, {
-            md: 9,
-            sm: 9
+            md: 10,
+            sm: 10
           }, {
             default: withCtx(() => [
               createVNode(_component_CInputGroup, { class: "mb-3" }, {
@@ -722,8 +711,8 @@ function _sfc_ssrRender$1(_ctx, _push, _parent, _attrs, $props, $setup, $data, $
             _: 1
           }),
           createVNode(_component_CCol, {
-            md: 3,
-            sm: 3,
+            md: 2,
+            sm: 2,
             class: "text-right"
           }, {
             default: withCtx(() => [
@@ -1046,6 +1035,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
   const _component_ShippingPurchaseQuickSearch = resolveComponent("ShippingPurchaseQuickSearch");
   const _component_DashboardSummaryLineChart = resolveComponent("DashboardSummaryLineChart");
   const _component_DutyCalendar = resolveComponent("DutyCalendar");
+  const _component_ExchangeRate = resolveComponent("ExchangeRate");
   const _component_CCard = resolveComponent("CCard");
   const _component_CCardBody = resolveComponent("CCardBody");
   const _component_CCallout = resolveComponent("CCallout");
@@ -1502,6 +1492,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
           }, null, _parent2, _scopeId));
           _push2(`</div>`);
         }
+        _push2(ssrRenderComponent(_component_ExchangeRate, null, null, _parent2, _scopeId));
         if (_ctx.$store.getters.isAdmin) {
           _push2(ssrRenderComponent(_component_CRow, { class: "py-2" }, {
             default: withCtx((_2, _push3, _parent3, _scopeId2) => {
@@ -2181,6 +2172,7 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $op
               userId: _ctx.$store.getters.authUser.id
             }, null, 8, ["userId"])
           ])),
+          createVNode(_component_ExchangeRate),
           _ctx.$store.getters.isAdmin ? (openBlock(), createBlock(_component_CRow, {
             key: 2,
             class: "py-2"
