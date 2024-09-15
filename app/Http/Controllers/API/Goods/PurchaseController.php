@@ -321,7 +321,7 @@ class PurchaseController extends Controller
                 });
             })
             ->select($this->select)
-            ->join('supplier', 'supplier.id', '=', 'goods_purchases.supplier_id')
+            ->join('suppliers', 'suppliers.id', '=', 'goods_purchases.supplier_id')
             ->join('users', 'users.id', '=', 'goods_purchases.user_id');
 
         if ($request->filled(['sort_by'])) {

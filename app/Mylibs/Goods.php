@@ -112,8 +112,7 @@ class Goods
             $foundIndex = 0;
             if ($purchaseItem->goodsItem && $purchaseItem->goods) {
                 foreach ($items as $item) {
-                    if (array_key_exists('cup', $item) &&
-                        array_key_exists('color', $item)) {
+                    if (array_key_exists('cup', $item) && array_key_exists('color', $item)) {
                         if ($item['cup'] === $purchaseItem->goodsItem->cup &&
                             $item['color'] === $purchaseItem->goodsItem->color) {
                             $found = true;

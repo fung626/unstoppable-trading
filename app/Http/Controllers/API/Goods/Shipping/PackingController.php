@@ -18,20 +18,21 @@ class PackingController extends Controller
     public function export(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'ship_id' => 'required_without:client_id|string|exists:goods_shippings,id',
-            'client_id' => 'required_without:ship_id|string|exists:clients,id',
+            'shipping_id' => 'required_without:client_id|string|exists:goods_shippings,id',
+            'client_id' => 'required_without:shipping_id|string|exists:clients,id',
         ]);
 
         if ($validator->fails()) {
             $response = config('response.common.fail.parameter');
+            $response['data'] = $validator->errors();
             return response()->json($response, 400);
         }
 
         $data = [];
         $client = null;
 
-        if ($request->filled('ship_id')) {
-            $shipping = Shipping::where(['id' => request('ship_id')])->first();
+        if ($request->filled('shipping_id')) {
+            $shipping = Shipping::where(['id' => request('shipping_id')])->first();
             $client = Client::where(['id' => $shipping->client_id])->first();
         } else {
             $client = Client::where(['id' => $shipping->client_id])->first();

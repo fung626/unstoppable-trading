@@ -199,6 +199,14 @@ Route::prefix('goods/shippings')->middleware(['auth:api', 'scopes:shippings', 'l
     Route::post('format', [ShippingController::class, 'format']);
 });
 
+Route::prefix('goods/shippings/packing')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
+    Route::post('export', [PackingController::class, 'export']);
+});
+
+Route::prefix('goods/shippings/invoice')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
+    Route::post('export', [InvoiceController::class, 'export']);
+});
+
 Route::prefix('goods/create-shipping-config')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
     Route::post('get', [CreateShippingConfigController::class, 'get']);
 });
@@ -220,7 +228,7 @@ Route::prefix('goods/shippings/mailer')->middleware(['auth:api', 'scopes:shippin
     Route::post('export', [MailerController::class, 'export']);
 });
 
-Route::prefix('goods/shippings/invoices')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
+Route::prefix('goods/shippings/invoice')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
     Route::post('export', [ShippingInvoiceController::class, 'export']);
 });
 

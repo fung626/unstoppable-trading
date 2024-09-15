@@ -14,7 +14,7 @@ class TestController extends Controller
 {
     //
     protected $withs = [
-        'goods.supplier',
+        'goods.suppliers',
         'goods',
     ];
 
