@@ -31,12 +31,12 @@
                 :labels="data.labels"
                 :options="options"
             /> -->
-            <!-- <CChartLine
+            <CChartLine
                 style="height: 320px; max-height: 320px; margin-top: 40px"
                 :wrapper="false"
                 :options="options"
                 :data="data"
-            /> -->
+            />
         </CCardBody>
     </CCard>
 </template>
@@ -69,25 +69,19 @@ export default {
                     display: false,
                 },
                 scales: {
-                    xAxes: [
-                        {
-                            gridLines: {
-                                drawOnChartArea: false,
+                    x: {
+                        gridLines: {
+                            drawOnChartArea: false,
+                        },
+                    },
+                    y: {
+                        ticks: {
+                            beginAtZero: true,
+                            callback: (value, index, values) => {
+                                return `${Number(value).abbreviateAmount()}`;
                             },
                         },
-                    ],
-                    yAxes: [
-                        {
-                            ticks: {
-                                beginAtZero: true,
-                                callback: (value, index, values) => {
-                                    return `${Number(
-                                        value
-                                    ).abbreviateAmount()}`;
-                                },
-                            },
-                        },
-                    ],
+                    },
                 },
                 pan: {
                     enabled: true,
@@ -122,7 +116,7 @@ export default {
             this.$store
                 .dispatch("sales-reports/chart/get", data)
                 .then((response) => {
-                    console.log(response);
+                    // console.log(response);
                     self.loading = false;
                 })
                 .catch((error) => {

@@ -251,7 +251,7 @@ const routes = [
                     },
                     {
                         path: "details/:id",
-                        name: "route.suppliers.crdetailsdetailseate",
+                        name: "route.suppliers.details",
                         component: () =>
                             import("@/views/suppliers/SupplierDetails.vue"),
                     },

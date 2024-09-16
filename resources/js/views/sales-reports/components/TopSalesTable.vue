@@ -16,8 +16,6 @@
         <v-data-table
             :headers="headers"
             :items="items"
-            :items-length="serverItemsLength"
-            :search="search"
             :loading="loading"
             @update:options="fetch"
             :mobile="mobile"
@@ -43,15 +41,8 @@ export default {
             search: null,
             loading: false,
             mobile: window.innerWidth < 769,
-            items: [],
-            page: 1,
-            pageCount: 0,
-            serverItemsLength: 0,
             options: {
-                page: 1,
-                itemsPerPage: 5,
                 sortBy: null,
-                sortDesc: false,
             },
             headers: [
                 { title: this.$t("name"), value: "name", sortable: false },
@@ -68,6 +59,7 @@ export default {
         };
     },
     mounted() {
+        // this.fetch({ ...this.options });
         window.addEventListener("resize", this.onResize);
     },
     beforeDestroy() {
@@ -77,22 +69,14 @@ export default {
         onResize() {
             this.mobile = window.innerWidth < 769;
         },
-        fetch({ page, itemsPerPage, sortBy, search }) {
+        fetch({ sortBy }) {
             let self = this;
             if (self.loading) {
                 return;
             }
             self.loading = true;
-            self.options.page = page;
-            self.options.itemsPerPage = itemsPerPage;
             self.options.sortBy = sortBy;
-            let data = {
-                page: page,
-                per_page: itemsPerPage,
-                sort_by: sortBy,
-                sort_desc: null,
-                search: search,
-            };
+            let data = { sortBy: sortBy };
             this.$store
                 .dispatch("sales-reports/top-sales/get", data)
                 .then((response) => {
@@ -103,7 +87,7 @@ export default {
                 });
         },
         reload() {
-            this.fetch();
+            this.fetch({ ...this.options });
         },
     },
 };

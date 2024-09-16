@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- <StockCalendar stockType="purchase" /> -->
+        <StockCalendar cType="purchase" />
         <Dialog ref="dialog" />
         <CRow class="p-2">
             <CCol :md="9" :sm="9">

@@ -1,6 +1,7 @@
 {
     "calendar": {
         "title": "Calendar",
+        "year": "Year",
         "month": "Month",
         "week": "Week",
         "day": "Day"

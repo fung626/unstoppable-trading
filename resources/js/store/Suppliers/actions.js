@@ -99,11 +99,20 @@ export default {
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
                             break;
+                        default:
+                            if (error.response.data.msg) {
+                                dispatch("snackbar/show", {
+                                    color: "error",
+                                    text: error.response.data.msg,
+                                });
+                            } else {
+                                dispatch("snackbar/show", {
+                                    color: "error",
+                                    text: t("snackbar.fail.create"),
+                                });
+                            }
+                            break;
                     }
-                    dispatch("snackbar/show", {
-                        color: "error",
-                        text: t("snackbar.fail.create"),
-                    });
                     reject(error);
                 });
         });
@@ -179,11 +188,20 @@ export default {
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
                             break;
+                        default:
+                            if (error.response.data.msg) {
+                                dispatch("snackbar/show", {
+                                    color: "error",
+                                    text: error.response.data.msg,
+                                });
+                            } else {
+                                dispatch("snackbar/show", {
+                                    color: "error",
+                                    text: t("snackbar.fail.delete"),
+                                });
+                            }
+                            break;
                     }
-                    dispatch("snackbar/show", {
-                        color: "error",
-                        text: t("snackbar.fail.delete"),
-                    });
                     reject(error);
                 });
         });

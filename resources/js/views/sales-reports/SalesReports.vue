@@ -7,7 +7,7 @@
                     :title="`${$t('last-some-days', { days: '30' })}${$t(
                         'stock'
                     )}${$t('price.cost')}`"
-                    :value="data.last_30days_stock_cost"
+                    :value="data.last_30days_stock_costs"
                 >
                     <template #icon>
                         <CIcon icon="cib-server-fault" size="xl" />

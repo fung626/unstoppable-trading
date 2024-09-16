@@ -7,13 +7,11 @@
         ></v-progress-linear>
         <CCardBody>
             <CRow class="p-2">
-                <CCol>
+                <CCol class="text-left">
                     <h4 class="card-title mb-0">
                         {{ $t("calendar.title") }}
                     </h4>
                 </CCol>
-            </CRow>
-            <CRow class="p-2">
                 <CCol class="text-right">
                     <CButtonGroup>
                         <CButton
@@ -21,7 +19,7 @@
                             :key="t.value"
                             :color="t.value === type ? 'primary' : 'light'"
                             :disabled="loading"
-                            @click="onTypeClick(t)"
+                            @click="onTypeChange(t.value)"
                         >
                             {{ t.name }}
                         </CButton>
@@ -38,7 +36,7 @@
                 :event-overlap-mode="mode"
                 :event-overlap-threshold="30"
                 @click:event="showEvent"
-                @update:pages="fetch"
+                @update:modelValue="getEvents"
             >
                 <template v-slot:event="{ event }">
                     <button
@@ -63,6 +61,19 @@
                     </button>
                 </template>
             </v-calendar>
+            <CRow v-if="selectedEvent" class="my-4">
+                <CCol :sm="12" :md="12">
+                    <CWidgetStatsF
+                        color="primary"
+                        :title="selectedEvent.data.name"
+                        :value="`${selectedEvent.data.start} - ${selectedEvent.data.end}`"
+                    >
+                        <template #icon>
+                            <CIcon icon="cil-calendar-check" size="sm" />
+                        </template>
+                    </CWidgetStatsF>
+                </CCol>
+            </CRow>
         </CCardBody>
     </CCard>
 </template>
@@ -70,6 +81,7 @@
 <script>
 //
 import { calendarTypes } from "@/constants";
+import { Qalendar } from "qalendar";
 import moment from "moment";
 import { useDate } from "vuetify";
 import { mapState } from "vuex";
@@ -79,7 +91,9 @@ export default {
     props: {
         cType: null,
     },
-    components: {},
+    components: {
+        Qalendar,
+    },
     computed: {
         ...mapState(["goods/stocks/calendar"]),
         events() {
@@ -118,8 +132,9 @@ export default {
     },
     data() {
         return {
+            adapter: null,
             loading: false,
-            focus: [new Date()],
+            focus: new Date(),
             type: "month",
             types: calendarTypes,
             mode: "stack",
@@ -131,19 +146,35 @@ export default {
                 { text: "Mon - Fri", value: [1, 2, 3, 4, 5] },
                 { text: "Mon, Wed, Fri", value: [1, 3, 5] },
             ],
+            selectedEvent: null,
             selectedElement: null,
             selectedOpen: false,
+            events: [],
+            config: {
+                locale: "zh-CN",
+                defaultMode: "month",
+            },
         };
     },
     mounted() {
-        const adapter = useDate();
+        // console.log(this.$refs.calendar);
+        this.adapter = useDate();
         this.fetch({
-            start: adapter.startOfDay(adapter.startOfMonth(new Date())),
-            end: adapter.endOfDay(adapter.endOfMonth(new Date())),
+            start: this.adapter.startOfDay(
+                this.adapter.startOfMonth(new Date())
+            ),
+            end: this.adapter.endOfDay(this.adapter.endOfMonth(new Date())),
         });
     },
     methods: {
+        getEvents(e) {
+            this.fetch({
+                start: this.adapter.startOfDay(this.adapter.startOfMonth(e[0])),
+                end: this.adapter.endOfDay(this.adapter.endOfMonth(e[0])),
+            });
+        },
         fetch({ start, end }) {
+            // console.log(start, end);
             let self = this;
             if (self.loading) {
                 return;
@@ -165,7 +196,13 @@ export default {
                 });
         },
         showEvent({ nativeEvent, event }) {
-            // console.log(event);
+            console.log(event);
+        },
+        click(event) {
+            console.log(event);
+            this.selectedEvent = event;
+            // this.type = type.value;
+            // this.$forceUpdate();
         },
         prev() {
             this.$refs.calendar.prev();

@@ -7,6 +7,10 @@ const types = [
         name: `${t("calendar.month")}`,
         value: "month",
     },
+    // {
+    //     name: `${t("calendar.year")}`,
+    //     value: "year",
+    // },
     {
         name: `${t("calendar.week")}`,
         value: "week",

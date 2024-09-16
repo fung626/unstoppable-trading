@@ -54,25 +54,19 @@ export default {
                     display: false,
                 },
                 scales: {
-                    xAxes: [
-                        {
-                            gridLines: {
-                                drawOnChartArea: false,
+                    x: {
+                        gridLines: {
+                            drawOnChartArea: false,
+                        },
+                    },
+                    y: {
+                        ticks: {
+                            beginAtZero: true,
+                            callback: (value, index, values) => {
+                                return `${Number(value).abbreviateAmount()}`;
                             },
                         },
-                    ],
-                    yAxes: [
-                        {
-                            ticks: {
-                                beginAtZero: true,
-                                callback: (value, index, values) => {
-                                    return `${Number(
-                                        value
-                                    ).abbreviateAmount()}`;
-                                },
-                            },
-                        },
-                    ],
+                    },
                 },
                 pan: {
                     enabled: true,

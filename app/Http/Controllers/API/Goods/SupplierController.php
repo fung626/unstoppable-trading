@@ -197,6 +197,7 @@ class SupplierController extends Controller
         $count = Goods::where(['supplier_id' => request('id')])->count();
         if ($count > 0) {
             $response = config('response.goods.fail.supplier.delete');
+            $response['msg'] = __($response['msg']);
             return response()->json($response, 400);
         }
 

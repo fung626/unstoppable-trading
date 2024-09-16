@@ -21,12 +21,12 @@ return [
             'credentials' => [
                 'error' => true,
                 'code' => 1040,
-                'msg' => 'invaild credentials',
+                'msg' => 'invalid credentials',
             ],
             'parameter' => [
                 'error' => true,
                 'code' => 1050,
-                'msg' => 'invaild parameter(s)',
+                'msg' => 'invalid parameter(s)',
             ],
             'unavailable' => [
                 'error' => true,
@@ -49,19 +49,19 @@ return [
             'register' => [
                 'error' => false,
                 'code' => 0,
-                'msg' => 'successfully register',
+                'msg' => 'response.auth.success.register',
             ],
             'login' => [
                 'error' => false,
                 'code' => 0,
-                'msg' => 'successfully login',
+                'msg' => 'response.auth.success.login',
             ],
             'verification' => [
                 'code' => [
                     'sent' => [
                         'error' => false,
                         'code' => 0,
-                        'msg' => 'verification code sent',
+                        'msg' => 'response.auth.success.verification.code.sent',
                     ],
                 ],
             ],
@@ -70,7 +70,7 @@ return [
                     'sent' => [
                         'error' => false,
                         'code' => 0,
-                        'msg' => 'verification code sent',
+                        'msg' => 'response.auth.success.resetpassword.code.sent',
                     ],
                 ],
             ],
@@ -79,24 +79,24 @@ return [
             'login' => [
                 'error' => true,
                 'code' => 2010,
-                'msg' => 'invalid login',
+                'msg' => 'response.auth.fail.login',
             ],
             'register' => [
                 'error' => true,
                 'code' => 2020,
-                'msg' => 'invalid register',
+                'msg' => 'response.auth.fail.register',
             ],
-            'verfiy' => [
+            'verify' => [
                 'error' => true,
                 'code' => 2030,
-                'msg' => 'invalid verfiy',
+                'msg' => 'response.auth.fail.verify',
             ],
             'resetpassword' => [
                 'code' => [
                     'sent' => [
                         'error' => true,
                         'code' => 2030,
-                        'msg' => 'invalid verfiy',
+                        'msg' => 'response.auth.fail.resetpassword.code.sent',
                     ],
                 ],
             ],
@@ -105,12 +105,12 @@ return [
                     'send' => [
                         'error' => true,
                         'code' => 2040,
-                        'msg' => 'verification code fail to send',
+                        'msg' => 'response.auth.fail.verification.code.send',
                     ],
                     'invalid' => [
                         'error' => true,
                         'code' => 2050,
-                        'msg' => 'invalid verification code',
+                        'msg' => 'response.auth.fail.verification.code.invalid',
                     ],
                 ],
             ],
@@ -118,24 +118,24 @@ return [
                 'user' => [
                     'error' => true,
                     'code' => 2060,
-                    'msg' => 'user already exists',
+                    'msg' => 'response.auth.fail.exists.user',
                 ],
                 'email' => [
                     'error' => true,
                     'code' => 2070,
-                    'msg' => 'email already exists',
+                    'msg' => 'response.auth.fail.exists.email',
                 ],
                 'phone' => [
                     'error' => true,
                     'code' => 2080,
-                    'msg' => 'phone already exists',
+                    'msg' => 'response.auth.fail.exists.phone',
                 ],
             ],
             'token' => [
                 'expired' => [
                     'error' => true,
                     'code' => 2090,
-                    'msg' => 'token expired',
+                    'msg' => 'response.auth.fail.token.expired',
                 ],
             ],
         ],
@@ -145,52 +145,51 @@ return [
             'password' => [
                 'error' => false,
                 'code' => 0,
-                'msg' => 'password reset successfully',
+                'msg' => 'response.user.success.password',
             ],
         ],
         'fail' => [
             'password' => [
                 'error' => true,
                 'code' => 3010,
-                'msg' => 'The specified password does not match the database password',
+                'msg' => 'response.user.fail.password',
             ],
             'found' => [
                 'error' => true,
                 'code' => 3020,
-                'msg' => 'user not found',
+                'msg' => 'response.user.fail.found',
             ],
             'verified' => [
                 'error' => true,
                 'code' => 3030,
-                'msg' => 'user not verified',
+                'msg' => 'response.user.fail.verified',
             ],
         ],
     ],
     'goods' => [
         'success' => [
-
         ],
         'fail' => [
             'item' => [
                 'exists' => [
                     'error' => true,
-                    'msg' => 'item exists',
+                    'msg' => 'response.goods.fail.item.exists',
                 ],
                 'delete' => [
                     'purchase' => [
                         'error' => true,
-                        'msg' => 'purchase exists',
+                        'msg' => 'response.goods.fail.item.delete.purchase',
                     ],
                     'stock' => [
                         'error' => true,
-                        'msg' => 'stock exists',
+                        'msg' => 'response.goods.fail.item.delete.stock',
                     ],
                 ],
             ],
             'supplier' => [
                 'delete' => [
                     'error' => true,
-                    'msg' => 'delete fail, supplier is under one or more goods',
+                    'msg' => 'response.goods.fail.supplier.delete',
                 ],
             ],
         ],

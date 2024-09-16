@@ -85,7 +85,7 @@ export default {
             self.$store
                 .dispatch("goods/shippings/purchase/quicksearch/get", data)
                 .then((response) => {
-                    console.log(response);
+                    // console.log(response);
                     // let data = response.data;
                     self.autocomplete.data.items = response.data;
                     self.autocomplete.data.loading = false;

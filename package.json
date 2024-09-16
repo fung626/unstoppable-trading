@@ -54,7 +54,7 @@
         "vue-numeral-filter": "^2.2.0",
         "vue-router": "^4.3.3",
         "vue3-popper": "^1.5.0",
-        "vuetify": "^3.6.14",
+        "vuetify": "^3.7.1",
         "vuex": "^4.0.2",
         "vuex-persistedstate": "^4.1.0"
     },

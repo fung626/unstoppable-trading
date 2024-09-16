@@ -39,7 +39,9 @@ export default {
     },
     data() {
         return {
+            // search: null,
             loading: false,
+            mobile: window.innerWidth < 769,
             options: {},
             headers: [
                 { title: this.$t("name"), value: "name", sortable: false },
@@ -56,17 +58,20 @@ export default {
         };
     },
     mounted() {
-        this.fetch();
+        window.addEventListener("resize", this.onResize);
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.onResize);
     },
     methods: {
-        fetch() {
+        fetch({ sortBy }) {
             let self = this;
             if (self.loading) {
                 return;
             }
             self.loading = true;
-            const {} = self.options;
-            let data = {};
+            self.options.sortBy = sortBy;
+            let data = { sortBy: sortBy };
             this.$store
                 .dispatch("sales-reports/top-stocks/get", data)
                 .then((response) => {
@@ -77,7 +82,7 @@ export default {
                 });
         },
         reload() {
-            this.fetch();
+            this.fetch({ ...this.options });
         },
     },
 };
