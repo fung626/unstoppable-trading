@@ -23,7 +23,7 @@ class GoodsController extends Controller
 {
     //
     protected $withs = [
-        'suppliers',
+        'supplier',
         'categories',
         'warehouses',
         'creator',

@@ -41,11 +41,15 @@ class MyPhpOffice
 
     public static function exportTableWithPath($name, $rows, $headers, $extension = 'pdf')
     {
+        $indent = new TblWidthComplexType(-600, TblWidth::TWIP);
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
+
         $section = $phpWord->addSection();
         $header = ['size' => 16, 'bold' => true];
-        $section->addText(ucfirst($name), $header);
-        $table = $section->addTable();
+        $section->addText(ucfirst($name), $header, ['indentation' => ['left' => -600]]);
+        $table = $section->addTable([
+            'indent' => $indent,
+        ]);
         $headerStyle = ['bgColor' => '182E54'];
         $headerFontStyle = ['color' => 'FFFFFF'];
         $table->addRow();
@@ -83,7 +87,7 @@ class MyPhpOffice
                 Log::error($exception->getMessage());
             }
 
-            unlink($path); // delete the docx file manually
+            // unlink($path); // delete the docx file manually
             $path = storage_path(self::$tempPath . $docname . '.' . $extension);
         }
         // dd($path);

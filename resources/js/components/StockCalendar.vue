@@ -81,7 +81,6 @@
 <script>
 //
 import { calendarTypes } from "@/constants";
-import { Qalendar } from "qalendar";
 import moment from "moment";
 import { useDate } from "vuetify";
 import { mapState } from "vuex";
@@ -91,9 +90,7 @@ export default {
     props: {
         cType: null,
     },
-    components: {
-        Qalendar,
-    },
+    components: {},
     computed: {
         ...mapState(["goods/stocks/calendar"]),
         events() {
