@@ -6,6 +6,7 @@ use App\Models\User\Setting as UserSetting;
 use Closure;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class Localization
 {
@@ -33,6 +34,7 @@ class Localization
                 $lang = 'tc';
                 break;
         }
+        // dd($lang);
         try {
             // Log::debug($lang);
             if ($user) {
@@ -54,7 +56,8 @@ class Localization
             App::setLocale($lang);
             // dd($lang);
         } catch (\Exception $e) {
-            // Log::error($e->getMessage());
+            // dd($e->getMessage());
+            Log::error($e->getMessage());
         }
         return $next($request);
     }

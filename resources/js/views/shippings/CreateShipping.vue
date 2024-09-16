@@ -299,7 +299,7 @@
                         </template>
                         <template v-slot:[`body.append`]>
                             <tr>
-                                <td v-for="_ in [...Array(10)]"></td>
+                                <td v-for="i in [...Array(10)]" :key="i"></td>
                                 <td class="p-2" colspan="2">
                                     {{ `${$t("total-unit")}:` }}
                                 </td>
@@ -313,7 +313,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td v-for="_ in [...Array(10)]"></td>
+                                <td v-for="i in [...Array(10)]" :key="i"></td>
                                 <td class="p-2" colspan="2">
                                     {{ `${$t("subtotal")}:` }}
                                 </td>

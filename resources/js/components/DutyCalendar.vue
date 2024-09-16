@@ -94,15 +94,34 @@
             </v-calendar>
             <CRow v-if="selectedEvent" class="my-4">
                 <CCol :sm="12" :md="12">
-                    <CWidgetStatsF
-                        color="primary"
-                        :title="`${selectedEvent.data.user.name} ${$t('duty')}`"
-                        :value="`${selectedEvent.data.start} - ${selectedEvent.data.end}`"
-                    >
-                        <template #icon>
-                            <CIcon icon="cil-calendar-check" size="sm" />
-                        </template>
-                    </CWidgetStatsF>
+                    <CCard>
+                        <CCardBody>
+                            <div class="d-flex align-items-center">
+                                <div
+                                    class="d-flex rounded align-items-center justify-content-center me-3"
+                                    :style="{
+                                        backgroundColor: selectedEvent.color,
+                                        width: '26px',
+                                        height: '26px',
+                                    }"
+                                ></div>
+                                <div
+                                    class="d-flex flex-column justify-content-center"
+                                >
+                                    <label>{{
+                                        `${selectedEvent.data.user.name} ${$t(
+                                            "duty"
+                                        )}`
+                                    }}</label>
+                                    <label>
+                                        {{
+                                            `${selectedEvent.data.start} - ${selectedEvent.data.end}`
+                                        }}
+                                    </label>
+                                </div>
+                            </div>
+                        </CCardBody>
+                    </CCard>
                 </CCol>
             </CRow>
         </CCardBody>

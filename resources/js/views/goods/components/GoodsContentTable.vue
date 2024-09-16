@@ -110,7 +110,6 @@
 //
 import { Dialog } from "@/components";
 import { goodsDefaults } from "@/constants";
-import { CButtonGroup } from "@coreui/vue";
 import { v4 as uuidv4 } from "uuid";
 
 export default {
@@ -276,7 +275,7 @@ export default {
                                 })
                                 .then((response) => {
                                     self.loading = false;
-                                    self.fetch();
+                                    self.reload();
                                 })
                                 .catch((error) => {
                                     self.loading = false;

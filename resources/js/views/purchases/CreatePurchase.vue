@@ -196,22 +196,23 @@
                         ></v-skeleton-loader>
                     </template>
                     <template v-slot:[`item.32-S`]="{ index, item }">
-                        <v-number-input
+                        <v-text-field
                             v-if="item['32-S']"
                             v-model="item['32-S'].unit"
                             type="number"
                             variant="plain"
                             hide-details
+                            hide-spin-buttons
                             required
                             dense
                             clearable
                             :min="0"
                             @change="change(index, item)"
-                        ></v-number-input>
+                        ></v-text-field>
                         <span v-else>－</span>
                     </template>
                     <template v-slot:[`item.34-M`]="{ index, item }">
-                        <v-number-input
+                        <v-text-field
                             v-if="item['34-M']"
                             v-model="item['34-M'].unit"
                             type="number"
@@ -222,11 +223,11 @@
                             clearable
                             :min="0"
                             @change="change(index, item)"
-                        ></v-number-input>
+                        ></v-text-field>
                         <span v-else>－</span>
                     </template>
                     <template v-slot:[`item.36-L`]="{ index, item }">
-                        <v-number-input
+                        <v-text-field
                             v-if="item['36-L']"
                             v-model="item['36-L'].unit"
                             type="number"
@@ -237,11 +238,11 @@
                             clearable
                             :min="0"
                             @change="change(index, item)"
-                        ></v-number-input>
+                        ></v-text-field>
                         <span v-else>－</span>
                     </template>
                     <template v-slot:[`item.38-XL`]="{ index, item }">
-                        <v-number-input
+                        <v-text-field
                             v-if="item['38-XL']"
                             v-model="item['38-XL'].unit"
                             type="number"
@@ -252,11 +253,11 @@
                             clearable
                             :min="0"
                             @change="change(index, item)"
-                        ></v-number-input>
+                        ></v-text-field>
                         <span v-else>－</span>
                     </template>
                     <template v-slot:[`item.40-Q`]="{ index, item }">
-                        <v-number-input
+                        <v-text-field
                             v-if="item['40-Q']"
                             v-model="item['40-Q'].unit"
                             type="number"
@@ -267,11 +268,11 @@
                             clearable
                             :min="0"
                             @change="change(index, item)"
-                        ></v-number-input>
+                        ></v-text-field>
                         <span v-else>－</span>
                     </template>
                     <template v-slot:[`item.42-EQ`]="{ index, item }">
-                        <v-number-input
+                        <v-text-field
                             v-if="item['42-EQ']"
                             v-model="item['42-EQ'].unit"
                             type="number"
@@ -282,11 +283,11 @@
                             clearable
                             :min="0"
                             @change="change(index, item)"
-                        ></v-number-input>
+                        ></v-text-field>
                         <span v-else>－</span>
                     </template>
                     <template v-slot:[`item.44-Free`]="{ index, item }">
-                        <v-number-input
+                        <v-text-field
                             v-if="item['44-Free']"
                             v-model="item['44-Free'].unit"
                             type="number"
@@ -297,22 +298,15 @@
                             clearable
                             :min="0"
                             @change="change(index, item)"
-                        ></v-number-input>
+                        ></v-text-field>
                         <span v-else>－</span>
                     </template>
                     <template v-slot:[`body.append`]>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="p-2">{{ $t("total-unit") }}</td>
+                            <td v-for="i in [...Array(9)]" :key="i"></td>
+                            <td class="p-2" colspan="2">
+                                {{ $t("total-unit") }}
+                            </td>
                             <td class="p-2" colspan="4">
                                 <span v-if="totalunit">
                                     {{ totalunit.toLocaleString() }}
@@ -323,17 +317,10 @@
                             </td>
                         </tr>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="p-2">{{ $t("subtotal") }} {{ ": " }}</td>
+                            <td v-for="i in [...Array(9)]" :key="i"></td>
+                            <td class="p-2" colspan="2">
+                                {{ `${$t("subtotal")}: ` }}
+                            </td>
                             <td class="p-2" colspan="4">
                                 <span v-if="subtotal">
                                     {{ "$ " }}

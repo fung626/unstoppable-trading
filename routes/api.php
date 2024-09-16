@@ -164,7 +164,7 @@ Route::prefix('goods/contents')->middleware(['auth:api', 'scopes:goods', 'locali
     Route::post('update', [ContentController::class, 'update']);
     Route::post('get', [ContentController::class, 'get']);
     Route::get('details', [ContentController::class, 'details']);
-    Route::get('delete', [ContentController::class, 'delete']);
+    Route::delete('delete', [ContentController::class, 'delete']);
     Route::post('export', [ContentController::class, 'export']);
 });
 
