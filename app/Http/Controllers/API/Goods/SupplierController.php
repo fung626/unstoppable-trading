@@ -273,7 +273,7 @@ class SupplierController extends Controller
             $rows[] = $row;
         }
 
-        $path = MyPhpOffice::exportTableWithPath(__('Supplier'), $rows, $headers, request('extension'));
+        $path = MyPhpOffice::exportTableWithPath('suppliers', $rows, $headers, request('extension'));
 
         return response()
             ->download($path)

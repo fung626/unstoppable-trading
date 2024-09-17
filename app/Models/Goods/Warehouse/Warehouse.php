@@ -19,7 +19,10 @@ class Warehouse extends Model
 
     public $incrementing = false;
 
+    protected $appends = ['name'];
+
     protected $guarded = [];
+
     /**
      * The attributes that are mass assignable.
      *

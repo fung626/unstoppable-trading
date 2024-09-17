@@ -140,7 +140,7 @@ class AlterationController extends Controller
             $rows[] = $row;
         }
 
-        $path = MyPhpOffice::exportTableWithPath(__('Altered'), $rows, $headers, 'pdf');
+        $path = MyPhpOffice::exportTableWithPath('altered', $rows, $headers, 'pdf');
 
         return response()
             ->download($path)

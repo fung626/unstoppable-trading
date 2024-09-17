@@ -1,4 +1,5 @@
 <template>
+    <Snackbar />
     <CRow>
         <CCol>
             <CCard class="p-2">
@@ -43,10 +44,12 @@
 import GoodsContentTable from "./components/GoodsContentTable.vue";
 import GoodsForm from "./components/GoodsForm.vue";
 import GoodsItemTable from "./components/GoodsItemTable.vue";
+import { Snackbar } from "@/components";
 
 export default {
     name: "GoodsDetails",
     components: {
+        Snackbar,
         GoodsForm,
         GoodsItemTable,
         GoodsContentTable,

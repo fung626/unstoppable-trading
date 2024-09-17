@@ -41,13 +41,13 @@
                         ></v-text-field>
                     </CCol>
                 </CRow>
-                <v-text-field
+                <v-textarea
                     v-model="formData.description"
                     :label="$t('description')"
                     outlined
                     dense
                     clearable
-                ></v-text-field>
+                ></v-textarea>
                 <hr />
                 <CButton @click="update" color="primary" class="px-4">
                     <v-progress-circular

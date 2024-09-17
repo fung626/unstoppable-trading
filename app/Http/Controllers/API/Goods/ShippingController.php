@@ -396,7 +396,7 @@ class ShippingController extends Controller
             $rows[] = $row;
         }
 
-        $path = MyPhpOffice::exportTableWithPath(__('Shipping'), $rows, $headers, 'pdf');
+        $path = MyPhpOffice::exportTableWithPath('shippings', $rows, $headers, 'pdf');
 
         return response()
             ->download($path)

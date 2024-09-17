@@ -211,7 +211,7 @@ class CategoryController extends Controller
             $rows[] = $row;
         }
 
-        $path = MyPhpOffice::exportTableWithPath(__('Category'), $rows, $headers, request('extension'));
+        $path = MyPhpOffice::exportTableWithPath('categories', $rows, $headers, request('extension'));
 
         return response()
             ->download($path)

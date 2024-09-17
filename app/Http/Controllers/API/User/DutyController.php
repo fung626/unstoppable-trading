@@ -245,7 +245,7 @@ class DutyController extends Controller
             $rows[] = $row;
         }
 
-        $path = MyPhpOffice::exportTableWithPath(__('Duty'), $rows, $headers, request('extension'));
+        $path = MyPhpOffice::exportTableWithPath('duty', $rows, $headers, request('extension'));
 
         return response()
             ->download($path)

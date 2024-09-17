@@ -40,7 +40,7 @@
             </CRow>
             <CRow class="p-2">
                 <CCol>
-                    <img src="/images/logo-named.png" width="128" />
+                    <img :src="logo" width="128" />
                 </CCol>
                 <CCol md="8" sm="8">
                     <h4>Unstoppable Trading Co. Ltd</h4>
@@ -88,6 +88,9 @@ export default {
     components: {},
     computed: {
         ...mapState(["goods/purchases/invoices"]),
+        logo() {
+            return new URL("@images/logo-named.png", import.meta.url).href;
+        },
         data() {
             return this["goods/purchases/invoices"].detailsData;
         },

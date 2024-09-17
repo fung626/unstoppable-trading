@@ -229,7 +229,7 @@ class WarehouseController extends Controller
             $rows[] = $row;
         }
 
-        $path = MyPhpOffice::exportTableWithPath(__('Warehouse'), $rows, $headers, 'pdf');
+        $path = MyPhpOffice::exportTableWithPath('warehouses', $rows, $headers, 'pdf');
 
         return response()
             ->download($path)

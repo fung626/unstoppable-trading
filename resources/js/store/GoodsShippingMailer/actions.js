@@ -26,9 +26,9 @@ export default {
                     fileLink.href = fileURL;
                     fileLink.setAttribute(
                         "download",
-                        `${t("shippings.title")}-${t(
-                            "mailer"
-                        )}-${moment().format("dddd, Do MMMM YYYY")}.pdf`
+                        `${"shipping_mailer"}-${moment().format(
+                            "YYYYMMDD"
+                        )}.pdf`
                     );
                     document.body.appendChild(fileLink);
                     fileLink.click();

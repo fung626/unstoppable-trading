@@ -176,7 +176,7 @@ class StockController extends Controller
         // Log::debug($rows);
         // Log::debug($headers);
 
-        $path = MyPhpOffice::exportTableWithPath(__('Stock'), $rows, $headers, 'pdf');
+        $path = MyPhpOffice::exportTableWithPath('stocks', $rows, $headers, 'pdf');
 
         return response()
             ->download($path)

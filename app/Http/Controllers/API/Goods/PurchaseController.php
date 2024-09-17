@@ -359,7 +359,7 @@ class PurchaseController extends Controller
             $rows[] = $row;
         }
 
-        $path = MyPhpOffice::exportTableWithPath(__('Purchase'), $rows, $headers, 'pdf');
+        $path = MyPhpOffice::exportTableWithPath('purchases', $rows, $headers, 'pdf');
 
         return response()
             ->download($path)

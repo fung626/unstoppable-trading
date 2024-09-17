@@ -206,9 +206,7 @@ export default {
                     fileLink.href = fileURL;
                     fileLink.setAttribute(
                         "download",
-                        `${t("warehouse")}-${moment().format(
-                            "dddd, Do MMMM YYYY"
-                        )}.pdf`
+                        `${"warehouses"}-${moment().format("YYYYMMDD")}.pdf`
                     );
                     document.body.appendChild(fileLink);
                     fileLink.click();

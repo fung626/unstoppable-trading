@@ -206,9 +206,7 @@ export default {
                     fileLink.href = fileURL;
                     fileLink.setAttribute(
                         "download",
-                        `${t("user")}-${moment().format(
-                            "dddd, Do MMMM YYYY"
-                        )}.pdf`
+                        `${"user_duty"}-${moment().format("YYYYMMDD")}.pdf`
                     );
                     document.body.appendChild(fileLink);
                     fileLink.click();

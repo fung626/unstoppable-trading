@@ -366,7 +366,7 @@ class ItemController extends Controller
             $rows[] = $row;
         }
 
-        $path = MyPhpOffice::exportTableWithPath(__('Goods Item'), $rows, $headers, request('extension'));
+        $path = MyPhpOffice::exportTableWithPath('goods_items', $rows, $headers, request('extension'));
 
         return response()
             ->download($path)

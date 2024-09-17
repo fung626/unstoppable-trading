@@ -1,6 +1,4 @@
 // import axios from "axios";
-import moment from "moment";
-import router from "../../router";
 import axios from "../../utils/myAxios";
 // import * as types from "./mutation-types";
 import i18n from "@/plugins/vue-i18n";
@@ -26,9 +24,9 @@ export default {
                     fileLink.href = fileURL;
                     fileLink.setAttribute(
                         "download",
-                        `${t("shippings.title")}-${t(
-                            "packing"
-                        )}-${moment().format("dddd, Do MMMM YYYY")}.pdf`
+                        `${"shipping_packing"}}-${moment().format(
+                            "YYYYMMDD"
+                        )}.pdf`
                     );
                     document.body.appendChild(fileLink);
                     fileLink.click();

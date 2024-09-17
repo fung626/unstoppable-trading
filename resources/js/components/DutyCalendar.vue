@@ -21,7 +21,7 @@
                             :key="t.value"
                             :color="t.value === type ? 'primary' : 'light'"
                             :disabled="loading"
-                            @click="onTypeClick(t)"
+                            @click="onTypeChange(t)"
                         >
                             {{ t.name }}
                         </CButton>
@@ -240,7 +240,7 @@ export default {
             }
             return false;
         },
-        onTypeClick(type) {
+        onTypeChange(type) {
             this.type = type.value;
             // console.log(this.type);
             // this.$forceUpdate();

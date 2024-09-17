@@ -36,8 +36,8 @@ class ExportDataController extends Controller
 
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
         $section = $phpWord->addSection();
-        $header = ['size' => 16, 'bold' => true];
-        $section->addText('Goods', $header);
+        // $header = ['size' => 16, 'bold' => true];
+        // $section->addText('Goods', $header);
         $table = $section->addTable();
         $headerStyle = ['bgColor' => '182E54'];
         $headerFontStyle = ['color' => 'FFFFFF'];

@@ -25,9 +25,9 @@ export default {
                     fileLink.href = fileURL;
                     fileLink.setAttribute(
                         "download",
-                        `${t("shippings.title")}-${t(
-                            "invoice"
-                        )}-${moment().format("dddd, Do MMMM YYYY")}.pdf`
+                        `${"shipping_invoice"}-${moment().format(
+                            "YYYYMMDD"
+                        )}.pdf`
                     );
                     document.body.appendChild(fileLink);
                     fileLink.click();

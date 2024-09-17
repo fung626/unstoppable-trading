@@ -45,8 +45,8 @@ class MyPhpOffice
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
 
         $section = $phpWord->addSection();
-        $header = ['size' => 16, 'bold' => true];
-        $section->addText(ucfirst($name), $header, ['indentation' => ['left' => -600]]);
+        // $header = ['size' => 16, 'bold' => true];
+        // $section->addText(ucfirst($name), $header, ['indentation' => ['left' => -600]]);
         $table = $section->addTable([
             'indent' => $indent,
         ]);
@@ -68,7 +68,7 @@ class MyPhpOffice
             $index++;
         }
 
-        $now = Carbon::now()->format('Y-m-d_His');
+        $now = Carbon::now()->format('YmdHis');
         $docname = 'export_' . strtolower($name) . '_table_' . $now;
         $path = storage_path(self::$tempPath . $docname . '.docx');
         // dd($path);
@@ -109,7 +109,7 @@ class MyPhpOffice
             $templateProcessor->setValue($key, $value);
         }
 
-        $now = Carbon::now()->format('Y-m-d_H:i:s');
+        $now = Carbon::now()->format('YmdHis');
 
         $docname = 'ship_mailer_' . $name . '_' . $now;
         $path = storage_path(self::$tempPath . $docname . '.docx');
@@ -202,7 +202,7 @@ class MyPhpOffice
             $table->addCell(self::$tableVerticalWidth);
         }
 
-        $now = Carbon::now()->format('Y-m-d_H:i:s');
+        $now = Carbon::now()->format('YmdHis');
         $docname = 'export_' . strtolower($name) . $now;
         $path = storage_path(self::$tempPath . $docname . '.docx');
         $phpWord->save($path);

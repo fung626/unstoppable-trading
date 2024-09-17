@@ -238,7 +238,7 @@ class ClientController extends Controller
             $rows[] = $row;
         }
 
-        $path = MyPhpOffice::exportTableWithPath(__('Client'), $rows, $headers, 'pdf');
+        $path = MyPhpOffice::exportTableWithPath('clients', $rows, $headers, 'pdf');
 
         return response()
             ->download($path)

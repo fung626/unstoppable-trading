@@ -87,9 +87,9 @@
                 </CRow>
                 <v-autocomplete
                     v-model="formData.supplier"
+                    v-model:search="supplier.search"
                     :items="supplier.items"
                     :loading="supplier.loading"
-                    :search-input.sync="supplier.search"
                     required
                     outlined
                     dense
@@ -104,9 +104,9 @@
                 ></v-autocomplete>
                 <v-autocomplete
                     v-model="formData.categories"
+                    v-model:search="category.search"
                     :items="category.items"
                     :loading="category.loading"
-                    :search-input.sync="category.search"
                     hide-no-data
                     hide-selected
                     outlined
@@ -121,14 +121,12 @@
                 ></v-autocomplete>
                 <v-autocomplete
                     v-model="formData.warehouses"
+                    v-model:search="warehouse.search"
                     :items="warehouse.items"
                     :loading="warehouse.loading"
-                    :search-input.sync="warehouse.search"
-                    required
-                    outlined
-                    dense
                     hide-no-data
                     hide-selected
+                    outlined
                     item-title="name"
                     item-value="id"
                     :label="$t('warehouse')"
@@ -138,7 +136,7 @@
                     closable-chips
                     multiple
                 ></v-autocomplete>
-                <v-text-field
+                <v-textarea
                     v-model="formData.description"
                     :label="$t('description')"
                     required
@@ -146,7 +144,7 @@
                     dense
                     clearable
                 >
-                </v-text-field>
+                </v-textarea>
                 <hr />
                 <CButton
                     @click="update"
@@ -182,14 +180,17 @@ export default {
             fetchLoading: false,
             updateLoading: false,
             supplier: {
+                search: null,
                 items: [],
                 loading: false,
             },
             category: {
+                search: null,
                 items: [],
                 loading: false,
             },
             warehouse: {
+                search: null,
                 items: [],
                 loading: false,
             },
@@ -197,10 +198,12 @@ export default {
         };
     },
     watch: {
-        supplier: [
-            function search(val) {
+        "supplier.search": {
+            handler(val) {
                 let self = this;
-                if (self.supplier.length > 0 || self.supplier.loading) return;
+                if (self.supplier.items.length > 0 || self.supplier.loading) {
+                    return;
+                }
                 self.supplier.loading = true;
                 this.$store
                     .dispatch("goods/suppliers/get", {})
@@ -212,14 +215,17 @@ export default {
                         self.supplier.loading = false;
                     });
             },
-        ],
-        category: [
-            function search(val) {
+            deep: true,
+        },
+        "category.search": {
+            handler(val) {
                 let self = this;
-                if (self.category.length > 0 || self.category.loading) return;
+                if (self.category.items.length > 0 || self.category.loading) {
+                    return;
+                }
                 self.category.loading = true;
                 this.$store
-                    .dispatch("goods/category/get", {})
+                    .dispatch("categories/get", {})
                     .then((response) => {
                         self.category.items = response.data;
                         self.category.loading = false;
@@ -228,15 +234,19 @@ export default {
                         self.category.loading = false;
                     });
             },
-        ],
-        warehouse: [
-            function search(val) {
+            deep: true,
+        },
+        "warehouse.search": {
+            handler(val) {
                 let self = this;
-                if (self.warehouse.length > 0 || self.warehouse.loading) return;
+                if (self.warehouse.items.length > 0 || self.warehouse.loading) {
+                    return;
+                }
                 self.warehouse.loading = true;
                 this.$store
                     .dispatch("goods/warehouses/get", {})
                     .then((response) => {
+                        console.log(response.data);
                         self.warehouse.items = response.data;
                         self.warehouse.loading = false;
                     })
@@ -244,7 +254,8 @@ export default {
                         self.warehouse.loading = false;
                     });
             },
-        ],
+            deep: true,
+        },
     },
     mounted() {
         this.fetch();

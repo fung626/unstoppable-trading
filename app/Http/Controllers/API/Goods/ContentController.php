@@ -210,7 +210,7 @@ class ContentController extends Controller
             $rows[] = $row;
         }
 
-        $path = MyPhpOffice::exportTableWithPath(__('Goods Content'), $rows, $headers, request('extension'));
+        $path = MyPhpOffice::exportTableWithPath('goods_contents', $rows, $headers, request('extension'));
 
         return response()
             ->download($path)

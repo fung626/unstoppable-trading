@@ -233,7 +233,7 @@ export default {
         next() {
             this.$refs.calendar.next();
         },
-        onTypeClick(type) {
+        onTypeChange(type) {
             this.type = type.value;
             // console.log(this.type);
             // this.$forceUpdate();
