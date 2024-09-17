@@ -36,6 +36,8 @@ export default defineConfig({
             "@/": `${path.resolve(__dirname, "resources/js")}/`,
             "@assets": `${path.resolve(__dirname, "resources/assets")}`,
             "@/assets": `${path.resolve(__dirname, "resources/assets")}/`,
+            "@images": `${path.resolve(__dirname, "resources/images")}`,
+            "@/images": `${path.resolve(__dirname, "resources/images")}/`,
             "@styles": `${path.resolve(__dirname, "resources/styles")}`,
             "@/styles": `${path.resolve(__dirname, "resources/styles")}/`,
             "@constants": `${path.resolve(

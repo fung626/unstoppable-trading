@@ -20,7 +20,12 @@ import { TheSidebarNav } from "./TheSidebarNav.js";
                     :href="href"
                     @click="navigate"
                 >
-                    <img src="/images/header-logo.png" height="32" />
+                    <img class="sidebar-brand-full" :src="logo" height="32" />
+                    <img
+                        class="sidebar-brand-narrow"
+                        :src="sygnet"
+                        height="32"
+                    />
                     <!-- <CIcon
                         custom-class-name="sidebar-brand-full"
                         :icon="logo"
@@ -48,6 +53,13 @@ import { mapState } from "vuex";
 export default {
     computed: {
         ...mapState(["ui/sidebar"]),
+        logo() {
+            return new URL("@images/header-logo-full.png", import.meta.url)
+                .href;
+        },
+        sygnet() {
+            return new URL("@images/header-logo.png", import.meta.url).href;
+        },
         unfoldable() {
             return this["ui/sidebar"].unfoldable;
         },

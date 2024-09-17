@@ -180,14 +180,10 @@
                         </td>
                         <td class="p-2" colspan="4">
                             <span v-if="subtotal">
-                                {{
-                                    `$ ${(
-                                        subtotal * 1
-                                    ).toLocaleString()} ${currency}`
-                                }}
+                                {{ `$ ${(subtotal * 1).toLocaleString()}` }}
                             </span>
                             <span v-else>
-                                {{ `$ ${"0".toLocaleString()} ${currency}` }}
+                                {{ `$ ${"0".toLocaleString()}` }}
                             </span>
                         </td>
                     </tr>

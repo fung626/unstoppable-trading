@@ -49,7 +49,7 @@
                 </CRow>
                 <CRow class="p-2">
                     <CCol>
-                        <img src="/images/logo-named.png" width="128" />
+                        <img :src="logo" width="128" />
                     </CCol>
                     <CCol md="7" sm="7">
                         <h4>Unstoppable Trading Co. Ltd</h4>
@@ -223,6 +223,9 @@ export default {
     },
     computed: {
         ...mapState(["goods/shippings"]),
+        logo() {
+            return new URL("@images/logo-named.png", import.meta.url).href;
+        },
         data() {
             return this["goods/shippings"].detailsData;
         },
@@ -230,7 +233,11 @@ export default {
             return this["goods/shippings"].detailsData.header_items;
         },
         shippingItems() {
-            if (this["goods/shippings"]) {
+            if (
+                this["goods/shippings"] &&
+                this["goods/shippings"].detailsData &&
+                this["goods/shippings"].detailsData.shipping_items
+            ) {
                 return JSON.parse(
                     JSON.stringify(
                         this["goods/shippings"].detailsData.shipping_items

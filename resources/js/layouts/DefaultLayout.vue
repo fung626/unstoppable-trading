@@ -11,7 +11,7 @@ import { CContainer } from "@coreui/vue";
         <div class="wrapper d-flex flex-column min-vh-100">
             <TheHeader />
             <div class="body flex-grow-1">
-                <CContainer class="px-4" lg>
+                <CContainer class="px-4 pb-4" lg>
                     <router-view />
                 </CContainer>
             </div>
