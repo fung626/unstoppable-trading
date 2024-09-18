@@ -91,9 +91,21 @@
                 ></v-autocomplete>
             </template>
             <template v-slot:[`item.barcode`]="{ item }">
-                <div class="d-flex justify-content-center">
+                <div
+                    class="d-flex justify-content-center"
+                    @dblclick.native="edit(item)"
+                >
+                    <v-text-field
+                        v-if="item.isBarcodeEditing"
+                        v-model="item.barcode"
+                        :disabled="loading"
+                        hide-details
+                        variant="plain"
+                        @blur="item.isBarcodeEditing = false"
+                        @keydown.enter="item.isBarcodeEditing = false"
+                    ></v-text-field>
                     <vue-barcode
-                        v-if="item.barcode"
+                        v-if="item.barcode && !item.isBarcodeEditing"
                         :value="item.barcode"
                         :options="{
                             format: 'CODE39',
@@ -208,7 +220,9 @@ export default {
                 .then((response) => {
                     let res = JSON.parse(JSON.stringify(response.data));
                     // self.headers = res.headers;
-                    self.items = res.data;
+                    self.items = res.data.map((x) => {
+                        return { ...x, isBarcodeEditing: false };
+                    });
                     self.serverItemsLength = res.total;
                     self.pageCount = res.last_page;
                     self.page = res.current_page;
@@ -217,6 +231,17 @@ export default {
                 .catch((error) => {
                     self.loading = false;
                 });
+        },
+        edit(item) {
+            var index = 0;
+            for (const x of this.items) {
+                if (x.id === item.id) {
+                    this.items[index].isBarcodeEditing =
+                        !this.items[index].isBarcodeEditing;
+                    break;
+                }
+                index++;
+            }
         },
         add() {
             this.items = [

@@ -16,7 +16,6 @@ use App\Http\Controllers\API\Goods\ItemController;
 use App\Http\Controllers\API\Goods\PurchaseController;
 use App\Http\Controllers\API\Goods\Purchase\InvoiceController as PurchaseInvoiceController;
 use App\Http\Controllers\API\Goods\Purchase\StocktakeController;
-use App\Http\Controllers\API\Goods\ShippingAlterationController;
 use App\Http\Controllers\API\Goods\ShippingController;
 use App\Http\Controllers\API\Goods\ShippingPurchaseQuickSearchController;
 use App\Http\Controllers\API\Goods\Shipping\AlterationController;
@@ -213,7 +212,7 @@ Route::prefix('goods/create-shipping-config')->middleware(['auth:api', 'scopes:s
 
 Route::prefix('goods/shippings/alteration')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
     Route::post('get', [AlterationController::class, 'get']);
-    Route::post('export', [ShippingAlterationController::class, 'export']);
+    Route::post('export', [AlterationController::class, 'export']);
 });
 
 Route::prefix('goods/shippings/available-shippings-items')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {

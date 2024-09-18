@@ -335,33 +335,6 @@ export default {
                     self.loading = false;
                 });
         },
-        update() {},
-        reload() {
-            this.fetch();
-        },
-        isCurrencyRow(value) {
-            const rows = ["unit_price", "cost"];
-            const idx = rows.indexOf(value);
-            return idx > -1 ? true : false;
-        },
-        change(idx, item) {
-            // let item = this.shippingItems[idx];
-            if (item) {
-                let sizes = goodsSizes;
-                let totalunit = 0;
-                for (let size of sizes) {
-                    if (item[size.name]) {
-                        totalunit += item[size.name].unit;
-                    }
-                }
-                this.shippingItems[idx].total_unit = totalunit;
-                this.shippingItems[idx].cost =
-                    totalunit * this.shippingItems[idx].unit_price;
-            }
-        },
-        reload() {
-            this.fetch();
-        },
         download() {
             let self = this;
             self.loading = true;
@@ -410,6 +383,24 @@ export default {
                     self.loading = false;
                 });
         },
+        change(idx, item) {
+            // let item = this.shippingItems[idx];
+            if (item) {
+                let sizes = goodsSizes;
+                let totalunit = 0;
+                for (let size of sizes) {
+                    if (item[size.name]) {
+                        totalunit += item[size.name].unit;
+                    }
+                }
+                this.shippingItems[idx].total_unit = totalunit;
+                this.shippingItems[idx].cost =
+                    totalunit * this.shippingItems[idx].unit_price;
+            }
+        },
+        reload() {
+            this.fetch();
+        },
         async click(item, action) {
             let type = action.type;
             switch (type) {
@@ -421,6 +412,7 @@ export default {
                         )
                     ) {
                         let self = this;
+                        self.loading = true;
                         let data = {
                             id: self.data.id,
                             item: item,
@@ -449,6 +441,7 @@ export default {
                         )
                     ) {
                         let self = this;
+                        self.loading = true;
                         let data = {
                             id: self.data.id,
                             item: item,

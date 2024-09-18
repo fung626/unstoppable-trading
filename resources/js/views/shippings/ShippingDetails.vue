@@ -1,4 +1,5 @@
 <template>
+    <Snackbar />
     <CCard class="p-2">
         <CCardBody>
             <CTabs :activeItemKey="0">
@@ -36,6 +37,7 @@
 </template>
 <script>
 //
+import { Snackbar } from "@/components";
 import NewShippingItemTable from "./components/NewShippingItemTable.vue";
 import ShippingAlterationTable from "./components/ShippingAlterationTable.vue";
 import ShippingInvoice from "./components/ShippingInvoice.vue";
@@ -43,6 +45,7 @@ import ShippingInvoice from "./components/ShippingInvoice.vue";
 export default {
     name: "ShippingDetails",
     components: {
+        Snackbar,
         ShippingInvoice,
         NewShippingItemTable,
         ShippingAlterationTable,

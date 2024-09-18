@@ -81,6 +81,7 @@ export default {
             axios
                 .post(`${endpoint}update`, payload)
                 .then(function (response) {
+                    console.log(response);
                     if (!response.data.error) {
                         let res = response.data;
                         commit(types.UPDATE_SHIPPING_DETAILS_SUCCESS, res);
@@ -98,6 +99,7 @@ export default {
                     }
                 })
                 .catch(function (error) {
+                    console.log(error);
                     let status = error.response.status;
                     switch (status) {
                         case 401:
