@@ -83,3 +83,7 @@
 .calendar-header {
     display: none !important;
 }
+
+input:focus {
+    outline: none;
+}

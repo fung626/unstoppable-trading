@@ -69,7 +69,7 @@
                         </template>
                     </CPopover> -->
                     <button
-                        class="d-flex align-items-center rounded shadow-lg px-2 py-1 mx-2"
+                        class="d-flex align-items-center rounded shadow-lg px-2 py-1 m-2"
                         :style="{
                             backgroundColor: event.allDay
                                 ? '#3462E3'
@@ -156,8 +156,8 @@ export default {
                     //     end
                     // ).format(format)}`;
                     temp.push({
-                        title: `${name}`,
                         data: item,
+                        title: `${name}`,
                         start: start,
                         end: end,
                         color: item.color ? item.color : "cyan",

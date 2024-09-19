@@ -105,61 +105,64 @@ class Goods
         // $items = $purchase->items->toArray();
         // dd($items[0]);
         //  PurchaseItem::where('goods_purchase_id', $id)->get();
+        // dd($id, property_exists($purchase, 'items'));
         $items = [];
-        foreach ($purchase->items as $purchaseItem) {
-            // dd($purchaseItem->toArray(), $purchaseItem->goods->toArray(), $purchaseItem->goodsItem->toArray());
-            $found = false;
-            $foundIndex = 0;
-            if ($purchaseItem->goodsItem && $purchaseItem->goods) {
-                foreach ($items as $item) {
-                    if (array_key_exists('cup', $item) && array_key_exists('color', $item)) {
-                        if ($item['cup'] === $purchaseItem->goodsItem->cup &&
-                            $item['color'] === $purchaseItem->goodsItem->color) {
-                            $found = true;
-                            break;
+        if ($purchase) {
+            foreach ($purchase->items as $purchaseItem) {
+                // dd($purchaseItem->toArray(), $purchaseItem->goods->toArray(), $purchaseItem->goodsItem->toArray());
+                $found = false;
+                $foundIndex = 0;
+                if ($purchaseItem->goodsItem && $purchaseItem->goods) {
+                    foreach ($items as $item) {
+                        if (array_key_exists('cup', $item) && array_key_exists('color', $item)) {
+                            if ($item['cup'] === $purchaseItem->goodsItem->cup &&
+                                $item['color'] === $purchaseItem->goodsItem->color) {
+                                $found = true;
+                                break;
+                            }
                         }
+                        $foundIndex++;
                     }
-                    $foundIndex++;
-                }
-                $index = $foundIndex;
-                if ($found) {
-                    $item = $items[$index];
-                    if (array_key_exists($purchaseItem->goodsItem->size, $item)) {
-                        $unit = $items[$index][$purchaseItem->goodsItem->size]['unit'];
-                        $items[$index][$purchaseItem->goodsItem->size]['goods_purchase_item_id'] = $purchaseItem->id;
-                        $items[$index][$purchaseItem->goodsItem->size]['goods_item_id'] = $purchaseItem->goodsItem->id;
-                        $items[$index][$purchaseItem->goodsItem->size]['barcode'] = $purchaseItem->goodsItem->barcode;
-                        $items[$index][$purchaseItem->goodsItem->size]['unit'] = $unit + $purchaseItem->unit;
+                    $index = $foundIndex;
+                    if ($found) {
+                        $item = $items[$index];
+                        if (array_key_exists($purchaseItem->goodsItem->size, $item)) {
+                            $unit = $items[$index][$purchaseItem->goodsItem->size]['unit'];
+                            $items[$index][$purchaseItem->goodsItem->size]['goods_purchase_item_id'] = $purchaseItem->id;
+                            $items[$index][$purchaseItem->goodsItem->size]['goods_item_id'] = $purchaseItem->goodsItem->id;
+                            $items[$index][$purchaseItem->goodsItem->size]['barcode'] = $purchaseItem->goodsItem->barcode;
+                            $items[$index][$purchaseItem->goodsItem->size]['unit'] = $unit + $purchaseItem->unit;
+                        } else {
+                            $items[$index][$purchaseItem->goodsItem->size]['goods_purchase_item_id'] = $purchaseItem->id;
+                            $items[$index][$purchaseItem->goodsItem->size]['goods_item_id'] = $purchaseItem->goodsItem->id;
+                            $items[$index][$purchaseItem->goodsItem->size]['barcode'] = $purchaseItem->goodsItem->barcode;
+                            $items[$index][$purchaseItem->goodsItem->size]['unit'] = $purchaseItem->unit;
+                        }
+                        $items[$index]['total_unit'] = $items[$index]['total_unit'] + $purchaseItem->unit;
+                        $items[$index]['cost'] = $items[$index]['cost'] + $purchaseItem->cost;
+                        $items[$index]['formatted_cost'] = Common::formatPrice($items[$index]['cost']);
                     } else {
-                        $items[$index][$purchaseItem->goodsItem->size]['goods_purchase_item_id'] = $purchaseItem->id;
-                        $items[$index][$purchaseItem->goodsItem->size]['goods_item_id'] = $purchaseItem->goodsItem->id;
-                        $items[$index][$purchaseItem->goodsItem->size]['barcode'] = $purchaseItem->goodsItem->barcode;
-                        $items[$index][$purchaseItem->goodsItem->size]['unit'] = $purchaseItem->unit;
+                        // dd($purchaseItem->goodsItem->toArray());
+                        $items[] = [
+                            'id' => $index + 1,
+                            'goods_id' => $purchaseItem->goods->id,
+                            'type' => $purchaseItem->goods->type,
+                            'name' => $purchaseItem->goods->name,
+                            'cup' => $purchaseItem->goodsItem->cup,
+                            'color' => $purchaseItem->goodsItem->color,
+                            $purchaseItem->goodsItem->size => [
+                                'goods_purchase_item_id' => $purchaseItem->id,
+                                'goods_item_id' => $purchaseItem->goodsItem->id,
+                                'barcode' => $purchaseItem->goodsItem->barcode,
+                                'unit' => $purchaseItem->unit,
+                            ],
+                            'total_unit' => $purchaseItem->unit,
+                            'unit_price' => $purchaseItem->unit_price,
+                            'formatted_unit_price' => Common::formatPrice($purchaseItem->unit_price),
+                            'cost' => $purchaseItem->cost,
+                            'formatted_cost' => Common::formatPrice($purchaseItem->cost),
+                        ];
                     }
-                    $items[$index]['total_unit'] = $items[$index]['total_unit'] + $purchaseItem->unit;
-                    $items[$index]['cost'] = $items[$index]['cost'] + $purchaseItem->cost;
-                    $items[$index]['formatted_cost'] = Common::formatPrice($items[$index]['cost']);
-                } else {
-                    // dd($purchaseItem->goodsItem->toArray());
-                    $items[] = [
-                        'id' => $index + 1,
-                        'goods_id' => $purchaseItem->goods->id,
-                        'type' => $purchaseItem->goods->type,
-                        'name' => $purchaseItem->goods->name,
-                        'cup' => $purchaseItem->goodsItem->cup,
-                        'color' => $purchaseItem->goodsItem->color,
-                        $purchaseItem->goodsItem->size => [
-                            'goods_purchase_item_id' => $purchaseItem->id,
-                            'goods_item_id' => $purchaseItem->goodsItem->id,
-                            'barcode' => $purchaseItem->goodsItem->barcode,
-                            'unit' => $purchaseItem->unit,
-                        ],
-                        'total_unit' => $purchaseItem->unit,
-                        'unit_price' => $purchaseItem->unit_price,
-                        'formatted_unit_price' => Common::formatPrice($purchaseItem->unit_price),
-                        'cost' => $purchaseItem->cost,
-                        'formatted_cost' => Common::formatPrice($purchaseItem->cost),
-                    ];
                 }
             }
         }
@@ -233,9 +236,9 @@ class Goods
             $index++;
         }
         // dd($items);
-        if (count($items) === 1) {
-            return $items[0];
-        }
+        // if (count($items) === 1) {
+        //     return $items[0];
+        // }
 
         return $items;
     }

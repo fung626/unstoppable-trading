@@ -41,13 +41,6 @@
             :loading="loading"
             @update:options="fetch"
             :mobile="mobile"
-            :footer-props="{
-                disableItemsPerPage: disableItemsPerPage,
-                disablePagination: disablePagination,
-                showFirstLastPage: true,
-                showCurrentPage: true,
-                itemsPerPageOptions: [10, 20, 50, 100],
-            }"
         >
             <template v-slot:loading>
                 <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
@@ -115,7 +108,6 @@ export default {
             loading: false,
             mobile: window.innerWidth < 769,
             items: [],
-            page: 1,
             pageCount: 0,
             serverItemsLength: 0,
             options: {
@@ -172,12 +164,12 @@ export default {
             this.$store
                 .dispatch("goods/purchases/get", data)
                 .then((response) => {
-                    // console.log(response);
+                    console.log(response);
                     let res = JSON.parse(JSON.stringify(response.data));
                     self.items = res.data;
                     self.serverItemsLength = res.total;
                     self.pageCount = res.last_page;
-                    self.page = res.current_page;
+                    // self.page = res.current_page;
                     self.loading = false;
                 })
                 .catch((error) => {

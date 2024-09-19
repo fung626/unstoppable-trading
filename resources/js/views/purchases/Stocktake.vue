@@ -44,7 +44,7 @@
                 </template>
                 <template v-slot:[`item.32-S`]="{ index, item }">
                     <div v-bind:class="bgColor(index, '32-S')">
-                        <v-text-field
+                        <input
                             v-if="item['32-S']"
                             v-model="item['32-S'].unit"
                             type="number"
@@ -52,13 +52,13 @@
                             hide-details
                             hide-spin-buttons
                             @change="change(index, item)"
-                        ></v-text-field>
+                        />
                         <span v-else>－</span>
                     </div>
                 </template>
                 <template v-slot:[`item.34-M`]="{ index, item }">
                     <div v-bind:class="bgColor(index, '34-M')">
-                        <v-text-field
+                        <input
                             v-if="item['34-M']"
                             v-model="item['34-M'].unit"
                             type="number"
@@ -66,13 +66,13 @@
                             hide-details
                             hide-spin-buttons
                             @change="change(index, item)"
-                        ></v-text-field>
+                        />
                         <span v-else>－</span>
                     </div>
                 </template>
                 <template v-slot:[`item.36-L`]="{ index, item }">
                     <div v-bind:class="bgColor(index, '36-L')">
-                        <v-text-field
+                        <input
                             v-if="item['36-L']"
                             v-model="item['36-L'].unit"
                             type="number"
@@ -80,13 +80,13 @@
                             hide-details
                             hide-spin-buttons
                             @change="change(index, item)"
-                        ></v-text-field>
+                        />
                         <span v-else>－</span>
                     </div>
                 </template>
                 <template v-slot:[`item.38-XL`]="{ index, item }">
                     <div v-bind:class="bgColor(index, '38-XL')">
-                        <v-text-field
+                        <input
                             v-if="item['38-XL']"
                             v-model="item['38-XL'].unit"
                             type="number"
@@ -94,13 +94,13 @@
                             hide-details
                             hide-spin-buttons
                             @change="change(index, item)"
-                        ></v-text-field>
+                        />
                         <span v-else>－</span>
                     </div>
                 </template>
                 <template v-slot:[`item.40-Q`]="{ index, item }">
                     <div v-bind:class="bgColor(index, '40-Q')">
-                        <v-text-field
+                        <input
                             v-if="item['40-Q']"
                             v-model="item['40-Q'].unit"
                             type="number"
@@ -108,13 +108,13 @@
                             hide-details
                             hide-spin-buttons
                             @change="change(index, item)"
-                        ></v-text-field>
+                        />
                         <span v-else>－</span>
                     </div>
                 </template>
                 <template v-slot:[`item.42-EQ`]="{ index, item }">
                     <div v-bind:class="bgColor(index, '42-EQ')">
-                        <v-text-field
+                        <input
                             v-if="item['42-EQ']"
                             v-model="item['42-EQ'].unit"
                             type="number"
@@ -122,13 +122,13 @@
                             hide-details
                             hide-spin-buttons
                             @change="change(index, item)"
-                        ></v-text-field>
+                        />
                         <span v-else>－</span>
                     </div>
                 </template>
                 <template v-slot:[`item.44-Free`]="{ index, item }">
                     <div v-bind:class="bgColor(index, '44-Free')">
-                        <v-text-field
+                        <input
                             v-if="item['44-Free']"
                             v-model="item['44-Free'].unit"
                             type="number"
@@ -136,7 +136,7 @@
                             hide-details
                             hide-spin-buttons
                             @change="change(index, item)"
-                        ></v-text-field>
+                        />
                         <span v-else>－</span>
                     </div>
                 </template>
@@ -160,7 +160,7 @@
                 </template>
                 <template v-slot:[`body.append`]>
                     <tr>
-                        <td v-for="_ in [...Array(10)]"></td>
+                        <td v-for="i in [...Array(10)]" :key="i"></td>
                         <td class="p-2" colspan="2">
                             {{ `${$t("total-unit")}:` }}
                         </td>
@@ -174,7 +174,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td v-for="_ in [...Array(10)]"></td>
+                        <td v-for="i in [...Array(10)]" :key="i"></td>
                         <td class="p-2" colspan="2">
                             {{ `${$t("subtotal")}: ` }}
                         </td>

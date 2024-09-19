@@ -35,12 +35,11 @@
                 :events="events"
                 :event-overlap-mode="mode"
                 :event-overlap-threshold="30"
-                @click:event="showEvent"
                 @update:modelValue="getEvents"
             >
                 <template v-slot:event="{ event }">
                     <button
-                        class="d-flex align-items-center rounded shadow-lg px-2 py-1 mx-2"
+                        class="d-flex align-items-center rounded shadow-lg overflow-hidden px-2 py-1 m-2"
                         :style="{
                             backgroundColor: event.allDay
                                 ? '#3462E3'
@@ -57,7 +56,9 @@
                                 height: '6px',
                             }"
                         ></div>
-                        <span class="px-2">{{ event.title }}</span>
+                        <span class="px-2">
+                            {{ event.title }}
+                        </span>
                     </button>
                 </template>
             </v-calendar>
@@ -77,27 +78,18 @@
                                 <div
                                     class="d-flex flex-column justify-content-center"
                                 >
-                                    <label>{{
-                                        `${selectedEvent.data.user.name}`
-                                    }}</label>
                                     <label>
                                         {{
-                                            `${selectedEvent.data.start} - ${selectedEvent.data.end}`
+                                            `${selectedEvent.data.client_name}`
                                         }}
+                                    </label>
+                                    <label>
+                                        {{ selectedEvent.data.client_contact }}
                                     </label>
                                 </div>
                             </div>
                         </CCardBody>
                     </CCard>
-                    <!-- <CWidgetStatsF
-                        color="primary"
-                        :title="selectedEvent.data.name"
-                        :value="`${selectedEvent.data.start} - ${selectedEvent.data.end}`"
-                    >
-                        <template #icon>
-                            <CIcon icon="cil-calendar-check" size="sm" />
-                        </template>
-                    </CWidgetStatsF> -->
                 </CCol>
             </CRow>
         </CCardBody>
@@ -126,7 +118,7 @@ export default {
                 for (const item of data) {
                     let color = "cyan";
                     let status = this.$t(
-                        `${this.stockType}status.${item["status"]}`
+                        `${this.cType}.status.${item["status"]}`
                     );
                     switch (item["status"]) {
                         case "PENDING":
@@ -141,8 +133,10 @@ export default {
                     }
                     let start = new Date(item["created_at"]);
                     let end = new Date(item["created_at"]);
+                    // console.log(item);
                     temp.push({
-                        name: `${item["generated_id"]}`,
+                        data: item,
+                        title: `${item["status"]}`,
                         start: start,
                         end: end,
                         color: color,
@@ -157,7 +151,7 @@ export default {
         return {
             adapter: null,
             loading: false,
-            focus: new Date(),
+            focus: [new Date()],
             type: "month",
             types: calendarTypes,
             mode: "stack",
@@ -172,7 +166,6 @@ export default {
             selectedEvent: null,
             selectedElement: null,
             selectedOpen: false,
-            events: [],
             config: {
                 locale: "zh-CN",
                 defaultMode: "month",
