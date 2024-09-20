@@ -41,7 +41,7 @@ class Clients extends ResourceCollection
                     'title' => __('Details'),
                     'color' => "primary",
                     'type' => "RouterPush",
-                    'route' => "ClientDetails",
+                    'route' => "/clients/details/" . $item->id,
                     'disabled' => false,
                 ],
                 [

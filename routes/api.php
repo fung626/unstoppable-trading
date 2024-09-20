@@ -266,7 +266,7 @@ Route::prefix('statistics/dashboard')->middleware(['auth:api', 'localization'])-
     Route::post('callout/get', [CalloutController::class, 'get']);
 });
 
-Route::prefix('exchange-rate')->middleware(['auth:api', 'localization'])->group(function () {
+Route::prefix('exchange-rates')->middleware(['auth:api', 'localization'])->group(function () {
     Route::post('update', [ExchangeRateController::class, 'update']);
     Route::post('get', [ExchangeRateController::class, 'get']);
     Route::post('details', [ExchangeRateController::class, 'details']);

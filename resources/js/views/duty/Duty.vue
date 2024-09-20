@@ -205,15 +205,22 @@ export default {
         },
         async click(item, action) {
             let type = action.type;
+            let route = action.route;
             switch (type) {
                 case "RouterPush":
+                    // this.$router.push({
+                    //     path: `duty/details/${item.id}`,
+                    // });
                     this.$router.push({
-                        path: `duty/details/${item.id}`,
+                        path: route,
                     });
                     break;
                 case "Create":
+                    // this.$router.push({
+                    //     path: `duty/create/${item.user.id}`,
+                    // });
                     this.$router.push({
-                        path: `duty/create/${item.user.id}`,
+                        path: route,
                     });
                     break;
                 case "Delete":

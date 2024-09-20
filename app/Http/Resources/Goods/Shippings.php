@@ -65,7 +65,7 @@ class Shippings extends ResourceCollection
                     'title' => __('Details'),
                     'color' => "primary",
                     'type' => "RouterPush",
-                    'route' => "ShippingDetails",
+                    'route' => "/shippings/details/" . $item->id,
                     'disabled' => false,
                 ],
             ];

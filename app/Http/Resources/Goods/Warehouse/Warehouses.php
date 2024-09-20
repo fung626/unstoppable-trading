@@ -35,6 +35,7 @@ class Warehouses extends ResourceCollection
                     'title' => __('Details'),
                     'color' => "primary",
                     'type' => "RouterPush",
+                    'route' => '/warehouses/details/' . $item->id,
                     'disabled' => false,
                 ],
                 [

@@ -41,22 +41,26 @@ import { mapState } from "vuex";
 
 export default {
     name: "ExchangeRateTable",
+    props: {
+        base: null,
+        symbol: null,
+    },
     computed: {
-        ...mapState(["exchange-rate"]),
-        base() {
-            return this["exchange-rate"].details.base;
-        },
-        symbol() {
-            return this["exchange-rate"].details.symbol;
-        },
+        ...mapState(["exchange-rates"]),
+        // base() {
+        //     return this["exchange-rates"].details.base;
+        // },
+        // symbol() {
+        //     return this["exchange-rates"].details.symbol;
+        // },
         items() {
-            if (Array.isArray(this["exchange-rate"].data)) {
-                return this["exchange-rate"].data;
+            if (Array.isArray(this["exchange-rates"].data)) {
+                return this["exchange-rates"].data;
             }
             return [];
         },
         details() {
-            return this["exchange-rate"].details;
+            return this["exchange-rates"].details;
         },
     },
     data() {
@@ -64,8 +68,8 @@ export default {
             loading: false,
             mobile: window.innerWidth < 769,
             headers: [
-                { title: this.$t("Base"), value: "base" },
-                { title: this.$t("Symbol"), value: "symbol" },
+                { title: this.$t("base"), value: "base" },
+                { title: this.$t("symbol"), value: "symbol" },
                 { title: this.$t("rate"), value: "rate" },
                 { title: this.$t("updatedat"), value: "updated_at" },
                 {
@@ -76,12 +80,13 @@ export default {
             ],
         };
     },
-    watch: {
-        details: function (newVal, oldVal) {
-            this.fetch();
-        },
-    },
+    // watch: {
+    //     details: function (newVal, oldVal) {
+    //         this.fetch();
+    //     },
+    // },
     mounted() {
+        this.fetch();
         window.addEventListener("resize", this.onResize);
     },
     beforeDestroy() {
@@ -101,8 +106,9 @@ export default {
                 base: self.base,
                 symbol: self.symbol,
             };
+            // console.log(data);
             this.$store
-                .dispatch("exchange-rate/get", data)
+                .dispatch("exchange-rates/get", data)
                 .then((response) => {
                     self.loading = false;
                 })
@@ -114,12 +120,13 @@ export default {
             this.fetch();
         },
         async click(item, action) {
+            // console.log(item);
             let type = action.type;
             switch (type) {
                 case "RouterPush":
+                    let route = action.route;
                     this.$router.push({
-                        path: "exchange-rate/details",
-                        params: { base: item.base, symbol: item.symbol },
+                        path: route,
                     });
                     break;
             }

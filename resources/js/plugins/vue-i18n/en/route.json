@@ -10,6 +10,12 @@
             "create": "Create",
             "details": "Details"
         },
+        "exchange-rates": {
+            "home": "Exchange Rates",
+            "table": "Table",
+            "create": "Create",
+            "details": "Details"
+        },
         "sales-reports": {
             "home": "Sales Reports",
             "table": "Table",

@@ -27,7 +27,7 @@ class Goods extends ResourceCollection
                     'title' => __('New Purchase'),
                     'color' => "info",
                     'type' => "RouterPush",
-                    'route' => "purchases/create/" . $item->supplier->id,
+                    'route' => "/purchases/create/" . $item->supplier->id,
                     'disabled' => false,
                 ],
                 [
@@ -35,7 +35,7 @@ class Goods extends ResourceCollection
                     'title' => __('Details'),
                     'color' => "primary",
                     'type' => "RouterPush",
-                    'route' => "goods/details/" . $item->id,
+                    'route' => "/goods/details/" . $item->id,
                     'disabled' => false,
                 ],
                 [

@@ -49,7 +49,9 @@ class ExchangeRateController extends Controller
             return $query->where(function ($query) use ($symbol) {
                 $query->where('symbol', $symbol);
             });
-        })->get();
+        })->where([
+            'available' => 1,
+        ])->get();
         $response = config('response.common.success');
         $resource = new ExchangeRateCollection($result);
         $resource = $resource->resolve();

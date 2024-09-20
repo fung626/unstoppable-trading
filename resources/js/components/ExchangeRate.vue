@@ -65,7 +65,7 @@
             </CRow>
             <CRow>
                 <CCol>
-                    <ExchangeRateTable />
+                    <ExchangeRateTable :base="base" :symbol="symbol" />
                 </CCol>
             </CRow>
         </CCardBody>
@@ -160,7 +160,7 @@ export default {
                 symbol: symbol,
             };
             this.$store
-                .dispatch("exchange-rate/details", data)
+                .dispatch("exchange-rates/details", data)
                 .then((response) => {
                     let res = response.data.data;
                     self.base = res.base;

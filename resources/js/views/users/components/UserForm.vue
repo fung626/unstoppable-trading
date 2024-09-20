@@ -49,7 +49,7 @@
                     :label="$t('role')"
                     :error="errors.role ? true : false"
                     :error-messages="errors.role"
-                    item-title="value"
+                    item-title="name"
                     item-value="value"
                     required
                     outlined
@@ -87,6 +87,7 @@
 //
 import { Snackbar } from "@/components";
 import { roles } from "@/constants";
+import moment from "moment";
 
 export default {
     name: "UserForm",
@@ -121,7 +122,16 @@ export default {
             this.$store
                 .dispatch("users/details", data)
                 .then((response) => {
-                    self.formData = response.data;
+                    console.log(response);
+                    self.formData = {
+                        ...response.data,
+                        updated_at: moment(response.data.updated_at).format(
+                            "YYYY-MM-DD"
+                        ),
+                        created_at: moment(response.data.created_at).format(
+                            "YYYY-MM-DD"
+                        ),
+                    };
                     self.fetchLoading = false;
                 })
                 .catch((error) => {

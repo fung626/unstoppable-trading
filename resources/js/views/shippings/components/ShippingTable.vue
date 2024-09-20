@@ -264,8 +264,9 @@ export default {
                     }
                     break;
                 case "RouterPush":
+                    let route = action.route;
                     this.$router.push({
-                        path: `shippings/details/${item.id}`,
+                        path: route,
                     });
                     break;
             }

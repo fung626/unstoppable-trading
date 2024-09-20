@@ -52,7 +52,7 @@ export default createStore({
         // API
         dashboard: Dashboard,
         auth: Auth,
-        ["exchange-rate"]: ExchangeRate,
+        ["exchange-rates"]: ExchangeRate,
         profile: Profile,
         user: User,
         ["users/duty"]: UserDuty,

@@ -10,6 +10,12 @@
             "create": "新增",
             "details": "詳細"
         },
+        "exchange-rates": {
+            "home": "匯率",
+            "table": "清單",
+            "create": "新增",
+            "details": "詳細"
+        },
         "sales-reports": {
             "home": "銷售報告",
             "table": "清單",

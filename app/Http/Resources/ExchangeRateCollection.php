@@ -29,7 +29,7 @@ class ExchangeRateCollection extends ResourceCollection
                         'title' => __("Details"),
                         'color' => "primary",
                         'type' => "RouterPush",
-                        'route' => "UserDetails",
+                        'route' => "/exchange-rates/details/" . $item->base . '/' . $item->symbol,
                         'disabled' => false,
                     ],
                 ],

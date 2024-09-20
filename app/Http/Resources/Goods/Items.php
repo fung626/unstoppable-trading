@@ -27,7 +27,7 @@ class Items extends ResourceCollection
                     'title' => __('Add Shipping List'),
                     'color' => "info",
                     'type' => "AddShipping",
-                    'route' => "CreatePurchase",
+                    // 'route' => "purchases/create/" . $this->id,
                     'disabled' => false,
                 ],
                 [

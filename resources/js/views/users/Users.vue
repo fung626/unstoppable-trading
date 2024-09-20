@@ -61,7 +61,7 @@
                         :color="action.color"
                         :disabled="action.disabled"
                         size="sm"
-                        @click="click(item.id, action.type)"
+                        @click="click(item, action)"
                     >
                         {{ action.title }}
                     </CButton>
@@ -181,11 +181,13 @@ export default {
         reload() {
             this.fetch({ ...this.options });
         },
-        async click(id, type) {
+        async click(item, action) {
+            let type = action.type;
             switch (type) {
                 case "RouterPush":
+                    let route = action.route;
                     this.$router.push({
-                        path: `users/details/${id}`,
+                        path: route,
                     });
                     break;
                 case "Delete":

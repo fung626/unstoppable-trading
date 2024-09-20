@@ -31,6 +31,7 @@ class DutyCollection extends ResourceCollection
                         'title' => __("Create") . ' ' . __("Duty"),
                         'color' => "info",
                         'type' => "Create",
+                        'route' => "/duty/create/" . $item->user_id,
                         'disabled' => false,
                     ],
                     [
@@ -38,7 +39,7 @@ class DutyCollection extends ResourceCollection
                         'title' => __("Details"),
                         'color' => "primary",
                         'type' => "RouterPush",
-                        'route' => "DutyDetails",
+                        'route' => "/duty/details/" . $item->id,
                         'disabled' => false,
                     ],
                     [

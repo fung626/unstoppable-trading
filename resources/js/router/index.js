@@ -33,6 +33,33 @@ const routes = [
                 component: () => import("@/views/profile/Profile.vue"),
             },
             {
+                path: "exchange-rates",
+                name: "route.exchange-rates.home",
+                component: {
+                    render() {
+                        return h(resolveComponent("router-view"));
+                    },
+                },
+                // component: () =>
+                //     import("@/views/exchange-rates/ExchangeRate.vue"),
+                children: [
+                    {
+                        path: "",
+                        name: "route.exchange-rates.table",
+                        component: () =>
+                            import("@/views/exchange-rates/ExchangeRate.vue"),
+                    },
+                    {
+                        path: "details/:base/:symbol",
+                        name: "route.exchange-rates.details",
+                        component: () =>
+                            import(
+                                "@/views/exchange-rates/ExchangeRateDetails.vue"
+                            ),
+                    },
+                ],
+            },
+            {
                 path: "leaves",
                 name: "route.leaves.home",
                 component: {

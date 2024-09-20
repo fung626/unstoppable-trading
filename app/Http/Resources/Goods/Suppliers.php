@@ -47,7 +47,7 @@ class Suppliers extends ResourceCollection
                     'title' => __("Details"),
                     'color' => "primary",
                     'type' => "RouterPush",
-                    'route' => "SupplierDetails",
+                    'route' => "/suppliers/details/" . $item->id,
                     'disabled' => false,
                 ],
                 [

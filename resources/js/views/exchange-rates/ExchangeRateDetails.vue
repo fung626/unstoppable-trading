@@ -92,7 +92,7 @@ export default {
             };
             self.fetchLoading = true;
             this.$store
-                .dispatch("exchange-rate/details", data)
+                .dispatch("exchange-rates/details", data)
                 .then((response) => {
                     // console.log(response.data);
                     self.formData = JSON.parse(

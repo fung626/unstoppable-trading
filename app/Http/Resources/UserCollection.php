@@ -30,7 +30,7 @@ class UserCollection extends ResourceCollection
                         'title' => __("Details"),
                         'color' => "primary",
                         'type' => "RouterPush",
-                        'route' => "UserDetails",
+                        'route' => "/users/details/" . $item->id,
                         'disabled' => false,
                     ],
                     [

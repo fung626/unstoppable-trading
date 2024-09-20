@@ -81,4 +81,10 @@ export default [
         to: "/clients",
         icon: "cil-people",
     },
+    {
+        component: "CNavItem",
+        name: t("exchange-rates"),
+        to: "/exchange-rates",
+        icon: "cil-dollar",
+    },
 ];

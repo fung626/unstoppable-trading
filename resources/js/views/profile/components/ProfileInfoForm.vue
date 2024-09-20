@@ -115,6 +115,7 @@ export default {
             this.$store
                 .dispatch("profile/get")
                 .then((response) => {
+                    console.log(response);
                     self.fetchLoading = false;
                 })
                 .catch((error) => {

@@ -211,6 +211,7 @@ export default {
                 return;
             }
             self.loading = true;
+            self.selectedEvent = null;
             let data = {
                 user_id: this.userId,
                 from: moment(start).format("Y-MM-DD"),
@@ -226,7 +227,7 @@ export default {
                 });
         },
         click(event) {
-            console.log(event);
+            // console.log(event);
             this.selectedEvent = event;
             // this.type = type.value;
             // this.$forceUpdate();
