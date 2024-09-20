@@ -198,14 +198,9 @@
                     <template v-slot:[`item.32-S`]="{ index, item }">
                         <input
                             v-if="item['32-S']"
+                            :style="{ width: '54px' }"
                             v-model="item['32-S'].unit"
                             type="number"
-                            variant="plain"
-                            hide-details
-                            hide-spin-buttons
-                            required
-                            dense
-                            clearable
                             :min="0"
                             @change="change(index, item)"
                         />
@@ -214,13 +209,9 @@
                     <template v-slot:[`item.34-M`]="{ index, item }">
                         <input
                             v-if="item['34-M']"
+                            :style="{ width: '54px' }"
                             v-model="item['34-M'].unit"
                             type="number"
-                            variant="plain"
-                            hide-details
-                            required
-                            dense
-                            clearable
                             :min="0"
                             @change="change(index, item)"
                         />
@@ -229,13 +220,9 @@
                     <template v-slot:[`item.36-L`]="{ index, item }">
                         <input
                             v-if="item['36-L']"
+                            :style="{ width: '54px' }"
                             v-model="item['36-L'].unit"
                             type="number"
-                            variant="plain"
-                            hide-details
-                            required
-                            dense
-                            clearable
                             :min="0"
                             @change="change(index, item)"
                         />
@@ -244,13 +231,9 @@
                     <template v-slot:[`item.38-XL`]="{ index, item }">
                         <input
                             v-if="item['38-XL']"
+                            :style="{ width: '54px' }"
                             v-model="item['38-XL'].unit"
                             type="number"
-                            variant="plain"
-                            hide-details
-                            required
-                            dense
-                            clearable
                             :min="0"
                             @change="change(index, item)"
                         />
@@ -259,13 +242,9 @@
                     <template v-slot:[`item.40-Q`]="{ index, item }">
                         <input
                             v-if="item['40-Q']"
+                            :style="{ width: '54px' }"
                             v-model="item['40-Q'].unit"
                             type="number"
-                            variant="plain"
-                            hide-details
-                            required
-                            dense
-                            clearable
                             :min="0"
                             @change="change(index, item)"
                         />
@@ -274,13 +253,10 @@
                     <template v-slot:[`item.42-EQ`]="{ index, item }">
                         <input
                             v-if="item['42-EQ']"
+                            :style="{ width: '54px' }"
                             v-model="item['42-EQ'].unit"
                             type="number"
                             variant="plain"
-                            hide-details
-                            required
-                            dense
-                            clearable
                             :min="0"
                             @change="change(index, item)"
                         />
@@ -289,13 +265,9 @@
                     <template v-slot:[`item.44-Free`]="{ index, item }">
                         <input
                             v-if="item['44-Free']"
+                            :style="{ width: '54px' }"
                             v-model="item['44-Free'].unit"
                             type="number"
-                            variant="plain"
-                            hide-details
-                            required
-                            dense
-                            clearable
                             :min="0"
                             @change="change(index, item)"
                         />

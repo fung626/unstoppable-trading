@@ -46,11 +46,11 @@
                     <div v-bind:class="bgColor(index, '32-S')">
                         <input
                             v-if="item['32-S']"
+                            :style="{ width: '54px' }"
                             v-model="item['32-S'].unit"
                             type="number"
                             variant="plain"
-                            hide-details
-                            hide-spin-buttons
+                            :min="0"
                             @change="change(index, item)"
                         />
                         <span v-else>－</span>
@@ -60,11 +60,10 @@
                     <div v-bind:class="bgColor(index, '34-M')">
                         <input
                             v-if="item['34-M']"
+                            :style="{ width: '54px' }"
                             v-model="item['34-M'].unit"
                             type="number"
-                            variant="plain"
-                            hide-details
-                            hide-spin-buttons
+                            :min="0"
                             @change="change(index, item)"
                         />
                         <span v-else>－</span>
@@ -74,11 +73,10 @@
                     <div v-bind:class="bgColor(index, '36-L')">
                         <input
                             v-if="item['36-L']"
+                            :style="{ width: '54px' }"
                             v-model="item['36-L'].unit"
                             type="number"
-                            variant="plain"
-                            hide-details
-                            hide-spin-buttons
+                            :min="0"
                             @change="change(index, item)"
                         />
                         <span v-else>－</span>
@@ -88,11 +86,10 @@
                     <div v-bind:class="bgColor(index, '38-XL')">
                         <input
                             v-if="item['38-XL']"
+                            :style="{ width: '54px' }"
                             v-model="item['38-XL'].unit"
                             type="number"
-                            variant="plain"
-                            hide-details
-                            hide-spin-buttons
+                            :min="0"
                             @change="change(index, item)"
                         />
                         <span v-else>－</span>
@@ -102,11 +99,10 @@
                     <div v-bind:class="bgColor(index, '40-Q')">
                         <input
                             v-if="item['40-Q']"
+                            :style="{ width: '54px' }"
                             v-model="item['40-Q'].unit"
                             type="number"
-                            variant="plain"
-                            hide-details
-                            hide-spin-buttons
+                            :min="0"
                             @change="change(index, item)"
                         />
                         <span v-else>－</span>
@@ -116,11 +112,10 @@
                     <div v-bind:class="bgColor(index, '42-EQ')">
                         <input
                             v-if="item['42-EQ']"
+                            :style="{ width: '54px' }"
                             v-model="item['42-EQ'].unit"
                             type="number"
-                            variant="plain"
-                            hide-details
-                            hide-spin-buttons
+                            :min="0"
                             @change="change(index, item)"
                         />
                         <span v-else>－</span>
@@ -130,11 +125,10 @@
                     <div v-bind:class="bgColor(index, '44-Free')">
                         <input
                             v-if="item['44-Free']"
+                            :style="{ width: '54px' }"
                             v-model="item['44-Free'].unit"
                             type="number"
-                            variant="plain"
-                            hide-details
-                            hide-spin-buttons
+                            :min="0"
                             @change="change(index, item)"
                         />
                         <span v-else>－</span>
