@@ -36,10 +36,11 @@
                 :event-overlap-mode="mode"
                 :event-overlap-threshold="30"
                 @update:modelValue="getEvents"
+                @click:event="showEvent"
             >
                 <template v-slot:event="{ event }">
-                    <button
-                        class="d-flex align-items-center rounded shadow-lg overflow-hidden px-2 py-1 m-2"
+                    <div
+                        class="d-flex align-items-center rounded shadow-lg cursor-pointer px-2 py-1 m-2"
                         :style="{
                             backgroundColor: event.allDay
                                 ? '#3462E3'
@@ -59,7 +60,7 @@
                         <span class="px-2">
                             {{ event.title }}
                         </span>
-                    </button>
+                    </div>
                 </template>
             </v-calendar>
             <CRow v-if="selectedEvent" class="my-4">
@@ -215,7 +216,7 @@ export default {
             console.log(event);
         },
         click(event) {
-            console.log(event);
+            // console.log(event);
             this.selectedEvent = event;
             // this.type = type.value;
             // this.$forceUpdate();

@@ -68,8 +68,8 @@
                             </button>
                         </template>
                     </CPopover> -->
-                    <button
-                        class="d-flex align-items-center rounded shadow-lg px-2 py-1 m-2"
+                    <div
+                        class="d-flex align-items-center rounded shadow-lg cursor-pointer px-2 py-1 m-2"
                         :style="{
                             backgroundColor: event.allDay
                                 ? '#3462E3'
@@ -89,7 +89,7 @@
                         <span class="px-2">
                             {{ event.title }}
                         </span>
-                    </button>
+                    </div>
                 </template>
             </v-calendar>
             <CRow v-if="selectedEvent" class="my-4">
@@ -225,6 +225,9 @@ export default {
                 .catch((error) => {
                     self.loading = false;
                 });
+        },
+        showEvent({ nativeEvent, event }) {
+            console.log(event);
         },
         click(event) {
             // console.log(event);
