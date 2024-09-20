@@ -2,6 +2,7 @@
 import axios from "../../utils/myAxios";
 // import * as types from "./mutation-types";
 import i18n from "@/plugins/vue-i18n";
+import moment from "moment";
 
 const { t } = i18n.global;
 const endpoint = "/api/goods/shippings/packing/";
@@ -24,9 +25,7 @@ export default {
                     fileLink.href = fileURL;
                     fileLink.setAttribute(
                         "download",
-                        `${"shipping_packing"}}-${moment().format(
-                            "YYYYMMDD"
-                        )}.pdf`
+                        `shipping_packing-${moment().format("YYYYMMDD")}.pdf`
                     );
                     document.body.appendChild(fileLink);
                     fileLink.click();

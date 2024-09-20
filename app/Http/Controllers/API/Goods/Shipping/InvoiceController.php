@@ -112,7 +112,7 @@ class InvoiceController extends Controller
             ->first();
 
         $lang = 'tc';
-        $template = 'ship_invoice_' . $lang . '.docx';
+        $template = 'shipping_invoice_' . $lang . '.docx';
         $domPdfPath = base_path('vendor/dompdf/dompdf');
 
         Settings::setPdfRendererName('DomPDF');

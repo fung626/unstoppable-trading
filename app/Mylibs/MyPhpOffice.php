@@ -96,7 +96,7 @@ class MyPhpOffice
 
     public static function exportPackingWithPath($name, $data = [], $extension = 'pdf')
     {
-        $template = 'ship_mailer.docx';
+        $template = 'shipping_mailer.docx';
         $domPdfPath = base_path('vendor/dompdf/dompdf');
 
         Settings::setPdfRendererName('DomPDF');
@@ -111,7 +111,7 @@ class MyPhpOffice
 
         $now = Carbon::now()->format('YmdHis');
 
-        $docname = 'ship_mailer_' . $name . '_' . $now;
+        $docname = 'shipping_mailer_' . $name . '_' . $now;
         $path = storage_path(self::$tempPath . $docname . '.docx');
         $templateProcessor->saveAs($path);
         // dd($path);
@@ -119,7 +119,7 @@ class MyPhpOffice
             $outdir = storage_path(self::$tempPath);
             // $command = "libreoffice --headless --convert-to pdf $path --outdir $outdir";
             // $process = new Process(['libreoffice', '--headless', "--convert-to pdf $path", "--outdir $outdir"]);
-            $process = new Process(["libreoffice", '--headless', '--convert-to', request('extension'), $path, '--outdir', $x]);
+            $process = new Process(["libreoffice", '--headless', '--convert-to', request('extension'), $path, '--outdir', $outdir]);
             // $process->run();
             try {
                 $process->mustRun();
