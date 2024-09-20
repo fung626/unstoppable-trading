@@ -31,7 +31,7 @@
                 </CButtonGroup>
             </CCol>
         </CRow>
-        <v-data-table
+        <v-data-table-server
             class="elevation-1"
             :headers="headers"
             :items="items"
@@ -63,7 +63,7 @@
                     {{ this.$formatDate(item.updated_at) }}
                 </div>
             </template>
-        </v-data-table>
+        </v-data-table-server>
     </div>
 </template>
 <script>

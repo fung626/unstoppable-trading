@@ -40,7 +40,7 @@
                 </CButtonGroup>
             </CCol>
         </CRow>
-        <v-data-table
+        <v-data-table-server
             class="elevation-1"
             :headers="headers"
             :items="items"
@@ -133,7 +133,7 @@
                     </CButton>
                 </CButtonGroup>
             </template>
-        </v-data-table>
+        </v-data-table-server>
     </div>
 </template>
 <script>

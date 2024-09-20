@@ -13,7 +13,7 @@
                 </CButton>
             </CCol>
         </CRow>
-        <v-data-table
+        <v-data-table-server
             :headers="headers"
             :items="items"
             :loading="loading"
@@ -21,7 +21,7 @@
             :mobile="mobile"
             :hide-default-footer="true"
         >
-        </v-data-table>
+        </v-data-table-server>
     </div>
 </template>
 <script>
