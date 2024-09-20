@@ -146,7 +146,7 @@ class InvoiceController extends Controller
             $templateProcessor->setValue($key, $value);
         }
 
-        $indent = new TblWidthComplexType(-180, TblWidth::TWIP);
+        $indent = new TblWidthComplexType(-900, TblWidth::TWIP);
         $table = new Table([
             'borderSize' => 6,
             'borderColor' => 'BFBFBF',
