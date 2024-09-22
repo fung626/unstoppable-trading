@@ -1,4 +1,4 @@
-const name = "exchange-rate";
+const name = "exchange-rates";
 
 export default {
     [`${name}/data`](state) {

@@ -83,10 +83,10 @@ export default {
         ExchangeRateTable,
     },
     computed: {
-        ...mapState(["exchange-rate"]),
+        ...mapState(["exchange-rates"]),
         rate() {
-            if (this["exchange-rate"] && this["exchange-rate"].details) {
-                return this["exchange-rate"].details.rate;
+            if (this["exchange-rates"] && this["exchange-rates"].details) {
+                return this["exchange-rates"].details.rate;
             }
             return 0;
         },
@@ -146,12 +146,7 @@ export default {
     methods: {
         fetch(base, symbol) {
             let self = this;
-            if (
-                self.loading ||
-                !base ||
-                !symbol ||
-                (self.base === base && self.symbol === symbol)
-            ) {
+            if (self.loading || !base || !symbol) {
                 return;
             }
             self.loading = true;
