@@ -60,24 +60,24 @@
                 <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
             </template>
             <template v-slot:[`item.key`]="{ item }">
-                <v-text-field
+                <input
                     v-model="item.key"
                     :label="$t('key')"
                     single-line
                     variant="plain"
                     hide-details
                     counter
-                ></v-text-field>
+                />
             </template>
             <template v-slot:[`item.value`]="{ item }">
-                <v-text-field
+                <input
                     v-model="item.value"
                     :label="$t('value')"
                     single-line
                     variant="plain"
                     hide-details
                     counter
-                ></v-text-field>
+                />
             </template>
             <template v-slot:[`item.created_at`]="{ item }">
                 <div v-if="item.created_at">

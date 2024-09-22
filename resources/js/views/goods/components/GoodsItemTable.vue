@@ -95,7 +95,7 @@
                     class="d-flex justify-content-center"
                     @dblclick.native="edit(item)"
                 >
-                    <v-text-field
+                    <input
                         v-if="item.isBarcodeEditing"
                         v-model="item.barcode"
                         :disabled="loading"
@@ -103,7 +103,7 @@
                         variant="plain"
                         @blur="item.isBarcodeEditing = false"
                         @keydown.enter="item.isBarcodeEditing = false"
-                    ></v-text-field>
+                    />
                     <vue-barcode
                         v-if="item.barcode && !item.isBarcodeEditing"
                         :value="item.barcode"
