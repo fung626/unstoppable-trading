@@ -153,8 +153,8 @@ class InvoiceController extends Controller
             'indent' => $indent,
         ]);
 
-        $headerStyle = ['bgColor' => '182E54'];
-        $headerFontStyle = ['color' => 'FFFFFF', 'size' => 10];
+        $headerStyle = ['bgColor' => 'FFFFFF'];
+        $headerFontStyle = ['color' => '000000', 'size' => 10];
         $table->addRow();
         foreach ($this->tableHeader as $key => $value) {
             // dd($value['width'], $value['text']);
