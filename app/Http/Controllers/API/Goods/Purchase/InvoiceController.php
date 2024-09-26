@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API\Goods\Purchase;
 
 use App\Http\Controllers\Controller;
-use App\Models\Goods\Goods;
 use App\Models\Goods\Purchase\Purchase;
 use App\Mylibs\Common;
 // use PhpOffice\PhpWord\SimpleType\TblWidth;
@@ -18,7 +17,6 @@ use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\Shared\Converter;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
-use Picqer\Barcode\BarcodeGeneratorPNG;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 use Validator;
@@ -223,15 +221,15 @@ class InvoiceController extends Controller
             $templateProcessor->setValue($key, $value);
         }
 
-        $indent = new TblWidthComplexType(-320, TblWidth::TWIP);
+        $indent = new TblWidthComplexType(-750, TblWidth::TWIP);
         $table = new Table([
             'borderSize' => 6,
             'borderColor' => 'BFBFBF',
             'indent' => $indent,
         ]);
 
-        $headerStyle = ['bgColor' => '182E54'];
-        $headerFontStyle = ['color' => 'FFFFFF', 'size' => 10];
+        $headerStyle = ['bgColor' => 'FFFFFF'];
+        $headerFontStyle = ['color' => '000000', 'size' => 10];
         $table->addRow();
         foreach ($this->tableHeader as $key => $value) {
             // dd($value['width'], $value['text']);
