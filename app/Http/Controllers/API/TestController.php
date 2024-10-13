@@ -4,9 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Goods\Stocks as StocksCollection;
-use App\Models\Config\UserRole;
 use App\Models\Goods\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -22,22 +22,15 @@ class TestController extends Controller
     {
         $response = config('response.common.success');
         try {
-            // $array = array(
-            //     "users" => true,
-            //     "goods" => true,
-            //     "stocks" => true,
-            //     "clients" => true,
-            //     "categories" => true,
-            //     "purchases" => true,
-            //     "shippings" => true,
-            //     "suppliers" => true,
-            //     "warehouses" => true,
-            //     "sales-reports" => true,
-            // );
-            $data = UserRole::where([
-                'name' => 'ADMIN',
-            ])->get();
-            $response['data'] = $data;
+            $array = array("applicants" => [
+                [
+                    "phone" => "phone must be a valid phone number in the specified region",
+                ],
+                [
+                    "phone" => "phone must be a valid phone number in the specified region",
+                ],
+            ]);
+            $response['data'] = Arr::dot($array);
         } catch (\Exception $e) {
             dd($e->getMessage());
             Log::error($e->getMessage());

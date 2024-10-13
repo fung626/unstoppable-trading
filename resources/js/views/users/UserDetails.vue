@@ -1,4 +1,6 @@
 <template>
+    <Snackbar />
+    <Dialog ref="dialog" />
     <CRow>
         <CCol>
             <CCard class="p-2">
@@ -61,6 +63,7 @@
 </template>
 <script>
 //
+import { Dialog, Snackbar } from "@/components";
 import DutyCalendar from "@/components/DutyCalendar.vue";
 import EmployeeForm from "./components/EmployeeForm.vue";
 import PermissionForm from "./components/PermissionForm.vue";
@@ -69,6 +72,8 @@ import UserForm from "./components/UserForm.vue";
 export default {
     name: "UserDetails",
     components: {
+        Dialog,
+        Snackbar,
         DutyCalendar,
         EmployeeForm,
         PermissionForm,

@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Snackbar />
         <Dialog ref="dialog" />
         <CRow class="p-2 mb-2 mt-4">
             <CCol :md="10" :sm="10">
@@ -72,12 +73,13 @@
 </template>
 <script>
 //
-import { Dialog } from "@/components";
+import { Dialog, Snackbar } from "@/components";
 
 export default {
     name: "Users",
     components: {
         Dialog,
+        Snackbar,
     },
     data() {
         return {
@@ -200,7 +202,7 @@ export default {
                         let self = this;
                         self.loading = true;
                         this.$store
-                            .dispatch("users/delete", { id: id })
+                            .dispatch("users/delete", { id: item.id })
                             .then((response) => {
                                 self.loading = false;
                                 self.fetch({ ...this.options });
