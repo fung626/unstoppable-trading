@@ -115,6 +115,12 @@ class ShippingController extends Controller
                     $query->where('id', $id);
                 });
             })
+            ->when($request->filled(['client_id']), function ($query) {
+                $client_id = trim(request('client_id'));
+                return $query->where(function ($query) use ($client_id) {
+                    $query->where('client_id', $client_id);
+                });
+            })
             ->when($request->filled(['search']), function ($query) {
                 $keyword = trim(request('search'));
                 return $query->where(function ($query) use ($keyword) {

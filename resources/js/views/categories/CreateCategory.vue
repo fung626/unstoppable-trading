@@ -1,4 +1,6 @@
 <template>
+    <Snackbar />
+    <Dialog ref="dialog" />
     <CCard class="p-4">
         <CCardBody>
             <h4>{{ $t("create") }}</h4>
@@ -37,11 +39,12 @@
 </template>
 
 <script>
+import { Dialog, Snackbar } from "@/components";
 import { countryCodes } from "@/constants";
 
 export default {
     name: "CreateCategory",
-    components: {},
+    components: { Dialog, Snackbar },
     data() {
         return {
             name: "",

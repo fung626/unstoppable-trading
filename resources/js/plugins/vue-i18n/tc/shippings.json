@@ -4,6 +4,7 @@
     },
     "shipping": {
         "invoice": "出貨單",
+        "monthly-statement": "月結單",
         "status": {
             "pending": "待確定",
             "PENDING": "待確定",

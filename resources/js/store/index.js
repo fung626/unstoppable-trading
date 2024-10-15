@@ -4,6 +4,7 @@ import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import Auth from "./Auth";
 import Categories from "./Categories";
+import ClientMonthlyStatements from "./ClientMonthlyStatements";
 import Clients from "./Clients";
 import Dashboard from "./Dashboard";
 import ExchangeRate from "./ExchangeRate";
@@ -87,6 +88,7 @@ export default createStore({
         suppliers: Suppliers,
         warehouses: Warehouses,
         clients: Clients,
+        [""]: ClientMonthlyStatements,
         ["chart/purchase-line"]: PurchaseLineChart,
         // UI
         ["ui/sidebar"]: UISidebar,

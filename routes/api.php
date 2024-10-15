@@ -4,6 +4,7 @@ use App\Http\Controllers\API\Auth\ForgotPasswordController;
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\ResetPasswordController;
 use App\Http\Controllers\API\Client\ClientController;
+use App\Http\Controllers\API\Client\MonthlyStatementContoller;
 use App\Http\Controllers\API\Config\WebController;
 use App\Http\Controllers\API\DashboardController;
 use App\Http\Controllers\API\ExchangeRateController;
@@ -129,6 +130,8 @@ Route::prefix('clients')->middleware(['auth:api', 'scopes:clients', 'localizatio
     Route::get('details', [ClientController::class, 'details']);
     Route::delete('delete', [ClientController::class, 'delete']);
     Route::post('export', [ClientController::class, 'export']);
+    Route::post('monthly-statements/get', [MonthlyStatementContoller::class, 'post']);
+    Route::post('monthly-statements/export', [MonthlyStatementContoller::class, 'export']);
 });
 
 Route::prefix('goods/suppliers')->middleware(['auth:api', 'scopes:suppliers', 'localization'])->group(function () {

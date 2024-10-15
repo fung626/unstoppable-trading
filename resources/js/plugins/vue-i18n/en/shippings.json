@@ -4,6 +4,7 @@
     },
     "shipping": {
         "invoice": "Shipping invoice",
+        "monthly-statement": "Monthly Statement",
         "status": {
             "pending": "Pending",
             "PENDING": "Pending",

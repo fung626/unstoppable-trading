@@ -188,7 +188,7 @@ export default {
                         let self = this;
                         self.loading = true;
                         this.$store
-                            .dispatch("categories/delete", { id: id })
+                            .dispatch("categories/delete", { id: item.id })
                             .then((response) => {
                                 self.loading = false;
                                 self.fetch({ ...this.options });
