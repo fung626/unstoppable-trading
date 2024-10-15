@@ -509,7 +509,7 @@ export default {
                 .then((response) => {
                     self.loading = false;
                     self.$store.dispatch("goods/shippings/clear");
-                    self.$router.push({ path: "#/shippings" });
+                    self.$router.push({ path: "/shippings" });
                 })
                 .catch((error) => {
                     self.loading = false;

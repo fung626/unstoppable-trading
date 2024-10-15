@@ -200,9 +200,9 @@ export default {
                 .then((response) => {
                     let res = JSON.parse(JSON.stringify(response.data));
                     self.items = res.data.data;
-                    self.serverItemsLength = res.total;
-                    self.pageCount = res.last_page;
-                    self.page = res.current_page;
+                    self.serverItemsLength = res.data.total;
+                    self.pageCount = res.data.last_page;
+                    self.page = res.data.current_page;
                     self.loading = false;
                 })
                 .catch((error) => {
@@ -210,7 +210,7 @@ export default {
                 });
         },
         add() {
-            this.$router.push({ path: "goods/create" });
+            this.$router.push({ path: "/goods/create" });
         },
         download() {
             let self = this;
