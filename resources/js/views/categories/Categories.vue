@@ -1,6 +1,7 @@
 <template>
+    <Snackbar />
+    <Dialog ref="dialog" />
     <div>
-        <Dialog ref="dialog" />
         <CRow class="p-2">
             <CCol :md="10" :sm="10">
                 <CInputGroup class="mb-3">
@@ -69,12 +70,13 @@
 </template>
 <script>
 //
-import { Dialog } from "@/components";
+import { Dialog, Snackbar } from "@/components";
 
 export default {
     name: "Categories",
     components: {
         Dialog,
+        Snackbar,
     },
     data() {
         return {
