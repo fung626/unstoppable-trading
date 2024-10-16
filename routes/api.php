@@ -130,7 +130,8 @@ Route::prefix('clients')->middleware(['auth:api', 'scopes:clients', 'localizatio
     Route::get('details', [ClientController::class, 'details']);
     Route::delete('delete', [ClientController::class, 'delete']);
     Route::post('export', [ClientController::class, 'export']);
-    Route::post('monthly-statements/get', [MonthlyStatementContoller::class, 'post']);
+    Route::post('monthly-statements/create', [MonthlyStatementContoller::class, 'post']);
+    Route::post('monthly-statements/get', [MonthlyStatementContoller::class, 'get']);
     Route::post('monthly-statements/export', [MonthlyStatementContoller::class, 'export']);
 });
 

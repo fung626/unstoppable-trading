@@ -5,6 +5,12 @@
     "shipping": {
         "invoice": "Shipping invoice",
         "monthly-statement": "Monthly Statement",
+        "number-of-shipments": "Number of Shipments",
+        "total-number-of-shipments": "Total Number of Shipments",
+        "period": {
+            "months": "months",
+            "years": "years"
+        },
         "status": {
             "pending": "Pending",
             "PENDING": "Pending",
