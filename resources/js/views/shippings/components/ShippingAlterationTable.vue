@@ -142,6 +142,7 @@ export default {
             self.options.itemsPerPage = itemsPerPage;
             self.options.sortBy = sortBy;
             let data = {
+                goods_shipping_id: self.$props.goodsShipId,
                 page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
