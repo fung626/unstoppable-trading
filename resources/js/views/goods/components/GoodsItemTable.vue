@@ -223,6 +223,7 @@ export default {
                     self.items = res.data.map((x) => {
                         return { ...x, isBarcodeEditing: false };
                     });
+
                     self.serverItemsLength = res.total;
                     self.pageCount = res.last_page;
                     self.page = res.current_page;

@@ -5,6 +5,7 @@
  */
 
 import i18n from "@/plugins/vue-i18n";
+import { format as formatPrice } from "@/utils/currency";
 import { iconsSet as icons } from "@assets/icons";
 import VueBarcode from "@chenfengyuan/vue-barcode";
 import VueNumberInput from "@chenfengyuan/vue-number-input";
@@ -52,6 +53,11 @@ app.config.globalProperties.$appName = import.meta.env.APP_NAME;
 app.config.globalProperties.$env = import.meta.env.APP_ENV;
 app.config.globalProperties.$url = import.meta.env.APP_URL;
 app.config.globalProperties.$momentDateFormat = "dddd, Do MMMM YYYY";
+app.config.globalProperties.$filters = {
+    formatPrice(value) {
+        return formatPrice(value);
+    },
+};
 
 app.config.globalProperties.$log = console.log;
 

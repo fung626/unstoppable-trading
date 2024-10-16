@@ -175,6 +175,29 @@
                             />
                         </div>
                     </template>
+                    <template v-slot:[`item.unit_price`]="{ index, item }">
+                        <div
+                            class="d-flex justify-content-center"
+                            @dblclick.native="editUnitPrice(item)"
+                        >
+                            <input
+                                v-if="item.isUnitPriceEditing"
+                                v-model="item.unit_price"
+                                :disabled="loading"
+                                hide-details
+                                variant="plain"
+                                @blur="item.isUnitPriceEditing = false"
+                                @keydown.enter="item.isUnitPriceEditing = false"
+                            />
+                            <div
+                                v-if="
+                                    item.unit_price && !item.isUnitPriceEditing
+                                "
+                            >
+                                {{ $filters.formatPrice(item.unit_price) }}
+                            </div>
+                        </div>
+                    </template>
                     <template v-slot:[`item.actions`]="{ item }">
                         <CButtonGroup>
                             <CButton
@@ -296,7 +319,7 @@ export default {
                         { title: "44-Free", value: "44-Free" },
                         {
                             title: `${this.$t("unit-price")}($)`,
-                            value: "formatted_unit_price",
+                            value: "unit_price",
                         },
                         { title: this.$t("total-unit"), value: "total_unit" },
                         {
@@ -453,6 +476,18 @@ export default {
                     break;
             }
             // console.log(id, key);
+        },
+        editUnitPrice(item) {
+            // console.log(item);
+            var index = 0;
+            for (const x of this.shippingItems) {
+                if (x.id === item.id) {
+                    this.shippingItems[index].isUnitPriceEditing =
+                        !this.shippingItems[index].isUnitPriceEditing;
+                    break;
+                }
+                index++;
+            }
         },
     },
 };
