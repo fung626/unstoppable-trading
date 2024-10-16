@@ -8,6 +8,10 @@
         "number-of-shipments": "出貨次數",
         "total-number-of-shipments": "總出貨次數",
         "total-gross-profit": "總毛利額",
+        "export-mailer-info": "信封資料",
+        "export-packing": "包裝",
+        "export-invoice": "匯出發票",
+        "export-invoice-and-hide-prices": "匯出隱藏價錢發票",
         "period": {
             "months": "個月",
             "years": "年"

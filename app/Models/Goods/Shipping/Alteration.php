@@ -30,6 +30,8 @@ class Alteration extends Model
         'goods_stock_id',
         'unit',
         'altered_unit',
+        'unit_price',
+        'altered_unit_price',
         'type',
     ];
 

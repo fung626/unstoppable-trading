@@ -48,15 +48,15 @@
                 itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
-            <template v-slot:[`item.type`]="{ item }">
-                {{ $t(item.type.toLowerCase()) }}
+            <template v-slot:[`item.unit_price`]="{ item }">
+                <div v-if="item.unit_price">
+                    {{ $filters.formatPrice(item.unit_price) }}
+                </div>
             </template>
-            <template v-slot:[`item.barcode`]="{ item }">
-                <barcode
-                    v-if="item.barcode"
-                    :value="item.barcode"
-                    :options="{ format: 'CODE39', height: 32 }"
-                ></barcode>
+            <template v-slot:[`item.altered_unit_price`]="{ item }">
+                <div v-if="item.altered_unit_price">
+                    {{ $filters.formatPrice(item.altered_unit_price) }}
+                </div>
             </template>
             <template v-slot:[`item.updated_at`]="{ item }">
                 <div v-if="item.updated_at">
@@ -116,6 +116,14 @@ export default {
                 {
                     title: `${this.$t("altered")}${this.$t("unit")}`,
                     value: "altered_unit",
+                },
+                {
+                    title: `${this.$t("unit-price")}`,
+                    value: "unit_price",
+                },
+                {
+                    title: `${this.$t("altered")}${this.$t("unit-price")}`,
+                    value: "altered_unit_price",
                 },
                 {
                     title: `${this.$t("alteration")}${this.$t("type")}`,

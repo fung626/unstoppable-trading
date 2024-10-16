@@ -93,7 +93,7 @@
             <template v-slot:[`item.barcode`]="{ item }">
                 <div
                     class="d-flex justify-content-center"
-                    @dblclick.native="edit(item)"
+                    v-on:dblclick="edit(item)"
                 >
                     <input
                         v-if="item.isBarcodeEditing"

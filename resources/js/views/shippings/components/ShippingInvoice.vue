@@ -18,7 +18,7 @@
                                 v-on:click="exportPackingInfo"
                                 :disabled="loading"
                             >
-                                {{ $t("button.export") }}{{ $t("packing") }}
+                                {{ $t("shipping.export-packing") }}
                             </CButton>
                             <CButton
                                 color="primary"
@@ -26,15 +26,29 @@
                                 v-on:click="exportMailerInfo"
                                 :disabled="loading"
                             >
-                                {{ $t("button.export") }}{{ $t("mailerinfo") }}
+                                {{ $t("shipping.export-mailer-info") }}
                             </CButton>
                             <CButton
                                 color="primary"
                                 size="sm"
-                                v-on:click="download"
+                                v-on:click="download(true)"
                                 :disabled="loading"
                             >
                                 <CIcon name="cil-cloud-download" size="sm" />
+                                {{
+                                    $t(
+                                        "shipping.export-invoice-and-hide-prices"
+                                    )
+                                }}
+                            </CButton>
+                            <CButton
+                                color="primary"
+                                size="sm"
+                                v-on:click="download(false)"
+                                :disabled="loading"
+                            >
+                                <CIcon name="cil-cloud-download" size="sm" />
+                                {{ $t("shipping.export-invoice") }}
                             </CButton>
                             <CButton
                                 color="primary"
@@ -62,7 +76,7 @@
                 <v-data-table
                     class="my-4 elevation-1 my-table"
                     :headers="table.header.headers"
-                    :items="headerItems"
+                    :items="table.header.items"
                     hide-default-footer
                     hide-default-header
                     :mobile-breakpoint="0"
@@ -80,8 +94,8 @@
                 <v-data-table
                     class="my-2 elevation-1"
                     :loading="loading"
-                    :headers="table.item.headers"
-                    :items="shippingItems"
+                    :headers="table.items.headers"
+                    :items="table.items.items"
                     :search="search"
                     hide-default-footer
                     :mobile-breakpoint="0"
@@ -175,10 +189,12 @@
                             />
                         </div>
                     </template>
-                    <template v-slot:[`item.unit_price`]="{ index, item }">
+                    <template v-slot:[`item.unit_price`]="{ item }">
                         <div
                             class="d-flex justify-content-center"
-                            @dblclick.native="editUnitPrice(item)"
+                            v-on:dblclick="editUnitPrice(item)"
+                            :style="{ width: '104px' }"
+                            v-if="item.unit_price"
                         >
                             <input
                                 v-if="item.isUnitPriceEditing"
@@ -186,16 +202,23 @@
                                 :disabled="loading"
                                 hide-details
                                 variant="plain"
-                                @blur="item.isUnitPriceEditing = false"
-                                @keydown.enter="item.isUnitPriceEditing = false"
+                                type="number"
+                                @blur="unitPriceEdited(item)"
+                                @keydown.enter="unitPriceEdited(item)"
                             />
-                            <div
-                                v-if="
-                                    item.unit_price && !item.isUnitPriceEditing
-                                "
-                            >
+                            <div v-else>
                                 {{ $filters.formatPrice(item.unit_price) }}
                             </div>
+                        </div>
+                    </template>
+                    <template v-slot:[`item.total_unit`]="{ item }">
+                        <div :style="{ width: '44px' }">
+                            {{ item.total_unit }}
+                        </div>
+                    </template>
+                    <template v-slot:[`item.cost`]="{ item }">
+                        <div v-if="item.cost" :style="{ width: '94px' }">
+                            {{ $filters.formatPrice(item.cost) }}
                         </div>
                     </template>
                     <template v-slot:[`item.actions`]="{ item }">
@@ -216,7 +239,7 @@
                 <v-data-table
                     class="my-4 elevation-1"
                     :headers="table.footer.headers"
-                    :items="footerItems"
+                    :items="table.footer.items"
                     hide-default-footer
                     :mobile-breakpoint="0"
                 >
@@ -245,26 +268,6 @@ export default {
         data() {
             return this["goods/shippings"].detailsData;
         },
-        headerItems() {
-            return this["goods/shippings"].detailsData.header_items;
-        },
-        shippingItems() {
-            if (
-                this["goods/shippings"] &&
-                this["goods/shippings"].detailsData &&
-                this["goods/shippings"].detailsData.shipping_items
-            ) {
-                return JSON.parse(
-                    JSON.stringify(
-                        this["goods/shippings"].detailsData.shipping_items
-                    )
-                );
-            }
-            return [];
-        },
-        footerItems() {
-            return this["goods/shippings"].detailsData.footer_items;
-        },
     },
     components: {
         Dialog,
@@ -284,6 +287,7 @@ export default {
                         { title: "X5", value: "X5" },
                         { title: "X6", value: "X6" },
                     ],
+                    items: [],
                 },
                 footer: {
                     headers: [
@@ -302,8 +306,9 @@ export default {
                             sortable: false,
                         },
                     ],
+                    items: [],
                 },
-                item: {
+                items: {
                     headers: [
                         { title: "#ID", value: "id" },
                         { title: this.$t("type"), value: "type" },
@@ -324,14 +329,34 @@ export default {
                         { title: this.$t("total-unit"), value: "total_unit" },
                         {
                             title: `${this.$t("cost")}($)`,
-                            value: "formatted_cost",
+                            value: "cost",
                         },
                         { title: this.$t("actions"), value: "actions" },
                     ],
+                    items: [],
                 },
             },
         };
     },
+    // watch: {
+    //     "table.items.items": {
+    //         handler(val) {
+    //             // console.log(val);
+    //             var index = 0;
+    //             for (const x of this.table.items.items) {
+    //                 if (x.id) {
+    //                     console.log(x);
+    //                     this.table.items.items[index] = {
+    //                         ...x,
+    //                         cost: x.total_unit * x.unit_price,
+    //                     };
+    //                 }
+    //                 index++;
+    //             }
+    //         },
+    //         deep: true,
+    //     },
+    // },
     mounted() {
         this.fetch();
     },
@@ -345,17 +370,23 @@ export default {
             this.$store
                 .dispatch("goods/shippings/details", data)
                 .then((response) => {
+                    self.table.items.items = JSON.parse(
+                        JSON.stringify(response.data.shipping_items)
+                    );
+                    self.table.header.items = response.data.header_items;
+                    self.table.footer.items = response.data.footer_items;
                     self.loading = false;
                 })
                 .catch((error) => {
                     self.loading = false;
                 });
         },
-        download() {
+        download(isPricesHidden = false) {
             let self = this;
             self.loading = true;
             let data = {
                 id: self.$props.id,
+                is_prices_hidden: isPricesHidden,
                 extension: "pdf",
             };
             this.$store
@@ -409,9 +440,9 @@ export default {
                         totalunit += item[size.name].unit;
                     }
                 }
-                this.shippingItems[idx].total_unit = totalunit;
-                this.shippingItems[idx].cost =
-                    totalunit * this.shippingItems[idx].unit_price;
+                this.table.items.items[idx].total_unit = totalunit;
+                this.table.items.items[idx].cost =
+                    totalunit * this.table.items.items[idx].unit_price;
             }
         },
         reload() {
@@ -480,10 +511,24 @@ export default {
         editUnitPrice(item) {
             // console.log(item);
             var index = 0;
-            for (const x of this.shippingItems) {
+            for (const x of this.table.items.items) {
                 if (x.id === item.id) {
-                    this.shippingItems[index].isUnitPriceEditing =
-                        !this.shippingItems[index].isUnitPriceEditing;
+                    this.table.items.items[index].isUnitPriceEditing =
+                        !this.table.items.items[index].isUnitPriceEditing;
+                    break;
+                }
+                index++;
+            }
+        },
+        unitPriceEdited(item) {
+            item.isUnitPriceEditing = false;
+            var index = 0;
+            for (const x of this.table.items.items) {
+                if (x.id === item.id) {
+                    this.table.items.items[index] = {
+                        ...x,
+                        cost: x.total_unit * x.unit_price,
+                    };
                     break;
                 }
                 index++;

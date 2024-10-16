@@ -301,8 +301,25 @@ class ShippingController extends Controller
                                             'type' => request('type'),
                                         ]);
                                         GoodsStock::where('id', $_item['goods_shipping_stock_id'])
-                                            ->update(['unit' => -($_item['unit'])]);
+                                            ->update([
+                                                'unit' => -($_item['unit']),
+                                            ]);
                                     }
+                                    if ($shipStock->unit_price != $item['unit_price']) {
+                                        ShipAlteration::create([
+                                            'goods_item_id' => $_item['goods_item_id'],
+                                            'goods_shipping_id' => request('id'),
+                                            'goods_stock_id' => $_item['goods_shipping_stock_id'],
+                                            'unit_price' => $shipStock->unit_price,
+                                            'altered_unit_price' => $item['unit_price'],
+                                            'type' => request('type'),
+                                        ]);
+                                        GoodsStock::where('id', $_item['goods_shipping_stock_id'])
+                                            ->update([
+                                                'unit_price' => $item['unit_price'],
+                                            ]);
+                                    }
+
                                 }
                             }
                         });
