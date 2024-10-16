@@ -3,6 +3,7 @@ import Dialog from "./Dialog.vue";
 import DutyCalendar from "./DutyCalendar.vue";
 import ExchangeRate from "./ExchangeRate.vue";
 import ExchangeRateTable from "./ExchangeRateTable.vue";
+import GoodsQuickSearch from "./GoodsQuickSearch.vue";
 import ScannerDialog from "./ScannerDialog.vue";
 import ShippingPurchaseQuickSearch from "./ShippingPurchaseQuickSearch.vue";
 import Snackbar from "./Snackbar.vue";
@@ -15,6 +16,7 @@ export {
     DutyCalendar,
     ExchangeRate,
     ExchangeRateTable,
+    GoodsQuickSearch,
     ScannerDialog,
     ShippingPurchaseQuickSearch,
     Snackbar,

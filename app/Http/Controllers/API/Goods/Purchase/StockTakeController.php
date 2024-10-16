@@ -25,9 +25,9 @@ class StocktakeController extends Controller
 
     public function post(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'goods_purchase_id' => 'required',
+            'status' => 'string|in:DELIVERED',
             'items' => 'required',
         ]);
 
@@ -37,8 +37,14 @@ class StocktakeController extends Controller
             return response()->json($response, 400);
         }
 
+        $status = request('status');
+
         try {
-            DB::transaction(function () {
+            DB::transaction(function () use ($status) {
+                if (isset($status)) {
+                    Purchase::where(['id' => request('goods_purchase_id')])
+                        ->update(['status' => $status]);
+                }
                 $items = request('items');
                 foreach ($items as $item) {
                     $sizes = config('constant.goods.sizes');
@@ -47,12 +53,13 @@ class StocktakeController extends Controller
                             if ($item[$size]['unit'] <= 0) {
                                 continue;
                             }
+                            // dd($item);
                             $stock = GoodsStock::create([
                                 'goods_id' => $item['goods_id'],
                                 'goods_item_id' => $item[$size]['goods_item_id'],
                                 'unit' => $item[$size]['unit'],
                                 'unit_price' => $item['unit_price'],
-                                'cost_price' => $item['cost_price'],
+                                'cost_price' => $item['cost'],
                                 'type' => 'PURCHASE',
                             ]);
                             Stocktake::create([

@@ -12,6 +12,8 @@
         "export-packing": "Export Packing",
         "export-invoice": "Export Invoice",
         "export-invoice-and-hide-prices": "Export Invoice and Hide Prices",
+        "add-shipment-goods": "Add Shipment Goods",
+        "quick-search-goods": "Quick Search Goods",
         "period": {
             "months": "months",
             "years": "years"

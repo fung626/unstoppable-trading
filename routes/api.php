@@ -13,6 +13,7 @@ use App\Http\Controllers\API\Goods\CategoryController;
 use App\Http\Controllers\API\Goods\ContentController;
 use App\Http\Controllers\API\Goods\CreateShippingConfigController;
 use App\Http\Controllers\API\Goods\GoodsController;
+use App\Http\Controllers\API\Goods\GoodsQuickSearchController;
 use App\Http\Controllers\API\Goods\ItemController;
 use App\Http\Controllers\API\Goods\PurchaseController;
 use App\Http\Controllers\API\Goods\Purchase\InvoiceController as PurchaseInvoiceController;
@@ -160,6 +161,7 @@ Route::prefix('goods')->middleware(['auth:api', 'scopes:goods', 'localization'])
     Route::get('details', [GoodsController::class, 'details']);
     Route::delete('delete', [GoodsController::class, 'delete']);
     Route::post('export', [GoodsController::class, 'export']);
+    Route::post('quicksearch/get', [GoodsQuickSearchController::class, 'get']);
     Route::post('shippings/purchase/quicksearch/get', [ShippingPurchaseQuickSearchController::class, 'get']);
 });
 

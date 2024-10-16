@@ -149,6 +149,8 @@
                         :error-messages="errors['currency']"
                     ></v-select>
                     <hr />
+                    <GoodsQuickSearch />
+                    <hr />
                     <CRow class="p-2">
                         <CCol>
                             <CInputGroup class="mb-3">
@@ -345,7 +347,7 @@
 </template>
 <script>
 //
-import { Dialog, ScannerDialog } from "@/components";
+import { Dialog, GoodsQuickSearch, ScannerDialog } from "@/components";
 import {
     countryCodes,
     currencies,
@@ -358,6 +360,7 @@ export default {
     name: "CreateShipping",
     components: {
         Dialog,
+        GoodsQuickSearch,
         ScannerDialog,
     },
     computed: {

@@ -107,6 +107,8 @@ class InvoiceController extends Controller
             return response()->json($response, 400);
         }
 
+        $isPricesHidden = request('is_prices_hidden') ? true : false;
+
         $shipping = Shipping::with($this->withs)
             ->where(['id' => request('id')])
             ->first();
@@ -161,7 +163,6 @@ class InvoiceController extends Controller
             $table->addCell(Converter::pixelToTwip($value['width']), $headerStyle)->addText($value['text'], $headerFontStyle);
         }
 
-        $is_prices_hidden = request('is_prices_hidden') ? true : false;
         $shipItems = GoodsLib::formatShippingInvoiceItems($shipping);
         // $width = Converter::pixelToTwip(10500);
         $index = 0;
@@ -190,8 +191,8 @@ class InvoiceController extends Controller
                 $subIndex++;
             }
             $table->addCell(Converter::pixelToTwip(40), $style)->addText($shipItem['total_unit'], $fontStyle);
-            $table->addCell(Converter::pixelToTwip(90), $style)->addText(!$is_prices_hidden && $shipItem['unit_price'] ? Common::formatPrice($shipItem['unit_price']) : '***', $fontStyle);
-            $table->addCell(Converter::pixelToTwip(90), $style)->addText(!$is_prices_hidden && $shipItem['cost'] ? Common::formatPrice($shipItem['cost']) : '***', $fontStyle);
+            $table->addCell(Converter::pixelToTwip(90), $style)->addText($shipItem['unit_price'] ? ($isPricesHidden ? '***' : Common::formatPrice($shipItem['unit_price'])) : '', $fontStyle);
+            $table->addCell(Converter::pixelToTwip(90), $style)->addText($shipItem['cost'] ? ($isPricesHidden ? '***' : Common::formatPrice($shipItem['cost'])) : '', $fontStyle);
             $totalunit += $shipItem['total_unit'];
             $subtotal += $shipItem['cost'];
             $index++;
@@ -205,7 +206,7 @@ class InvoiceController extends Controller
         $table->addRow();
         $table->addCell(null, ['gridSpan' => 10]);
         $table->addCell(null, ['gridSpan' => 2])->addText('清單總金額:', $fontStyle);
-        $table->addCell(null, ['gridSpan' => 2])->addText($shipping->currency . ' ' . $is_prices_hidden ? '***' : Common::formatPrice($subtotal), $fontStyle);
+        $table->addCell(null, ['gridSpan' => 2])->addText($shipping->currency . ' ' . ($isPricesHidden ? '***' : Common::formatPrice($subtotal)), $fontStyle);
 
         $templateProcessor->setComplexBlock('{table}', $table);
 

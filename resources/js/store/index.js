@@ -12,6 +12,7 @@ import Goods from "./Goods";
 import GoodsContent from "./GoodsContent";
 import GoodsCreateShippingConfig from "./GoodsCreateShippingConfig";
 import GoodsItem from "./GoodsItem";
+import GoodsQuickSearch from "./GoodsQuickSearch";
 import GoodsShipping from "./GoodsShipping";
 import GoodsShippingAlteration from "./GoodsShippingAlteration";
 import GoodsShipAvailableShippingItems from "./GoodsShippingAvailableShippingItems";
@@ -42,7 +43,6 @@ import UserEmployee from "./UserEmployee";
 import UserEvent from "./UserEvent";
 import UserPermission from "./UserPermission";
 import Warehouses from "./Warehouses";
-
 // Load store modules dynamically.
 
 const ls = new SecureLS({ isCompression: false });
@@ -64,6 +64,7 @@ export default createStore({
         goods: Goods,
         ["goods/contents"]: GoodsContent,
         ["goods/items"]: GoodsItem,
+        ["goods/quicksearch"]: GoodsQuickSearch,
         ["goods/shippings"]: GoodsShipping,
         ["goods/shippings/packing"]: GoodsShippingPacking,
         ["goods/shippings/purchases/quicksearch"]:

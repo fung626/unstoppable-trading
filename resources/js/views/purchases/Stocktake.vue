@@ -184,7 +184,7 @@
                 </template>
             </v-data-table>
             <div class="d-flex p-2">
-                <div class="bg-yellow" style="height: 25px; width: 25px">
+                <div class="bg-orange" style="height: 25px; width: 25px">
                     &nbsp;
                 </div>
                 <span class="px-2"> {{ `*${$t("default-unit")}` }}</span>
@@ -196,13 +196,25 @@
                 <span class="px-2"> {{ `*${$t("updated-unit")}` }}</span>
             </div>
             <hr />
-            <CButton @click="confirm" color="primary" class="px-4">
+            <CButton @click="confirm()" color="primary" class="px-4">
                 <v-progress-circular
                     v-if="submitLoading"
                     indeterminate
                     :size="15"
                 ></v-progress-circular>
                 {{ $t("button.submit") }}
+            </CButton>
+            <CButton
+                @click="confirm('DELIVERED')"
+                color="primary"
+                class="ms-2 px-4"
+            >
+                <v-progress-circular
+                    v-if="submitLoading"
+                    indeterminate
+                    :size="15"
+                ></v-progress-circular>
+                {{ $t("button.submit") }} & {{ $t("purchase.deliver") }}
             </CButton>
         </CCardBody>
     </CCard>
@@ -283,7 +295,7 @@ export default {
                     self.fetchLoading = false;
                 });
         },
-        async confirm() {
+        async confirm(status = null) {
             let self = this;
             if (self.submitLoading) {
                 return;
@@ -306,14 +318,14 @@ export default {
                         this.$t("alert.stocktake")
                     )
                 ) {
-                    self.submit();
+                    self.submit(status);
                 }
                 return;
             } else {
-                self.submit();
+                self.submit(status);
             }
         },
-        submit() {
+        submit(status = null) {
             let self = this;
             if (self.submitLoading) {
                 return;
@@ -321,6 +333,7 @@ export default {
             self.submitLoading = true;
             let data = {
                 goods_purchase_id: self.$route.params.id,
+                status: status,
                 items: self.items,
             };
             this.$store
@@ -378,7 +391,7 @@ export default {
                 if (updated) {
                     return "d-flex align-items-center bg-green w-100 h-100 px-2";
                 } else {
-                    return "d-flex align-items-center bg-yellow w-100 h-100 px-2";
+                    return "d-flex align-items-center bg-orange w-100 h-100 px-2";
                 }
             } else {
                 return "d-flex align-items-center w-100 h-100 px-2";
@@ -392,8 +405,8 @@ export default {
 .bg-green {
     background-color: #4fa64f;
 }
-.bg-yellow {
-    background-color: #f6be00;
+.bg-orange {
+    background-color: #ea580c;
 }
 .my-table .v-table tbody tr:not(:last-child) {
     border-bottom: none;

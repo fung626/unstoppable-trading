@@ -5,6 +5,7 @@
     "purchase": {
         "title": "訂貨",
         "invoice": "訂貨單",
+        "deliver": "交付",
         "status": {
             "pending": "待確定",
             "PENDING": "待確定",

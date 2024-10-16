@@ -5,6 +5,7 @@
     "purchase": {
         "title": "Purchase",
         "invoice": "Purchase Invoice",
+        "deliver": "Deliver",
         "status": {
             "pending": "Pending",
             "PENDING": "Pending",

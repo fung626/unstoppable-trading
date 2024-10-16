@@ -250,8 +250,8 @@ class MonthlyStatementContoller extends Controller
             $index++;
         }
 
-        if ($index < 10) {
-            for ($i = 0; $i < 10 - $index; $i++) {
+        if ($index < 9) {
+            for ($i = 0; $i < 9 - $index; $i++) {
                 $style = $i % 2 !== 0 ? ['bgColor' => 'F4F4F4'] : [];
                 $fontStyle = ['size' => 10];
                 $table->addRow(Converter::inchToTwip(0.4));
@@ -263,7 +263,7 @@ class MonthlyStatementContoller extends Controller
 
         $table->addRow(Converter::inchToTwip(0.4));
         $table->addCell(Converter::pixelToTwip(254), $style)->addText('', $fontStyle);
-        $table->addCell(Converter::pixelToTwip(254), $style)->addText(__('Total'), $fontStyle);
+        $table->addCell(Converter::pixelToTwip(254), $style)->addText('本月總金額', $fontStyle);
         $table->addCell(Converter::pixelToTwip(254), $style)->addText(request('amount'), $fontStyle);
 
         $templateProcessor->setComplexBlock('{table}', $table);
