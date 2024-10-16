@@ -32,6 +32,7 @@ class Shipping extends Model
         'client_address',
         'currency',
         'status',
+        'delivered_at',
         'delivered_status',
     ];
 

@@ -201,8 +201,16 @@ class ShippingController extends Controller
 
         try {
             if ($request->filled(['status'])) {
-                Shipping::where('id', request('id'))
-                    ->update(['status' => request('status')]);
+                if (request('status') === 'DELIVERED') {
+                    Shipping::where('id', request('id'))
+                        ->update([
+                            'status' => request('status'),
+                            'delivered_at' => Carbon::now(),
+                        ]);
+                } else {
+                    Shipping::where('id', request('id'))
+                        ->update(['status' => request('status')]);
+                }
             }
             if ($request->filled(['item'])) {
                 $item = request('item');
