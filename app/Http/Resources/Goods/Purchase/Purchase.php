@@ -23,10 +23,10 @@ class Purchase extends JsonResource
             $totalunit += $_item->unit;
             $subtotal += $_item->unit * $_item->unit_price;
             $_item->name = empty($_item->goods->name) ? null : $_item->goods->name;
-            $_item->cup = $_item->goodsItem->cup;
-            $_item->size = $_item->goodsItem->size;
-            $_item->color = $_item->goodsItem->color;
-            $_item->barcode = $_item->goodsItem->barcode;
+            $_item->cup = empty($_item->goodsItem) ? null : $_item->goodsItem->cup;
+            $_item->size = empty($_item->goodsItem) ? null : $_item->goodsItem->size;
+            $_item->color = empty($_item->goodsItem) ? null : $_item->goodsItem->color;
+            $_item->barcode = empty($_item->goodsItem) ? null : $_item->goodsItem->barcode;
             $_item->received_unit = $_item->unit;
             $items[] = $_item;
         }
