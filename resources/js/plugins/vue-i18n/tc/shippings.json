@@ -7,6 +7,7 @@
         "monthly-statement": "月結單",
         "number-of-shipments": "出貨次數",
         "total-number-of-shipments": "總出貨次數",
+        "total-gross-profit": "總毛利額",
         "period": {
             "months": "個月",
             "years": "年"

@@ -84,6 +84,7 @@ class ShippingController extends Controller
                                 'goods_item_id' => $item[$size]['goods_item_id'],
                                 'unit' => -($item[$size]['unit']),
                                 'unit_price' => $goods->{$this->priceTag},
+                                'cost_price' => $goods->cost_price,
                                 'type' => 'SHIPPING',
                             ]);
                             StockShipping::create([
@@ -260,6 +261,7 @@ class ShippingController extends Controller
                                                 'goods_item_id' => $item[$size]['goods_item_id'],
                                                 'unit' => -($item[$size]['unit']),
                                                 'unit_price' => $goods->{$this->priceTag},
+                                                'cost_price' => $goods->cost_price,
                                                 'type' => 'SHIPPING',
                                             ]);
                                             StockShipping::create([

@@ -150,6 +150,11 @@ export default {
                     sortable: false,
                 },
                 {
+                    title: `${this.$t("shipping.total-gross-profit")}`,
+                    value: "total_gross_profit",
+                    sortable: false,
+                },
+                {
                     title: `${this.$t("status")}`,
                     value: "status",
                     sortable: false,

@@ -52,6 +52,7 @@ class StocktakeController extends Controller
                                 'goods_item_id' => $item[$size]['goods_item_id'],
                                 'unit' => $item[$size]['unit'],
                                 'unit_price' => $item['unit_price'],
+                                'cost_price' => $item['cost_price'],
                                 'type' => 'PURCHASE',
                             ]);
                             Stocktake::create([

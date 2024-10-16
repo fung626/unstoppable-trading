@@ -31,7 +31,12 @@ class Stock extends Model
         'goods_item_id',
         'unit',
         'unit_price',
+        'cost_price',
         'type',
+    ];
+
+    protected $appends = [
+        'gross_profit',
     ];
 
     public static function goodsSum($id)
@@ -68,6 +73,11 @@ class Stock extends Model
     public function stockShip()
     {
         return $this->hasOne(StockShipping::class, 'goods_stock_id');
+    }
+
+    public function getGrossProfitAttribute()
+    {
+        return $this->unit_price * abs($this->unit) - $this->cost_price * abs($this->unit);
     }
 
 }
