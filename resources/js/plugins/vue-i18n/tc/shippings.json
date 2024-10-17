@@ -14,6 +14,7 @@
         "export-invoice-and-hide-prices": "匯出隱藏價錢發票",
         "add-shipment-goods": "新增出貨貨物",
         "quick-search-goods": "快速搜尋商品",
+        "quick-search-and-add-goods": "快速搜尋並出貨",
         "period": {
             "months": "個月",
             "years": "年"

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use Validator;
 
 class GoodsController extends Controller
@@ -35,7 +36,8 @@ class GoodsController extends Controller
     public function __construct()
     {
         DB::enableQueryLog();
-        set_time_limit(60);
+        set_time_limit(240);
+        ini_set('memory_limit', '512M');
     }
 
     public function post(Request $request)
@@ -485,6 +487,7 @@ class GoodsController extends Controller
 
     public function import(Request $request)
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'file' => 'required|mimes:csv,xlt,xls,xlsx',
         ]);
@@ -522,10 +525,11 @@ class GoodsController extends Controller
             }
         }
 
-        GoodsLib::updateOrCreateGoodsColors($data);
-        GoodsLib::updateOrCreateGoodsTypes($data);
+        // GoodsLib::updateOrCreateGoodsColors($data);
+        // GoodsLib::updateOrCreateGoodsTypes($data);
 
-        $supplierNumberKey = '廠商編號';
+        $supplierNumberKey = 'Supplier Number';
+
         $numbers = collect($data)->unique($supplierNumberKey)->pluck($supplierNumberKey)->filter();
         $suppliers = Supplier::whereIn('number', $numbers->toArray())->get();
 
@@ -547,16 +551,58 @@ class GoodsController extends Controller
 
         try {
             DB::transaction(function () use ($suppliers, $grouped) {
+                $user = Auth::user();
+                $goodsNumberKey = 'Goods Number';
+                $typeKey = 'Type';
+                $cupKey = 'Cup';
+                $colorKey = 'Color';
+                $wholesalePriceKey = 'Wholesale Price';
                 foreach ($grouped as $key => $value) {
                     $supplier = $suppliers->first(function ($x) use ($key) {
                         return $x->number == $key;
                     });
-                    dd($value->groupBy('貨號'));
+                    $x = $value->groupBy($goodsNumberKey);
+                    foreach ($x as $y) {
+                        foreach ($y as $z) {
+                            // dd($z);
+                            $goods = Goods::where(['name' => $z['ID']])->first();
+                            if (empty($goods) || !isset($goods)) {
+                                $goods = Goods::create([
+                                    'name' => $z['ID'],
+                                    'wholesale_price' => $z[$wholesalePriceKey],
+                                    'type' => $z[$typeKey],
+                                    'created_by' => $user->id,
+                                ]);
+                            }
+                            $sizes = config('constant.goods.sizes');
+                            $cup = $z[$cupKey];
+                            $color = $z[$colorKey];
+                            // dd($cup, $color);
+                            foreach ($sizes as $size) {
+                                $item = Item::where([
+                                    'goods_id' => $goods->id,
+                                    'size' => $size,
+                                    'cup' => $cup,
+                                    'color' => $color,
+                                ])->first();
+                                if (empty($item) || !isset($item)) {
+                                    Item::create([
+                                        'goods_id' => $goods->id,
+                                        'barcode' => Str::random(6),
+                                        'size' => $size,
+                                        'cup' => $cup,
+                                        'color' => $color,
+                                    ]);
+                                }
+                            }
+                        }
+                    }
                 }
             });
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             $response = config('response.common.fail.database');
+            $response['data'] = $e->getMessage();
             return response()->json($response, 400);
         }
 

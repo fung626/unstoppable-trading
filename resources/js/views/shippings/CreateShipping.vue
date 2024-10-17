@@ -347,7 +347,7 @@
 </template>
 <script>
 //
-import { Dialog, GoodsQuickSearch, ScannerDialog } from "@/components";
+import { Dialog, ScannerDialog } from "@/components";
 import {
     countryCodes,
     currencies,
@@ -355,11 +355,14 @@ import {
     shippingStatus,
 } from "@/constants";
 import { mapState } from "vuex";
+import AddNewShippingItemTableDialog from "./components/AddNewShippingItemTableDialog.vue";
+import GoodsQuickSearch from "./components/GoodsQuickSearch.vue";
 
 export default {
     name: "CreateShipping",
     components: {
         Dialog,
+        AddNewShippingItemTableDialog,
         GoodsQuickSearch,
         ScannerDialog,
     },

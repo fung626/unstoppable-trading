@@ -655,7 +655,7 @@ class Goods
 
     public static function updateOrCreateGoodsTypes($data)
     {
-        $key = '類別';
+        $key = 'Type';
         $collect = collect($data)->unique($key)->pluck($key)->filter();
         $result = GoodsType::whereIn('name', $collect->toArray())->get();
         foreach ($collect as $c) {
@@ -670,7 +670,7 @@ class Goods
 
     public static function updateOrCreateGoodsColors($data)
     {
-        $key = '顏色';
+        $key = 'Color';
         $collect = collect($data)->unique($key)->pluck($key)->filter();
         $result = GoodsColor::whereIn('name', $collect->toArray())->get();
         foreach ($collect as $c) {

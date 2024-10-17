@@ -33,6 +33,9 @@ class Item extends Model
         'cup',
         'color',
         'barcode',
+        'cost_price',
+        'retail_price',
+        'wholesale_price',
         'created_by',
     ];
 

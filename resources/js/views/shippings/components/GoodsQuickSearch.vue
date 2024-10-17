@@ -1,4 +1,5 @@
 <template>
+    <AddNewShippingItemTableDialog ref="dialog" />
     <div>
         <h4 class="mb-4">
             {{ `${$t("shipping.quick-search-goods")}` }}
@@ -24,9 +25,17 @@
         <CRow>
             <CCol class="text-right">
                 <CButton
-                    @click="add"
+                    @click="table"
                     color="primary"
                     class="btn-block px-4"
+                    size="sm"
+                >
+                    {{ $t("shipping.add-shipment-goods") }}
+                </CButton>
+                <CButton
+                    @click="add"
+                    color="primary"
+                    class="btn-block ms-2 px-4"
                     size="sm"
                     :disabled="autocomplete.data.loading || !value"
                 >
@@ -39,9 +48,13 @@
 
 <script>
 import { debounce } from "lodash";
+import AddNewShippingItemTableDialog from "./AddNewShippingItemTableDialog.vue";
 
 export default {
     name: "GoodsQuickSearch",
+    components: {
+        AddNewShippingItemTableDialog,
+    },
     data() {
         return {
             value: null,
@@ -88,6 +101,9 @@ export default {
                     self.autocomplete.data.loading = false;
                 });
         }, 300),
+        async table() {
+            await this.$refs.dialog.open();
+        },
         add() {
             if (this.value) {
                 //     const { id, type } = this.value;
