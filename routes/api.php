@@ -161,6 +161,7 @@ Route::prefix('goods')->middleware(['auth:api', 'scopes:goods', 'localization'])
     Route::get('details', [GoodsController::class, 'details']);
     Route::delete('delete', [GoodsController::class, 'delete']);
     Route::post('export', [GoodsController::class, 'export']);
+    Route::post('import', [GoodsController::class, 'import']);
     Route::post('quicksearch/get', [GoodsQuickSearchController::class, 'get']);
     Route::post('shippings/purchase/quicksearch/get', [ShippingPurchaseQuickSearchController::class, 'get']);
 });

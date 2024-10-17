@@ -3,6 +3,8 @@
 namespace App\Mylibs;
 
 // use App\Models\Goods\Item;
+use App\Models\Config\GoodsColor;
+use App\Models\Config\GoodsType;
 use App\Models\Goods\Goods as GoodsModels;
 use App\Models\Goods\Item;
 use App\Models\Goods\Purchase\Purchase;
@@ -648,6 +650,36 @@ class Goods
                     ['text' => __('Actions'), 'value' => "actions"],
                 ];
                 break;
+        }
+    }
+
+    public static function updateOrCreateGoodsTypes($data)
+    {
+        $key = '類別';
+        $collect = collect($data)->unique($key)->pluck($key)->filter();
+        $result = GoodsType::whereIn('name', $collect->toArray())->get();
+        foreach ($collect as $c) {
+            $found = $result->first(function ($x) use ($c) {
+                return $x->name == $c;
+            });
+            if (empty($found) || !isset($found)) {
+                GoodsType::create(['name' => $c]);
+            }
+        }
+    }
+
+    public static function updateOrCreateGoodsColors($data)
+    {
+        $key = '顏色';
+        $collect = collect($data)->unique($key)->pluck($key)->filter();
+        $result = GoodsColor::whereIn('name', $collect->toArray())->get();
+        foreach ($collect as $c) {
+            $found = $result->first(function ($x) use ($c) {
+                return $x->name == $c;
+            });
+            if (empty($found) || !isset($found)) {
+                GoodsColor::create(['name' => $c]);
+            }
         }
     }
 

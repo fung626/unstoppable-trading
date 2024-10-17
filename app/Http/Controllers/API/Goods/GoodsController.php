@@ -7,6 +7,7 @@ use App\Http\Resources\Goods\Goods as GoodsResource;
 use App\Models\Goods\Content;
 use App\Models\Goods\Goods;
 use App\Models\Goods\Item;
+use App\Models\Goods\Supplier;
 use App\Mylibs\Goods as GoodsLib;
 use App\Mylibs\MyPhpOffice;
 use Carbon\Carbon;
@@ -34,11 +35,11 @@ class GoodsController extends Controller
     public function __construct()
     {
         DB::enableQueryLog();
+        set_time_limit(60);
     }
 
     public function post(Request $request)
     {
-
         // Log::info('post');
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -480,6 +481,87 @@ class GoodsController extends Controller
         return response()
             ->download($path)
             ->deleteFileAfterSend(true);
+    }
+
+    public function import(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:csv,xlt,xls,xlsx',
+        ]);
+
+        if ($validator->fails()) {
+            // dd($validator->errors());
+            $response = config('response.common.fail.parameter');
+            $response['data'] = $validator->errors();
+            return response()->json($response, 400);
+        }
+
+        // $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load(request('file'));
+        // $exploded = explode('.', request('file')['name']);
+        // dd($exploded);
+        $extension = request('file')->extension();
+        if ('csv' == $extension) {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+        } elseif ('xls' == $extension) {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+        } else {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        }
+        // $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+        // $reader->setReadDataOnly(true);
+        $spreadsheet = $reader->load(request('file'));
+        // $array = $spreadsheet->getActiveSheet()->toArray("", false, false);
+        $sheet = $spreadsheet->getSheet($spreadsheet->getFirstSheetIndex());
+        $result = $sheet->toArray();
+        $data = [];
+        if (count($result) > 1) {
+            $columns = $result[0];
+            for ($i = 1; $i < count($result); $i++) {
+                $row = $result[$i];
+                $data[$i] = array_combine($columns, $row);
+            }
+        }
+
+        GoodsLib::updateOrCreateGoodsColors($data);
+        GoodsLib::updateOrCreateGoodsTypes($data);
+
+        $supplierNumberKey = '廠商編號';
+        $numbers = collect($data)->unique($supplierNumberKey)->pluck($supplierNumberKey)->filter();
+        $suppliers = Supplier::whereIn('number', $numbers->toArray())->get();
+
+        foreach ($numbers as $number) {
+            $found = $suppliers->first(function ($x) use ($number) {
+                return $x->number == $number;
+            });
+            if (empty($found) || !isset($found)) {
+                // dd($number);
+                Supplier::create([
+                    'number' => $number,
+                    'name' => $number,
+                    'cost_price_currency' => 'TWD',
+                ]);
+            }
+        }
+
+        $grouped = collect($data)->groupBy($supplierNumberKey);
+
+        try {
+            DB::transaction(function () use ($suppliers, $grouped) {
+                foreach ($grouped as $key => $value) {
+                    $supplier = $suppliers->first(function ($x) use ($key) {
+                        return $x->number == $key;
+                    });
+                    dd($value->groupBy('貨號'));
+                }
+            });
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            $response = config('response.common.fail.database');
+            return response()->json($response, 400);
+        }
+
+        $response = config('response.common.success');
+        return response()->json($response, 200);
     }
 
 }

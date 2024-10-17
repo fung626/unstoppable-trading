@@ -17,6 +17,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/telescope": "^5.1",
         "laravel/tinker": "^2.9",
+        "maatwebsite/excel": "^3.1",
         "phpoffice/phpword": "^1.2",
         "picqer/php-barcode-generator": "^2.4",
         "spatie/laravel-backup": "^9.0",

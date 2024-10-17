@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Config\GoodsColor;
 use App\Models\Config\UserRole;
 use App\Models\User\Permission;
 use App\Mylibs\Common;
@@ -63,7 +64,8 @@ class LoginController extends Controller
             $data['permission'] = Permission::where(['user_id' => $user->id])->first();
             $data['config'] = [
                 'cups' => Common::formatConfig(config('constant.goods.cups')),
-                'colors' => Common::formatConfig(config('constant.goods.colors')),
+                // 'colors' => Common::formatConfig(config('constant.goods.colors')),
+                'colors' => GoodsColor::get(),
                 'sizes' => Common::formatConfig(config('constant.goods.sizes')),
             ];
             $response['data'] = $data;
