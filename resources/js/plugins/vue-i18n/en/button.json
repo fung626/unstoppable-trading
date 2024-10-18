@@ -9,6 +9,7 @@
         "add": "Add",
         "delete": "Delete",
         "cancel": "Cancel",
+        "remove": "Remove",
         "clear": "Clear",
         "close": "Close",
         "export": "Export"

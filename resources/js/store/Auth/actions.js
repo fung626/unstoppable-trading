@@ -16,6 +16,9 @@ export default {
                     if (!response.data.error && "data" in response.data) {
                         let res = response.data;
                         commit(types.LOGIN_SUCCESS, res);
+                        dispatch("app-config/update", {
+                            data: res.data.config,
+                        });
                         dispatch("snackbar/show", {
                             color: "success",
                             text: t("snackbar.success.login"),

@@ -173,12 +173,7 @@
                             {{ `${$t("subtotal")}: ` }}
                         </td>
                         <td class="p-2" colspan="4">
-                            <span v-if="subtotal">
-                                {{ `$ ${(subtotal * 1).toLocaleString()}` }}
-                            </span>
-                            <span v-else>
-                                {{ `$ ${"0".toLocaleString()}` }}
-                            </span>
+                            {{ $filters.formatPrice(subtotal) }}
                         </td>
                     </tr>
                 </template>
@@ -241,14 +236,12 @@ export default {
             search: null,
             loading: false,
             items: [],
-            // page: 1,
             pageCount: 0,
             serverItemsLength: 0,
             options: {
                 page: 1,
-                itemsPerPage: 5,
+                itemsPerPage: 10,
                 sortBy: null,
-                sortDesc: false,
             },
             disableItemsPerPage: false,
             disablePagination: false,

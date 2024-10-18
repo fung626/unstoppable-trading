@@ -460,7 +460,8 @@ export default {
     mounted() {
         this.fetch();
         let client = this["goods/shipping-cart"].client;
-        if (client) {
+        // console.log(client);
+        if (client && Object.keys(client).length > 0) {
             this.client = client;
             this.number = this.client.number;
             this.name = this.client.name;

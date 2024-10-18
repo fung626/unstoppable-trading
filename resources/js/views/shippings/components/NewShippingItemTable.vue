@@ -30,13 +30,6 @@
             :loading="loading"
             @update:options="fetch"
             :mobile="mobile"
-            :footer-props="{
-                disableItemsPerPage: disableItemsPerPage,
-                disablePagination: disablePagination,
-                showFirstLastPage: true,
-                showCurrentPage: true,
-                itemsPerPageOptions: [10, 20, 50, 100],
-            }"
         >
             <template v-slot:[`item.32-S`]="{ item }">
                 <div v-if="item['32-S']">
@@ -225,7 +218,7 @@ export default {
             loading: false,
             options: {},
             sortBy: "goods.name",
-            sortDesc: false,
+
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
@@ -277,7 +270,7 @@ export default {
                 page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-                sort_desc: null,
+
                 search: search,
             };
             this.$store

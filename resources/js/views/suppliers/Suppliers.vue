@@ -34,13 +34,6 @@
             :loading="loading"
             @update:options="fetch"
             :mobile="mobile"
-            :footer-props="{
-                disableItemsPerPage: disableItemsPerPage,
-                disablePagination: disablePagination,
-                showFirstLastPage: true,
-                showCurrentPage: true,
-                itemsPerPageOptions: [10, 20, 50, 100],
-            }"
         >
             <template v-slot:loading>
                 <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
@@ -94,9 +87,8 @@ export default {
             serverItemsLength: 0,
             options: {
                 page: 1,
-                itemsPerPage: 5,
+                itemsPerPage: 10,
                 sortBy: null,
-                sortDesc: false,
             },
             headers: [
                 { title: this.$t("number"), value: "number" },
@@ -142,7 +134,7 @@ export default {
                 page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-                sort_desc: null,
+
                 search: search,
             };
             this.$store
@@ -204,7 +196,7 @@ export default {
                         let self = this;
                         self.loading = true;
                         this.$store
-                            .dispatch("goods/suppliers/delete", { id: id })
+                            .dispatch("goods/suppliers/delete", { id: item.id })
                             .then((response) => {
                                 self.loading = false;
                                 self.fetch({ ...this.options });

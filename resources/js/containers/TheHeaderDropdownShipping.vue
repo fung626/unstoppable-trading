@@ -63,6 +63,12 @@ export default {
         show() {
             return this.data.length > 0 ? true : false;
         },
+        // remove(item) {
+        //     console.log(item);
+        //     this.$store.dispatch("goods/shipping-cart/remove", {
+        //         data: { id: item.id },
+        //     });
+        // },
     },
 };
 </script>

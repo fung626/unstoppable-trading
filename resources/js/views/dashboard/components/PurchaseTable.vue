@@ -158,7 +158,7 @@ export default {
                 page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-                sort_desc: null,
+
                 search: search,
             };
             this.$store

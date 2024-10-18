@@ -112,9 +112,8 @@ export default {
             serverItemsLength: 0,
             options: {
                 page: 1,
-                itemsPerPage: 5,
+                itemsPerPage: 10,
                 sortBy: "supplier.name",
-                sortDesc: false,
             },
             disableItemsPerPage: false,
             disablePagination: false,
@@ -158,7 +157,7 @@ export default {
                 page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-                sort_desc: null,
+
                 search: search,
             };
             this.$store

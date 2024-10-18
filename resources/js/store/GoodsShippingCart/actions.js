@@ -18,6 +18,9 @@ export default {
     [`${name}/update-item-unit`]({ commit, dispatch }, payload) {
         commit(types.UPDATE_SHIPPING_CART_ITEM_UNIT, payload);
     },
+    [`${name}/remove`]({ commit, dispatch }, payload) {
+        commit(types.REMOVE_SHIPPING_CART_ITEM, payload);
+    },
     [`${name}/clear`]({ commit, dispatch }) {
         commit(types.CLEAR_SHIPPING_CART_ITEM);
     },

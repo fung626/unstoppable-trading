@@ -1,5 +1,5 @@
 export default {
-    client: {},
+    client: null,
     items: [],
     formatted: [],
 };

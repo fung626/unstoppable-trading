@@ -1,4 +1,4 @@
-const name = "auth";
+// const name = "auth";
 
 const ADMIN = "ADMIN";
 const EMPLOYEE = "EMPLOYEE";

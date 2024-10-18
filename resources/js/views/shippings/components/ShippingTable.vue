@@ -31,15 +31,10 @@
             :items-length="serverItemsLength"
             :search="search"
             :loading="loading"
-            @update:options="fetch"
+            :multi-sort="true"
+            :sort-by="sortBy"
             :mobile="mobile"
-            :footer-props="{
-                disableItemsPerPage: disableItemsPerPage,
-                disablePagination: disablePagination,
-                showFirstLastPage: true,
-                showCurrentPage: true,
-                itemsPerPageOptions: [10, 20, 50, 100],
-            }"
+            @update:options="fetch"
         >
             <template v-slot:loading>
                 <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
@@ -107,9 +102,8 @@ export default {
             serverItemsLength: 0,
             options: {
                 page: 1,
-                itemsPerPage: 5,
-                sortBy: null,
-                sortDesc: false,
+                itemsPerPage: 10,
+                sortBy: [{ key: "updated_at", order: "desc" }],
             },
             disableItemsPerPage: false,
             disablePagination: false,
@@ -117,18 +111,22 @@ export default {
                 {
                     title: this.$t("number"),
                     value: "generated_id",
+                    sortable: true,
                 },
                 {
                     title: `${this.$t("client")}${this.$t("number")}`,
                     value: "client_number",
+                    sortable: true,
                 },
                 {
                     title: `${this.$t("client")}${this.$t("name")}`,
                     value: "client_name",
+                    sortable: true,
                 },
                 {
                     title: `${this.$t("client")}${this.$t("contact")}`,
                     value: "client_contact",
+                    sortable: true,
                 },
                 {
                     title: `${this.$t("client")}${this.$t("phone")}`,
@@ -138,6 +136,7 @@ export default {
                 {
                     title: `${this.$t("client")}${this.$t("address")}`,
                     value: "client_address",
+                    sortable: true,
                 },
                 {
                     title: `${this.$t("total-unit")}`,
@@ -159,7 +158,11 @@ export default {
                     value: "status",
                     sortable: false,
                 },
-                { title: this.$t("updatedat"), value: "updated_at" },
+                {
+                    title: this.$t("updatedat"),
+                    value: "updated_at",
+                    sortable: true,
+                },
                 {
                     title: `${this.$t("status")}${this.$t("actions")}`,
                     value: "status_actions",
@@ -194,7 +197,6 @@ export default {
                 page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-                sort_desc: null,
                 search: search,
             };
             this.$store

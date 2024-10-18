@@ -21,7 +21,6 @@ use Validator;
 class ShippingController extends Controller
 {
     //
-
     protected $withs = [
         'shippingStocks',
         'shippingStocks.stock',
@@ -110,6 +109,7 @@ class ShippingController extends Controller
     public function get(Request $request)
     {
         $query = Shipping::with($this->withs)
+            ->select(['*', DB::raw("concat(client_number, '-', RIGHT(100000000 + number, 8)) as generated_id")])
             ->when($request->filled(['id']), function ($query) {
                 $id = trim(request('id'));
                 return $query->where(function ($query) use ($id) {

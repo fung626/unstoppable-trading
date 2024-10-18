@@ -8,9 +8,7 @@
             </CRow>
             <CRow>
                 <CCol>
-                    <CButton color="primary" @click="fetch">
-                        Update
-                    </CButton>
+                    <CButton color="primary" @click="fetch"> Update </CButton>
                 </CCol>
             </CRow>
         </CCol>
@@ -27,7 +25,7 @@
                 :hide-default-footer="true"
                 :footer-props="{
                     disableItemsPerPage: disableItemsPerPage,
-                    disablePagination: disablePagination
+                    disablePagination: disablePagination,
                 }"
             >
                 <template v-slot:[`item.date`]="{ item }">
@@ -53,7 +51,7 @@
 export default {
     name: "BalanceSummary",
     props: {
-        id: null
+        id: null,
     },
     mounted() {
         this.fetch();
@@ -65,7 +63,7 @@ export default {
             loading: false,
             options: {},
             sortBy: "date",
-            sortDesc: false,
+
             disableItemsPerPage: true,
             disablePagination: true,
             headers: [
@@ -74,14 +72,14 @@ export default {
                 { text: "Bank", value: "bank_account.bank" },
                 {
                     text: "Bank Account Type",
-                    value: "bank_account.account_type"
+                    value: "bank_account.account_type",
                 },
                 { text: "Balance", value: "balance" },
-                { text: "Remark", value: "remark" }
+                { text: "Remark", value: "remark" },
             ],
             sum: 0,
             dates: [],
-            sortedDates: []
+            sortedDates: [],
         };
     },
     methods: {
@@ -100,20 +98,20 @@ export default {
                 sort_desc: sortDesc,
                 user_id: self.$props.id,
                 from_date: sortedDates.length > 1 ? sortedDates[0] : null,
-                to_date: sortedDates.length > 1 ? sortedDates[1] : null
+                to_date: sortedDates.length > 1 ? sortedDates[1] : null,
             };
             this.$store
                 .dispatch("company/bankaccount/balance/summary/get", data)
-                .then(response => {
+                .then((response) => {
                     self.items = response.data.data;
                     self.serverItemsLength = response.data.total;
                     self.sum = response.data.sum;
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
-        }
-    }
+        },
+    },
 };
 </script>

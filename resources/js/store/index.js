@@ -2,6 +2,7 @@
 import SecureLS from "secure-ls";
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
+import AppConfig from "./AppConfig";
 import Auth from "./Auth";
 import Categories from "./Categories";
 import ClientMonthlyStatements from "./ClientMonthlyStatements";
@@ -44,7 +45,6 @@ import UserEmployee from "./UserEmployee";
 import UserEvent from "./UserEvent";
 import UserPermission from "./UserPermission";
 import Warehouses from "./Warehouses";
-// Load store modules dynamically.
 
 const ls = new SecureLS({ isCompression: false });
 
@@ -52,8 +52,9 @@ export default createStore({
     strict: process.env.NODE_ENV !== "production",
     modules: {
         // API
-        dashboard: Dashboard,
+        ["app-config"]: AppConfig,
         auth: Auth,
+        dashboard: Dashboard,
         ["exchange-rates"]: ExchangeRate,
         profile: Profile,
         user: User,

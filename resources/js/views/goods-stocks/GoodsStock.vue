@@ -28,31 +28,37 @@
             :items-length="serverItemsLength"
             :search="search"
             :loading="loading"
+            :items-per-page="options.itemsPerPage"
             @update:options="fetch"
             :mobile="mobile"
-            :footer-props="{
-                disableItemsPerPage: disableItemsPerPage,
-                disablePagination: disablePagination,
-                showFirstLastPage: true,
-                showCurrentPage: true,
-                itemsPerPageOptions: [10, 20, 50, 100],
-            }"
         >
             <template v-slot:loading>
                 <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
             </template>
-            <template v-slot:[`item.32-S`]="{ item }">
-                <div v-if="item['32-S']">
+            <template
+                v-for="x of [
+                    '32-S',
+                    '34-M',
+                    '36-L',
+                    '38-XL',
+                    '40-Q',
+                    '42-EQ',
+                    '44-Free',
+                ]"
+                v-slot:[`item.${x}`]="{ item }"
+                :key="x"
+            >
+                <div v-if="item[x]">
                     <v-tooltip bottom>
                         <template v-slot:activator="{ props }">
                             <span v-bind="props">
-                                {{ item["32-S"].stock_unit }}
+                                {{ item[x].stock_unit }}
                             </span>
                         </template>
                         <span>
                             <vue-barcode
-                                v-if="item['32-S'].barcode"
-                                :value="item['32-S'].barcode"
+                                v-if="item[x].barcode"
+                                :value="item[x].barcode"
                                 :options="{ format: 'CODE39', height: 32 }"
                             ></vue-barcode>
                         </span>
@@ -60,121 +66,36 @@
                 </div>
                 <div v-else>－</div>
             </template>
-            <template v-slot:[`item.34-M`]="{ item }">
-                <div v-if="item['34-M']">
-                    <v-tooltip bottom>
-                        <template v-slot:activator="{ props }">
-                            <span v-bind="props" v-on="on">
-                                {{ item["34-M"].stock_unit }}
-                            </span>
-                        </template>
-                        <span>
-                            <vue-barcode
-                                v-if="item['34-M'].barcode"
-                                :value="item['34-M'].barcode"
-                                :options="{ format: 'CODE39', height: 32 }"
-                            ></vue-barcode>
+            <template v-if="!loading" v-slot:[`body.append`]>
+                <tr>
+                    <td v-for="i in [...Array(10)]" :key="i"></td>
+                    <td class="p-2 text-right" colspan="2">
+                        {{ `${$t("total-unit")}:` }}
+                    </td>
+                    <td class="p-2" colspan="4">
+                        <span v-if="totalunit">
+                            {{ `${(totalunit * 1).toLocaleString()}` }}
                         </span>
-                    </v-tooltip>
-                </div>
-                <div v-else>－</div>
-            </template>
-            <template v-slot:[`item.36-L`]="{ item }">
-                <div v-if="item['36-L']">
-                    <v-tooltip bottom>
-                        <template v-slot:activator="{ props }">
-                            <span v-bind="props" v-on="on">
-                                {{ item["36-L"].stock_unit }}
-                            </span>
-                        </template>
-                        <span>
-                            <vue-barcode
-                                v-if="item['36-L'].barcode"
-                                :value="item['36-L'].barcode"
-                                :options="{ format: 'CODE39', height: 32 }"
-                            ></vue-barcode>
+                        <span v-else>
+                            {{ "0".toLocaleString() }}
                         </span>
-                    </v-tooltip>
-                </div>
-                <div v-else>－</div>
-            </template>
-            <template v-slot:[`item.38-XL`]="{ item }">
-                <div v-if="item['38-XL']">
-                    <v-tooltip bottom>
-                        <template v-slot:activator="{ props }">
-                            <span v-bind="props" v-on="on">
-                                {{ item["38-XL"].stock_unit }}
-                            </span>
-                        </template>
-                        <span>
-                            <vue-barcode
-                                v-if="item['38-XL'].barcode"
-                                :value="item['38-XL'].barcode"
-                                :options="{ format: 'CODE39', height: 32 }"
-                            ></vue-barcode>
+                    </td>
+                </tr>
+                <tr>
+                    <td v-for="i in [...Array(10)]" :key="i"></td>
+                    <td class="p-2 text-right" colspan="2">
+                        {{ `${$t("subtotal")}: ` }}
+                    </td>
+                    <td class="p-2" colspan="4">
+                        <span v-if="subtotal">
+                            {{ `$ ${(subtotal * 1).toLocaleString()}` }}
                         </span>
-                    </v-tooltip>
-                </div>
-                <div v-else>－</div>
-            </template>
-            <template v-slot:[`item.40-Q`]="{ item }">
-                <div v-if="item['40-Q']">
-                    <v-tooltip bottom>
-                        <template v-slot:activator="{ props }">
-                            <span v-bind="props" v-on="on">
-                                {{ item["40-Q"].stock_unit }}
-                            </span>
-                        </template>
-                        <span>
-                            <vue-barcode
-                                v-if="item['40-Q'].barcode"
-                                :value="item['40-Q'].barcode"
-                                :options="{ format: 'CODE39', height: 32 }"
-                            ></vue-barcode>
+                        <span v-else>
+                            {{ `$ ${"0".toLocaleString()}` }}
                         </span>
-                    </v-tooltip>
-                </div>
-                <div v-else>－</div>
+                    </td>
+                </tr>
             </template>
-            <template v-slot:[`item.42-EQ`]="{ item }">
-                <div v-if="item['42-EQ']">
-                    <v-tooltip bottom>
-                        <template v-slot:activator="{ props }">
-                            <span v-bind="props" v-on="on">
-                                {{ item["42-EQ"].stock_unit }}
-                            </span>
-                        </template>
-                        <span>
-                            <vue-barcode
-                                v-if="item['42-EQ'].barcode"
-                                :value="item['42-EQ'].barcode"
-                                :options="{ format: 'CODE39', height: 32 }"
-                            ></vue-barcode>
-                        </span>
-                    </v-tooltip>
-                </div>
-                <div v-else>－</div>
-            </template>
-            <template v-slot:[`item.44-Free`]="{ item }">
-                <div v-if="item['44-Free']">
-                    <v-tooltip bottom>
-                        <template v-slot:activator="{ props }">
-                            <span v-bind="props" v-on="on">
-                                {{ item["44-Free"].stock_unit }}
-                            </span>
-                        </template>
-                        <span>
-                            <vue-barcode
-                                v-if="item['44-Free'].barcode"
-                                :value="item['44-Free'].barcode"
-                                :options="{ format: 'CODE39', height: 32 }"
-                            ></vue-barcode>
-                        </span>
-                    </v-tooltip>
-                </div>
-                <div v-else>－</div>
-            </template>
-
             <template v-slot:[`item.subtotal`]="{ item }">
                 <div v-if="item.subtotal">
                     {{ $filters.formatPrice(item.subtotal) }}
@@ -208,6 +129,8 @@ export default {
     },
     data() {
         return {
+            totalunit: 0,
+            subtotal: 0,
             search: null,
             loading: false,
             mobile: window.innerWidth < 769,
@@ -217,17 +140,16 @@ export default {
             serverItemsLength: 0,
             options: {
                 page: 1,
-                itemsPerPage: 5,
-                sortBy: null,
-                sortDesc: false,
+                itemsPerPage: 10,
+                sortBy: [{ key: "goods.name", order: "desc" }],
             },
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { title: this.$t("name"), value: "goods.name" },
-                { title: this.$t("type"), value: "goods.type" },
-                { title: this.$t("cup"), value: "cup" },
-                { title: this.$t("color"), value: "color" },
+                { title: this.$t("name"), value: "goods.name", sortable: true },
+                { title: this.$t("type"), value: "goods.type", sortable: true },
+                { title: this.$t("cup"), value: "cup", sortable: true },
+                { title: this.$t("color"), value: "color", sortable: true },
                 { title: "32-S", value: "32-S", sortable: false },
                 { title: "34-M", value: "34-M", sortable: false },
                 { title: "36-L", value: "36-L", sortable: false },
@@ -273,7 +195,7 @@ export default {
                 page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-                sort_desc: null,
+
                 search: search,
             };
             this.$store
@@ -284,6 +206,12 @@ export default {
                     self.serverItemsLength = res.total;
                     self.pageCount = res.last_page;
                     self.page = res.current_page;
+                    self.totalunit = self.items.reduce(function (acc, obj) {
+                        return acc + obj.total_unit;
+                    }, 0);
+                    self.subtotal = self.items.reduce(function (acc, obj) {
+                        return acc + obj.subtotal;
+                    }, 0);
                     self.loading = false;
                 })
                 .catch((error) => {

@@ -27,11 +27,14 @@ export default {
     },
     [types.REMOVE_SHIPPING_CART_ITEM](state, { data }) {
         let index = state.items.findIndex((obj) => obj.id === data.id);
+        if (index > -1) {
+            state.items.splice(index, 1);
+        }
     },
     [types.CLEAR_SHIPPING_CART_ITEM](state) {
         state.items = [];
         state.formatted = [];
-        state.client = {};
+        state.client = null;
     },
     [types.FORMAT_SHIPPING_SUCCESS](state, { data }) {
         state.formatted = data;

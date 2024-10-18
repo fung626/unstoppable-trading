@@ -225,7 +225,6 @@ export default {
                 page: 1,
                 itemsPerPage: 25,
                 sortBy: null,
-                sortDesc: false,
             },
             disableItemsPerPage: false,
             disablePagination: false,
@@ -273,7 +272,7 @@ export default {
                 page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-                sort_desc: null,
+
                 search: search,
             };
             this.$store

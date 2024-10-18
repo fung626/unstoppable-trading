@@ -378,6 +378,7 @@ export default {
                         },
                         { title: this.$t("total-unit"), value: "total_unit" },
                         { title: `${this.$t("cost")}($)`, value: "cost" },
+                        { title: this.$t("actions"), value: "actions" },
                     ],
                 },
             },
