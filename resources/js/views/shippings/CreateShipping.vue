@@ -2,6 +2,7 @@
     <div>
         <Dialog ref="dialog" />
         <ScannerDialog ref="scannerDialog" />
+        <AddNewShippingItemsTableDialog ref="newShippingItemsTableDialog" />
         <CCard>
             <v-progress-linear
                 :active="fetchLoading.form"
@@ -14,31 +15,56 @@
                         <h4>{{ $t("create") }}{{ $t("shippings.title") }}</h4>
                     </CCol>
                     <CCol md="3" sm="3" class="text-right">
-                        <CButton
-                            color="primary"
-                            size="sm"
-                            v-on:click="scanner"
-                            :disabled="fetchLoading.form || fetchLoading.form"
-                        >
-                            <CIcon name="cil-barcode" size="sm" />
-                        </CButton>
+                        <CButtonGroup role="group">
+                            <CButton
+                                v-on:click="showNewShippingItemsTable"
+                                class="d-flex align-items-center justify-content-center"
+                                color="primary"
+                                size="sm"
+                                :disabled="
+                                    fetchLoading.form || fetchLoading.form
+                                "
+                            >
+                                <CIcon
+                                    class="mx-1"
+                                    name="cil-playlist-add"
+                                    size="sm"
+                                />
+                                {{ $t("shipping.add-shipment-goods") }}
+                            </CButton>
+                            <CButton
+                                v-on:click="scanner"
+                                class="d-flex align-items-center justify-content-center"
+                                color="primary"
+                                size="sm"
+                                :disabled="
+                                    fetchLoading.form || fetchLoading.form
+                                "
+                            >
+                                <CIcon
+                                    class="mx-1"
+                                    name="cil-barcode"
+                                    size="sm"
+                                />
+                                {{ $t("scanner") }}
+                            </CButton>
+                        </CButtonGroup>
                     </CCol>
                 </CRow>
                 <hr />
                 <form>
                     <v-autocomplete
                         v-model="client"
-                        v-model:search="search"
+                        v-model:search="autocomplete.client.search"
+                        :label="$t('client')"
                         :items="autocomplete.client.items"
                         :loading="autocomplete.client.loading"
                         required
                         outlined
                         dense
-                        hide-no-data
                         hide-selected
-                        item-title="name"
+                        item-title="title"
                         item-value="id"
-                        :label="$t('client')"
                         return-object
                         :error="errors['client'] ? true : false"
                         :error-messages="errors['client']"
@@ -148,8 +174,7 @@
                         :error="errors['currency'] ? true : false"
                         :error-messages="errors['currency']"
                     ></v-select>
-                    <hr />
-                    <GoodsQuickSearch />
+
                     <hr />
                     <CRow class="p-2">
                         <CCol>
@@ -180,98 +205,48 @@
                                 type="table-row@10"
                             ></v-skeleton-loader>
                         </template>
-                        <template v-slot:[`item.32-S`]="{ index, item }">
-                            <div :style="{ width: '54px' }">
-                                <input
-                                    v-if="item['32-S']"
-                                    :style="{ width: '54px' }"
-                                    v-model="item['32-S'].unit"
-                                    type="number"
-                                    :min="0"
-                                    @change="change(index, item)"
-                                />
+                        <template
+                            v-for="x of [
+                                '32-S',
+                                '34-M',
+                                '36-L',
+                                '38-XL',
+                                '40-Q',
+                                '42-EQ',
+                                '44-Free',
+                            ]"
+                            v-slot:[`item.${x}`]="{ index, item }"
+                        >
+                            <div
+                                class="d-flex align-items-center justify-items-center"
+                            >
+                                <div
+                                    v-if="item[x] && item[x].stock_unit > 0"
+                                    :style="{ width: '94px' }"
+                                >
+                                    <CRow>
+                                        <CCol :sm="8">
+                                            <input
+                                                v-model="item[x].unit"
+                                                type="number"
+                                                :min="0"
+                                                :max="item[x].stock_unit"
+                                                @change="change(index, item)"
+                                            />
+                                        </CCol>
+                                        <CCol :sm="4">
+                                            <strong
+                                                class="nowrap"
+                                                :style="{ width: '40%' }"
+                                            >
+                                                {{ `／${item[x].stock_unit}` }}
+                                            </strong>
+                                        </CCol>
+                                    </CRow>
+                                </div>
                                 <span v-else>－</span>
                             </div>
                         </template>
-                        <template v-slot:[`item.34-M`]="{ index, item }">
-                            <div :style="{ width: '54px' }">
-                                <input
-                                    v-if="item['34-M']"
-                                    :style="{ width: '54px' }"
-                                    v-model="item['34-M'].unit"
-                                    type="number"
-                                    :min="0"
-                                    @change="change(index, item)"
-                                />
-                                <span v-else>－</span>
-                            </div>
-                        </template>
-                        <template v-slot:[`item.36-L`]="{ index, item }">
-                            <div :style="{ width: '54px' }">
-                                <input
-                                    v-if="item['36-L']"
-                                    :style="{ width: '54px' }"
-                                    v-model="item['36-L'].unit"
-                                    type="number"
-                                    :min="0"
-                                    @change="change(index, item)"
-                                />
-                                <span v-else>－</span>
-                            </div>
-                        </template>
-                        <template v-slot:[`item.38-XL`]="{ index, item }">
-                            <div :style="{ width: '54px' }">
-                                <input
-                                    v-if="item['38-XL']"
-                                    :style="{ width: '54px' }"
-                                    v-model="item['38-XL'].unit"
-                                    type="number"
-                                    :min="0"
-                                    @change="change(index, item)"
-                                />
-                                <span v-else>－</span>
-                            </div>
-                        </template>
-                        <template v-slot:[`item.40-Q`]="{ index, item }">
-                            <div :style="{ width: '54px' }">
-                                <input
-                                    v-if="item['40-Q']"
-                                    :style="{ width: '54px' }"
-                                    v-model="item['40-Q'].unit"
-                                    type="number"
-                                    :min="0"
-                                    @change="change(index, item)"
-                                />
-                                <span v-else>－</span>
-                            </div>
-                        </template>
-                        <template v-slot:[`item.42-EQ`]="{ index, item }">
-                            <div :style="{ width: '54px' }">
-                                <input
-                                    v-if="item['42-EQ']"
-                                    :style="{ width: '54px' }"
-                                    v-model="item['42-EQ'].unit"
-                                    type="number"
-                                    :min="0"
-                                    @change="change(index, item)"
-                                />
-                                <span v-else>－</span>
-                            </div>
-                        </template>
-                        <template v-slot:[`item.44-Free`]="{ index, item }">
-                            <div :style="{ width: '54px' }">
-                                <input
-                                    v-if="item['44-Free']"
-                                    :style="{ width: '54px' }"
-                                    v-model="item['44-Free'].unit"
-                                    type="number"
-                                    :min="0"
-                                    @change="change(index, item)"
-                                />
-                                <span v-else>－</span>
-                            </div>
-                        </template>
-
                         <template v-slot:[`item.unit_price`]="{ item }">
                             <span v-if="item.unit_price">
                                 {{
@@ -347,7 +322,11 @@
 </template>
 <script>
 //
-import { Dialog, ScannerDialog } from "@/components";
+import {
+    AddNewShippingItemsTableDialog,
+    Dialog,
+    ScannerDialog,
+} from "@/components";
 import {
     countryCodes,
     currencies,
@@ -355,19 +334,19 @@ import {
     shippingStatus,
 } from "@/constants";
 import { mapState } from "vuex";
-import AddNewShippingItemTableDialog from "./components/AddNewShippingItemTableDialog.vue";
-import GoodsQuickSearch from "./components/GoodsQuickSearch.vue";
+import QuickAddNewShippingItem from "./components/QuickAddNewShippingItem.vue";
 
 export default {
     name: "CreateShipping",
     components: {
         Dialog,
-        AddNewShippingItemTableDialog,
-        GoodsQuickSearch,
+        AddNewShippingItemsTableDialog,
+        QuickAddNewShippingItem,
         ScannerDialog,
     },
     computed: {
         ...mapState(["goods/create-shipping-config"]),
+        ...mapState(["goods/shipping-cart"]),
         ...mapState(["goods/shippings"]),
         config() {
             let data = this["goods/create-shipping-config"].data;
@@ -376,8 +355,8 @@ export default {
             }
             return {};
         },
-        shippingData() {
-            return this["goods/shippings"].shippingData;
+        shippingItems() {
+            return this["goods/shipping-cart"].items;
         },
     },
     data() {
@@ -403,6 +382,7 @@ export default {
             status: "PENDING",
             autocomplete: {
                 client: {
+                    search: null,
                     items: [],
                     loading: false,
                 },
@@ -442,8 +422,11 @@ export default {
         };
     },
     watch: {
-        shippingData() {
-            this.fetch();
+        shippingItems: {
+            handler(val) {
+                this.fetch();
+            },
+            deep: true,
         },
         client() {
             // console.log(this.client);
@@ -471,7 +454,7 @@ export default {
             self.fetchLoading.table = true;
             self.autocomplete.client.loading = true;
             let data = {
-                items: this.shippingData,
+                items: this.shippingItems,
             };
             this.$store
                 .dispatch("goods/create-shipping-config/get", data)
@@ -514,7 +497,7 @@ export default {
                 .dispatch("goods/shippings/create", data)
                 .then((response) => {
                     self.loading = false;
-                    self.$store.dispatch("goods/shippings/clear");
+                    self.$store.dispatch("goods/shipping-cart/clear");
                     self.$router.push({ path: "/shippings" });
                 })
                 .catch((error) => {
@@ -554,6 +537,11 @@ export default {
         async scanner() {
             await this.$refs.scannerDialog.open("Shipping");
         },
+        async showNewShippingItemsTable() {
+            if (await this.$refs.newShippingItemsTableDialog.open()) {
+                this.fetch();
+            }
+        },
     },
 };
 </script>
@@ -563,6 +551,9 @@ export default {
     max-width: 124px;
     min-width: 124px;
 } */
+.nowrap {
+    white-space: nowrap;
+}
 .v-select {
     font-size: 1em;
     font-weight: 100;

@@ -1,3 +1,4 @@
+import AddNewShippingItemsTableDialog from "./AddNewShippingItemsTableDialog.vue";
 import CreateShippingDialog from "./CreateShippingDialog.vue";
 import Dialog from "./Dialog.vue";
 import DutyCalendar from "./DutyCalendar.vue";
@@ -10,6 +11,7 @@ import StockCalendar from "./StockCalendar.vue";
 import TextFieldColorPicker from "./TextFieldColorPicker.vue";
 
 export {
+    AddNewShippingItemsTableDialog,
     CreateShippingDialog,
     Dialog,
     DutyCalendar,

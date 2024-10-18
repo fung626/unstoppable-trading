@@ -22,6 +22,7 @@ onMounted(() => {
 </script>
 
 <template>
+    <AddNewShippingItemsTableDialog ref="newShippingItemsTableDialog" />
     <CHeader position="sticky" :class="headerClassNames">
         <CContainer class="border-bottom px-4" fluid>
             <CHeaderToggler
@@ -42,12 +43,24 @@ onMounted(() => {
                 </CNavItem>
             </CHeaderNav> -->
             <CHeaderNav class="ms-auto">
-                <!-- <CNavItem>
-                    <CNavLink href="#">
-                        <CIcon icon="cil-bell" size="lg" />
+                <CNavItem>
+                    <CNavLink
+                        v-on:click="showNewShippingItemsTable"
+                        role="button"
+                    >
+                        <div
+                            class="d-flex align-items-center justify-content-center"
+                        >
+                            <CIcon
+                                class="me-2"
+                                icon="cil-playlist-add"
+                                size="lg"
+                            />
+                            {{ $t("shipping.add-shipment-goods") }}
+                        </div>
                     </CNavLink>
                 </CNavItem>
-                <CNavItem>
+                <!-- <CNavItem>
                     <CNavLink href="#">
                         <CIcon icon="cil-list" size="lg" />
                     </CNavLink>
@@ -141,6 +154,7 @@ onMounted(() => {
 </template>
 
 <script>
+import { AddNewShippingItemsTableDialog } from "@/components";
 import { mapState } from "vuex";
 import TheHeaderDropdownAccnt from "./TheHeaderDropdownAccnt.vue";
 import TheHeaderDropdownShipping from "./TheHeaderDropdownShipping.vue";
@@ -149,6 +163,7 @@ export default {
     components: {
         TheHeaderDropdownAccnt,
         TheHeaderDropdownShipping,
+        AddNewShippingItemsTableDialog,
     },
     computed: {
         ...mapState(["ui/sidebar"]),
@@ -156,6 +171,9 @@ export default {
     methods: {
         toggleVisible() {
             this.$store.dispatch("ui/sidebar/toggleVisible");
+        },
+        async showNewShippingItemsTable() {
+            await this.$refs.newShippingItemsTableDialog.open();
         },
     },
 };

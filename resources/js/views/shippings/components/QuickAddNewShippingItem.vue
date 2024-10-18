@@ -30,7 +30,7 @@
                     class="btn-block px-4"
                     size="sm"
                 >
-                    {{ $t("shipping.add-shipment-goods") }}
+                    {{ $t("shipping.browse-stock-table") }}
                 </CButton>
                 <CButton
                     @click="add"
@@ -48,10 +48,10 @@
 
 <script>
 import { debounce } from "lodash";
-import AddNewShippingItemTableDialog from "./AddNewShippingItemTableDialog.vue";
+import AddNewShippingItemTableDialog from "../../../components/AddNewShippingItemsTableDialog.vue";
 
 export default {
-    name: "GoodsQuickSearch",
+    name: "QuickAddNewShippingItem",
     components: {
         AddNewShippingItemTableDialog,
     },
@@ -102,6 +102,7 @@ export default {
                 });
         }, 300),
         async table() {
+            console.log("table");
             await this.$refs.dialog.open();
         },
         add() {

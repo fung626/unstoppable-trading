@@ -2,6 +2,7 @@
     <CModal
         :visible="dialog"
         :centered="true"
+        fullscreen="sm"
         size="lg"
         @close="() => (dialog = false)"
     >
@@ -81,8 +82,8 @@ export default {
     name: "ScannerDialog",
     computed: {
         ...mapState(["goods/shippings"]),
-        shippingData() {
-            return this["goods/shippings"].shippingData;
+        shippingItems() {
+            return this["goods/shippings"].shippingItems;
         },
     },
     components: {
@@ -149,7 +150,7 @@ export default {
             this.type = type;
             switch (type) {
                 case "Shipping":
-                    let xData = this.shippingData;
+                    let xData = this.shippingItems;
                     let yData = this.data;
                     for (const x of xData) {
                         if (x.unit && x.id === yData.id) {
@@ -188,7 +189,7 @@ export default {
             if (this.data) {
                 switch (this.type) {
                     case "Shipping":
-                        this.$store.dispatch("goods/shippings/add", {
+                        this.$store.dispatch("goods/shipping-cart/add", {
                             data: { ...this.data, unit: this.unit },
                         });
                         break;

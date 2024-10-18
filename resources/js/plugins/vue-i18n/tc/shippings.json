@@ -4,6 +4,7 @@
     },
     "shipping": {
         "invoice": "出貨單",
+        "cart": "出貨",
         "monthly-statement": "月結單",
         "number-of-shipments": "出貨次數",
         "total-number-of-shipments": "總出貨次數",
@@ -12,9 +13,10 @@
         "export-packing": "匯出包裝",
         "export-invoice": "匯出發票",
         "export-invoice-and-hide-prices": "匯出隱藏價錢發票",
-        "add-shipment-goods": "新增出貨貨物",
+        "add-shipment-goods": "新增出貨",
         "quick-search-goods": "快速搜尋商品",
         "quick-search-and-add-goods": "快速搜尋並出貨",
+        "browse-stock-table": "瀏覽庫存表",
         "period": {
             "months": "個月",
             "years": "年"

@@ -53,8 +53,8 @@ export default {
     name: "ShippingDialog",
     computed: {
         ...mapState(["goods/shippings"]),
-        shippingData() {
-            return this["goods/shippings"].shippingData;
+        shippingItems() {
+            return this["goods/shippings"].shippingItems;
         },
     },
     data() {
@@ -80,7 +80,7 @@ export default {
             this.title = title;
             this.message = message;
             this.item = item;
-            let temp = this.shippingData.find((obj) => obj.id === item.id);
+            let temp = this.shippingItems.find((obj) => obj.id === item.id);
             this.unit = temp ? temp.unit : 0;
             return new Promise((resolve, reject) => {
                 this.resolve = resolve;
@@ -88,7 +88,7 @@ export default {
             });
         },
         confirm() {
-            this.$store.dispatch("goods/shippings/add", {
+            this.$store.dispatch("goods/shipping-cart/add", {
                 data: { ...this.item, unit: this.unit },
             });
             this.resolve(true);

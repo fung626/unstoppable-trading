@@ -2,10 +2,17 @@
     <CHeaderNav v-if="show()">
         <CDropdown variant="nav-item" placement="bottom-end">
             <CDropdownToggle :caret="false">
-                <CIcon name="cil-truck" />
-                <CBadge color="danger" position="top-end" shape="rounded-pill">
-                    {{ data.length > 99 ? "99+" : data.length }}
-                </CBadge>
+                <div class="d-flex align-items-center justify-content-center">
+                    <CIcon class="me-2" name="cil-truck" />
+                    <CBadge
+                        color="danger"
+                        position="top-end"
+                        shape="rounded-pill"
+                    >
+                        {{ data.length > 99 ? "99+" : data.length }}
+                    </CBadge>
+                    {{ $t("shipping.cart") }}
+                </div>
             </CDropdownToggle>
             <CDropdownMenu class="pt-0">
                 <CDropdownHeader
@@ -46,12 +53,12 @@ export default {
     computed: {
         ...mapState(["goods/shippings"]),
         data() {
-            return this["goods/shippings"].shippingData;
+            return this["goods/shippings"].shippingItems;
         },
     },
     methods: {
         clear() {
-            this.$store.dispatch("goods/shippings/clear");
+            this.$store.dispatch("goods/shipping-cart/clear");
         },
         show() {
             return this.data.length > 0 ? true : false;

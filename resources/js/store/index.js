@@ -16,6 +16,7 @@ import GoodsQuickSearch from "./GoodsQuickSearch";
 import GoodsShipping from "./GoodsShipping";
 import GoodsShippingAlteration from "./GoodsShippingAlteration";
 import GoodsShipAvailableShippingItems from "./GoodsShippingAvailableShippingItems";
+import GoodsShippingCart from "./GoodsShippingCart";
 import GoodsShippingInvoice from "./GoodsShippingInvoice";
 import GoodsShipingMailer from "./GoodsShippingMailer";
 import GoodsShippingPacking from "./GoodsShippingPacking";
@@ -66,6 +67,7 @@ export default createStore({
         ["goods/items"]: GoodsItem,
         ["goods/quicksearch"]: GoodsQuickSearch,
         ["goods/shippings"]: GoodsShipping,
+        ["goods/shipping-cart"]: GoodsShippingCart,
         ["goods/shippings/packing"]: GoodsShippingPacking,
         ["goods/shippings/purchases/quicksearch"]:
             GoodsShippingPurchaseQuickSearch,

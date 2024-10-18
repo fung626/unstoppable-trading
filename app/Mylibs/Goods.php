@@ -470,7 +470,7 @@ class Goods
                     // dd($items[$index]);
                 } else {
                     foreach ($shippingitems as $shippingitem) {
-                        if ($shippingitem['id'] === $items[$index][$size]['goods_item_id'] && $shippingitem['unit'] > 0) {
+                        if ($shippingitem['id'] === $items[$index][$size]['goods_item_id'] && $shippingitem['unit'] >= 0) {
                             // dd($items[$index][$size], $shippingitem);
                             $stock = Stock::goodsItemSum($items[$index][$size]['goods_item_id']);
                             if (isset($stock)) {

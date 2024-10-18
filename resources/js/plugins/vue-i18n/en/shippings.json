@@ -4,6 +4,7 @@
     },
     "shipping": {
         "invoice": "Shipping invoice",
+        "cart": "Shipping Cart",
         "monthly-statement": "Monthly Statement",
         "number-of-shipments": "Number of Shipments",
         "total-number-of-shipments": "Total Number of Shipments",
@@ -13,6 +14,7 @@
         "export-invoice": "Export Invoice",
         "export-invoice-and-hide-prices": "Export Invoice and Hide Prices",
         "add-shipment-goods": "Add Shipment Goods",
+        "browse-stock-table": "Browse Stocks Table",
         "quick-search-goods": "Quick Search Goods",
         "period": {
             "months": "months",

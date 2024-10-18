@@ -1565,8 +1565,8 @@ const _sfc_main$h = {
     name: "CreateShippingDialog",
     computed: {
         ...mapState(["goods/shippings"]),
-        shippingData() {
-            return this["goods/shippings"].shippingData;
+        shippingItems() {
+            return this["goods/shippings"].shippingItems;
         },
     },
     data() {
@@ -1619,7 +1619,7 @@ const _sfc_main$h = {
                 item.color
             }`;
             this.dialog = true;
-            let data = this.shippingData;
+            let data = this.shippingItems;
             let subData = sizes;
             for (const x of data) {
                 for (const y of subData) {
@@ -6927,8 +6927,8 @@ const _sfc_main$c = {
     name: "ScannerDialog",
     computed: {
         ...mapState(["goods/shippings"]),
-        shippingData() {
-            return this["goods/shippings"].shippingData;
+        shippingItems() {
+            return this["goods/shippings"].shippingItems;
         },
     },
     components: {
@@ -6994,7 +6994,7 @@ const _sfc_main$c = {
             this.type = type;
             switch (type) {
                 case "Shipping":
-                    let xData = this.shippingData;
+                    let xData = this.shippingItems;
                     let yData = this.data;
                     for (const x of xData) {
                         if (x.unit && x.id === yData.id) {
@@ -11282,7 +11282,7 @@ const _sfc_main$4 = {
     computed: {
         ...mapState(["goods/shippings"]),
         data() {
-            return this["goods/shippings"].shippingData;
+            return this["goods/shippings"].shippingItems;
         },
     },
     methods: {
@@ -16419,15 +16419,15 @@ const getters$t = {
 };
 const mutations$t = {
     [ADD_SHIPPING](state2, { data }) {
-        let index = state2.shippingData.findIndex((obj) => obj.id === data.id);
+        let index = state2.shippingItems.findIndex((obj) => obj.id === data.id);
         if (index > -1) {
-            state2.shippingData[index] = data;
+            state2.shippingItems[index] = data;
         } else {
-            state2.shippingData = [...state2.shippingData, data];
+            state2.shippingItems = [...state2.shippingItems, data];
         }
     },
     [CLEAR_SHIPPING](state2) {
-        state2.shippingData = [];
+        state2.shippingItems = [];
         state2.formattedShipData = [];
     },
     [FETCH_SHIPPING_SUCCESS](state2, { data }) {
@@ -16445,7 +16445,7 @@ const mutations$t = {
 };
 const state$u = {
     data: [],
-    shippingData: [],
+    shippingItems: [],
     formattedShipData: [],
     detailsData: {},
 };

@@ -1,7 +1,14 @@
 <template>
-    <CModal :visible="dialog" :centered="true" @close="() => (dialog = false)">
+    <CModal
+        :visible="dialog"
+        :centered="true"
+        :fullscreen="true"
+        size="xl"
+        @close-prevented="console.log('close-prevented')"
+        @close="() => (dialog = false)"
+    >
         <CModalHeader>
-            <CModalTitle>{{ title }}</CModalTitle>
+            <CModalTitle>{{ $t(title) }}</CModalTitle>
         </CModalHeader>
         <div class="mb-4">
             <v-progress-linear
@@ -11,23 +18,30 @@
             ></v-progress-linear>
         </div>
         <CModalBody>
+            <CRow class="p-2">
+                <CCol>
+                    <CInputGroup class="mb-3">
+                        <CButton color="primary" size="sm">
+                            <CIcon name="cil-magnifying-glass" size="sm" />
+                        </CButton>
+                        <CFormInput size="sm" v-model="search" />
+                    </CInputGroup>
+                </CCol>
+            </CRow>
             <v-data-table-server
                 class="my-2 elevation-1"
+                v-model="selected"
                 :headers="headers"
                 :items="items"
                 :items-length="serverItemsLength"
                 :search="search"
                 :loading="loading"
+                :items-per-page="options.itemsPerPage"
+                @update:modelValue="console.log(options.itemsPerPage)"
                 @update:options="fetch"
                 :mobile="mobile"
+                :items-per-page-options="[]"
                 show-select
-                :footer-props="{
-                    disableItemsPerPage: disableItemsPerPage,
-                    disablePagination: disablePagination,
-                    showFirstLastPage: true,
-                    showCurrentPage: true,
-                    itemsPerPageOptions: [10, 20, 50, 100],
-                }"
             >
                 <template v-slot:loading>
                     <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
@@ -168,8 +182,20 @@
             </v-data-table-server>
         </CModalBody>
         <CModalFooter>
-            <CButton @click="confirm" color="danger" class="px-4">
+            <CButton
+                @click="confirm"
+                color="primary"
+                class="position-relative px-4"
+                :disabled="selected.length === 0"
+            >
                 {{ $t("button.confirm") }}
+                <CBadge
+                    v-if="selected.length > 0"
+                    color="warning"
+                    shape="rounded-pill"
+                >
+                    {{ selected.length }}
+                </CBadge>
             </CButton>
             <CButton @click="cancel" color="secondary" class="px-4 ml-2">
                 {{ $t("button.cancel") }}
@@ -179,19 +205,25 @@
 </template>
 
 <script>
+import { goodsSizes } from "@/constants";
+
 export default {
-    name: "AddNewShippingItemTableDialog",
+    name: "AddNewShippingItemsTableDialog",
     data() {
         return {
+            dialog: false,
+            resolve: null,
+            reject: null,
             search: null,
             loading: false,
             items: [],
+            selected: [],
             page: 1,
             pageCount: 0,
             serverItemsLength: 0,
             options: {
                 page: 1,
-                itemsPerPage: 5,
+                itemsPerPage: 25,
                 sortBy: null,
                 sortDesc: false,
             },
@@ -217,10 +249,15 @@ export default {
             ],
         };
     },
+    unmounted() {
+        this.search = null;
+        this.selected = [];
+    },
     methods: {
         open() {
-            this.title = ``;
+            this.title = `shipping.add-shipment-goods`;
             this.dialog = true;
+            this.fetch({ ...this.options });
             return new Promise((resolve, reject) => {
                 this.resolve = resolve;
                 this.reject = reject;
@@ -243,10 +280,13 @@ export default {
                 .dispatch("goods/stocks/get", data)
                 .then((response) => {
                     let res = JSON.parse(JSON.stringify(response.data));
-                    self.items = res.data;
+                    self.items = res.data.map((x, index) => {
+                        return { id: index, ...x };
+                    });
                     self.serverItemsLength = res.total;
                     self.pageCount = res.last_page;
                     self.page = res.current_page;
+                    self.selected = [];
                     self.loading = false;
                 })
                 .catch((error) => {
@@ -258,26 +298,41 @@ export default {
             if (self.loading) {
                 return;
             }
+            let ids = [];
+            for (const x of self.selected) {
+                let found = self.items.find((y) => y.id === x);
+                if (found) {
+                    for (const y of goodsSizes) {
+                        if (found[y.name]) {
+                            ids = [...ids, found[y.name].goods_item_id];
+                        }
+                    }
+                }
+            }
+            if (ids.length === 0) {
+                return;
+            }
             let data = {
-                id: self.id,
-                item: self.item,
-                type: "NEW",
+                item_ids: ids,
             };
             self.loading = true;
             this.$store
-                .dispatch("goods/shippings/update", data)
+                .dispatch("goods/items/get", data)
                 .then((response) => {
+                    let res = JSON.parse(JSON.stringify(response.data));
+                    for (const x of res) {
+                        this.$store.dispatch("goods/shipping-cart/add", {
+                            data: { ...x, unit: 0 },
+                        });
+                    }
                     self.loading = false;
-                    self.resolve(true);
                     self.dialog = false;
+                    self.selected = [];
+                    // console.log(res);
                 })
                 .catch((error) => {
                     self.loading = false;
-                    self.resolve(true);
-                    self.dialog = false;
                 });
-
-            self.clear();
         },
         cancel() {
             this.resolve(false);
@@ -290,3 +345,8 @@ export default {
     },
 };
 </script>
+<style scoped>
+div:deep(.v-data-table-footer__items-per-page) {
+    display: none;
+}
+</style>

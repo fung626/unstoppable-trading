@@ -74,8 +74,8 @@ export default {
     name: "CreateShippingDialog",
     computed: {
         ...mapState(["goods/shippings"]),
-        shippingData() {
-            return this["goods/shippings"].shippingData;
+        shippingItems() {
+            return this["goods/shippings"].shippingItems;
         },
     },
     data() {
@@ -117,7 +117,7 @@ export default {
                     let res = JSON.parse(JSON.stringify(response.data));
                     self.items = res;
                     self.loading = false;
-                    console.log(res);
+                    // console.log(res);
                 })
                 .catch((error) => {
                     self.loading = false;
@@ -128,7 +128,7 @@ export default {
                 item.color
             }`;
             this.dialog = true;
-            let data = this.shippingData;
+            let data = this.shippingItems;
             let subData = goodsSizes;
             for (const x of data) {
                 for (const y of subData) {
@@ -153,7 +153,7 @@ export default {
                     let i = iData[x.name];
                     for (const y of yData) {
                         if (y.id && y.id === i.goods_item_id) {
-                            this.$store.dispatch("goods/shippings/add", {
+                            this.$store.dispatch("goods/shipping-cart/add", {
                                 data: { ...y, unit: i.unit },
                             });
                         }

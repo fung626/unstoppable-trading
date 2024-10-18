@@ -174,6 +174,12 @@
                 </div>
                 <div v-else>－</div>
             </template>
+
+            <template v-slot:[`item.subtotal`]="{ item }">
+                <div v-if="item.subtotal">
+                    {{ $filters.formatPrice(item.subtotal) }}
+                </div>
+            </template>
             <template v-slot:[`item.actions`]="{ item }">
                 <CButtonGroup>
                     <CButton
@@ -232,6 +238,11 @@ export default {
                 {
                     title: this.$t("total-unit"),
                     value: "total_unit",
+                    sortable: false,
+                },
+                {
+                    title: this.$t("subtotal"),
+                    value: "subtotal",
                     sortable: false,
                 },
                 {

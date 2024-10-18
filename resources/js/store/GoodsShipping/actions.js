@@ -11,12 +11,6 @@ const endpoint = "/api/goods/shippings/";
 const name = "goods/shippings";
 
 export default {
-    [`${name}/add`]({ commit, dispatch }, payload) {
-        commit(types.ADD_SHIPPING, payload);
-    },
-    [`${name}/clear`]({ commit, dispatch }) {
-        commit(types.CLEAR_SHIPPING);
-    },
     [`${name}/get`]({ commit, dispatch }, payload) {
         return new Promise((resolve, reject) => {
             axios

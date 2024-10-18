@@ -21,8 +21,10 @@ class Stocks extends ResourceCollection
         // return parent::toArray($request);
         return $this->collection->transform(function ($item) use ($request) {
             // Log::debug($item);
+
             $sizes = config('constant.goods.sizes');
             $item->total_unit = 0;
+            $item->subtotal = 0;
             foreach ($sizes as $size) {
                 $_item = Item::where(['goods_id' => $item->goods_id, 'size' => $size])
                     ->when($item->color, function ($query) use ($item) {
@@ -38,11 +40,19 @@ class Stocks extends ResourceCollection
                     if ($stock) {
                         $item->total_unit += $stock->unit;
                     }
+                    $stock_unit = $stock ? $stock->unit * 1 : 0;
+                    $cost_price = isset($_item->cost_price) ? $_item->cost_price : $item->goods->cost_price;
+                    $stock_subtotal = $cost_price * $stock_unit;
+                    $item->subtotal += $stock_subtotal;
                     $item->{$size} = [
                         'goods_item_id' => $_item->id,
                         'barcode' => $_item->barcode,
                         'unit' => 0,
-                        'stock_unit' => $stock ? $stock->unit * 1 : 0,
+                        'cost_price' => isset($_item->cost_price) ? $_item->cost_price : null,
+                        'retail_price' => isset($_item->retail_price) ? $_item->retail_price : null,
+                        'wholesale_price' => isset($_item->wholesale_price) ? $_item->wholesale_price : null,
+                        'stock_unit' => $stock_unit,
+                        'stock_subtotal' => $stock_subtotal,
                     ];
                 }
             }
