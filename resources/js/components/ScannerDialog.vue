@@ -81,9 +81,9 @@ import { goodsSizes } from "../constants";
 export default {
     name: "ScannerDialog",
     computed: {
-        ...mapState(["goods/shippings"]),
+        ...mapState(["goods/shipping-cart"]),
         shippingItems() {
-            return this["goods/shippings"].shippingItems;
+            return this["goods/shipping-cart"].items;
         },
     },
     components: {

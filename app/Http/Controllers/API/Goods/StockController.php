@@ -20,7 +20,7 @@ class StockController extends Controller
 
     public function __construct()
     {
-        set_time_limit(60);
+        set_time_limit(120);
     }
 
     public function get(Request $request)

@@ -185,18 +185,15 @@
                                         size="sm"
                                     />
                                 </CButton>
-                                <CFormInput
-                                    size="sm"
-                                    v-model="table.item.search"
-                                />
+                                <CFormInput size="sm" v-model="table.search" />
                             </CInputGroup>
                         </CCol>
                     </CRow>
                     <v-data-table
                         class="my-2 elevation-1"
-                        :headers="table.item.headers"
+                        :headers="table.headers"
                         :items="items"
-                        :search="table.item.search"
+                        :search="table.search"
                         :loading="fetchLoading.table"
                         hide-default-footer
                     >
@@ -216,6 +213,7 @@
                                 '44-Free',
                             ]"
                             v-slot:[`item.${x}`]="{ index, item }"
+                            :key="x"
                         >
                             <div
                                 class="d-flex align-items-center justify-items-center"
@@ -388,32 +386,47 @@ export default {
                 },
             },
             table: {
-                item: {
-                    search: "",
-                    headers: [
-                        { title: "#ID", value: "id" },
-                        { title: this.$t("name"), value: "name" },
-                        { title: this.$t("type"), value: "type" },
-                        { title: this.$t("cup"), value: "cup" },
-                        { title: this.$t("color"), value: "color" },
-                        { title: "32-S", value: "32-S" },
-                        { title: "34-M", value: "34-M" },
-                        { title: "36-L", value: "36-L" },
-                        { title: "38-XL", value: "38-XL" },
-                        { title: "40-Q", value: "40-Q" },
-                        { title: "42-EQ", value: "42-EQ" },
-                        { title: "44-Free", value: "44-Free" },
-                        {
-                            title: `${this.$t("unit-price")}($)`,
-                            value: "unit_price",
-                        },
-                        { title: this.$t("total-unit"), value: "total_unit" },
-                        {
-                            title: `${this.$t("cost")}($)`,
-                            value: "cost",
-                        },
-                    ],
-                },
+                search: null,
+                headers: [
+                    { title: "#ID", value: "id", sortable: true },
+                    {
+                        title: this.$t("name"),
+                        value: "name",
+                        sortable: true,
+                    },
+                    {
+                        title: this.$t("type"),
+                        value: "type",
+                        sortable: true,
+                    },
+                    { title: this.$t("cup"), value: "cup", sortable: true },
+                    {
+                        title: this.$t("color"),
+                        value: "color",
+                        sortable: true,
+                    },
+                    { title: "32-S", value: "32-S" },
+                    { title: "34-M", value: "34-M" },
+                    { title: "36-L", value: "36-L" },
+                    { title: "38-XL", value: "38-XL" },
+                    { title: "40-Q", value: "40-Q" },
+                    { title: "42-EQ", value: "42-EQ" },
+                    { title: "44-Free", value: "44-Free" },
+                    {
+                        title: `${this.$t("unit-price")}($)`,
+                        value: "unit_price",
+                        sortable: true,
+                    },
+                    {
+                        title: this.$t("total-unit"),
+                        value: "total_unit",
+                        sortable: true,
+                    },
+                    {
+                        title: `${this.$t("cost")}($)`,
+                        value: "cost",
+                    },
+                ],
             },
             errors: {},
             countryCodes: countryCodes,
@@ -422,12 +435,11 @@ export default {
         };
     },
     watch: {
-        shippingItems: {
-            handler(val) {
-                this.fetch();
-            },
-            deep: true,
-        },
+        // shippingItems: {
+        //     handler(val) {
+        //     },
+        //     deep: true,
+        // },
         client() {
             // console.log(this.client);
             if (this.client) {
@@ -439,11 +451,26 @@ export default {
                 this.email = this.client.email;
                 this.address = this.client.address;
                 this.currency = this.client.currency;
+                this.$store.dispatch("goods/shipping-cart/update-client", {
+                    data: this.client,
+                });
             }
         },
     },
     mounted() {
         this.fetch();
+        let client = this["goods/shipping-cart"].client;
+        if (client) {
+            this.client = client;
+            this.number = this.client.number;
+            this.name = this.client.name;
+            this.contact = this.client.contact;
+            this.phoneCountryCode = this.client.phone_country_code;
+            this.phone = this.client.phone;
+            this.email = this.client.email;
+            this.address = this.client.address;
+            this.currency = this.client.currency;
+        }
     },
     methods: {
         fetch() {
@@ -519,6 +546,15 @@ export default {
                         item[size.name].unit = 0;
                         return;
                     }
+                    this.$store.dispatch(
+                        "goods/shipping-cart/update-item-unit",
+                        {
+                            data: {
+                                id: item[size.name].goods_item_id,
+                                unit: item[size.name].unit,
+                            },
+                        }
+                    );
                     totalunit += item[size.name].unit;
                 }
             }

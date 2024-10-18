@@ -4,7 +4,7 @@ export default {
     [`${name}/items`](state) {
         return state.items;
     },
-    [`${name}/data/details`](state) {
-        return state.detailsData;
+    [`${name}/client`](state) {
+        return state.client;
     },
 };

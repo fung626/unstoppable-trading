@@ -9,11 +9,17 @@ const endpoint = "/api/goods/shippings/";
 const name = "goods/shipping-cart";
 
 export default {
+    [`${name}/update-client`]({ commit, dispatch }, payload) {
+        commit(types.UPDATE_SHIPPING_CART_CLIENT, payload);
+    },
     [`${name}/add`]({ commit, dispatch }, payload) {
-        commit(types.ADD_ITEM, payload);
+        commit(types.ADD_SHIPPING_CART_ITEM, payload);
+    },
+    [`${name}/update-item-unit`]({ commit, dispatch }, payload) {
+        commit(types.UPDATE_SHIPPING_CART_ITEM_UNIT, payload);
     },
     [`${name}/clear`]({ commit, dispatch }) {
-        commit(types.CLEAR_SHIPPING);
+        commit(types.CLEAR_SHIPPING_CART_ITEM);
     },
     [`${name}/format`]({ commit, dispatch }, payload) {
         return new Promise((resolve, reject) => {

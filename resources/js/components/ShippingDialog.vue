@@ -52,9 +52,9 @@ import { mapState } from "vuex";
 export default {
     name: "ShippingDialog",
     computed: {
-        ...mapState(["goods/shippings"]),
+        ...mapState(["goods/shipping-cart"]),
         shippingItems() {
-            return this["goods/shippings"].shippingItems;
+            return this["goods/shipping-cart"].items;
         },
     },
     data() {

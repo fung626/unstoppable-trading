@@ -73,9 +73,9 @@ import { goodsSizes } from "../constants";
 export default {
     name: "CreateShippingDialog",
     computed: {
-        ...mapState(["goods/shippings"]),
+        ...mapState(["goods/shippingg-cart"]),
         shippingItems() {
-            return this["goods/shippings"].shippingItems;
+            return this["goods/shipping-cart"].items;
         },
     },
     data() {
