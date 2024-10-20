@@ -85,18 +85,22 @@ export default {
                 {
                     title: `${this.$t("name")}`,
                     value: "item.goods.name",
+                    sortable: true,
                 },
                 {
                     title: `${this.$t("type")}`,
                     value: "item.goods.type",
+                    sortable: true,
                 },
                 {
                     title: `${this.$t("size")}`,
                     value: "item.size",
+                    sortable: true,
                 },
                 {
                     title: `${this.$t("color")}`,
                     value: "item.color",
+                    sortable: true,
                 },
                 {
                     title: `${this.$t("barcode")}`,
@@ -105,24 +109,33 @@ export default {
                 {
                     title: `${this.$t("unit")}`,
                     value: "unit",
+                    sortable: true,
                 },
                 {
                     title: `${this.$t("altered")}${this.$t("unit")}`,
                     value: "altered_unit",
+                    sortable: true,
                 },
                 {
                     title: `${this.$t("unit-price")}`,
                     value: "unit_price",
+                    sortable: true,
                 },
                 {
                     title: `${this.$t("altered")}${this.$t("unit-price")}`,
                     value: "altered_unit_price",
+                    sortable: true,
                 },
                 {
                     title: `${this.$t("alteration")}${this.$t("type")}`,
                     value: "type",
+                    sortable: true,
                 },
-                { title: this.$t("updatedat"), value: "updated_at" },
+                {
+                    title: this.$t("updatedat"),
+                    value: "updated_at",
+                    sortable: true,
+                },
             ],
         };
     },

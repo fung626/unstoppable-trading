@@ -195,6 +195,7 @@
                         :items="items"
                         :search="table.search"
                         :loading="fetchLoading.table"
+                        :items-per-page="9999"
                         hide-default-footer
                     >
                         <template v-slot:loading>
@@ -267,10 +268,24 @@
                             </span>
                             <span v-else>－</span>
                         </template>
+                        <template v-slot:[`item.actions`]="{ item }">
+                            <CButtonGroup>
+                                <CButton
+                                    v-for="action in item.actions"
+                                    :key="action.key"
+                                    :color="action.color"
+                                    :disabled="action.disabled"
+                                    size="sm"
+                                    @click="click(item, action)"
+                                >
+                                    {{ action.title }}
+                                </CButton>
+                            </CButtonGroup>
+                        </template>
                         <template v-slot:[`body.append`]>
                             <tr>
                                 <td v-for="i in [...Array(10)]" :key="i"></td>
-                                <td class="p-2" colspan="2">
+                                <td class="p-2 text-right" colspan="2">
                                     {{ `${$t("total-unit")}:` }}
                                 </td>
                                 <td class="p-2" colspan="4">
@@ -284,7 +299,7 @@
                             </tr>
                             <tr>
                                 <td v-for="i in [...Array(10)]" :key="i"></td>
-                                <td class="p-2" colspan="2">
+                                <td class="p-2 text-right" colspan="2">
                                     {{ `${$t("subtotal")}:` }}
                                 </td>
                                 <td class="p-2" colspan="4">
@@ -426,6 +441,7 @@ export default {
                         title: `${this.$t("cost")}($)`,
                         value: "cost",
                     },
+                    { title: this.$t("actions"), value: "actions" },
                 ],
             },
             errors: {},
@@ -577,6 +593,46 @@ export default {
         async showNewShippingItemsTable() {
             if (await this.$refs.newShippingItemsTableDialog.open()) {
                 this.fetch();
+            }
+        },
+        async click(item, action) {
+            console.log(item);
+            let type = action.type;
+            switch (type) {
+                case "Delete":
+                    if (
+                        await this.$refs.dialog.open(
+                            this.$t("alert.title"),
+                            this.$t("alert.delete")
+                        )
+                    ) {
+                        let sizes = [
+                            "32-S",
+                            "34-M",
+                            "36-L",
+                            "38-XL",
+                            "40-Q",
+                            "42-EQ",
+                            "44-Free",
+                        ];
+                        let updated = false;
+                        for (const y of sizes) {
+                            if (item[y]) {
+                                let _item = item[y];
+                                this.$store.dispatch(
+                                    "goods/shipping-cart/remove",
+                                    {
+                                        data: { id: _item["goods_item_id"] },
+                                    }
+                                );
+                                updated = true;
+                            }
+                        }
+                        if (updated) {
+                            this.fetch();
+                        }
+                    }
+                    break;
             }
         },
     },

@@ -108,11 +108,15 @@
                                 <div
                                     class="d-flex flex-column justify-content-center"
                                 >
-                                    <label>{{
-                                        `${selectedEvent.data.user.name} ${$t(
-                                            "duty"
-                                        )}`
-                                    }}</label>
+                                    <CLink
+                                        :href="`#/duty/details/${selectedEvent.id}`"
+                                    >
+                                        {{
+                                            `${
+                                                selectedEvent.data.user.name
+                                            } ${$t("duty")}`
+                                        }}
+                                    </CLink>
                                     <label>
                                         {{
                                             `${selectedEvent.data.start} - ${selectedEvent.data.end}`

@@ -77,6 +77,7 @@
                     class="my-4 elevation-1 my-table"
                     :headers="table.header.headers"
                     :items="table.header.items"
+                    :items-per-page="9999"
                     hide-default-footer
                     hide-default-header
                     :mobile-breakpoint="0"
@@ -87,7 +88,10 @@
                             <CButton color="primary" size="sm">
                                 <CIcon name="cil-magnifying-glass" size="sm" />
                             </CButton>
-                            <CFormInput size="sm" v-model="search" />
+                            <CFormInput
+                                size="sm"
+                                v-model="table.items.search"
+                            />
                         </CInputGroup>
                     </CCol>
                 </CRow>
@@ -96,7 +100,7 @@
                     :loading="loading"
                     :headers="table.items.headers"
                     :items="table.items.items"
-                    :search="search"
+                    :search="table.items.search"
                     hide-default-footer
                     :mobile-breakpoint="0"
                 >
@@ -243,6 +247,11 @@
                     hide-default-footer
                     :mobile-breakpoint="0"
                 >
+                    <template v-slot:[`item.X1`]="{ item }">
+                        <div class="text-right">
+                            {{ `${$t(item["X1"])} :` }}
+                        </div>
+                    </template>
                 </v-data-table>
             </CCardBody>
         </CCard>
@@ -275,7 +284,6 @@ export default {
     },
     data() {
         return {
-            search: null,
             loading: false,
             table: {
                 header: {
@@ -309,12 +317,25 @@ export default {
                     items: [],
                 },
                 items: {
+                    search: null,
                     headers: [
-                        { title: "#ID", value: "id" },
-                        { title: this.$t("type"), value: "type" },
-                        { title: this.$t("goodsname"), value: "name" },
-                        { title: this.$t("cup"), value: "cup" },
-                        { title: this.$t("color"), value: "color" },
+                        { title: "#ID", value: "id", sortable: true },
+                        {
+                            title: this.$t("type"),
+                            value: "type",
+                            sortable: true,
+                        },
+                        {
+                            title: this.$t("goodsname"),
+                            value: "name",
+                            sortable: true,
+                        },
+                        { title: this.$t("cup"), value: "cup", sortable: true },
+                        {
+                            title: this.$t("color"),
+                            value: "color",
+                            sortable: true,
+                        },
                         { title: "32-S", value: "32-S" },
                         { title: "34-M", value: "34-M" },
                         { title: "36-L", value: "36-L" },
@@ -325,11 +346,17 @@ export default {
                         {
                             title: `${this.$t("unit-price")}($)`,
                             value: "unit_price",
+                            sortable: true,
                         },
-                        { title: this.$t("total-unit"), value: "total_unit" },
+                        {
+                            title: this.$t("total-unit"),
+                            value: "total_unit",
+                            sortable: true,
+                        },
                         {
                             title: `${this.$t("cost")}($)`,
                             value: "cost",
+                            sortable: true,
                         },
                         { title: this.$t("actions"), value: "actions" },
                     ],
@@ -338,25 +365,6 @@ export default {
             },
         };
     },
-    // watch: {
-    //     "table.items.items": {
-    //         handler(val) {
-    //             // console.log(val);
-    //             var index = 0;
-    //             for (const x of this.table.items.items) {
-    //                 if (x.id) {
-    //                     console.log(x);
-    //                     this.table.items.items[index] = {
-    //                         ...x,
-    //                         cost: x.total_unit * x.unit_price,
-    //                     };
-    //                 }
-    //                 index++;
-    //             }
-    //         },
-    //         deep: true,
-    //     },
-    // },
     mounted() {
         this.fetch();
     },

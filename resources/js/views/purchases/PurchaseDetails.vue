@@ -59,12 +59,23 @@
                 :mobile-breakpoint="0"
             >
             </v-data-table>
+            <CRow class="p-2">
+                <CCol>
+                    <CInputGroup class="mb-3">
+                        <CButton color="primary" size="sm">
+                            <CIcon name="cil-magnifying-glass" size="sm" />
+                        </CButton>
+                        <CFormInput size="sm" v-model="table.item.search" />
+                    </CInputGroup>
+                </CCol>
+            </CRow>
             <v-data-table
                 class="my-2 elevation-1"
                 :headers="table.item.headers"
                 :items="purchaseItems"
-                :search="search"
+                :search="table.item.search"
                 :mobile-breakpoint="0"
+                hide-default-footer
             >
             </v-data-table>
             <v-data-table
@@ -74,6 +85,11 @@
                 hide-default-footer
                 :mobile-breakpoint="0"
             >
+                <template v-slot:[`item.X1`]="{ item }">
+                    <div class="text-right">
+                        {{ `${$t(item["X1"])} :` }}
+                    </div>
+                </template>
             </v-data-table>
         </CCardBody>
     </CCard>
@@ -106,7 +122,6 @@ export default {
     },
     data() {
         return {
-            search: null,
             loading: false,
             table: {
                 header: {
@@ -138,10 +153,19 @@ export default {
                     ],
                 },
                 item: {
+                    search: null,
                     headers: [
-                        { title: "#ID", value: "id" },
-                        { title: this.$t("type"), value: "type" },
-                        { title: this.$t("goodsname"), value: "name" },
+                        { title: "#ID", value: "id", sortable: true },
+                        {
+                            title: this.$t("type"),
+                            value: "type",
+                            sortable: true,
+                        },
+                        {
+                            title: this.$t("goodsname"),
+                            value: "name",
+                            sortable: true,
+                        },
                         { title: this.$t("cup"), value: "cup" },
                         { title: this.$t("color"), value: "color" },
                         { title: "32-S", value: "32-S.unit" },
@@ -154,14 +178,17 @@ export default {
                         {
                             title: `${this.$t("unit-price")}($)`,
                             value: "formatted_unit_price",
+                            sortable: true,
                         },
                         {
                             title: `${this.$t("total-unit")}`,
                             value: "total_unit",
+                            sortable: true,
                         },
                         {
                             title: `${this.$t("cost")}($)`,
                             value: "formatted_cost",
+                            sortable: true,
                         },
                     ],
                 },

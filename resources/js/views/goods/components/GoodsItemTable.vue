@@ -46,6 +46,7 @@
             :items="items"
             :items-length="serverItemsLength"
             :search="search"
+            :sort-by="options.sortBy"
             :loading="loading"
             @update:options="fetch"
             :mobile="mobile"
@@ -55,6 +56,9 @@
             </template>
             <template v-slot:[`item.cup`]="{ item }">
                 <v-autocomplete
+                    :style="{
+                        width: '54px',
+                    }"
                     v-model="item.cup"
                     :items="goodsCups"
                     item-title="name"
@@ -65,6 +69,9 @@
             </template>
             <template v-slot:[`item.color`]="{ item }">
                 <v-autocomplete
+                    :style="{
+                        width: '84px',
+                    }"
                     v-model="item.color"
                     :items="goodsColors"
                     item-title="name"
@@ -75,6 +82,9 @@
             </template>
             <template v-slot:[`item.size`]="{ item }">
                 <v-autocomplete
+                    :style="{
+                        width: '84px',
+                    }"
                     v-model="item.size"
                     :items="goodsSizes"
                     item-title="name"
@@ -111,6 +121,16 @@
                 <div v-if="item.updated_at">
                     {{ this.$formatDate(item.updated_at) }}
                 </div>
+            </template>
+            <template v-slot:[`item.cost_price`]="{ item }">
+                {{ item.cost_price }}
+                <input :v-model="item.cost_price" type="number" :min="0" />
+            </template>
+            <template v-slot:[`item.wholesale_price`]="{ item }">
+                <input :v-model="item.wholesale_price" type="number" :min="0" />
+            </template>
+            <template v-slot:[`item.retail_price`]="{ item }">
+                <input :v-model="item.retail_price" type="number" :min="0" />
             </template>
             <template v-slot:[`item.actions`]="{ item }">
                 <CButtonGroup>
@@ -157,7 +177,11 @@ export default {
             options: {
                 page: 1,
                 itemsPerPage: 10,
-                sortBy: "cup",
+                sortBy: [
+                    { key: "cup", order: "asc" },
+                    { key: "color", order: "asc" },
+                    { key: "size", order: "asc" },
+                ],
             },
             disableItemsPerPage: false,
             disablePagination: false,
@@ -169,6 +193,21 @@ export default {
                 {
                     title: this.$t("stock-unit"),
                     value: "stock_unit",
+                    sortable: false,
+                },
+                {
+                    title: this.$t("cost-price"),
+                    value: "cost_price",
+                    sortable: false,
+                },
+                {
+                    title: this.$t("wholesale-price"),
+                    value: "wholesale_price",
+                    sortable: false,
+                },
+                {
+                    title: this.$t("retail-price"),
+                    value: "retail_price",
                     sortable: false,
                 },
                 { title: this.$t("updatedat"), value: "updated_at" },

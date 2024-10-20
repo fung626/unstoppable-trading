@@ -42,92 +42,26 @@
                 <template v-slot:loading>
                     <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
                 </template>
-                <template v-slot:[`item.32-S`]="{ index, item }">
-                    <div v-bind:class="bgColor(index, '32-S')">
+                <template
+                    v-for="x of [
+                        '32-S',
+                        '34-M',
+                        '36-L',
+                        '38-XL',
+                        '40-Q',
+                        '42-EQ',
+                        '44-Free',
+                    ]"
+                    v-slot:[`item.${x}`]="{ item }"
+                    :key="x"
+                >
+                    <div v-bind:class="bgColor(index, x)">
                         <input
-                            v-if="item['32-S']"
+                            v-if="item[x]"
                             :style="{ width: '54px' }"
-                            v-model="item['32-S'].unit"
+                            v-model="item[x].unit"
                             type="number"
                             variant="plain"
-                            :min="0"
-                            @change="change(index, item)"
-                        />
-                        <span v-else>－</span>
-                    </div>
-                </template>
-                <template v-slot:[`item.34-M`]="{ index, item }">
-                    <div v-bind:class="bgColor(index, '34-M')">
-                        <input
-                            v-if="item['34-M']"
-                            :style="{ width: '54px' }"
-                            v-model="item['34-M'].unit"
-                            type="number"
-                            :min="0"
-                            @change="change(index, item)"
-                        />
-                        <span v-else>－</span>
-                    </div>
-                </template>
-                <template v-slot:[`item.36-L`]="{ index, item }">
-                    <div v-bind:class="bgColor(index, '36-L')">
-                        <input
-                            v-if="item['36-L']"
-                            :style="{ width: '54px' }"
-                            v-model="item['36-L'].unit"
-                            type="number"
-                            :min="0"
-                            @change="change(index, item)"
-                        />
-                        <span v-else>－</span>
-                    </div>
-                </template>
-                <template v-slot:[`item.38-XL`]="{ index, item }">
-                    <div v-bind:class="bgColor(index, '38-XL')">
-                        <input
-                            v-if="item['38-XL']"
-                            :style="{ width: '54px' }"
-                            v-model="item['38-XL'].unit"
-                            type="number"
-                            :min="0"
-                            @change="change(index, item)"
-                        />
-                        <span v-else>－</span>
-                    </div>
-                </template>
-                <template v-slot:[`item.40-Q`]="{ index, item }">
-                    <div v-bind:class="bgColor(index, '40-Q')">
-                        <input
-                            v-if="item['40-Q']"
-                            :style="{ width: '54px' }"
-                            v-model="item['40-Q'].unit"
-                            type="number"
-                            :min="0"
-                            @change="change(index, item)"
-                        />
-                        <span v-else>－</span>
-                    </div>
-                </template>
-                <template v-slot:[`item.42-EQ`]="{ index, item }">
-                    <div v-bind:class="bgColor(index, '42-EQ')">
-                        <input
-                            v-if="item['42-EQ']"
-                            :style="{ width: '54px' }"
-                            v-model="item['42-EQ'].unit"
-                            type="number"
-                            :min="0"
-                            @change="change(index, item)"
-                        />
-                        <span v-else>－</span>
-                    </div>
-                </template>
-                <template v-slot:[`item.44-Free`]="{ index, item }">
-                    <div v-bind:class="bgColor(index, '44-Free')">
-                        <input
-                            v-if="item['44-Free']"
-                            :style="{ width: '54px' }"
-                            v-model="item['44-Free'].unit"
-                            type="number"
                             :min="0"
                             @change="change(index, item)"
                         />

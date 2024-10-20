@@ -1,6 +1,5 @@
 // import axios from "axios";
 import i18n from "@/plugins/vue-i18n";
-import moment from "moment";
 import queryString from "query-string";
 import router from "../../router";
 import axios from "../../utils/myAxios";
@@ -83,17 +82,34 @@ export default {
                 responseType: "blob",
             })
                 .then((response) => {
-                    let fileURL = window.URL.createObjectURL(
-                        new Blob([response.data])
-                    );
-                    let fileLink = document.createElement("a");
-                    fileLink.href = fileURL;
-                    fileLink.setAttribute(
-                        "download",
-                        `${"purchases"}-${moment().format("YYYYMMDDY")}.pdf`
-                    );
-                    document.body.appendChild(fileLink);
-                    fileLink.click();
+                    // let fileURL = window.URL.createObjectURL(
+                    //     new Blob([response.data])
+                    // );
+                    // let fileLink = document.createElement("a");
+                    // fileLink.href = fileURL;
+                    // fileLink.setAttribute(
+                    //     "download",
+                    //     `${"purchases"}-${moment().format("YYYYMMDDY")}.pdf`
+                    // );
+                    // document.body.appendChild(fileLink);
+                    // fileLink.click();
+                    // resolve();
+                    var blob = new Blob([response.data], {
+                        type: "application/pdf",
+                    });
+                    var blobURL = URL.createObjectURL(blob);
+
+                    let iframe = document.createElement("iframe"); //load content in an iframe to print later
+                    document.body.appendChild(iframe);
+
+                    iframe.style.display = "none";
+                    iframe.src = blobURL;
+                    iframe.onload = function () {
+                        setTimeout(function () {
+                            iframe.focus();
+                            iframe.contentWindow.print();
+                        }, 1);
+                    };
                     resolve();
                 })
                 .catch(function (error) {

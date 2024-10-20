@@ -453,15 +453,20 @@ class Goods
         ];
         $goods = GoodsModels::with($withs)
             ->whereIn('id', $ids)
+            ->orderBy('name', 'ASC')
+        // ->orderBy('color', 'DESC')
             ->get();
+
         $type = 'shipping';
-        $items = self::getFormatGoodsItems($type, $goods);
+        $items = self::getFormattedGoodsItems($type, $goods);
+        // dd($items);
 
         $index = 0;
         $id = 0;
         $final = [];
 
         foreach ($items as $item) {
+            // dd($item);
             $found = false;
             $sizes = config('constant.goods.sizes');
             foreach ($sizes as $size) {
@@ -494,13 +499,20 @@ class Goods
                     }
                 }
             }
+            $items[$index]['actions'] = [
+                [
+                    'key' => 1,
+                    'title' => __("Delete"),
+                    'color' => "danger",
+                    'type' => "Delete",
+                ],
+            ];
             if ($found) {
                 $items[$index]['id'] = $id;
                 $final[] = $items[$index];
             }
             $index++;
         }
-        // dd($final);
         return $final;
     }
 
@@ -561,7 +573,7 @@ class Goods
         return $items;
     }
 
-    public static function getFormatGoodsItems($type, $goods)
+    public static function getFormattedGoodsItems($type, $goods)
     {
         // dd($goods->toArray());
         $index = 0;
@@ -572,6 +584,12 @@ class Goods
                 // dd($goodsItem->toArray());
                 $found = false;
                 $foundIndex = 0;
+                $unit_price = $type === 'purchase' ? $_goods->cost_price : $_goods->wholesale_price;
+                if ($type === 'purchase' && isset($goodsItem->cost_price) && !empty($goodsItem->cost_price) && $goodsItem->cost_price > 0) {
+                    $unit_price = $goodsItem->cost_price;
+                } else if (isset($goodsItem->wholesale_price) && !empty($goodsItem->wholesale_price) && $goodsItem->wholesale_price > 0) {
+                    $unit_price = $goodsItem->wholesale_price;
+                }
                 foreach ($items as $item) {
                     // dd($item);
                     if (array_key_exists('goods_id', $item) &&
@@ -579,7 +597,8 @@ class Goods
                         array_key_exists('color', $item)) {
                         if ($item['goods_id'] === $_goods->id &&
                             $item['cup'] === $goodsItem->cup &&
-                            $item['color'] === $goodsItem->color) {
+                            $item['color'] === $goodsItem->color &&
+                            $item['unit_price'] === $unit_price) {
                             $found = true;
                             break;
                         }
@@ -588,14 +607,22 @@ class Goods
                 }
                 $index = $foundIndex;
                 if ($found) {
+                    $items[$index][$goodsItem->size]['goods_id'] = $_goods->id;
                     $items[$index][$goodsItem->size]['goods_item_id'] = $goodsItem->id;
                     $items[$index][$goodsItem->size]['barcode'] = $goodsItem->barcode;
+                    $items[$index][$goodsItem->size]['unit_price'] = $unit_price;
+                    $items[$index][$goodsItem->size]['cost_price'] = $goodsItem->cost_price;
+                    $items[$index][$goodsItem->size]['retail_price'] = $goodsItem->retail_price;
+                    $items[$index][$goodsItem->size]['wholesale_price'] = $goodsItem->wholesale_price;
                     $items[$index][$goodsItem->size]['unit'] = 0;
                 } else {
                     $items[] = [
                         'selected' => false,
                         'total_unit' => 0,
-                        'unit_price' => $type === 'purchase' ? $_goods->cost_price : $_goods->wholesale_price,
+                        'unit_price' => $unit_price,
+                        'cost_price' => $_goods->cost_price,
+                        'wholesale_price' => $_goods->wholesale_price,
+                        'retail_price' => $_goods->retail_price,
                         'cost' => 0,
                         'id' => $index + 1,
                         'goods_id' => $_goods->id,
@@ -604,14 +631,20 @@ class Goods
                         'cup' => $goodsItem->cup,
                         'color' => $goodsItem->color,
                         $goodsItem->size => [
+                            'goods_id' => $_goods->id,
                             'goods_item_id' => $goodsItem->id,
                             'barcode' => $goodsItem->barcode,
+                            'unit_price' => $unit_price,
+                            'cost_price' => $goodsItem->cost_price,
+                            'retail_price' => $goodsItem->retail_price,
+                            'wholesale_price' => $goodsItem->wholesale_price,
                             'unit' => 0,
                         ],
                     ];
                 }
             }
         }
+        // dd($type, $items);
         return $items;
     }
 

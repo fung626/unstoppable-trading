@@ -31,132 +31,30 @@
             @update:options="fetch"
             :mobile="mobile"
         >
-            <template v-slot:[`item.32-S`]="{ item }">
-                <div v-if="item['32-S']">
+            <template
+                v-for="x of [
+                    '32-S',
+                    '34-M',
+                    '36-L',
+                    '38-XL',
+                    '40-Q',
+                    '42-EQ',
+                    '44-Free',
+                ]"
+                v-slot:[`item.${x}`]="{ item }"
+                :key="x"
+            >
+                <div v-if="item[x]">
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">
                             <span v-bind="attrs" v-on="on">
-                                {{ item["32-S"].stock_unit }}
+                                {{ item[x].stock_unit }}
                             </span>
                         </template>
                         <span>
                             <barcode
-                                v-if="item['32-S'].barcode"
-                                :value="item['32-S'].barcode"
-                                :options="{ format: 'CODE39', height: 32 }"
-                            ></barcode>
-                        </span>
-                    </v-tooltip>
-                </div>
-                <div v-else>－</div>
-            </template>
-            <template v-slot:[`item.34-M`]="{ item }">
-                <div v-if="item['34-M']">
-                    <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on">
-                                {{ item["34-M"].stock_unit }}
-                            </span>
-                        </template>
-                        <span>
-                            <barcode
-                                v-if="item['34-M'].barcode"
-                                :value="item['34-M'].barcode"
-                                :options="{ format: 'CODE39', height: 32 }"
-                            ></barcode>
-                        </span>
-                    </v-tooltip>
-                </div>
-                <div v-else>－</div>
-            </template>
-            <template v-slot:[`item.36-L`]="{ item }">
-                <div v-if="item['36-L']">
-                    <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on">
-                                {{ item["36-L"].stock_unit }}
-                            </span>
-                        </template>
-                        <span>
-                            <barcode
-                                v-if="item['36-L'].barcode"
-                                :value="item['36-L'].barcode"
-                                :options="{ format: 'CODE39', height: 32 }"
-                            ></barcode>
-                        </span>
-                    </v-tooltip>
-                </div>
-                <div v-else>－</div>
-            </template>
-            <template v-slot:[`item.38-XL`]="{ item }">
-                <div v-if="item['38-XL']">
-                    <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on">
-                                {{ item["38-XL"].stock_unit }}
-                            </span>
-                        </template>
-                        <span>
-                            <barcode
-                                v-if="item['38-XL'].barcode"
-                                :value="item['38-XL'].barcode"
-                                :options="{ format: 'CODE39', height: 32 }"
-                            ></barcode>
-                        </span>
-                    </v-tooltip>
-                </div>
-                <div v-else>－</div>
-            </template>
-            <template v-slot:[`item.40-Q`]="{ item }">
-                <div v-if="item['40-Q']">
-                    <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on">
-                                {{ item["40-Q"].stock_unit }}
-                            </span>
-                        </template>
-                        <span>
-                            <barcode
-                                v-if="item['40-Q'].barcode"
-                                :value="item['40-Q'].barcode"
-                                :options="{ format: 'CODE39', height: 32 }"
-                            ></barcode>
-                        </span>
-                    </v-tooltip>
-                </div>
-                <div v-else>－</div>
-            </template>
-            <template v-slot:[`item.42-EQ`]="{ item }">
-                <div v-if="item['42-EQ']">
-                    <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on">
-                                {{ item["42-EQ"].stock_unit }}
-                            </span>
-                        </template>
-                        <span>
-                            <barcode
-                                v-if="item['42-EQ'].barcode"
-                                :value="item['42-EQ'].barcode"
-                                :options="{ format: 'CODE39', height: 32 }"
-                            ></barcode>
-                        </span>
-                    </v-tooltip>
-                </div>
-                <div v-else>－</div>
-            </template>
-            <template v-slot:[`item.44-Free`]="{ item }">
-                <div v-if="item['44-Free']">
-                    <v-tooltip bottom>
-                        <template v-slot:activator="{ on, attrs }">
-                            <span v-bind="attrs" v-on="on">
-                                {{ item["44-Free"].stock_unit }}
-                            </span>
-                        </template>
-                        <span>
-                            <barcode
-                                v-if="item['44-Free'].barcode"
-                                :value="item['44-Free'].barcode"
+                                v-if="item[x].barcode"
+                                :value="item[x].barcode"
                                 :options="{ format: 'CODE39', height: 32 }"
                             ></barcode>
                         </span>
@@ -222,10 +120,10 @@ export default {
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { title: this.$t("name"), value: "goods.name" },
-                { title: this.$t("type"), value: "goods.type" },
-                { title: this.$t("cup"), value: "cup" },
-                { title: this.$t("color"), value: "color" },
+                { title: this.$t("name"), value: "goods.name", sortable: true },
+                { title: this.$t("type"), value: "goods.type", sortable: true },
+                { title: this.$t("cup"), value: "cup", sortable: true },
+                { title: this.$t("color"), value: "color", sortable: true },
                 { title: "32-S", value: "32-S", sortable: false },
                 { title: "34-M", value: "34-M", sortable: false },
                 { title: "36-L", value: "36-L", sortable: false },
@@ -236,7 +134,7 @@ export default {
                 {
                     title: this.$t("total-unit"),
                     value: "total_unit",
-                    sortable: false,
+                    sortable: true,
                 },
                 {
                     title: this.$t("actions"),
@@ -297,7 +195,7 @@ export default {
                             _item
                         )
                     ) {
-                        this.fetch();
+                        this.fetch({ ...this.options });
                     }
                     break;
             }

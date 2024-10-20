@@ -236,6 +236,7 @@ Route::prefix('goods/shippings/mailer')->middleware(['auth:api', 'scopes:shippin
 
 Route::prefix('goods/shippings/invoice')->middleware(['auth:api', 'scopes:shippings', 'localization'])->group(function () {
     Route::post('export', [ShippingInvoiceController::class, 'export']);
+    Route::post('print', [ShippingInvoiceController::class, 'print']);
 });
 
 Route::prefix('goods/items')->middleware(['auth:api', 'scopes:goods', 'localization'])->group(function () {
