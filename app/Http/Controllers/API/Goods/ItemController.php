@@ -82,7 +82,7 @@ class ItemController extends Controller
             "goods_id" => 'required|string',
             "cup" => 'nullable|string|in:' . implode(',', config('constant.goods.cups')),
             "size" => 'nullable|string|in:' . implode(',', config('constant.goods.sizes')),
-            "color" => 'nullable|string|in:' . implode(',', config('constant.goods.colors')),
+            "color" => 'nullable|string|exists:config_goods_colors,name',
             "barcode" => 'nullable|string',
         ]);
 

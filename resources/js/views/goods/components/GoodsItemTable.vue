@@ -60,9 +60,10 @@
                         width: '54px',
                     }"
                     v-model="item.cup"
-                    :items="goodsCups"
+                    :items="cups"
                     item-title="name"
                     item-value="name"
+                    :disabled="item.type !== 'BR'"
                     variant="plain"
                     hide-details
                 ></v-autocomplete>
@@ -73,7 +74,7 @@
                         width: '84px',
                     }"
                     v-model="item.color"
-                    :items="goodsColors"
+                    :items="colors"
                     item-title="name"
                     item-value="name"
                     variant="plain"
@@ -86,7 +87,7 @@
                         width: '84px',
                     }"
                     v-model="item.size"
-                    :items="goodsSizes"
+                    :items="sizes"
                     item-title="name"
                     item-value="name"
                     variant="plain"
@@ -186,8 +187,9 @@
 <script>
 //
 import { Dialog } from "@/components";
-import { goodsColors, goodsCups, goodsDefaults, goodsSizes } from "@/constants";
+import { goodsDefaults } from "@/constants";
 import { v4 as uuidv4 } from "uuid";
+import { mapState } from "vuex";
 import ShippingDialog from "./ShippingDialog.vue";
 
 export default {
@@ -198,6 +200,21 @@ export default {
     components: {
         Dialog,
         ShippingDialog,
+    },
+    computed: {
+        ...mapState(["app-config"]),
+        cups() {
+            return this["app-config"].data.cups;
+        },
+        colors() {
+            return this["app-config"].data.colors;
+        },
+        sizes() {
+            return this["app-config"].data.sizes;
+        },
+        types() {
+            return this["app-config"].data.types;
+        },
     },
     data() {
         return {
@@ -251,9 +268,6 @@ export default {
                     sortable: false,
                 },
             ],
-            goodsCups: goodsCups,
-            goodsColors: goodsColors,
-            goodsSizes: goodsSizes,
         };
     },
     mounted() {

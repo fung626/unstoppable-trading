@@ -62,7 +62,7 @@
                     <CCol md="3" sm="3">
                         <v-select
                             v-model="type"
-                            :items="goodsTypes"
+                            :items="types"
                             item-title="name"
                             item-value="name"
                             :label="$t('type')"
@@ -160,10 +160,10 @@
                     <template v-slot:[`item.cup`]="{ item }">
                         <v-autocomplete
                             v-model="item.cup"
-                            :items="goodsCups"
+                            :items="cups"
                             item-title="name"
                             item-value="name"
-                            :disabled="type === 'BF'"
+                            :disabled="item.type !== 'BR'"
                             variant="plain"
                             hide-details
                             return-object
@@ -172,7 +172,7 @@
                     <template v-slot:[`item.color`]="{ item }">
                         <v-autocomplete
                             v-model="item.color"
-                            :items="goodsColors"
+                            :items="colors"
                             item-title="name"
                             item-value="name"
                             variant="plain"
@@ -183,7 +183,7 @@
                     <template v-slot:[`item.size`]="{ item }">
                         <v-autocomplete
                             v-model="item.size"
-                            :items="goodsSizes"
+                            :items="sizes"
                             item-title="name"
                             item-value="name"
                             variant="plain"
@@ -279,12 +279,27 @@
 </template>
 
 <script>
-import { goodsColors, goodsCups, goodsSizes, goodsTypes } from "@/constants";
 import { v4 as uuidv4 } from "uuid";
+import { mapState } from "vuex";
 
 export default {
     name: "CreateGoods",
     components: {},
+    computed: {
+        ...mapState(["app-config"]),
+        cups() {
+            return this["app-config"].data.cups;
+        },
+        colors() {
+            return this["app-config"].data.colors;
+        },
+        sizes() {
+            return this["app-config"].data.sizes;
+        },
+        types() {
+            return this["app-config"].data.types;
+        },
+    },
     data() {
         return {
             name: "",
@@ -370,10 +385,6 @@ export default {
             },
             errors: {},
             loading: false,
-            goodsCups: goodsCups,
-            goodsTypes: goodsTypes,
-            goodsColors: goodsColors,
-            goodsSizes: goodsSizes,
         };
     },
     watch: {

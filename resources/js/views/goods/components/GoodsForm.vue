@@ -72,7 +72,7 @@
                     <CCol md="3" sm="3">
                         <v-select
                             v-model="formData.type"
-                            :items="goodsTypes"
+                            :items="types"
                             :label="$t('type')"
                             :error="errors.type ? true : false"
                             :error-messages="errors.type"
@@ -165,13 +165,27 @@
 </template>
 <script>
 //
-import { goodsTypes } from "@/constants";
+import { mapState } from "vuex";
 
 export default {
     name: "GoodsForm",
-    components: {},
     props: {
         id: null,
+    },
+    computed: {
+        ...mapState(["app-config"]),
+        cups() {
+            return this["app-config"].data.cups;
+        },
+        colors() {
+            return this["app-config"].data.colors;
+        },
+        sizes() {
+            return this["app-config"].data.sizes;
+        },
+        types() {
+            return this["app-config"].data.types;
+        },
     },
     data() {
         return {
@@ -194,7 +208,6 @@ export default {
                 items: [],
                 loading: false,
             },
-            goodsTypes: goodsTypes,
         };
     },
     watch: {

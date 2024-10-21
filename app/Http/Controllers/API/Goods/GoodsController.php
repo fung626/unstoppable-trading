@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use Validator;
 
 class GoodsController extends Controller
@@ -37,7 +36,7 @@ class GoodsController extends Controller
     {
         DB::enableQueryLog();
         set_time_limit(240);
-        ini_set('memory_limit', '512M');
+        ini_set('memory_limit', '10240M');
     }
 
     public function post(Request $request)
@@ -534,6 +533,9 @@ class GoodsController extends Controller
         $suppliers = Supplier::whereIn('number', $numbers->toArray())->get();
 
         foreach ($numbers as $number) {
+            if (empty($number) || !isset($number)) {
+                continue;
+            }
             $found = $suppliers->first(function ($x) use ($number) {
                 return $x->number == $number;
             });
@@ -549,62 +551,135 @@ class GoodsController extends Controller
 
         $grouped = collect($data)->groupBy($supplierNumberKey);
 
-        try {
-            DB::transaction(function () use ($suppliers, $grouped) {
-                $user = Auth::user();
-                $goodsNumberKey = 'Goods Number';
-                $typeKey = 'Type';
-                $cupKey = 'Cup';
-                $colorKey = 'Color';
-                $wholesalePriceKey = 'Wholesale Price';
-                foreach ($grouped as $key => $value) {
-                    $supplier = $suppliers->first(function ($x) use ($key) {
-                        return $x->number == $key;
-                    });
-                    $x = $value->groupBy($goodsNumberKey);
-                    foreach ($x as $y) {
-                        foreach ($y as $z) {
-                            // dd($z);
-                            $goods = Goods::where(['name' => $z['ID']])->first();
-                            if (empty($goods) || !isset($goods)) {
-                                $goods = Goods::create([
-                                    'name' => $z['ID'],
-                                    'wholesale_price' => $z[$wholesalePriceKey],
-                                    'type' => $z[$typeKey],
-                                    'created_by' => $user->id,
-                                ]);
-                            }
-                            $sizes = config('constant.goods.sizes');
-                            $cup = $z[$cupKey];
-                            $color = $z[$colorKey];
-                            // dd($cup, $color);
-                            foreach ($sizes as $size) {
-                                $item = Item::where([
+        // try {
+        //     DB::transaction(function () use ($suppliers, $grouped) {
+        //         $user = Auth::user();
+        //         $goodsNumberKey = 'Goods Number';
+        //         $typeKey = 'Type';
+        //         $cupKey = 'Cup';
+        //         $colorKey = 'Color';
+        //         $costPriceKey = 'Cost Price';
+        //         $wholesalePriceKey = 'Wholesale Price';
+        //         $retailPriceKey = 'Retail Price';
+        //         foreach ($grouped as $key => $value) {
+        //             $supplier = $suppliers->first(function ($x) use ($key) {
+        //                 return $x->number == $key;
+        //             });
+        //             $x = $value->groupBy($goodsNumberKey);
+        //             foreach ($x as $y) {
+        //                 foreach ($y as $z) {
+        //                     // dd($z);
+        //                     $goods = Goods::where(['name' => $z[$goodsNumberKey]])->first();
+        //                     if (empty($goods) || !isset($goods)) {
+        //                         $goods = Goods::create([
+        //                             'name' => $z[$goodsNumberKey],
+        //                             'supplier_id' => $supplier->id,
+        //                             'cost_price' => $z[$costPriceKey],
+        //                             'wholesale_price' => $z[$wholesalePriceKey],
+        //                             'retail_price' => $z[$retailPriceKey],
+        //                             'type' => $z[$typeKey],
+        //                             // 'description' => $z['Remarks'],
+        //                             'created_by' => $user->id,
+        //                         ]);
+        //                     }
+        //                     $sizes = config('constant.goods.sizes');
+        //                     $cup = $z[$cupKey];
+        //                     $color = $z[$colorKey];
+        //                     // dd($cup, $color);
+        //                     foreach ($sizes as $size) {
+        //                         $item = Item::where([
+        //                             'goods_id' => $goods->id,
+        //                             'size' => $size,
+        //                             'cup' => $cup,
+        //                             'color' => $color,
+        //                         ])->first();
+        //                         if (empty($item) || !isset($item)) {
+        //                             Item::create([
+        //                                 'goods_id' => $goods->id,
+        //                                 'barcode' => Str::random(6),
+        //                                 'size' => $size,
+        //                                 'cup' => $cup,
+        //                                 'color' => $color,
+        //                                 'cost_price' => $z[$costPriceKey],
+        //                                 'wholesale_price' => $z[$wholesalePriceKey],
+        //                                 'retail_price' => $z[$retailPriceKey],
+        //                             ]);
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     });
+        // } catch (\Exception $e) {
+        //     Log::error($e->getMessage());
+        //     $response = config('response.common.fail.database');
+        //     $response['data'] = $e->getMessage();
+        //     return response()->json($response, 400);
+        // }
+
+        DB::transaction(function () use ($suppliers, $grouped, $supplierNumberKey) {
+            $user = Auth::user();
+            $goodsNumberKey = 'Goods Number';
+            $typeKey = 'Type';
+            $cupKey = 'Cup';
+            $colorKey = 'Color';
+            $costPriceKey = 'Cost Price';
+            $wholesalePriceKey = 'Wholesale Price';
+            $retailPriceKey = 'Retail Price';
+            foreach ($grouped as $key => $value) {
+                $supplier = $suppliers->first(function ($x) use ($key) {
+                    return $x->number == $key;
+                });
+                $x = $value->groupBy($goodsNumberKey);
+                foreach ($x as $y) {
+                    foreach ($y as $z) {
+                        if (empty($z[$goodsNumberKey]) &&
+                            !isset($z[$goodsNumberKey]) &&
+                            empty($z[$supplierNumberKey]) &&
+                            !isset($z[$supplierNumberKey])) {
+                            continue;
+                        }
+                        $goods = Goods::where(['name' => $z[$goodsNumberKey]])->first();
+                        if (empty($goods) || !isset($goods)) {
+                            $goods = Goods::create([
+                                'name' => $z[$goodsNumberKey],
+                                'supplier_id' => $supplier->id,
+                                'cost_price' => $z[$costPriceKey],
+                                'wholesale_price' => $z[$wholesalePriceKey],
+                                'retail_price' => $z[$retailPriceKey],
+                                'type' => $z[$typeKey],
+                                // 'description' => $z['Remarks'],
+                                'created_by' => $user->id,
+                            ]);
+                        }
+                        $sizes = config('constant.goods.sizes');
+                        $cup = $z[$cupKey];
+                        $color = $z[$colorKey];
+                        // dd($cup, $color);
+                        foreach ($sizes as $size) {
+                            $item = Item::where([
+                                'goods_id' => $goods->id,
+                                'size' => $size,
+                                'cup' => $cup,
+                                'color' => $color,
+                            ])->first();
+                            if (empty($item) || !isset($item)) {
+                                Item::create([
                                     'goods_id' => $goods->id,
+                                    'barcode' => Str::random(6),
                                     'size' => $size,
                                     'cup' => $cup,
                                     'color' => $color,
-                                ])->first();
-                                if (empty($item) || !isset($item)) {
-                                    Item::create([
-                                        'goods_id' => $goods->id,
-                                        'barcode' => Str::random(6),
-                                        'size' => $size,
-                                        'cup' => $cup,
-                                        'color' => $color,
-                                    ]);
-                                }
+                                    'cost_price' => $z[$costPriceKey],
+                                    'wholesale_price' => $z[$wholesalePriceKey],
+                                    'retail_price' => $z[$retailPriceKey],
+                                ]);
                             }
                         }
                     }
                 }
-            });
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            $response = config('response.common.fail.database');
-            $response['data'] = $e->getMessage();
-            return response()->json($response, 400);
-        }
+            }
+        });
 
         $response = config('response.common.success');
         return response()->json($response, 200);
