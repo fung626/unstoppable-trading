@@ -161,7 +161,7 @@ class PurchaseController extends Controller
                         ->orWhere('users.email', 'like', '%' . $keyword . '%');
                 });
             })
-            ->select($this->select)
+            ->select([ ...$this->select, ...[DB::raw("concat(goods_purchases.to_company_number, '-', RIGHT(100000000 + goods_purchases.number, 8)) as generated_id")]])
             ->join('suppliers', 'suppliers.id', '=', 'goods_purchases.supplier_id')
             ->join('users', 'users.id', '=', 'goods_purchases.user_id');
 
@@ -320,7 +320,7 @@ class PurchaseController extends Controller
                         ->orWhere('users.email', 'like', '%' . $keyword . '%');
                 });
             })
-            ->select($this->select)
+            ->select([ ...$this->select, ...[DB::raw("concat(goods_purchases.to_company_number, '-', RIGHT(100000000 + goods_purchases.number, 8)) as generated_id")]])
             ->join('suppliers', 'suppliers.id', '=', 'goods_purchases.supplier_id')
             ->join('users', 'users.id', '=', 'goods_purchases.user_id');
 

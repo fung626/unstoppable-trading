@@ -117,23 +117,57 @@
                     ></vue-barcode>
                 </div>
             </template>
+
+            <template v-slot:[`item.stock_unit`]="{ item }">
+                <div
+                    :style="{
+                        width: '84px',
+                    }"
+                >
+                    {{ item.stock_unit }}
+                </div>
+            </template>
+
+            <template v-slot:[`item.cost_price`]="{ item }">
+                <input
+                    :placeholder="$t('price.cost')"
+                    v-model="item.cost_price"
+                    type="number"
+                    :min="0"
+                />
+            </template>
+            <template v-slot:[`item.wholesale_price`]="{ item }">
+                <input
+                    :placeholder="$t('price.wholesale')"
+                    v-model="item.wholesale_price"
+                    type="number"
+                    :min="0"
+                />
+            </template>
+            <template v-slot:[`item.retail_price`]="{ item }">
+                <input
+                    :placeholder="$t('price.retail')"
+                    v-model="item.retail_price"
+                    type="number"
+                    :min="0"
+                />
+            </template>
             <template v-slot:[`item.updated_at`]="{ item }">
-                <div v-if="item.updated_at">
+                <div
+                    v-if="item.updated_at"
+                    :style="{
+                        width: '84px',
+                    }"
+                >
                     {{ this.$formatDate(item.updated_at) }}
                 </div>
             </template>
-            <template v-slot:[`item.cost_price`]="{ item }">
-                {{ item.cost_price }}
-                <input :v-model="item.cost_price" type="number" :min="0" />
-            </template>
-            <template v-slot:[`item.wholesale_price`]="{ item }">
-                <input :v-model="item.wholesale_price" type="number" :min="0" />
-            </template>
-            <template v-slot:[`item.retail_price`]="{ item }">
-                <input :v-model="item.retail_price" type="number" :min="0" />
-            </template>
             <template v-slot:[`item.actions`]="{ item }">
-                <CButtonGroup>
+                <CButtonGroup
+                    :style="{
+                        width: '184px',
+                    }"
+                >
                     <CButton
                         v-for="action in item.actions"
                         :key="action.key"
@@ -196,17 +230,17 @@ export default {
                     sortable: false,
                 },
                 {
-                    title: this.$t("cost-price"),
+                    title: this.$t("price.cost"),
                     value: "cost_price",
                     sortable: false,
                 },
                 {
-                    title: this.$t("wholesale-price"),
+                    title: this.$t("price.wholesale"),
                     value: "wholesale_price",
                     sortable: false,
                 },
                 {
-                    title: this.$t("retail-price"),
+                    title: this.$t("price.retail"),
                     value: "retail_price",
                     sortable: false,
                 },

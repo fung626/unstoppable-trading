@@ -32,6 +32,7 @@ class StockController extends Controller
             'goods_id',
             'color',
             'cup',
+            'goods_items.cost_price',
         ];
         $index = count($select);
         foreach ($sizes as $size) {
@@ -56,7 +57,7 @@ class StockController extends Controller
             })
             ->select($select)
             ->join('goods', 'goods.id', '=', 'goods_items.goods_id')
-            ->groupBy(['goods_id', 'color', 'cup']);
+            ->groupBy(['goods_id', 'color', 'cup', 'goods_items.cost_price']);
 
         if ($request->filled(['sort_by'])) {
             $sortBys = request('sort_by');

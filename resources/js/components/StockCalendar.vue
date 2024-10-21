@@ -1,5 +1,5 @@
 <template>
-    <CCard>
+    <CCard class="d-none d-md-block">
         <v-progress-linear
             :active="loading"
             indeterminate
@@ -79,13 +79,31 @@
                                 <div
                                     class="d-flex flex-column justify-content-center"
                                 >
-                                    <label>
+                                    <CLink
+                                        v-if="cType === 'purchase'"
+                                        :href="`#/purchases/details/${selectedEvent.data.id}`"
+                                    >
                                         {{
-                                            `${selectedEvent.data.client_name}`
+                                            `${selectedEvent.data.generated_id}`
                                         }}
-                                    </label>
-                                    <label>
-                                        {{ selectedEvent.data.client_contact }}
+                                    </CLink>
+                                    <CLink
+                                        v-if="cType === 'shipping'"
+                                        :href="`#/shippings/details/${selectedEvent.data.id}`"
+                                    >
+                                        {{
+                                            `${selectedEvent.data.generated_id}`
+                                        }}
+                                    </CLink>
+                                    <label
+                                        v-if="
+                                            selectedEvent.data.client_name &&
+                                            selectedEvent.data.client_contact
+                                        "
+                                    >
+                                        {{
+                                            `${selectedEvent.data.client_name} ${selectedEvent.data.client_contact}`
+                                        }}
                                     </label>
                                 </div>
                             </div>
@@ -216,7 +234,7 @@ export default {
             console.log(event);
         },
         click(event) {
-            // console.log(event);
+            console.log(event);
             this.selectedEvent = event;
             // this.type = type.value;
             // this.$forceUpdate();

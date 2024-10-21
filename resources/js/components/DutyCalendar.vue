@@ -1,5 +1,5 @@
 <template>
-    <CCard v-if="allowed">
+    <CCard v-if="allowed" class="d-none d-md-block">
         <v-progress-linear
             :active="loading"
             indeterminate

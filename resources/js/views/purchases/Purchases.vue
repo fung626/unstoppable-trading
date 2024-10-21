@@ -39,8 +39,10 @@
             :items-length="serverItemsLength"
             :search="search"
             :loading="loading"
-            @update:options="fetch"
+            :multi-sort="true"
+            :sort-by="options.sortBy"
             :mobile="mobile"
+            @update:options="fetch"
         >
             <template v-slot:loading>
                 <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
@@ -113,18 +115,34 @@ export default {
             options: {
                 page: 1,
                 itemsPerPage: 10,
-                sortBy: "supplier.name",
+                sortBy: [{ key: "updated_at", order: "desc" }],
             },
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { title: this.$t("number"), value: "generated_id" },
-                { title: this.$t("supplier"), value: "supplier.name" },
-                { title: this.$t("creator"), value: "users.name" },
+                {
+                    title: this.$t("number"),
+                    value: "generated_id",
+                    sortable: true,
+                },
+                {
+                    title: this.$t("supplier"),
+                    value: "supplier.name",
+                    sortable: true,
+                },
+                {
+                    title: this.$t("creator"),
+                    value: "users.name",
+                    sortable: true,
+                },
                 { title: this.$t("subtotal"), value: "subtotal" },
                 { title: this.$t("status"), value: "status" },
-                { title: this.$t("date"), value: "date" },
-                { title: this.$t("updatedat"), value: "updated_at" },
+                { title: this.$t("date"), value: "date", sortable: true },
+                {
+                    title: this.$t("updatedat"),
+                    value: "updated_at",
+                    sortable: true,
+                },
                 {
                     text: `${this.$t("status")}${this.$t("actions")}`,
                     value: "status_actions",

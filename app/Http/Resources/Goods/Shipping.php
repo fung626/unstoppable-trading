@@ -38,7 +38,7 @@ class Shipping extends JsonResource
             foreach ($shippingStocks as $shipStock) {
                 if (isset($shipStock->stock->unit)) {
                     $totalunit += $shipStock->stock->unit;
-                    $subtotal += abs($shipStock->stock->unit) * $shipStock->stock->goods->wholesale_price;
+                    $subtotal += abs($shipStock->stock->unit) * $shipStock->stock->unit_price;
                 }
             }
         }

@@ -33,6 +33,9 @@ class Stocks extends ResourceCollection
                     ->when($item->cup, function ($query) use ($item) {
                         return $query->where('cup', $item->cup);
                     })
+                    ->when($item->cost_price, function ($query) use ($item) {
+                        return $query->where('cost_price', $item->cost_price);
+                    })
                     ->first();
 
                 if ($_item) {

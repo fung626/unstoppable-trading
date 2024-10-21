@@ -27,10 +27,12 @@
             :items="items"
             :items-length="serverItemsLength"
             :search="search"
-            :loading="loading"
+            :sort-by="options.sortBy"
             :items-per-page="options.itemsPerPage"
+            :loading="loading"
             @update:options="fetch"
             :mobile="mobile"
+            multi-sort
         >
             <template v-slot:loading>
                 <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
@@ -65,6 +67,11 @@
                     </v-tooltip>
                 </div>
                 <div v-else>－</div>
+            </template>
+            <template v-slot:[`item.cost_price`]="{ item }">
+                <div v-if="item.cost_price">
+                    {{ $filters.formatPrice(item.cost_price) }}
+                </div>
             </template>
             <template v-if="!loading" v-slot:[`body.append`]>
                 <tr>
@@ -141,12 +148,21 @@ export default {
             options: {
                 page: 1,
                 itemsPerPage: 10,
-                sortBy: [{ key: "goods.name", order: "desc" }],
+                sortBy: [
+                    { key: "goods.name", order: "asc" },
+                    { key: "goods.type", order: "asc" },
+                    { key: "color", order: "asc" },
+                ],
             },
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { title: this.$t("name"), value: "goods.name", sortable: true },
+                {
+                    title: this.$t("name"),
+                    value: "goods.name",
+                    sortable: true,
+                    width: "164px",
+                },
                 { title: this.$t("type"), value: "goods.type", sortable: true },
                 { title: this.$t("cup"), value: "cup", sortable: true },
                 { title: this.$t("color"), value: "color", sortable: true },
@@ -157,6 +173,11 @@ export default {
                 { title: "40-Q", value: "40-Q", sortable: false },
                 { title: "42-EQ", value: "42-EQ", sortable: false },
                 { title: "44-Free", value: "44-Free", sortable: false },
+                {
+                    title: this.$t("price.cost"),
+                    value: "cost_price",
+                    sortable: false,
+                },
                 {
                     title: this.$t("total-unit"),
                     value: "total_unit",

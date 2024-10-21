@@ -198,7 +198,7 @@
                             class="d-flex justify-content-center"
                             v-on:dblclick="editUnitPrice(item)"
                             :style="{ width: '104px' }"
-                            v-if="item.unit_price"
+                            v-if="item.id"
                         >
                             <input
                                 v-if="item.isUnitPriceEditing"
@@ -381,6 +381,7 @@ export default {
                     self.table.items.items = JSON.parse(
                         JSON.stringify(response.data.shipping_items)
                     );
+                    console.log(self.table.items.items);
                     self.table.header.items = response.data.header_items;
                     self.table.footer.items = response.data.footer_items;
                     self.loading = false;

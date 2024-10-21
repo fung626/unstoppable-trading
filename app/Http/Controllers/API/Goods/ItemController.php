@@ -130,6 +130,9 @@ class ItemController extends Controller
                         'size' => request('size'),
                         'color' => request('color'),
                         'barcode' => request('barcode'),
+                        'cost_price' => request('cost_price'),
+                        'retail_price' => request('retail_price'),
+                        'wholesale_price' => request('wholesale_price'),
                     ]);
                 $item = Item::where(['id' => request('id')])->first();
                 // dd(request('id'), $item);
@@ -144,6 +147,9 @@ class ItemController extends Controller
                     'size' => request('size'),
                     'color' => request('color'),
                     'barcode' => $request->filled(['barcode']) ? request('barcode') : GoodsLib::barcode(),
+                    'cost_price' => request('cost_price'),
+                    'retail_price' => request('retail_price'),
+                    'wholesale_price' => request('wholesale_price'),
                     'created_by' => $user->id,
                 ]);
                 // $resource = new ItemResource($item);

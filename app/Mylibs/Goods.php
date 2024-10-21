@@ -326,28 +326,28 @@ class Goods
             }
             // dd($stock);
             $index = $foundIndex;
-            $disabled = $status === 'DELIVERED' ? true : false;
+            // $disabled = $status === 'DELIVERED' ? true : false;
             $actions = [
                 [
                     'key' => Str::random(16),
                     'title' => __('Update'),
                     'color' => "primary",
                     'type' => "Update",
-                    'disabled' => $disabled,
+                    // 'disabled' => $disabled,
                 ],
                 [
                     'key' => Str::random(16),
                     'title' => __('Return'),
                     'color' => "warning",
                     'type' => "Return",
-                    'disabled' => $disabled,
+                    // 'disabled' => $disabled,
                 ],
                 [
                     'key' => Str::random(16),
                     'title' => __('Delete'),
                     'color' => "danger",
                     'type' => "Delete",
-                    'disabled' => $disabled,
+                    // 'disabled' => $disabled,
                 ],
             ];
             if ($found) {

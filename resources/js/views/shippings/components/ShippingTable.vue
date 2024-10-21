@@ -32,7 +32,7 @@
             :search="search"
             :loading="loading"
             :multi-sort="true"
-            :sort-by="sortBy"
+            :sort-by="options.sortBy"
             :mobile="mobile"
             @update:options="fetch"
         >

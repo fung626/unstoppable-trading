@@ -194,10 +194,10 @@ class ShippingController extends Controller
 
         $shipping = Shipping::where('id', request('id'))->first();
 
-        if ($shipping->status === 'DELIVERED') {
-            $response = config('response.common.fail.parameter');
-            return response()->json($response, 400);
-        }
+        // if ($shipping->status === 'DELIVERED') {
+        //     $response = config('response.common.fail.parameter');
+        //     return response()->json($response, 400);
+        // }
 
         try {
             if ($request->filled(['status'])) {
