@@ -31,6 +31,7 @@
             :items="items"
             :items-length="serverItemsLength"
             :search="search"
+            :sort-by="options.sortBy"
             :loading="loading"
             @update:options="fetch"
             :mobile="mobile"
@@ -82,13 +83,17 @@ export default {
             options: {
                 page: 1,
                 itemsPerPage: 10,
-                sortBy: "name",
+                sortBy: [{ key: "name", order: "desc" }],
             },
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { title: this.$t("name"), value: "name" },
-                { title: this.$t("updatedat"), value: "updated_at" },
+                { title: this.$t("name"), value: "name", sortable: true },
+                {
+                    title: this.$t("updatedat"),
+                    value: "updated_at",
+                    sortable: true,
+                },
                 {
                     title: this.$t("actions"),
                     value: "actions",

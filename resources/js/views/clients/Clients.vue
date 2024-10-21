@@ -30,6 +30,7 @@
             :items="items"
             :items-length="serverItemsLength"
             :search="search"
+            :sort-by="options.sortBy"
             :loading="loading"
             @update:options="fetch"
             :mobile="mobile"
@@ -81,21 +82,25 @@ export default {
             options: {
                 page: 1,
                 itemsPerPage: 10,
-                sortBy: null,
+                sortBy: [{ key: "number", order: "desc" }],
             },
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { title: this.$t("number"), value: "number" },
-                { title: this.$t("name"), value: "name" },
-                { title: this.$t("contact"), value: "contact" },
+                { title: this.$t("number"), value: "number", sortable: true },
+                { title: this.$t("name"), value: "name", sortable: true },
+                { title: this.$t("contact"), value: "contact", sortable: true },
                 {
                     title: this.$t("phone"),
                     value: "formated_phone",
                     sortable: false,
                 },
-                { title: this.$t("email"), value: "email" },
-                { title: this.$t("updatedat"), value: "updated_at" },
+                { title: this.$t("email"), value: "email", sortable: true },
+                {
+                    title: this.$t("updatedat"),
+                    value: "updated_at",
+                    sortable: true,
+                },
                 {
                     title: this.$t("actions"),
                     value: "actions",
