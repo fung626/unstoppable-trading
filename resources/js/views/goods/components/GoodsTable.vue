@@ -45,12 +45,20 @@
             :items="items"
             :items-length="serverItemsLength"
             :search="search"
+            :sort-by="options.sortBy"
+            multi-sort
             :loading="loading"
             @update:options="fetch"
             :mobile="mobile"
         >
             <template v-slot:loading>
                 <v-skeleton-loader type="table-row@10"></v-skeleton-loader>
+            </template>
+            <template v-slot:[`item.goods.name`]="{ item }">
+                {{ item.name }}
+            </template>
+            <template v-slot:[`item.goods.type`]="{ item }">
+                {{ item.type }}
             </template>
             <template v-slot:[`item.warehouses`]="{ item }">
                 <v-chip
@@ -129,13 +137,16 @@ export default {
             options: {
                 page: 1,
                 itemsPerPage: 10,
-                sortBy: null,
+                sortBy: [
+                    { key: "goods.name", order: "asc" },
+                    { key: "goods.type", order: "asc" },
+                ],
             },
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { title: this.$t("name"), key: "name" },
-                { title: this.$t("type"), key: "type" },
+                { title: this.$t("name"), key: "goods.name", sortable: true },
+                { title: this.$t("type"), key: "goods.type", sortable: true },
                 {
                     title: this.$t("warehouse"),
                     key: "warehouses",
@@ -149,14 +160,18 @@ export default {
                 {
                     title: this.$t("supplier"),
                     key: "supplier.name",
-                    sortable: false,
+                    sortable: true,
                 },
                 {
                     title: this.$t("categories"),
                     key: "categories",
                     sortable: false,
                 },
-                { title: this.$t("updatedat"), key: "updated_at" },
+                {
+                    title: this.$t("updatedat"),
+                    key: "updated_at",
+                    sortable: true,
+                },
                 { title: this.$t("actions"), key: "actions", sortable: false },
             ],
         };

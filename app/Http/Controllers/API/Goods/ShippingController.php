@@ -211,6 +211,14 @@ class ShippingController extends Controller
                     Shipping::where('id', request('id'))
                         ->update(['status' => request('status')]);
                 }
+                GoodsStock::create([
+                    'goods_id' => $item['goods_id'],
+                    'goods_item_id' => $item[$size]['goods_item_id'],
+                    'unit' => -($item[$size]['unit']),
+                    'unit_price' => $goods->{$this->priceTag},
+                    'cost_price' => $goods->cost_price,
+                    'type' => 'SHIPPING',
+                ]);
             }
             if ($request->filled(['item'])) {
                 $item = request('item');

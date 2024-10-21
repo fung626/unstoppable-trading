@@ -7,6 +7,7 @@ use App\Http\Resources\Goods\Purchase\Purchase as PurchaseResource;
 use App\Http\Resources\Goods\Purchase\Purchases as PurchasesResource;
 use App\Models\Goods\Purchase\Item;
 use App\Models\Goods\Purchase\Purchase;
+use App\Models\Goods\Stock\Stock as GoodsStock;
 use App\Models\Goods\Supplier;
 use App\Mylibs\Goods as GoodsLib;
 use App\Mylibs\MyPhpOffice;
@@ -283,6 +284,20 @@ class PurchaseController extends Controller
         try {
             Purchase::where('id', request('id'))
                 ->update(['status' => request('status')]);
+            if (request('status') === 'DELIVERED') {
+                $items = Item::where(['goods_purchase_id' => request('id')])->get();
+                foreach ($items as $item) {
+                    GoodsStock::create([
+                        'goods_item_id' => $item->goods_item_id,
+                        'goods_id' => $item->goods_id,
+                        'unit' => $item->unit,
+                        'unit_price' => $item->unit_price,
+                        'cost_price' => $item->cost,
+                        'type' => 'PURCHASE',
+                    ]);
+                }
+
+            }
         } catch (\Illuminate\Database\QueryException $e) {
             Log::error($e->getMessage());
             // $errorInfo = $e->errorInfo;

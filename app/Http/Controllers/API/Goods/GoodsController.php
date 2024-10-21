@@ -274,6 +274,8 @@ class GoodsController extends Controller
     {
 
         $query = Goods::with($this->withs)
+            ->select('goods.*')
+            ->join('suppliers as supplier', 'goods.supplier_id', '=', 'supplier.id')
             ->when($request->filled(['id']), function ($query) {
                 $id = trim(request('id'));
                 return $query->where(function ($query) use ($id) {
@@ -303,7 +305,9 @@ class GoodsController extends Controller
                 return $query->where(function ($query) use ($keyword) {
                     $query->where('id', 'like', '%' . $keyword . '%')
                         ->orWhere('name', 'like', '%' . $keyword . '%')
-                        ->orWhere('type', 'like', '%' . $keyword . '%');
+                        ->orWhere('type', 'like', '%' . $keyword . '%')
+                        ->orWhere('supplier.name', 'like', '%' . $keyword . '%')
+                        ->orWhere('warehouses.name', 'like', '%' . $keyword . '%');;
                 });
             });
 

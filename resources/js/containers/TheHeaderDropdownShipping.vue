@@ -24,10 +24,16 @@
                     </strong>
                 </CDropdownHeader>
                 <div v-if="show()">
-                    <CDropdownItem v-for="item in data" :key="item.id">
-                        {{ item.goods.name }} － {{ item.color }}
-                        {{ item.size }} － {{ $t("unit") }} {{ item.unit }}
+                    <CDropdownItem
+                        v-for="(item, index) in data.slice(0, 10)"
+                        :key="item.id"
+                    >
+                        <div v-if="index < 10">
+                            {{ item.goods.name }} － {{ item.color }}
+                            {{ item.size }} － {{ $t("unit") }} {{ item.unit }}
+                        </div>
                     </CDropdownItem>
+                    <CDropdownItem v-if="data.length > 10"> ... </CDropdownItem>
                 </div>
                 <div v-else>
                     <CDropdownItem>

@@ -19,8 +19,8 @@ class Goods extends ResourceCollection
     {
         // return parent::toArray($request);
         return $this->collection->transform(function ($item) use ($request) {
-            $stockSum = Stock::goodsSum($item->id);
-            $item->stock_unit = $stockSum ? $stockSum->unit * 1 : 0;
+            $sum = Stock::goodsSum($item->id);
+            $item->stock_unit = $sum ? $sum->unit * 1 : 0;
             $item->actions = [
                 [
                     'key' => Str::random(16),
