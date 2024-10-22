@@ -31,6 +31,7 @@
             :items="items"
             :items-length="serverItemsLength"
             :search="search"
+            :sort-by="options.sortBy"
             :loading="loading"
             @update:options="fetch"
             :mobile="mobile"
@@ -88,12 +89,12 @@ export default {
             options: {
                 page: 1,
                 itemsPerPage: 10,
-                sortBy: null,
+                sortBy: [{ key: "number", order: "asc" }],
             },
             headers: [
-                { title: this.$t("number"), value: "number" },
-                { title: this.$t("name"), value: "name" },
-                { title: this.$t("contact"), value: "contact" },
+                { title: this.$t("number"), value: "number", sortable: true },
+                { title: this.$t("name"), value: "name", sortable: true },
+                { title: this.$t("contact"), value: "contact", sortable: true },
                 {
                     title: this.$t("phone"),
                     value: "formated_phone",
@@ -104,8 +105,12 @@ export default {
                     value: "formated_fax",
                     sortable: false,
                 },
-                { title: this.$t("email"), value: "email" },
-                { title: this.$t("updatedat"), value: "updated_at" },
+                { title: this.$t("email"), value: "email", sortable: true },
+                {
+                    title: this.$t("updatedat"),
+                    value: "updated_at",
+                    sortable: true,
+                },
                 {
                     title: this.$t("actions"),
                     value: "actions",
@@ -134,7 +139,6 @@ export default {
                 page: page,
                 per_page: itemsPerPage,
                 sort_by: sortBy,
-
                 search: search,
             };
             this.$store

@@ -7,6 +7,7 @@ use App\Http\Resources\Goods\Goods as GoodsResource;
 use App\Models\Goods\Content;
 use App\Models\Goods\Goods;
 use App\Models\Goods\Item;
+use App\Models\Goods\Stock\Stock as GoodsStock;
 use App\Models\Goods\Supplier;
 use App\Mylibs\Goods as GoodsLib;
 use App\Mylibs\MyPhpOffice;
@@ -668,7 +669,7 @@ class GoodsController extends Controller
                                 'color' => $color,
                             ])->first();
                             if (empty($item) || !isset($item)) {
-                                Item::create([
+                                $item = Item::create([
                                     'goods_id' => $goods->id,
                                     'barcode' => Str::random(6),
                                     'size' => $size,
@@ -679,6 +680,18 @@ class GoodsController extends Controller
                                     'retail_price' => $z[$retailPriceKey],
                                 ]);
                             }
+                            // dd($z[$size], $size, $item);
+                            if (!empty($z[$size]) && isset($item) && $z[$size] > 0) {
+                                GoodsStock::create([
+                                    'goods_item_id' => $item->id,
+                                    'goods_id' => $item->goods_id,
+                                    'unit' => $z[$size],
+                                    'unit_price' => $item->cost_price,
+                                    'cost_price' => $item->cost_price * $z[$size],
+                                    'type' => 'IMPORT',
+                                ]);
+                            }
+
                         }
                     }
                 }
