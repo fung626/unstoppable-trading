@@ -27,7 +27,7 @@ class StocktakeController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'goods_purchase_id' => 'required',
-            'status' => 'string|in:DELIVERED',
+            // 'status' => 'string|in:DELIVERED',
             'items' => 'required',
         ]);
 

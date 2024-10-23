@@ -206,6 +206,8 @@
 
 <script>
 import { goodsSizes } from "@/constants";
+// import { debounce } from "vue-debounce";
+import debounce from "lodash/debounce";
 
 export default {
     name: "AddNewShippingItemsTableDialog",
@@ -263,34 +265,36 @@ export default {
             });
         },
         fetch({ page, itemsPerPage, sortBy, search }) {
-            let self = this;
-            self.loading = true;
-            self.options.page = page;
-            self.options.itemsPerPage = itemsPerPage;
-            self.options.sortBy = sortBy;
-            let data = {
-                page: page,
-                per_page: itemsPerPage,
-                sort_by: sortBy,
-
-                search: search,
-            };
-            this.$store
-                .dispatch("goods/stocks/get", data)
-                .then((response) => {
-                    let res = JSON.parse(JSON.stringify(response.data));
-                    self.items = res.data.map((x, index) => {
-                        return { id: index, ...x };
+            this.options.page = page;
+            this.options.itemsPerPage = itemsPerPage;
+            this.options.sortBy = sortBy;
+            const d = debounce(() => {
+                let self = this;
+                self.loading = true;
+                let data = {
+                    page: self.options.page,
+                    per_page: self.options.itemsPerPage,
+                    sort_by: self.options.sortBy,
+                    search: self.search,
+                };
+                this.$store
+                    .dispatch("goods/stocks/get", data)
+                    .then((response) => {
+                        let res = JSON.parse(JSON.stringify(response.data));
+                        self.items = res.data.map((x, index) => {
+                            return { id: index, ...x };
+                        });
+                        self.serverItemsLength = res.total;
+                        self.pageCount = res.last_page;
+                        self.page = res.current_page;
+                        self.selected = [];
+                        self.loading = false;
+                    })
+                    .catch((error) => {
+                        self.loading = false;
                     });
-                    self.serverItemsLength = res.total;
-                    self.pageCount = res.last_page;
-                    self.page = res.current_page;
-                    self.selected = [];
-                    self.loading = false;
-                })
-                .catch((error) => {
-                    self.loading = false;
-                });
+            }, 1000);
+            d();
         },
         confirm() {
             let self = this;

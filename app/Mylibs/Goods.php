@@ -224,7 +224,7 @@ class Goods
             ->get();
 
         $type = 'purchase';
-        $items = self::getFormatGoodsItems($type, $goods);
+        $items = self::getFormattedGoodsItems($type, $goods);
 
         $index = 0;
         foreach ($items as $item) {
