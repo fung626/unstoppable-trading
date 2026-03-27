@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class GoodsController extends Controller
 {
@@ -299,9 +299,12 @@ class GoodsController extends Controller
             ->when($request->filled(['search']), function ($query) {
                 $keyword = trim(request('search'));
                 return $query->where(function ($query) use ($keyword) {
-                    $query->where('id', 'like', '%' . $keyword . '%')
-                        ->orWhere('name', 'like', '%' . $keyword . '%')
-                        ->orWhere('type', 'like', '%' . $keyword . '%');
+                    // $query->where('id', 'like', '%' . $keyword . '%')
+                    //     ->orWhere('no', 'like', '%' . $keyword . '%')
+                    //     ->orWhere('name', 'like', '%' . $keyword . '%')
+                    //     ->orWhere('code', 'like', '%' . $keyword . '%')
+                    //     ->orWhere('type', 'like', '%' . $keyword . '%');
+                    $query->where('code', 'like', '%' . $keyword . '%');
                 });
             });
 

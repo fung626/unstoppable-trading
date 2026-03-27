@@ -21,7 +21,7 @@ use PhpOffice\PhpWord\SimpleType\TblWidth;
 use Picqer\Barcode\BarcodeGeneratorPNG;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class InvoiceController extends Controller
 {

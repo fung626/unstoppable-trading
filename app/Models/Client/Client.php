@@ -11,7 +11,7 @@ class Client extends Model
     use Uuid;
 
     //
-    protected $table = 'client';
+    protected $table = 'clients';
 
     protected $keyType = 'string';
 

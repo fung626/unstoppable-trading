@@ -7,7 +7,7 @@ use App\Models\Goods\Shipping;
 use App\Mylibs\Common;
 use App\Mylibs\MyPhpOffice;
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class MailerController extends Controller
 {

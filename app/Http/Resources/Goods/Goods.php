@@ -18,9 +18,22 @@ class Goods extends ResourceCollection
     public function toArray($request)
     {
         // return parent::toArray($request);
-        return $this->collection->transform(function ($item) use ($request) {
-            $stockSum = Stock::goodsSum($item->id);
-            $item->stock_unit = $stockSum ? $stockSum->unit * 1 : 0;
+
+        // Batch-load all stock sums in one query to avoid N+1 over remote DB
+        $goodsIds = $this->collection->pluck('id')->toArray();
+        $stockSumMap = [];
+        if (!empty($goodsIds)) {
+            Stock::whereIn('goods_id', $goodsIds)
+                ->selectRaw('goods_id, COALESCE(SUM(unit), 0) as unit')
+                ->groupBy('goods_id')
+                ->get()
+                ->each(function ($row) use (&$stockSumMap) {
+                    $stockSumMap[$row->goods_id] = $row->unit * 1;
+                });
+        }
+
+        return $this->collection->transform(function ($item) use ($stockSumMap) {
+            $item->stock_unit = $stockSumMap[$item->id] ?? 0;
             $item->actions = [
                 [
                     'key' => Str::random(16),

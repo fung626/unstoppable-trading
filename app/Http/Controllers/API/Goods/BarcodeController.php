@@ -7,7 +7,7 @@ use App\Models\Goods\Item;
 use App\Models\Goods\Purchase\Purchase;
 use App\Mylibs\Goods as GoodsLib;
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class BarcodeController extends Controller
 {

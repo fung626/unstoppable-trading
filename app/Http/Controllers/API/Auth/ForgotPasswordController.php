@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class ForgotPasswordController extends Controller
 {
@@ -43,9 +43,7 @@ class ForgotPasswordController extends Controller
 
         if ($user) {
             // Illuminate\Auth\Notifications\ResetPassword::toMail();
-            $response = Password::sendResetLink(['email' => request('email')], function (Message $message) {
-                $message->subject(Lang::get('Forgot Password'));
-            });
+            $response = Password::sendResetLink(['email' => request('email')]);
 
             switch ($response) {
                 case Password::RESET_LINK_SENT:

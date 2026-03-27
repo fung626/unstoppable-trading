@@ -8,7 +8,7 @@ class CountryCode extends Model
 {
     //
 
-    protected $table = 'config_country_code';
+    protected $table = 'config_country_codes';
 
     /**
      * The attributes that are mass assignable.

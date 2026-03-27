@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ExchangeRateCollection;
 use App\Models\ExchangeRates;
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class ExchangeRateController extends Controller
 {

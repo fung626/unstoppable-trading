@@ -56,7 +56,7 @@ class Shipping extends JsonResource
             'subtotal' => Common::formatPrice(abs($subtotal)),
             'ship_stocks' => $this->shippingStocks,
             'header_items' => GoodsLib::formatShippingInvoiceHeaderItems($this),
-            'ship_items' => GoodsLib::formatShippingInvoiceItems($this),
+            'shipping_items' => GoodsLib::formatShippingInvoiceItems($this),
             'footer_items' => GoodsLib::formatShippingInvoiceFooterItems(abs($totalunit), $subtotal, $this->currency),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

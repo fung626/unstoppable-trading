@@ -16,7 +16,7 @@ use PhpOffice\PhpWord\Shared\Converter;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class InvoiceController extends Controller
 {
@@ -112,7 +112,7 @@ class InvoiceController extends Controller
             ->first();
 
         $lang = 'tc';
-        $template = 'ship_invoice_' . $lang . '.docx';
+        $template = 'shipping_invoice_' . $lang . '.docx';
         $domPdfPath = base_path('vendor/dompdf/dompdf');
 
         Settings::setPdfRendererName('DomPDF');
@@ -210,7 +210,7 @@ class InvoiceController extends Controller
 
         $now = Carbon::now()->format('Y-m-d_H:i:s');
 
-        $docname = 'ship_invoice_' . $shipping->generated_id . '_' . $now;
+        $docname = 'shipping_invoice_' . $shipping->generated_id . '_' . $now;
         $path = storage_path('app/public/temp/' . $docname . '.docx');
         $templateProcessor->saveAs($path);
         // dd($path);

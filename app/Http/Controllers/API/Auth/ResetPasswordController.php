@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class ResetPasswordController extends Controller
 {

@@ -12,30 +12,30 @@ export default [
                 _name: "CSidebarNavItem",
                 name: i18n.t("dashboard"),
                 to: "/dashboard",
-                icon: "cil-speedometer"
+                icon: "cil-speedometer",
             },
-            ...(permissions.salesreport
+            ...(permissions["sales-reports"]
                 ? [
                       {
                           _name: "CSidebarNavItem",
                           name: i18n.t("salesreport"),
                           to: "/salesreport",
-                          icon: "cil-chart-line"
-                      }
+                          icon: "cil-chart-line",
+                      },
                   ]
                 : []),
             {
                 _name: "CSidebarNavTitle",
-                _children: [i18n.t("management")]
+                _children: [i18n.t("management")],
             },
-            ...(permissions.user
+            ...(permissions.users
                 ? [
                       {
                           _name: "CSidebarNavItem",
                           name: i18n.t("user"),
                           to: "/user",
-                          icon: "cil-contact"
-                      }
+                          icon: "cil-contact",
+                      },
                   ]
                 : []),
             ...(permissions.goods
@@ -44,80 +44,80 @@ export default [
                           _name: "CSidebarNavItem",
                           name: i18n.t("goods"),
                           to: "/goods",
-                          icon: "cil-square"
-                      }
+                          icon: "cil-square",
+                      },
                   ]
                 : []),
-            ...(permissions.stock
+            ...(permissions.stocks
                 ? [
                       {
                           _name: "CSidebarNavItem",
                           name: i18n.t("stock"),
                           to: "/stock",
-                          icon: "cil-square"
-                      }
+                          icon: "cil-square",
+                      },
                   ]
                 : []),
-            ...(permissions.purchase
+            ...(permissions.purchases
                 ? [
                       {
                           _name: "CSidebarNavItem",
                           name: i18n.t("purchase"),
                           to: "/purchase",
-                          icon: "cil-storage"
-                      }
+                          icon: "cil-storage",
+                      },
                   ]
                 : []),
-            ...(permissions.purchase
+            ...(permissions.purchases
                 ? [
                       {
                           _name: "CSidebarNavItem",
                           name: i18n.t("shipping"),
                           to: "/shipping",
-                          icon: "cil-truck"
-                      }
+                          icon: "cil-truck",
+                      },
                   ]
                 : []),
-            ...(permissions.supplier
+            ...(permissions.suppliers
                 ? [
                       {
                           _name: "CSidebarNavItem",
                           name: i18n.t("supplier"),
                           to: "/supplier",
-                          icon: "cil-people"
-                      }
+                          icon: "cil-people",
+                      },
                   ]
                 : []),
-            ...(permissions.category
+            ...(permissions.categories
                 ? [
                       {
                           _name: "CSidebarNavItem",
                           name: i18n.t("category"),
                           to: "/category",
-                          icon: "cil-short-text"
-                      }
+                          icon: "cil-short-text",
+                      },
                   ]
                 : []),
-            ...(permissions.warehouse
+            ...(permissions.warehouses
                 ? [
                       {
                           _name: "CSidebarNavItem",
                           name: i18n.t("warehouse"),
                           to: "/warehouse",
-                          icon: "cil-room"
-                      }
+                          icon: "cil-room",
+                      },
                   ]
                 : []),
-            ...(permissions.client
+            ...(permissions.clients
                 ? [
                       {
                           _name: "CSidebarNavItem",
                           name: i18n.t("client"),
                           to: "/client",
-                          icon: "cil-people"
-                      }
+                          icon: "cil-people",
+                      },
                   ]
-                : [])
-        ]
-    }
+                : []),
+        ],
+    },
 ];

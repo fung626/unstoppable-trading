@@ -21,6 +21,10 @@ export default {
                     }
                 })
                 .catch(function(error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     // commit(types.FETCH_COMPANIES_FAILURE);
                     let status = error.response.status;
                     switch (status) {

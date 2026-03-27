@@ -18,13 +18,15 @@ const i18n = new VueI18n({
         en: {
             auth: {
                 signin: {
-                    msg: "Sign In to your account"
+                    msg: "Sign In to your account",
                 },
                 forgotpassword: {
                     title: "Forgot your password?",
-                    msg:
-                        "Enter the email address associated with your account and we will send you a link to reset your password."
-                }
+                    msg: "Enter the email address associated with your account and we will send you a link to reset your password.",
+                },
+                resetpassword: {
+                    success: "Successfully reset password",
+                },
             },
             login: "Login",
             logout: "Logout",
@@ -50,7 +52,9 @@ const i18n = new VueI18n({
             empty: "Empty",
             more: "More",
             example: "Example",
+            no: "No.",
             number: "Number",
+            code: "Code",
             role: "Role",
             user: "User",
             permission: "Permission",
@@ -83,7 +87,7 @@ const i18n = new VueI18n({
             price: {
                 cost: "Cost",
                 retail: "Retail Price",
-                wholesale: "Wholesale Price"
+                wholesale: "Wholesale Price",
             },
             subtotal: "Sub Total",
             name: "Name",
@@ -132,14 +136,15 @@ const i18n = new VueI18n({
             employer: "employer",
             duty: "Duty",
             dutylist: "Duty List",
+            resetpassword: "Reset Password",
             calendar: {
                 title: "Calendar",
                 month: "Month",
                 week: "Week",
-                day: "Day"
+                day: "Day",
             },
             mpf: {
-                contribution: " MPF Contribution"
+                contribution: " MPF Contribution",
             },
             traffic: "Traffic",
             joinedat: "Joined at",
@@ -152,13 +157,14 @@ const i18n = new VueI18n({
             daysinventoryoutstanding: "Days Inventory Outstanding",
             lastthreemonths: "Last Three Months",
             lastsomedays: "Last {days} Days",
+            shippingpurchasequicksearch: "Shipping/Purchase Quick Search",
             purchasestatus: {
                 pending: "Pending",
                 PENDING: "Pending",
                 processing: "Processing",
                 PROCESSING: "Processing",
                 delivered: "Delivered",
-                DELIVERED: "Delivered"
+                DELIVERED: "Delivered",
             },
             shippingstatus: {
                 pending: "Pending",
@@ -166,15 +172,15 @@ const i18n = new VueI18n({
                 processing: "Processing",
                 PROCESSING: "Processing",
                 delivered: "Delivered",
-                DELIVERED: "Delivered"
+                DELIVERED: "Delivered",
             },
             currencies: {
                 HKD: "HKD",
-                TWD: "TWD"
+                TWD: "TWD",
             },
             country: {
                 HK: "Hong Kong",
-                TW: "Taiwan"
+                TW: "Taiwan",
             },
             button: {
                 jumpto: "Jump to",
@@ -188,13 +194,14 @@ const i18n = new VueI18n({
                 cancel: "Cancel",
                 clear: "Clear",
                 close: "Close",
-                export: "Export"
+                export: "Export",
+                import: "Import",
             },
             alert: {
                 title: "Alert",
                 update: "Are you sure you want to update this record?",
                 delete: "Are you sure you want to delete this record?",
-                shipping: "Please enter unit"
+                shipping: "Please enter unit",
             },
             snackbar: {
                 fail: {
@@ -202,36 +209,39 @@ const i18n = new VueI18n({
                     login: "Fail to login",
                     update: "Fail to update",
                     create: "Fail to create",
-                    delete: "Fail to delete"
+                    delete: "Fail to delete",
+                    import: "Fail to import",
                 },
                 success: {
                     login: "Successfully Login",
                     updated: "Successfully Updated",
                     created: "Successfully Created",
-                    deleted: "Successfully deleted"
-                }
+                    deleted: "Successfully deleted",
+                    imported: "Successfully Imported",
+                },
             },
             error: {
                 exceedstockunit: "Exceed stock unit",
-                camera: "Device not compatible"
+                camera: "Device not compatible",
             },
             hint: {
                 duty: {
-                    date:
-                        "You may select multi date to create more than one duty with same time range"
-                }
-            }
+                    date: "You may select multi date to create more than one duty with same time range",
+                },
+            },
         },
         tc: {
             auth: {
                 signin: {
-                    msg: "登錄到您的帳戶"
+                    msg: "登錄到您的帳戶",
                 },
                 forgotpassword: {
                     title: "忘記了您的密碼?",
-                    msg:
-                        "輸入與您的帳戶電子郵件地址，我們將向您發送一個鏈接以重置您的密碼。"
-                }
+                    msg: "輸入與您的帳戶電子郵件地址，我們將向您發送一個鏈接以重置您的密碼。",
+                },
+                resetpassword: {
+                    success: "成功重置密碼",
+                },
             },
             login: "登入",
             logout: "登出",
@@ -257,7 +267,9 @@ const i18n = new VueI18n({
             empty: "空的",
             more: "更多",
             example: "例子",
+            no: "NO.",
             number: "編號",
+            code: "貨號",
             role: "權限",
             user: "用戶",
             permission: "允許權限",
@@ -291,7 +303,7 @@ const i18n = new VueI18n({
             price: {
                 cost: "成本價",
                 retail: "零售價",
-                wholesale: "批發價"
+                wholesale: "批發價",
             },
             subtotal: "總金額",
             name: "名稱",
@@ -340,14 +352,15 @@ const i18n = new VueI18n({
             employer: "雇主",
             duty: "更",
             dutylist: "更表",
+            resetpassword: "重置密碼",
             calendar: {
                 title: "日曆",
                 month: "月",
                 week: "星期",
-                day: "日"
+                day: "日",
             },
             mpf: {
-                contribution: " MPF 供款"
+                contribution: " MPF 供款",
             },
             traffic: "流量",
             joinedat: "加入日期",
@@ -360,13 +373,14 @@ const i18n = new VueI18n({
             daysinventoryoutstanding: "存貨周轉天數",
             lastthreemonths: "過去三個月",
             lastsomedays: "過去{days}日",
+            shippingpurchasequicksearch: "出貨/訂貨快速搜尋",
             purchasestatus: {
                 pending: "待確定",
                 PENDING: "待確定",
                 processing: "處理中",
                 PROCESSING: "處理中",
                 delivered: "已交付",
-                DELIVERED: "已交付"
+                DELIVERED: "已交付",
             },
             shippingstatus: {
                 pending: "待確定",
@@ -374,15 +388,15 @@ const i18n = new VueI18n({
                 processing: "處理中",
                 PROCESSING: "處理中",
                 delivered: "已交付",
-                DELIVERED: "已交付"
+                DELIVERED: "已交付",
             },
             currencies: {
                 HKD: "港幣",
-                TWD: "台幣"
+                TWD: "台幣",
             },
             country: {
                 HK: "香港",
-                TW: "台灣"
+                TW: "台灣",
             },
             button: {
                 jumpto: "跳至",
@@ -396,13 +410,14 @@ const i18n = new VueI18n({
                 cancel: "取消",
                 clear: "清除",
                 close: "關閉",
-                export: "匯出"
+                export: "匯出",
+                import: "匯入",
             },
             alert: {
                 title: "提示",
                 update: "您確定要更新此記錄嗎？",
                 delete: "您確定要刪除此記錄嗎？",
-                shipping: "請輸入出貨數量"
+                shipping: "請輸入出貨數量",
             },
             snackbar: {
                 fail: {
@@ -410,26 +425,26 @@ const i18n = new VueI18n({
                     login: "登入失敗",
                     update: "更新記錄失敗",
                     create: "新增記錄失敗",
-                    delete: "刪除記錄失敗"
+                    delete: "刪除記錄失敗",
                 },
                 success: {
                     login: "成功登入",
                     updated: "成功更新記錄",
                     created: "成功新增記錄",
-                    deleted: "成功刪除記錄"
-                }
+                    deleted: "成功刪除記錄",
+                },
             },
             error: {
                 exceedstockunit: "超出庫存數量",
-                camera: "設備不兼容"
+                camera: "設備不兼容",
             },
             hint: {
                 duty: {
-                    date: "您可以選擇多個日期以新增多個擁有相同時間的更"
-                }
-            }
-        }
-    }
+                    date: "您可以選擇多個日期以新增多個擁有相同時間的更",
+                },
+            },
+        },
+    },
 });
 
 export default i18n;

@@ -11,7 +11,7 @@ class Invoice extends Model
     //
     use Uuid;
 
-    protected $table = 'invoice';
+    protected $table = 'invoices';
 
     protected $keyType = 'string';
 

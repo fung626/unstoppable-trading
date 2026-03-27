@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Str;
 
+$mysqlAttrSslCa = defined('Pdo\\Mysql::ATTR_SSL_CA')
+    ? Pdo\Mysql::ATTR_SSL_CA
+    : PDO::MYSQL_ATTR_SSL_CA;
+
 return [
 
     /*
@@ -59,7 +63,8 @@ return [
             'strict' => false,
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+                $mysqlAttrSslCa => env('MYSQL_ATTR_SSL_CA'),
+                PDO::ATTR_TIMEOUT => (int) env('DB_CONNECT_TIMEOUT', 5),
             ]) : [],
         ],
 

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Spatie\WelcomeNotification\WelcomeController as BaseWelcomeController;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class MyWelcomeController extends BaseWelcomeController
 {

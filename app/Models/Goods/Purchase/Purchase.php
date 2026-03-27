@@ -14,7 +14,7 @@ class Purchase extends Model
     //
     use Uuid, SoftDeletes;
 
-    protected $table = 'goods_purchase';
+    protected $table = 'goods_purchases';
 
     protected $keyType = 'string';
 

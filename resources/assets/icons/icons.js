@@ -48,6 +48,7 @@ import {
     cilChevronCircleDownAlt,
     cilChevronTop,
     cilCloudDownload,
+    cilCloudUpload,
     cilCommentSquare,
     cilContact,
     cilCursor,
@@ -99,7 +100,7 @@ import {
     cilUserFollow,
     cilViewQuilt,
     cilWallet,
-    cilXCircle
+    cilXCircle,
 } from "@coreui/icons";
 import { logo } from "./logo";
 
@@ -114,6 +115,7 @@ export const iconsSet = Object.assign(
         cilCalculator,
         cilCalendar,
         cilCloudDownload,
+        cilCloudUpload,
         cilChartPie,
         cilCheck,
         cilChevronBottom,
@@ -176,7 +178,7 @@ export const iconsSet = Object.assign(
         cilChartLine,
         cilTruck,
         cilStorage,
-        cilBarcode
+        cilBarcode,
     },
     {
         cifUs,
@@ -184,7 +186,7 @@ export const iconsSet = Object.assign(
         cifIn,
         cifFr,
         cifEs,
-        cifPl
+        cifPl,
     },
     {
         cibAndroid,
@@ -213,6 +215,6 @@ export const iconsSet = Object.assign(
         cibGooglePay,
         cibCcAmex,
         cibCodeship,
-        cibServerFault
+        cibServerFault,
     }
 );

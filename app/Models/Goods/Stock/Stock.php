@@ -2,6 +2,7 @@
 
 namespace App\Models\Goods\Stock;
 
+use App\Models\Goods\Content;
 use App\Models\Goods\Goods;
 use App\Models\Goods\Item;
 use App\Models\Goods\Stock\StockShipping;
@@ -14,7 +15,7 @@ class Stock extends Model
     //
     use Uuid;
 
-    protected $table = 'goods_stock';
+    protected $table = 'goods_stocks';
 
     protected $keyType = 'string';
 

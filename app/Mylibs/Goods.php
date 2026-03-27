@@ -302,6 +302,21 @@ class Goods
         $status = $data->status;
         $shipItems = $data->shippingStocks;
         // Log::debug($data);
+
+        // Pre-fetch all stock sums in a single query to avoid N+1 over remote DB
+        $goodsItemIds = $shipItems->map(fn($si) => optional($si->stock->goodsItem)->id)->filter()->unique()->values()->toArray();
+        $stockItemSumMap = [];
+        if (!empty($goodsItemIds)) {
+            $sums = Stock::whereIn('goods_item_id', $goodsItemIds)
+                ->selectRaw('goods_item_id, COALESCE(SUM(unit), 0) as unit')
+                ->groupBy('goods_item_id')
+                ->get()
+                ->keyBy('goods_item_id');
+            foreach ($sums as $itemId => $row) {
+                $stockItemSumMap[$itemId] = $row->unit * 1;
+            }
+        }
+
         $items = [];
         foreach ($shipItems as $shipItem) {
             $found = false;
@@ -346,7 +361,7 @@ class Goods
             ];
             if ($found) {
                 $item = $items[$index];
-                $stockItemSum = Stock::goodsItemSum($stock->goodsItem->id);
+                $stockUnitVal = $stockItemSumMap[$stock->goodsItem->id] ?? 0;
                 if (array_key_exists($stock->goodsItem->size, $item)) {
                     $unit = abs($items[$index][$stock->goodsItem->size]['unit']);
                     $items[$index][$stock->goodsItem->size]['goods_shipping_id'] = $id;
@@ -354,7 +369,7 @@ class Goods
                     $items[$index][$stock->goodsItem->size]['goods_item_id'] = $stock->goodsItem->id;
                     $items[$index][$stock->goodsItem->size]['barcode'] = $stock->goodsItem->barcode;
                     $items[$index][$stock->goodsItem->size]['unit'] = $unit + abs($stock->unit);
-                    $items[$index][$stock->goodsItem->size]['stock_unit'] = isset($stockItemSum) ? $stockItemSum->unit * 1 : 0;
+                    $items[$index][$stock->goodsItem->size]['stock_unit'] = $stockUnitVal;
                     $items[$index][$stock->goodsItem->size]['return_unit'] = $unit + abs($stock->unit);
                 } else {
                     $items[$index][$stock->goodsItem->size]['goods_shipping_id'] = $id;
@@ -362,7 +377,7 @@ class Goods
                     $items[$index][$stock->goodsItem->size]['goods_item_id'] = $stock->goodsItem->id;
                     $items[$index][$stock->goodsItem->size]['barcode'] = $stock->goodsItem->barcode;
                     $items[$index][$stock->goodsItem->size]['unit'] = abs($stock->unit);
-                    $items[$index][$stock->goodsItem->size]['stock_unit'] = isset($stockItemSum) ? $stockItemSum->unit * 1 : 0;
+                    $items[$index][$stock->goodsItem->size]['stock_unit'] = $stockUnitVal;
                     $items[$index][$stock->goodsItem->size]['return_unit'] = abs($stock->unit);
                 }
                 $items[$index]['total_unit'] = $items[$index]['total_unit'] + abs($stock->unit);
@@ -372,7 +387,7 @@ class Goods
             } else {
                 // dd($purchaseItem->goodsItem->toArray());
                 if (isset($stock->goodsItem)) {
-                    $stockItemSum = Stock::goodsItemSum($stock->goodsItem->id);
+                    $stockUnitVal = $stockItemSumMap[$stock->goodsItem->id] ?? 0;
                     $items[] = [
                         'id' => $index + 1,
                         'goods_id' => $stock->goods->id,
@@ -386,7 +401,7 @@ class Goods
                             'goods_item_id' => $stock->goodsItem->id,
                             'barcode' => $stock->goodsItem->barcode,
                             'unit' => abs($stock->unit),
-                            'stock_unit' => isset($stockItemSum) ? $stockItemSum->unit * 1 : 0,
+                            'stock_unit' => $stockUnitVal,
                             'return_unit' => abs($stock->unit),
                         ],
                         'total_unit' => abs($stock->unit),

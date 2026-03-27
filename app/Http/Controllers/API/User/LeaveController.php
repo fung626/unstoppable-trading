@@ -7,7 +7,7 @@ use App\Http\Resources\User\LeaveCollection;
 use App\Models\User\Leave;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class LeaveController extends Controller
 {

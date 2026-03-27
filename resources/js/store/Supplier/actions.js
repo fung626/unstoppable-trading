@@ -24,6 +24,10 @@ export default {
                     }
                 })
                 .catch(function(error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     let status = error.response.status;
                     switch (status) {
                         case 401:
@@ -55,6 +59,10 @@ export default {
                     }
                 })
                 .catch(function(error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     let status = error.response.status;
                     switch (status) {
                         case 401:
@@ -88,6 +96,10 @@ export default {
                     }
                 })
                 .catch(function(error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     let status = error.response.status;
                     switch (status) {
                         case 401:
@@ -128,6 +140,10 @@ export default {
                     }
                 })
                 .catch(function(error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     let status = error.response.status;
                     switch (status) {
                         case 401:
@@ -168,6 +184,10 @@ export default {
                     }
                 })
                 .catch(function(error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     let status = error.response.status;
                     switch (status) {
                         case 401:
@@ -212,6 +232,10 @@ export default {
                     resolve();
                 })
                 .catch(function(error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     let status = error.response.status;
                     switch (status) {
                         case 401:

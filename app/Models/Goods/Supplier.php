@@ -12,7 +12,7 @@ class Supplier extends Model
     use Uuid;
 
     //
-    protected $table = 'supplier';
+    protected $table = 'suppliers';
 
     protected $keyType = 'string';
 

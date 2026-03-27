@@ -30,6 +30,9 @@ import App from "./views/App";
 Vue.config.performance = true;
 Vue.use(CoreuiVue);
 
+// Ensure all component trees can access Vuetify theme/runtime state.
+Vue.prototype.$vuetify = vuetify.framework;
+
 const app = new Vue({
     el: "#app",
     i18n,
@@ -37,5 +40,5 @@ const app = new Vue({
     store,
     icons,
     router,
-    render: h => h(App)
+    render: (h) => h(App),
 });

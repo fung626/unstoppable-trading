@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Goods\Purchase\Purchase;
 use App\Models\Goods\Shipping;
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class ShippingPurchaseQuickSearchController extends Controller
 {

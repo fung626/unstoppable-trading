@@ -70,13 +70,18 @@
     font-family: "Nunito", sans-serif !important;
 }
 
-.v-text-field >>> input {
+.v-text-field :deep(input) {
     font-size: 0.8em;
     font-weight: 100;
 }
-.v-text-field >>> label {
+.v-text-field :deep(label) {
     font-size: 0.8em;
 }
-.v-text-field >>> button {
+.v-text-field :deep(button) {
     font-size: 0.8em;
+}
+
+.v-application ol,
+.v-application ul {
+    padding-left: 0 !important;
 }

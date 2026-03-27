@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User\Duty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class DutyCalendarController extends Controller
 {

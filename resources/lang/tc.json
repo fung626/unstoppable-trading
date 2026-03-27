@@ -43,6 +43,7 @@
     "Update": "更新",
     "Delete": "刪除",
     "Add": "新增",
+    "Import": "匯入",
     "Shipping": "出貨",
     "Purchase": "訂貨",
     "Stock": "存貨",
@@ -102,5 +103,6 @@
     "DIO": "存貨周轉天數",
     "Updated at": "更新日期",
     "Created at": "新增日期",
-    "Actions": "功能"
+    "Actions": "功能",
+    "Client not found": "找不到客戶"
 }

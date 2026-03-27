@@ -173,6 +173,13 @@ Route::group(['namespace' => 'API\Goods\Purchase', 'middleware' => ['auth:api', 
     Route::get('details', ['uses' => 'StockTakeController@details']);
 });
 
+Route::group(['namespace' => 'API\Goods\Import', 'middleware' => ['auth:api', 'localization'], 'prefix' => 'goods/import'], function () {
+    Route::post('', ['uses' => 'ImportController@post']);
+    // Route::post('create', ['uses' => 'ImportController@post']);
+    Route::get('status/{jobId}', ['uses' => 'StatusController@get']);
+    Route::get('jobs', ['uses' => 'JobsController@get']);
+});
+
 // Route::get('goods/purchase/invoice/details', ['uses' => 'API\Goods\Purchase\InvoiceController@details']);
 Route::group(['namespace' => 'API\Goods\Purchase', 'middleware' => ['auth:api', 'scopes:purchase', 'localization'], 'prefix' => 'goods/purchase/invoice'], function () {
     // Route::post('create', ['uses' => 'InvoiceController@post']);

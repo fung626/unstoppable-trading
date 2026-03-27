@@ -14,7 +14,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}get`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error && "data" in response.data) {
                         let res = response.data;
                         commit(types.FETCH_GOODS_SUCCESS, res);
@@ -23,14 +23,18 @@ export default {
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     // commit(types.FETCH_EMPLOYEES_FAILURE);
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: i18n.t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -45,7 +49,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .get(`${endpoint}details?${query}`)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error && "data" in response.data) {
                         let res = response.data;
                         commit(types.FETCH_GOODS_DETAILS_SUCCESS, res);
@@ -54,14 +58,18 @@ export default {
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     // commit(types.FETCH_EMPLOYEES_FAILURE);
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: i18n.t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -75,28 +83,32 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}create`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         dispatch("snackbar/show", {
                             color: "success",
-                            text: i18n.t("snackbar.success.created")
+                            text: i18n.t("snackbar.success.created"),
                         });
                         resolve(response);
                     } else {
                         dispatch("snackbar/show", {
                             color: "error",
-                            text: i18n.t("snackbar.fail.create")
+                            text: i18n.t("snackbar.fail.create"),
                         });
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: i18n.t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -104,7 +116,7 @@ export default {
                     }
                     dispatch("snackbar/show", {
                         color: "error",
-                        text: i18n.t("snackbar.fail.create")
+                        text: i18n.t("snackbar.fail.create"),
                     });
                     reject(error);
                 });
@@ -114,29 +126,33 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}update`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         dispatch("snackbar/show", {
                             color: "success",
-                            text: i18n.t("snackbar.success.updated")
+                            text: i18n.t("snackbar.success.updated"),
                         });
                         let res = response.data;
                         resolve(res);
                     } else {
                         dispatch("snackbar/show", {
                             color: "error",
-                            text: i18n.t("snackbar.fail.update")
+                            text: i18n.t("snackbar.fail.update"),
                         });
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: i18n.t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -144,7 +160,7 @@ export default {
                     }
                     dispatch("snackbar/show", {
                         color: "error",
-                        text: i18n.t("snackbar.fail.update")
+                        text: i18n.t("snackbar.fail.update"),
                     });
                     reject(error);
                 });
@@ -154,28 +170,32 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}delete`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         dispatch("snackbar/show", {
                             color: "success",
-                            text: i18n.t("snackbar.success.deleted")
+                            text: i18n.t("snackbar.success.deleted"),
                         });
                         resolve(response);
                     } else {
                         dispatch("snackbar/show", {
                             color: "error",
-                            text: i18n.t("snackbar.fail.delete")
+                            text: i18n.t("snackbar.fail.delete"),
                         });
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: i18n.t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -183,7 +203,7 @@ export default {
                     }
                     dispatch("snackbar/show", {
                         color: "error",
-                        text: i18n.t("snackbar.fail.delete")
+                        text: i18n.t("snackbar.fail.delete"),
                     });
                     reject(error);
                 });
@@ -195,9 +215,9 @@ export default {
                 url: `${endpoint}export`,
                 method: "POST",
                 data: payload,
-                responseType: "blob"
+                responseType: "blob",
             })
-                .then(response => {
+                .then((response) => {
                     let fileURL = window.URL.createObjectURL(
                         new Blob([response.data])
                     );
@@ -213,13 +233,17 @@ export default {
                     fileLink.click();
                     resolve();
                 })
-                .catch(function(error) {
+                .catch(function (error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     let status = error.response.status;
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: i18n.t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -228,5 +252,52 @@ export default {
                     reject(error);
                 });
         });
-    }
+    },
+    [`${name}/import`]({ commit, dispatch }, payload) {
+        return new Promise((resolve, reject) => {
+            axios
+                .post(`${endpoint}import`, payload, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+                .then(function (response) {
+                    if (!response.data.error) {
+                        dispatch("snackbar/show", {
+                            color: "success",
+                            text: i18n.t("snackbar.success.imported"),
+                        });
+                        resolve(response);
+                    } else {
+                        dispatch("snackbar/show", {
+                            color: "error",
+                            text: i18n.t("snackbar.fail.import"),
+                        });
+                        reject(response);
+                    }
+                })
+                .catch(function (error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
+                    let status = error.response.status;
+                    switch (status) {
+                        case 401:
+                            dispatch("snackbar/show", {
+                                color: "success",
+                                text: i18n.t("snackbar.fail.token"),
+                            });
+                            dispatch("auth/logout");
+                            router.push({ name: "Login" });
+                            break;
+                    }
+                    dispatch("snackbar/show", {
+                        color: "error",
+                        text: i18n.t("snackbar.fail.import"),
+                    });
+                    reject(error);
+                });
+        });
+    },
 };

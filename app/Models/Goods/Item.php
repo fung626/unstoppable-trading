@@ -15,7 +15,7 @@ class Item extends Model
 
     // use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
-    protected $table = 'goods_item';
+    protected $table = 'goods_items';
 
     protected $keyType = 'string';
 

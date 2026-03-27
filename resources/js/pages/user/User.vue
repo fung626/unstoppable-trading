@@ -43,17 +43,17 @@
                 disablePagination: disablePagination,
                 showFirstLastPage: true,
                 showCurrentPage: true,
-                itemsPerPageOptions: [10, 20, 50, 100]
+                itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
             <template v-slot:[`item.role`]="{ item }">
                 {{ $t(item.role) }}
             </template>
             <template v-slot:[`item.created_at`]="{ item }">
-                {{ item.created_at | moment("dddd, Do MMMM YYYY") }}
+                {{ formatDate(item.created_at, "dddd, Do MMMM YYYY") }}
             </template>
             <template v-slot:[`item.updated_at`]="{ item }">
-                {{ item.updated_at | moment("dddd, Do MMMM YYYY") }}
+                {{ formatDate(item.updated_at, "dddd, Do MMMM YYYY") }}
             </template>
             <template v-slot:[`item.actions`]="{ item }">
                 <CButtonGroup>
@@ -79,7 +79,7 @@ import { Dialog } from "@/components";
 export default {
     name: "User",
     components: {
-        Dialog
+        Dialog,
     },
     data() {
         return {
@@ -96,28 +96,29 @@ export default {
             disablePagination: false,
             headers: [
                 { text: "#ID", value: "id" },
+                { text: this.$t("name"), value: "name" },
                 { text: this.$t("email"), value: "email" },
                 { text: this.$t("phone"), value: "phone" },
                 { text: this.$t("role"), value: "role" },
                 { text: this.$t("updatedat"), value: "updated_at" },
-                { text: this.$t("actions"), value: "actions", sortable: false }
+                { text: this.$t("actions"), value: "actions", sortable: false },
             ],
             snackbar: {
                 show: false,
-                text: ""
-            }
+                text: "",
+            },
         };
     },
     watch: {
         options: {
             handler() {
                 this.fetch();
-            }
+            },
         },
         loading() {
             this.disableItemsPerPage = this.loading;
             this.disablePagination = this.loading;
-        }
+        },
     },
     methods: {
         fetch(reset = false) {
@@ -129,11 +130,11 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                search: self.searchText
+                search: self.searchText,
             };
             this.$store
                 .dispatch("user/get", data)
-                .then(response => {
+                .then((response) => {
                     let res = JSON.parse(JSON.stringify(response.data));
                     self.items = res.data;
                     self.serverItemsLength = res.total;
@@ -141,7 +142,7 @@ export default {
                     self.page = res.current_page;
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -160,14 +161,14 @@ export default {
                 sort_by: sortBy,
                 sort_desc: sortDesc,
                 search: self.searchText,
-                extension: "pdf"
+                extension: "pdf",
             };
             this.$store
                 .dispatch("user/export", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -179,7 +180,7 @@ export default {
                 case "RouterPush":
                     this.$router.push({
                         name: "UserDetails",
-                        params: { id: id }
+                        params: { id: id },
                     });
                     break;
                 case "Delete":
@@ -192,18 +193,18 @@ export default {
                         let self = this;
                         this.$store
                             .dispatch("user/delete", { id: id })
-                            .then(response => {
+                            .then((response) => {
                                 self.loading = false;
                                 self.fetch();
                             })
-                            .catch(error => {
+                            .catch((error) => {
                                 self.loading = false;
                             });
                     }
                     break;
             }
             // console.log(id, key);
-        }
-    }
+        },
+    },
 };
 </script>

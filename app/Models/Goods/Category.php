@@ -10,7 +10,7 @@ class Category extends Model
     //
     use Uuid;
 
-    protected $table = 'category';
+    protected $table = 'categories';
 
     protected $keyType = 'string';
 

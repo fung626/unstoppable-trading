@@ -16,7 +16,7 @@
             :hide-default-footer="true"
         >
             <template v-slot:[`item.updated_at`]="{ item }">
-                {{ item.updated_at | moment("dddd, Do MMMM YYYY") }}
+                {{ formatDate(item.updated_at, "dddd, Do MMMM YYYY") }}
             </template>
             <template v-slot:[`item.actions`]="{ item }">
                 <CButtonGroup>

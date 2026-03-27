@@ -12,7 +12,7 @@ class Trade extends Model
     //
     use Uuid;
 
-    protected $table = 'trade';
+    protected $table = 'trades';
 
     protected $keyType = 'string';
 

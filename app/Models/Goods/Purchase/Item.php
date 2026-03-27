@@ -13,7 +13,7 @@ class Item extends Model
     //
     use Uuid, SoftDeletes;
 
-    protected $table = 'goods_purchase_item';
+    protected $table = 'goods_purchase_items';
 
     protected $keyType = 'string';
 

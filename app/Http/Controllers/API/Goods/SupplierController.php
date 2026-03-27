@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class SupplierController extends Controller
 {
@@ -71,7 +71,7 @@ class SupplierController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id' => 'required|string|exists:supplier,id',
+            'id' => 'required|string|exists:suppliers,id',
             'number' => 'required|string',
             'name' => 'required|string',
             'contact' => 'required|string',

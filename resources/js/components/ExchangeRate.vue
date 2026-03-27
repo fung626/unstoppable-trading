@@ -60,7 +60,7 @@
             <CRow v-if="updatedAt">
                 <CCol class="text-right text-muted">
                     {{ `${$t("updatedat")}:` }}
-                    {{ updatedAt | moment("dddd, Do MMMM YYYY HH:mm") }}
+                    {{ formatDate(updatedAt, "dddd, Do MMMM YYYY HH:mm") }}
                 </CCol>
             </CRow>
             <CRow>

@@ -55,7 +55,7 @@
                 disablePagination: disablePagination,
                 showFirstLastPage: true,
                 showCurrentPage: true,
-                itemsPerPageOptions: [10, 20, 50, 100]
+                itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
             <template v-slot:[`item.32-S`]="{ item }">
@@ -75,9 +75,7 @@
                         </span>
                     </v-tooltip>
                 </div>
-                <div v-else>
-                    －
-                </div>
+                <div v-else>－</div>
             </template>
             <template v-slot:[`item.34-M`]="{ item }">
                 <div v-if="item['34-M']">
@@ -96,9 +94,7 @@
                         </span>
                     </v-tooltip>
                 </div>
-                <div v-else>
-                    －
-                </div>
+                <div v-else>－</div>
             </template>
             <template v-slot:[`item.36-L`]="{ item }">
                 <div v-if="item['36-L']">
@@ -117,9 +113,7 @@
                         </span>
                     </v-tooltip>
                 </div>
-                <div v-else>
-                    －
-                </div>
+                <div v-else>－</div>
             </template>
             <template v-slot:[`item.38-XL`]="{ item }">
                 <div v-if="item['38-XL']">
@@ -138,9 +132,7 @@
                         </span>
                     </v-tooltip>
                 </div>
-                <div v-else>
-                    －
-                </div>
+                <div v-else>－</div>
             </template>
             <template v-slot:[`item.40-Q`]="{ item }">
                 <div v-if="item['40-Q']">
@@ -159,9 +151,7 @@
                         </span>
                     </v-tooltip>
                 </div>
-                <div v-else>
-                    －
-                </div>
+                <div v-else>－</div>
             </template>
             <template v-slot:[`item.42-EQ`]="{ item }">
                 <div v-if="item['42-EQ']">
@@ -180,9 +170,7 @@
                         </span>
                     </v-tooltip>
                 </div>
-                <div v-else>
-                    －
-                </div>
+                <div v-else>－</div>
             </template>
             <template v-slot:[`item.44-Free`]="{ item }">
                 <div v-if="item['44-Free']">
@@ -201,9 +189,7 @@
                         </span>
                     </v-tooltip>
                 </div>
-                <div v-else>
-                    －
-                </div>
+                <div v-else>－</div>
             </template>
             <template v-slot:[`item.actions`]="{ item }">
                 <CButtonGroup>
@@ -230,7 +216,7 @@ import { mapState } from "vuex";
 export default {
     name: "GoodsStock",
     components: {
-        CreateShippingDialog
+        CreateShippingDialog,
     },
     computed: {
         ...mapState(["goods/stock"]),
@@ -245,7 +231,7 @@ export default {
         },
         items() {
             return this["goods/stock"].data?.data;
-        }
+        },
     },
     data() {
         return {
@@ -253,12 +239,14 @@ export default {
             // page: 1,
             loading: false,
             options: {},
-            sortBy: "goods.name",
+            sortBy: "goods.code",
             sortDesc: false,
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { text: this.$t("name"), value: "goods.name" },
+                // { text: this.$t("no"), value: "goods.no" },
+                // { text: this.$t("name"), value: "goods.name" },
+                { text: this.$t("code"), value: "goods.code" },
                 { text: this.$t("type"), value: "goods.type" },
                 { text: this.$t("cup"), value: "cup" },
                 { text: this.$t("color"), value: "color" },
@@ -272,22 +260,22 @@ export default {
                 {
                     text: this.$t("totalunit"),
                     value: "total_unit",
-                    sortable: false
+                    sortable: false,
                 },
-                { text: this.$t("actions"), value: "actions", sortable: false }
-            ]
+                { text: this.$t("actions"), value: "actions", sortable: false },
+            ],
         };
     },
     watch: {
         options: {
             handler() {
                 this.fetch();
-            }
+            },
         },
         loading() {
             this.disableItemsPerPage = this.loading;
             this.disablePagination = this.loading;
-        }
+        },
     },
     mounted() {
         this.fetch();
@@ -305,14 +293,14 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                search: self.searchText
+                search: self.searchText,
             };
             this.$store
                 .dispatch("goods/stock/get", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -334,14 +322,14 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                search: self.searchText
+                search: self.searchText,
             };
             this.$store
                 .dispatch("goods/stock/export", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -359,20 +347,20 @@ export default {
                         case "CreatePurchase":
                             this.$router.push({
                                 name: route,
-                                params: { id: item.goods.supplier.id }
+                                params: { id: item.goods.supplier.id },
                             });
                             break;
                         case "GoodsDetails":
                             this.$router.push({
                                 name: route,
-                                params: { id: item.goods.id }
+                                params: { id: item.goods.id },
                             });
                             break;
                     }
                     break;
             }
             // console.log(id, key);
-        }
-    }
+        },
+    },
 };
 </script>

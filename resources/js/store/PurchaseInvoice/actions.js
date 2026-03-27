@@ -25,6 +25,10 @@ export default {
                     }
                 })
                 .catch(function(error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     // commit(types.FETCH_EMPLOYEES_FAILURE);
                     let status = error.response.status;
                     switch (status) {
@@ -56,6 +60,10 @@ export default {
                     }
                 })
                 .catch(function(error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     // commit(types.FETCH_EMPLOYEES_FAILURE);
                     let status = error.response.status;
                     switch (status) {
@@ -97,6 +105,10 @@ export default {
                     resolve();
                 })
                 .catch(function(error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     let status = error.response.status;
                     switch (status) {
                         case 401:

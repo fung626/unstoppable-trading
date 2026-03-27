@@ -67,10 +67,12 @@ export default new Vuex.Store({
         ["goods/item"]: GoodsItem,
         ["goods/shipping"]: GoodsShipping,
         ["goods/shipping/packing"]: GoodsShippingPacking,
-        ["goods/shipping/purchase/quicksearch"]: GoodsShippingPurchaseQuickSearch,
+        ["goods/shipping/purchase/quicksearch"]:
+            GoodsShippingPurchaseQuickSearch,
         ["goods/shipping/mailer"]: GoodsShipingMailer,
         ["goods/shipping/invoice"]: GoodsShippingInvoice,
-        ["goods/shipping/available/shipping/item"]: GoodsShipAvailableShippingItems,
+        ["goods/shipping/available/shipping/item"]:
+            GoodsShipAvailableShippingItems,
         ["goods/shipping/alteration"]: GoodsShippingAlteration,
         ["goods/stock"]: GoodsStock,
         ["goods/stock/calendar"]: GoodsStockCalendar,
@@ -90,13 +92,16 @@ export default new Vuex.Store({
         // UI
         uisidebar: UISidebar,
         uialert: UIAlert,
-        uisnackbar: UISnackbar
+        uisnackbar: UISnackbar,
     },
     // plugins: [createPersistedState({ storage: window.sessionStorage })]
     plugins: [
         createPersistedState({
+            // Only persist lightweight state. Exclude large data modules (shipping, reports,
+            // purchase, stock, etc.) to prevent QuotaExceededError on localStorage.
+            paths: ["auth", "profile", "uisidebar", "uisnackbar"],
             storage: {
-                getItem: key => {
+                getItem: (key) => {
                     let item = ls.get(key);
                     if (item) {
                         let state = JSON.parse(item);
@@ -104,13 +109,23 @@ export default new Vuex.Store({
                     }
                     return {};
                 },
-                // Please see https://github.com/js-cookie/js-cookie#json, on how to handle JSON.
                 setItem: (key, state) => {
-                    let str = JSON.stringify(state);
-                    ls.set(key, str);
+                    try {
+                        let str = JSON.stringify(state);
+                        ls.set(key, str);
+                    } catch (e) {
+                        if (e && e.name === "QuotaExceededError") {
+                            console.warn(
+                                "localStorage quota exceeded — skipping persist.",
+                                e
+                            );
+                        } else {
+                            throw e;
+                        }
+                    }
                 },
-                removeItem: key => ls.remove(key)
-            }
-        })
-    ]
+                removeItem: (key) => ls.remove(key),
+            },
+        }),
+    ],
 });

@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class InvoiceController extends Controller
 {
@@ -39,7 +39,7 @@ class InvoiceController extends Controller
             'date' => 'required|date',
             'items' => 'filled',
             'items.*.goods_id' => 'required|string|exists:goods,id',
-            'items.*.warehouse_id' => 'required|string|exists:warehouse_stock,warehouse_id',
+            'items.*.warehouse_id' => 'required|string|exists:warehouse_stocks,warehouse_id',
             'items.*.quantity' => 'required|integer',
             'items.*.price' => 'nullable|numeric',
         ]);

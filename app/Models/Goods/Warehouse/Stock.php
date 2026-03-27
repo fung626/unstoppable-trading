@@ -14,7 +14,7 @@ class Stock extends Model
     //
     use Uuid;
 
-    protected $table = 'warehouse_stock';
+    protected $table = 'warehouse_stocks';
 
     protected $keyType = 'string';
 

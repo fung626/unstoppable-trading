@@ -29,6 +29,10 @@ export default {
                     }
                 })
                 .catch(function(error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     dispatch("snackbar/show", {
                         color: "success",
                         text: i18n.t("snackbar.fail.login")
@@ -56,6 +60,10 @@ export default {
                     }
                 })
                 .catch(function(error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     let status = error.response.status;
                     switch (status) {
                         case 401:
@@ -84,6 +92,10 @@ export default {
                     }
                 })
                 .catch(function(error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     let status = error.response.status;
                     switch (status) {
                         case 401:
@@ -110,6 +122,10 @@ export default {
                     }
                 })
                 .catch(function(error) {
+                    if (!error.response) {
+                        reject(error);
+                        return;
+                    }
                     let status = error.response.status;
                     switch (status) {
                         case 401:

@@ -1,6 +1,13 @@
 <template>
     <div>
         <Dialog ref="dialog" />
+        <input
+            ref="csvInput"
+            type="file"
+            accept=".csv,text/csv"
+            class="d-none"
+            @change="importCsv"
+        />
         <CRow class="p-2">
             <CCol md="9" sm="9">
                 <CInput
@@ -28,6 +35,14 @@
                     :disabled="loading"
                 >
                     <CIcon name="cil-plus" size="sm" />
+                </CButton>
+                <CButton
+                    color="primary"
+                    size="sm"
+                    v-on:click="chooseImport"
+                    :disabled="loading"
+                >
+                    <CIcon name="cil-cloud-upload" size="sm" />
                 </CButton>
                 <CButton
                     color="primary"
@@ -63,7 +78,7 @@
                 disablePagination: disablePagination,
                 showFirstLastPage: true,
                 showCurrentPage: true,
-                itemsPerPageOptions: [10, 20, 50, 100]
+                itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
             <template v-slot:[`item.warehouses`]="{ item }">
@@ -95,10 +110,10 @@
                 </v-chip>
             </template>
             <template v-slot:[`item.created_at`]="{ item }">
-                {{ item.created_at | moment("dddd, Do MMMM YYYY") }}
+                {{ formatDate(item.created_at) }}
             </template>
             <template v-slot:[`item.updated_at`]="{ item }">
-                {{ item.updated_at | moment("dddd, Do MMMM YYYY") }}
+                {{ formatDate(item.updated_at) }}
             </template>
             <template v-slot:[`item.actions`]="{ item }">
                 <CButtonGroup>
@@ -120,6 +135,7 @@
 <script>
 //
 import { Dialog } from "@/components";
+import moment from "moment";
 import { mapState } from "vuex";
 
 export default {
@@ -127,10 +143,10 @@ export default {
     props: {
         supplierId: null,
         categoryId: null,
-        warehouseId: null
+        warehouseId: null,
     },
     components: {
-        Dialog
+        Dialog,
     },
     computed: {
         ...mapState(["goods"]),
@@ -145,57 +161,65 @@ export default {
         },
         items() {
             return this.goods.data?.data;
-        }
+        },
     },
     data() {
         return {
             searchText: null,
             loading: false,
             options: {},
-            sortBy: "name",
+            sortBy: "code",
             sortDesc: false,
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
-                { text: this.$t("name"), value: "name" },
+                // { text: this.$t("no"), value: "no" },
+                // { text: this.$t("name"), value: "name" },
+                { text: this.$t("code"), value: "code" },
                 { text: this.$t("type"), value: "type" },
                 {
                     text: this.$t("warehouse"),
                     value: "warehouses",
-                    sortable: false
+                    sortable: false,
                 },
                 {
                     text: this.$t("stockunit"),
                     value: "stock_unit",
-                    sortable: false
+                    sortable: false,
                 },
                 {
                     text: this.$t("supplier"),
                     value: "supplier.name",
-                    sortable: false
+                    sortable: false,
                 },
                 {
                     text: this.$t("categories"),
                     value: "categories",
-                    sortable: false
+                    sortable: false,
                 },
                 { text: this.$t("updatedat"), value: "updated_at" },
-                { text: this.$t("actions"), value: "actions", sortable: false }
-            ]
+                { text: this.$t("actions"), value: "actions", sortable: false },
+            ],
         };
     },
     watch: {
         options: {
             handler() {
                 this.fetch();
-            }
+            },
         },
         loading() {
             this.disableItemsPerPage = this.loading;
             this.disablePagination = this.loading;
-        }
+        },
     },
     methods: {
+        formatDate(value) {
+            if (!value) {
+                return "";
+            }
+            return moment(value).format("dddd, Do MMMM YYYY");
+        },
         fetch(reset = false) {
             let self = this;
             if (self.loading) {
@@ -211,14 +235,14 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                search: self.searchText
+                search: self.searchText,
             };
             this.$store
                 .dispatch("goods/get", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -227,6 +251,34 @@ export default {
         },
         add() {
             this.$router.push({ name: "CreateGoods" });
+        },
+        chooseImport() {
+            this.$refs.csvInput.click();
+        },
+        importCsv(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                return;
+            }
+
+            let self = this;
+            self.loading = true;
+
+            const data = new FormData();
+            data.append("file", file);
+
+            this.$store
+                .dispatch("goods/import", data)
+                .then(() => {
+                    self.loading = false;
+                    self.fetch(true);
+                })
+                .catch(() => {
+                    self.loading = false;
+                })
+                .finally(() => {
+                    event.target.value = "";
+                });
         },
         download() {
             let self = this;
@@ -240,14 +292,14 @@ export default {
                 sort_by: sortBy,
                 sort_desc: sortDesc,
                 search: self.searchText,
-                extension: "pdf"
+                extension: "pdf",
             };
             this.$store
                 .dispatch("goods/export", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -263,13 +315,13 @@ export default {
                         case "CreatePurchase":
                             this.$router.push({
                                 name: route,
-                                params: { id: item.supplier.id }
+                                params: { id: item.supplier.id },
                             });
                             break;
                         case "GoodsDetails":
                             this.$router.push({
                                 name: route,
-                                params: { id: item.id }
+                                params: { id: item.id },
                             });
                             break;
                     }
@@ -284,18 +336,18 @@ export default {
                         let self = this;
                         this.$store
                             .dispatch("goods/delete", { id: item.id })
-                            .then(response => {
+                            .then((response) => {
                                 self.loading = false;
                                 self.fetch();
                             })
-                            .catch(error => {
+                            .catch((error) => {
                                 self.loading = false;
                             });
                     }
                     break;
             }
             // console.log(id, key);
-        }
-    }
+        },
+    },
 };
 </script>

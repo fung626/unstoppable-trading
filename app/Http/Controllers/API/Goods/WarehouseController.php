@@ -10,7 +10,7 @@ use App\Mylibs\MyPhpOffice;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class WarehouseController extends Controller
 {
@@ -56,7 +56,7 @@ class WarehouseController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id' => 'required|string|exists:warehouse,id',
+            'id' => 'required|string|exists:warehouses,id',
             'sector' => 'required|string',
         ]);
 

@@ -3,7 +3,7 @@
         <!-- <WidgetsDropdown /> -->
         <ScannerDialog ref="scannerDialog" />
         <CRow>
-            <CCol v-if="isPermissionGranted('goods')" sm="12" lg="4">
+            <CCol v-if="isPermissionGranted('goods')" sm="12" lg="3">
                 <CWidgetIcon
                     :header="`${$t('barcode')}${$t('scanner')}`"
                     :text="`${$t('goods')}${$t('search')}`"
@@ -14,7 +14,7 @@
                     </CButton>
                 </CWidgetIcon>
             </CCol>
-            <CCol v-if="isPermissionGranted('shipping')" sm="12" lg="4">
+            <CCol v-if="isPermissionGranted('shipping')" sm="12" lg="3">
                 <CWidgetIcon
                     :header="`${$t('barcode')}${$t('scanner')}`"
                     :text="`${$t('goods')}${$t('shipping')}`"
@@ -25,7 +25,7 @@
                     </CButton>
                 </CWidgetIcon>
             </CCol>
-            <CCol v-if="isPermissionGranted('stocktake')" sm="12" lg="4">
+            <CCol v-if="isPermissionGranted('stocktake')" sm="12" lg="3">
                 <CWidgetIcon
                     :header="`${$t('barcode')}${$t('scanner')}`"
                     :text="`${$t('stocktake')}`"
@@ -33,6 +33,31 @@
                 >
                     <CButton class="text-white" size="lg" @click="stocktake">
                         <CIcon name="cil-barcode" size="lg" />
+                    </CButton>
+                </CWidgetIcon>
+            </CCol>
+            <CCol sm="12" lg="3" v-if="$store.getters.isAdmin">
+                <CWidgetIcon
+                    :header="`${$t('button.import')}`"
+                    :text="`${$t('goods')}`"
+                    color="primary"
+                >
+                    <input
+                        ref="importInput"
+                        type="file"
+                        accept=".csv,text/csv"
+                        style="display: none"
+                        @change="importGoods"
+                    />
+
+                    <CButton
+                        class="text-white"
+                        size="lg"
+                        :disabled="loading.import"
+                        @click="openImportPicker"
+                    >
+                        <CSpinner v-if="loading.import" size="sm" />
+                        <CIcon v-else name="cil-cloud-upload" size="lg" />
                     </CButton>
                 </CWidgetIcon>
             </CCol>
@@ -100,7 +125,7 @@ import {
     DutyCalendar,
     ExchangeRate,
     ScannerDialog,
-    ShippingPurchaseQuickSearch
+    ShippingPurchaseQuickSearch,
 } from "@/components";
 import { mapState } from "vuex";
 import DashboardSummaryLineChart from "./components/DashboardSummaryLineChart";
@@ -114,7 +139,7 @@ export default {
         ScannerDialog,
         ShippingPurchaseQuickSearch,
         DashboardSummaryLineChart,
-        PurchaseTable
+        PurchaseTable,
     },
     computed: {
         ...mapState(["dashboard"]),
@@ -123,11 +148,14 @@ export default {
         },
         totalGoodsItem() {
             return this.dashboard.data?.item_count;
-        }
+        },
     },
     data() {
         return {
-            loading: false
+            loading: {
+                dashboard: false,
+                import: false,
+            },
         };
     },
     mounted() {
@@ -136,18 +164,18 @@ export default {
     methods: {
         fetch() {
             let self = this;
-            if (self.loading) {
+            if (self.loading.dashboard) {
                 return;
             }
-            self.loading = true;
+            self.loading.dashboard = true;
             let data = {};
             this.$store
                 .dispatch("dashboard/get", data)
-                .then(response => {
-                    self.loading = false;
+                .then((response) => {
+                    self.loading.dashboard = false;
                 })
-                .catch(error => {
-                    self.loading = false;
+                .catch((error) => {
+                    self.loading.dashboard = false;
                 });
         },
         isPermissionGranted(key) {
@@ -161,7 +189,33 @@ export default {
         },
         async stocktake() {
             await this.$refs.scannerDialog.open("StockTake");
-        }
-    }
+        },
+        openImportPicker() {
+            if (this.loading.import) {
+                return;
+            }
+            this.$refs.importInput?.click();
+        },
+        importGoods(event) {
+            let self = this;
+            const file = event.target.files[0];
+            if (!file || self.loading.import) {
+                return;
+            }
+            self.loading.import = true;
+            const data = new FormData();
+            data.append("file", file);
+            this.$store
+                .dispatch("goods/import", data)
+                .then(() => {
+                    // self.fetch();
+                    self.loading.import = false;
+                })
+                .finally(() => {
+                    self.loading.import = false;
+                    event.target.value = "";
+                });
+        },
+    },
 };
 </script>

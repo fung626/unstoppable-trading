@@ -51,6 +51,7 @@
             "App\\": "app/"
         },
         "classmap": [
+            "app/Mylibs",
             "database/seeds",
             "database/factories"
         ]

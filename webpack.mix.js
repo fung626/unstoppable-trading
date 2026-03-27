@@ -1,6 +1,7 @@
 const path = require("path");
 const mix = require("laravel-mix");
 const VuetifyLoaderPlugin = require("vuetify-loader/lib/plugin");
+const isProduction = mix.inProduction();
 
 /*
  |--------------------------------------------------------------------------
@@ -21,8 +22,8 @@ mix.options({
         modules: [path.resolve("./node_modules")],
         alias: {
             "@": path.resolve(__dirname, "resources/js"),
-            "~": path.resolve(__dirname, "resources/sass/")
-        }
+            "~": path.resolve(__dirname, "resources/sass/"),
+        },
     },
     module: {
         rules: [
@@ -31,16 +32,18 @@ mix.options({
                 exclude: /node_modules/,
                 use: [
                     {
-                        loader: "babel-loader"
+                        loader: "babel-loader",
                         // options: mix.config.babel()
-                    }
-                ]
-            }
-        ]
+                    },
+                ],
+            },
+        ],
     },
     output: {
-        chunkFilename: "js/vuejs_code_split/[name].js"
-    }
+        chunkFilename: isProduction
+            ? "js/vuejs_code_split/[name].[contenthash].js"
+            : "js/vuejs_code_split/[name].js",
+    },
 });
 
 mix.extend(
@@ -57,7 +60,16 @@ mix.vuetify();
 
 mix.js("resources/js/app.js", "public/js")
     .sass("resources/sass/app.scss", "public/css")
-    .vue()
-    .sourceMaps();
+    .vue();
+
+// if (!isProduction) {
+//     mix.sourceMaps();
+// }
+
+mix.sourceMaps();
+
+if (isProduction) {
+    mix.version();
+}
 
 mix.copy("resources/assets/images", "public/images", false);

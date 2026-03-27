@@ -9,7 +9,7 @@ use App\Mylibs\MyPhpOffice;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class ClientController extends Controller
 {

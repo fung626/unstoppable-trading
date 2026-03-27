@@ -91,7 +91,7 @@
                 <v-data-table
                     class="my-2 elevation-1"
                     :headers="table.item.headers"
-                    :items="shipItems"
+                    :items="shippingItems"
                     :search="search"
                     :mobile-breakpoint="0"
                 >
@@ -102,7 +102,7 @@
                                     <div
                                         v-if="
                                             isRowEditable(header.value) &&
-                                                item[header.value]
+                                            item[header.value]
                                         "
                                     >
                                         <div v-if="data.status === 'DELIVERED'">
@@ -193,7 +193,7 @@ import ShippingReturnDialog from "./ShippingReturnDialog";
 export default {
     name: "ShippingInvoice",
     props: {
-        id: null
+        id: null,
     },
     computed: {
         ...mapState(["goods/shipping"]),
@@ -204,19 +204,18 @@ export default {
             return this["goods/shipping"].detailsData.header_items;
         },
         shippingItems() {
-            return JSON.parse(
-                JSON.stringify(
-                    this["goods/shipping"].detailsData.shipping_items
-                )
-            );
+            console.log("[DEBUG] Computed ShippingItems");
+            const items = this["goods/shipping"].detailsData.shipping_items;
+            if (!items) return [];
+            return JSON.parse(JSON.stringify(items));
         },
         footerItems() {
             return this["goods/shipping"].detailsData.footer_items;
-        }
+        },
     },
     components: {
         Dialog,
-        ShippingReturnDialog
+        ShippingReturnDialog,
     },
     data() {
         return {
@@ -230,8 +229,8 @@ export default {
                         { text: "X3", value: "X3" },
                         { text: "X4", value: "X4" },
                         { text: "X5", value: "X5" },
-                        { text: "X6", value: "X6" }
-                    ]
+                        { text: "X6", value: "X6" },
+                    ],
                 },
                 footer: {
                     headers: [
@@ -240,16 +239,16 @@ export default {
                             value: "X1",
                             align: "right",
                             width: "80%",
-                            sortable: false
+                            sortable: false,
                         },
                         {
                             text: "",
                             value: "X2",
                             align: "left",
                             width: "20%",
-                            sortable: false
-                        }
-                    ]
+                            sortable: false,
+                        },
+                    ],
                 },
                 item: {
                     headers: [
@@ -267,17 +266,17 @@ export default {
                         { text: "44-Free", value: "44-Free" },
                         {
                             text: `${this.$t("unitprice")}($)`,
-                            value: "formatted_unit_price"
+                            value: "formatted_unit_price",
                         },
                         { text: this.$t("totalunit"), value: "total_unit" },
                         {
                             text: `${this.$t("cost")}($)`,
-                            value: "formatted_cost"
+                            value: "formatted_cost",
                         },
-                        { text: this.$t("actions"), value: "actions" }
-                    ]
-                }
-            }
+                        { text: this.$t("actions"), value: "actions" },
+                    ],
+                },
+            },
         };
     },
     mounted() {
@@ -288,14 +287,14 @@ export default {
             let self = this;
             self.loading = true;
             let data = {
-                id: self.$props.id
+                id: self.$props.id,
             };
             this.$store
                 .dispatch("goods/shipping/details", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -304,7 +303,7 @@ export default {
             this.fetch();
         },
         isRowEditable(value) {
-            return goodsSizes.find(obj => obj.name === value);
+            return goodsSizes.find((obj) => obj.name === value);
         },
         isCurrencyRow(value) {
             const rows = ["unit_price", "cost"];
@@ -334,14 +333,14 @@ export default {
             self.loading = true;
             let data = {
                 id: self.$props.id,
-                extension: "pdf"
+                extension: "pdf",
             };
             this.$store
                 .dispatch("goods/shipping/invoice/export", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -350,14 +349,14 @@ export default {
             self.loading = true;
             let data = {
                 shipping_id: self.$props.id,
-                extension: "pdf"
+                extension: "pdf",
             };
             this.$store
                 .dispatch("goods/shipping/packing/export", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -366,14 +365,14 @@ export default {
             self.loading = true;
             let data = {
                 id: self.$props.id,
-                extension: "pdf"
+                extension: "pdf",
             };
             this.$store
                 .dispatch("goods/shipping/mailer/export", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -391,15 +390,15 @@ export default {
                         let data = {
                             id: self.data.id,
                             item: item,
-                            type: "UPDATE"
+                            type: "UPDATE",
                         };
                         this.$store
                             .dispatch("goods/shipping/update", data)
-                            .then(response => {
+                            .then((response) => {
                                 self.loading = false;
                                 self.fetch();
                             })
-                            .catch(error => {
+                            .catch((error) => {
                                 self.loading = false;
                             });
                     }
@@ -419,22 +418,22 @@ export default {
                         let data = {
                             id: self.data.id,
                             item: item,
-                            type: "DELETE"
+                            type: "DELETE",
                         };
                         this.$store
                             .dispatch("goods/shipping/update", data)
-                            .then(response => {
+                            .then((response) => {
                                 self.loading = false;
                                 self.fetch();
                             })
-                            .catch(error => {
+                            .catch((error) => {
                                 self.loading = false;
                             });
                     }
                     break;
             }
             // console.log(id, key);
-        }
-    }
+        },
+    },
 };
 </script>

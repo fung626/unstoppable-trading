@@ -15,20 +15,20 @@ class TopStocksController extends Controller
         // ALTER TABLE dev_unstoppabletrading.goods CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
         $result = Stock::with(['goods', 'goodsItem'])
             ->select([
-                'goods_item.id as id',
+                'goods_items.id as id',
                 'goods.name',
                 'goods.type',
-                'goods_item.cup',
-                'goods_item.size',
-                'goods_item.color',
-                'goods_item.barcode',
-                DB::raw('abs(goods_stock.unit) as unit'),
+                'goods_items.cup',
+                'goods_items.size',
+                'goods_items.color',
+                'goods_items.barcode',
+                DB::raw('abs(goods_stocks.unit) as unit'),
             ])
-            ->leftJoin('goods', 'goods.id', '=', 'goods_stock.goods_id')
-            ->leftJoin('goods_item', 'goods_item.id', '=', 'goods_stock.goods_item_id')
-            ->where('goods_stock.type', 'PURCHASE')
+            ->leftJoin('goods', 'goods.id', '=', 'goods_stocks.goods_id')
+            ->leftJoin('goods_items', 'goods_items.id', '=', 'goods_stocks.goods_item_id')
+            ->where('goods_stocks.type', 'PURCHASE')
             ->orderBy('unit', 'DESC')
-            ->groupBy('goods_item.id')
+            ->groupBy('goods_items.id')
             ->get();
         $response = config('response.common.success');
         $response['data'] = $result;

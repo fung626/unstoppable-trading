@@ -12,7 +12,7 @@ class Item extends Model
 
     use Uuid;
 
-    protected $table = 'invoice_item';
+    protected $table = 'invoice_items';
 
     protected $keyType = 'string';
 

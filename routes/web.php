@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,6 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/{any}', 'Web\PageController@index')->where('any', '.*');
+Route::get('/{any}', [PageController::class, 'index'])->where('any', '.*');
 // Route::get('image/{path}', 'Web\FileController@image')->where(['path' => '.*']);
 // Route::get('pdf/{path}', 'Web\CMS\FileController@pdf')->where(['path' => '.*']);

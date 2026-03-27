@@ -43,6 +43,7 @@
     "Update": "Update",
     "Delete": "Delete",
     "Add": "Add",
+    "Import": "Import",
     "Shipping": "Shipping",
     "Purchase": "Purchase",
     "Stock": "Stock",
@@ -102,5 +103,6 @@
     "DIO": "DIO",
     "Updated at": "Updated at",
     "Created at": "Created at",
-    "Actions": "Actions"
+    "Actions": "Actions",
+    "Client not found": "Client not found"
 }

@@ -9,6 +9,7 @@ use App\Mylibs\Common;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class TestController extends Controller
 {
@@ -20,10 +21,10 @@ class TestController extends Controller
 
     public function get(Request $request)
     {
-        $from = Carbon::now()->addMonth(-6);
-        $to = Carbon::now();
-        $range = Common::getMonthsFromRange($from, $to, 'M Y');
-        dd($range);
+        // $from = Carbon::now()->addMonth(-6);
+        // $to = Carbon::now();
+        // $range = Common::getMonthsFromRange($from, $to, 'M Y');
+        dd(Hash::make($request->password));
     }
 
     public function post(Request $request)
@@ -45,11 +46,11 @@ class TestController extends Controller
             ->when($request->filled(['search']), function ($query) {
                 $keyword = trim(request('search'));
                 return $query->where(function ($query) use ($keyword) {
-                    $query->where('goods_item.id', 'like', '%' . $keyword . '%')
-                        ->orWhere('goods_item.cup', 'like', '%' . $keyword . '%')
-                        ->orWhere('goods_item.size', 'like', '%' . $keyword . '%')
-                        ->orWhere('goods_item.color', 'like', '%' . $keyword . '%')
-                        ->orWhere('goods_item.barcode', 'like', '%' . $keyword . '%');
+                    $query->where('goods_items.id', 'like', '%' . $keyword . '%')
+                        ->orWhere('goods_items.cup', 'like', '%' . $keyword . '%')
+                        ->orWhere('goods_items.size', 'like', '%' . $keyword . '%')
+                        ->orWhere('goods_items.color', 'like', '%' . $keyword . '%')
+                        ->orWhere('goods_items.barcode', 'like', '%' . $keyword . '%');
                 })->orWhereHas('goods', function ($query) use ($keyword) {
                     $query->where('goods.id', 'like', '%' . $keyword . '%')
                         ->orWhere('goods.name', 'like', '%' . $keyword . '%')
@@ -57,7 +58,7 @@ class TestController extends Controller
                 });
             })
             ->select($select)
-            ->join('goods', 'goods.id', '=', 'goods_item.goods_id')
+            ->join('goods', 'goods.id', '=', 'goods_items.goods_id')
             ->groupBy(['goods_id', 'color', 'cup']);
 
         if ($request->filled(['sort_by', 'sort_desc'])) {
@@ -69,7 +70,7 @@ class TestController extends Controller
                 $query->orderBy($sortBy, $sortDesc ? 'DESC' : 'ASC');
                 $index++;
             }
-            $query->orderBy('goods_item.updated_at', $sortDesc ? 'DESC' : 'ASC');
+            $query->orderBy('goods_items.updated_at', $sortDesc ? 'DESC' : 'ASC');
         }
 
         $response = config('response.common.success');

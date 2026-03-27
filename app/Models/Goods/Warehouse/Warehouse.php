@@ -13,7 +13,7 @@ class Warehouse extends Model
 
     use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
-    protected $table = 'warehouse';
+    protected $table = 'warehouses';
 
     protected $keyType = 'string';
 

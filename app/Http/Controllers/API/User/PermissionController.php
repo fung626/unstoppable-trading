@@ -8,7 +8,7 @@ use App\Models\User\Permission;
 use App\Models\User\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class PermissionController extends Controller
 {

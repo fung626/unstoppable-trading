@@ -1,0 +1,3475 @@
+{
+    "info": {
+        "name": "Unstoppable Trading",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "test",
+            "item": [
+                {
+                    "name": "get",
+                    "item": [
+                        {
+                            "name": "GET /api/test/get",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/test/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "test", "get"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "post",
+                    "item": [
+                        {
+                            "name": "POST /api/test/post",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/test/post",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "test", "post"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "storage",
+            "item": [
+                {
+                    "name": "font",
+                    "item": [
+                        {
+                            "name": "GET /api/storage/font",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/storage/font",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "storage", "font"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "export",
+            "item": [
+                {
+                    "name": "data",
+                    "item": [
+                        {
+                            "name": "POST /api/export/data",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/export/data",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "export", "data"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "welcome",
+            "item": [
+                {
+                    "name": "GET /api/welcome/{user}",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{bearer_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/welcome/{user}",
+                            "host": ["{{base_url}}"],
+                            "path": ["api", "welcome", "{user}"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "POST /api/welcome/{user}",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{bearer_token}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/welcome/{user}",
+                            "host": ["{{base_url}}"],
+                            "path": ["api", "welcome", "{user}"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "auth",
+            "item": [
+                {
+                    "name": "login",
+                    "item": [
+                        {
+                            "name": "POST /api/auth/login",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/auth/login",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "auth", "login"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "forgot",
+                    "item": [
+                        {
+                            "name": "POST /api/auth/forgot/password/email",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/auth/forgot/password/email",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "auth",
+                                        "forgot",
+                                        "password",
+                                        "email"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/auth/forgot/password/reset",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/auth/forgot/password/reset",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "auth",
+                                        "forgot",
+                                        "password",
+                                        "reset"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/auth/forgot/password/find",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/auth/forgot/password/find",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "auth",
+                                        "forgot",
+                                        "password",
+                                        "find"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "password",
+                    "item": [
+                        {
+                            "name": "GET /api/auth/password/reset",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/auth/password/reset",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "auth", "password", "reset"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/auth/password/reset",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/auth/password/reset",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "auth", "password", "reset"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "config",
+            "item": [
+                {
+                    "name": "web",
+                    "item": [
+                        {
+                            "name": "GET /api/config/web/get",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/config/web/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "config", "web", "get"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "dashboard",
+            "item": [
+                {
+                    "name": "get",
+                    "item": [
+                        {
+                            "name": "GET /api/dashboard/get",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/dashboard/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "dashboard", "get"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "salesreport",
+            "item": [
+                {
+                    "name": "get",
+                    "item": [
+                        {
+                            "name": "GET /api/salesreport/get",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/salesreport/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "salesreport", "get"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "average",
+                    "item": [
+                        {
+                            "name": "GET /api/salesreport/average/inventory/get",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/salesreport/average/inventory/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "salesreport",
+                                        "average",
+                                        "inventory",
+                                        "get"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "inventory",
+                    "item": [
+                        {
+                            "name": "GET /api/salesreport/inventory/turnover/get",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/salesreport/inventory/turnover/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "salesreport",
+                                        "inventory",
+                                        "turnover",
+                                        "get"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "topsales",
+                    "item": [
+                        {
+                            "name": "GET /api/salesreport/topsales/get",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/salesreport/topsales/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "salesreport",
+                                        "topsales",
+                                        "get"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "topstocks",
+                    "item": [
+                        {
+                            "name": "GET /api/salesreport/topstocks/get",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/salesreport/topstocks/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "salesreport",
+                                        "topstocks",
+                                        "get"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "chart",
+                    "item": [
+                        {
+                            "name": "GET /api/salesreport/chart/get",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/salesreport/chart/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "salesreport",
+                                        "chart",
+                                        "get"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "stockchart",
+                    "item": [
+                        {
+                            "name": "GET /api/salesreport/stockchart/get",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/salesreport/stockchart/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "salesreport",
+                                        "stockchart",
+                                        "get"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "user",
+            "item": [
+                {
+                    "name": "create",
+                    "item": [
+                        {
+                            "name": "POST /api/user/create",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/create",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "create"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "update",
+                    "item": [
+                        {
+                            "name": "POST /api/user/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "update"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "get",
+                    "item": [
+                        {
+                            "name": "POST /api/user/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "get"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "details",
+                    "item": [
+                        {
+                            "name": "GET /api/user/details",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/details",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "details"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "delete",
+                    "item": [
+                        {
+                            "name": "POST /api/user/delete",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/delete",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "delete"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "export",
+                    "item": [
+                        {
+                            "name": "POST /api/user/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "export"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "profile",
+                    "item": [
+                        {
+                            "name": "GET /api/user/profile/get",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/profile/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "profile", "get"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/user/profile/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/profile/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "profile", "update"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/user/profile/password/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/profile/password/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "user",
+                                        "profile",
+                                        "password",
+                                        "update"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "employee",
+                    "item": [
+                        {
+                            "name": "GET /api/user/employee/get",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/employee/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "employee", "get"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/user/employee/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/employee/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "user",
+                                        "employee",
+                                        "update"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "permission",
+                    "item": [
+                        {
+                            "name": "GET /api/user/permission/get",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/permission/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "permission", "get"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/user/permission/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/permission/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "user",
+                                        "permission",
+                                        "update"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "duty",
+                    "item": [
+                        {
+                            "name": "POST /api/user/duty/create",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/duty/create",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "duty", "create"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/user/duty/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/duty/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "duty", "update"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/user/duty/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/duty/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "duty", "get"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "GET /api/user/duty/details",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/duty/details",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "duty", "details"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/user/duty/delete",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/duty/delete",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "duty", "delete"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/user/duty/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/duty/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "duty", "export"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/user/duty/calendar/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/duty/calendar/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "user",
+                                        "duty",
+                                        "calendar",
+                                        "get"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "leave",
+                    "item": [
+                        {
+                            "name": "POST /api/user/leave/create",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/leave/create",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "leave", "create"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/user/leave/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/leave/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "leave", "update"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/user/leave/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/leave/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "leave", "get"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "GET /api/user/leave/details",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/leave/details",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "leave", "details"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/user/leave/delete",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/leave/delete",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "leave", "delete"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/user/leave/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/user/leave/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "user", "leave", "export"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "client",
+            "item": [
+                {
+                    "name": "create",
+                    "item": [
+                        {
+                            "name": "POST /api/client/create",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/client/create",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "client", "create"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "update",
+                    "item": [
+                        {
+                            "name": "POST /api/client/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/client/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "client", "update"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "get",
+                    "item": [
+                        {
+                            "name": "POST /api/client/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/client/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "client", "get"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "details",
+                    "item": [
+                        {
+                            "name": "GET /api/client/details",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/client/details",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "client", "details"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "delete",
+                    "item": [
+                        {
+                            "name": "POST /api/client/delete",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/client/delete",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "client", "delete"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "export",
+                    "item": [
+                        {
+                            "name": "POST /api/client/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/client/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "client", "export"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "goods",
+            "item": [
+                {
+                    "name": "supplier",
+                    "item": [
+                        {
+                            "name": "POST /api/goods/supplier/create",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/supplier/create",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "supplier",
+                                        "create"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/supplier/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/supplier/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "supplier",
+                                        "update"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/supplier/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/supplier/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "supplier", "get"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "GET /api/goods/supplier/details",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/supplier/details",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "supplier",
+                                        "details"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/supplier/delete",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/supplier/delete",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "supplier",
+                                        "delete"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/supplier/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/supplier/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "supplier",
+                                        "export"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "category",
+                    "item": [
+                        {
+                            "name": "POST /api/goods/category/create",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/category/create",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "category",
+                                        "create"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/category/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/category/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "category",
+                                        "update"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/category/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/category/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "category", "get"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "GET /api/goods/category/details",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/category/details",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "category",
+                                        "details"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/category/delete",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/category/delete",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "category",
+                                        "delete"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/category/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/category/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "category",
+                                        "export"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "create",
+                    "item": [
+                        {
+                            "name": "POST /api/goods/create",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/create",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "create"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "update",
+                    "item": [
+                        {
+                            "name": "POST /api/goods/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "update"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "get",
+                    "item": [
+                        {
+                            "name": "POST /api/goods/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "get"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "details",
+                    "item": [
+                        {
+                            "name": "GET /api/goods/details",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/details",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "details"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "delete",
+                    "item": [
+                        {
+                            "name": "POST /api/goods/delete",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/delete",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "delete"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "export",
+                    "item": [
+                        {
+                            "name": "POST /api/goods/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "export"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "import",
+                    "item": [
+                        {
+                            "name": "POST /api/goods/import",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/import",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "import"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "shipping",
+                    "item": [
+                        {
+                            "name": "POST /api/goods/shipping/purchase/quicksearch/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/shipping/purchase/quicksearch/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "shipping",
+                                        "purchase",
+                                        "quicksearch",
+                                        "get"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/shipping/create",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/shipping/create",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "shipping",
+                                        "create"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/shipping/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/shipping/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "shipping", "get"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "GET /api/goods/shipping/details",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/shipping/details",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "shipping",
+                                        "details"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/shipping/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/shipping/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "shipping",
+                                        "update"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/shipping/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/shipping/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "shipping",
+                                        "export"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/shipping/format",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/shipping/format",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "shipping",
+                                        "format"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/shipping/alteration/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/shipping/alteration/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "shipping",
+                                        "alteration",
+                                        "get"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/shipping/alteration/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/shipping/alteration/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "shipping",
+                                        "alteration",
+                                        "export"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/shipping/available/shipping/item/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/shipping/available/shipping/item/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "shipping",
+                                        "available",
+                                        "shipping",
+                                        "item",
+                                        "get"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/shipping/packing/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/shipping/packing/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "shipping",
+                                        "packing",
+                                        "export"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/shipping/mailer/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/shipping/mailer/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "shipping",
+                                        "mailer",
+                                        "export"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/shipping/invoice/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/shipping/invoice/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "shipping",
+                                        "invoice",
+                                        "export"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "purchase",
+                    "item": [
+                        {
+                            "name": "GET /api/goods/purchase/items",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/purchase/items",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "purchase",
+                                        "items"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/purchase/create",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/purchase/create",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "purchase",
+                                        "create"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "GET /api/goods/purchase/create/values",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/purchase/create/values",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "purchase",
+                                        "create",
+                                        "values"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/purchase/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/purchase/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "purchase",
+                                        "update"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/purchase/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/purchase/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "purchase", "get"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "GET /api/goods/purchase/details",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/purchase/details",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "purchase",
+                                        "details"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/purchase/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/purchase/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "purchase",
+                                        "export"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/purchase/stocktake/create",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/purchase/stocktake/create",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "purchase",
+                                        "stocktake",
+                                        "create"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "GET /api/goods/purchase/stocktake/details",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/purchase/stocktake/details",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "purchase",
+                                        "stocktake",
+                                        "details"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "GET /api/goods/purchase/invoice/details",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/purchase/invoice/details",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "purchase",
+                                        "invoice",
+                                        "details"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "GET /api/goods/purchase/invoice/items",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/purchase/invoice/items",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "purchase",
+                                        "invoice",
+                                        "items"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/purchase/invoice/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/purchase/invoice/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "purchase",
+                                        "invoice",
+                                        "export"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "item",
+                    "item": [
+                        {
+                            "name": "POST /api/goods/item/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/item/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "item", "update"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/item/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/item/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "item", "get"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "GET /api/goods/item/details",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/item/details",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "item", "details"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/item/delete",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/item/delete",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "item", "delete"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/item/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/item/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "item", "export"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "content",
+                    "item": [
+                        {
+                            "name": "POST /api/goods/content/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/content/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "content",
+                                        "update"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/content/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/content/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "content", "get"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "GET /api/goods/content/details",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/content/details",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "content",
+                                        "details"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/content/delete",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/content/delete",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "content",
+                                        "delete"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/content/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/content/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "content",
+                                        "export"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "warehouse",
+                    "item": [
+                        {
+                            "name": "POST /api/goods/warehouse/create",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/warehouse/create",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "warehouse",
+                                        "create"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/warehouse/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/warehouse/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "warehouse",
+                                        "update"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/warehouse/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/warehouse/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "warehouse", "get"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "GET /api/goods/warehouse/details",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/warehouse/details",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "warehouse",
+                                        "details"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/warehouse/delete",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/warehouse/delete",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "warehouse",
+                                        "delete"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/warehouse/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/warehouse/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "warehouse",
+                                        "export"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "stock",
+                    "item": [
+                        {
+                            "name": "POST /api/goods/stock/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/stock/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "stock", "get"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/stock/export",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/stock/export",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "stock", "export"]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "POST /api/goods/stock/calendar/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/stock/calendar/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "goods",
+                                        "stock",
+                                        "calendar",
+                                        "get"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "barcode",
+                    "item": [
+                        {
+                            "name": "POST /api/goods/barcode/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/goods/barcode/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "goods", "barcode", "get"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "statistics",
+            "item": [
+                {
+                    "name": "chart",
+                    "item": [
+                        {
+                            "name": "GET /api/statistics/chart/purchaseline/get",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/statistics/chart/purchaseline/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "statistics",
+                                        "chart",
+                                        "purchaseline",
+                                        "get"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "dashboard",
+                    "item": [
+                        {
+                            "name": "GET /api/statistics/dashboard/callout/get",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/statistics/dashboard/callout/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": [
+                                        "api",
+                                        "statistics",
+                                        "dashboard",
+                                        "callout",
+                                        "get"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "exchangerate",
+            "item": [
+                {
+                    "name": "update",
+                    "item": [
+                        {
+                            "name": "POST /api/exchangerate/update",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/exchangerate/update",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "exchangerate", "update"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "get",
+                    "item": [
+                        {
+                            "name": "POST /api/exchangerate/get",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/exchangerate/get",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "exchangerate", "get"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "details",
+                    "item": [
+                        {
+                            "name": "POST /api/exchangerate/details",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{bearer_token}}",
+                                        "type": "text"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}/api/exchangerate/details",
+                                    "host": ["{{base_url}}"],
+                                    "path": ["api", "exchangerate", "details"]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://127.0.0.1:8000"
+        },
+        {
+            "key": "bearer_token",
+            "value": ""
+        }
+    ]
+}

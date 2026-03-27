@@ -2,7 +2,7 @@
     <CCard>
         <CCardBody>
             <h4>
-                {{ `${$t("shipping")} ${$t("purchase")} ${$t("quicksearch")}` }}
+                {{ `${$t("shippingpurchasequicksearch")}` }}
             </h4>
             <hr />
             <CRow>
@@ -41,47 +41,76 @@
 </template>
 
 <script>
+import debounce from "lodash/debounce";
+
 export default {
     name: "ShippingPurchaseQuickSearch",
     data() {
         return {
             data: null,
+            debouncedFetchQuickSearch: null,
             autocomplete: {
                 data: {
                     items: [],
-                    loading: false
-                }
-            }
+                    loading: false,
+                },
+            },
         };
     },
+    created() {
+        this.debouncedFetchQuickSearch = debounce((search) => {
+            this.fetchQuickSearch(search);
+        }, 1000);
+    },
     watch: {
-        "autocomplete.data.search": function(newVal, oldVal) {
+        "autocomplete.data.search": function (newVal, oldVal) {
             // console.log(newVal);
             let self = this;
-            let cli = self.autocomplete.data;
             if (newVal == "") {
                 self.data = null;
+                self.autocomplete.data.items = [];
             }
-            if ((newVal == oldVal && newVal != "") || !newVal || cli.loading) {
+            if (!newVal || newVal == oldVal) {
                 return;
             }
-            self.autocomplete.data.loading = true;
-            let data = {
-                search: newVal
-            };
-            this.$store
-                .dispatch("goods/shipping/purchase/quicksearch/get", data)
-                .then(response => {
-                    // let data = response.data;
-                    self.autocomplete.data.items = response.data;
-                    self.autocomplete.data.loading = false;
-                })
-                .catch(error => {
-                    self.autocomplete.data.loading = false;
-                });
+            self.debouncedFetchQuickSearch(newVal);
+        },
+    },
+    beforeDestroy() {
+        if (this.debouncedFetchQuickSearch) {
+            this.debouncedFetchQuickSearch.cancel();
         }
     },
     methods: {
+        fetchQuickSearch(search) {
+            let self = this;
+            let cli = self.autocomplete.data;
+
+            if (cli.loading) {
+                return;
+            }
+
+            cli.loading = true;
+            let data = {
+                search: search,
+            };
+
+            this.$store
+                .dispatch("goods/shipping/purchase/quicksearch/get", data)
+                .then((response) => {
+                    // Ignore stale responses when input has changed.
+                    if (self.autocomplete.data.search !== search) {
+                        return;
+                    }
+                    self.autocomplete.data.items = response.data;
+                })
+                .catch((error) => {
+                    // Keep existing behavior on request failure.
+                })
+                .finally(() => {
+                    cli.loading = false;
+                });
+        },
         details() {
             if (this.data) {
                 const { id, type } = this.data;
@@ -89,13 +118,13 @@ export default {
                     case "SHIPPING":
                         this.$router.push({
                             name: "ShippingDetails",
-                            params: { id: id }
+                            params: { id: id },
                         });
                         break;
                     case "PURCHASE":
                         this.$router.push({
                             name: "PurchaseDetails",
-                            params: { id: id }
+                            params: { id: id },
                         });
                         break;
                 }
@@ -104,7 +133,7 @@ export default {
         getItemText(item) {
             // console.log(item);
             return `${item.name}`;
-        }
-    }
+        },
+    },
 };
 </script>

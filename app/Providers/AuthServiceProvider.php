@@ -30,8 +30,11 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::tokensCan([
             'user' => 'Create/Review/Edit User',
+            'duty' => 'Create/Review/Edit Duty',
+            'leave' => 'Create/Review/Edit Leave',
             'goods' => 'Create/Review/Edit Goods',
             'stock' => 'Create/Review/Edit Stock',
+            'stocktake' => 'Create/Review/Edit Stock Take',
             'client' => 'Create/Review/Edit Client',
             'category' => 'Create/Review/Edit Category',
             'purchase' => 'Create/Review/Edit Purchase',

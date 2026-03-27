@@ -15,28 +15,28 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class PurchaseController extends Controller
 {
     //
     protected $select = [
-        'goods_purchase.id',
-        'goods_purchase.user_id',
-        'goods_purchase.supplier_id',
-        'goods_purchase.number',
-        'goods_purchase.currency',
-        'goods_purchase.from_company',
-        'goods_purchase.from_email',
-        'goods_purchase.to_company_number',
-        'goods_purchase.to_address',
-        'goods_purchase.to_company',
-        'goods_purchase.to_email',
-        'goods_purchase.to_phone',
-        'goods_purchase.status',
-        'goods_purchase.date',
-        'goods_purchase.updated_at',
-        'goods_purchase.created_at',
+        'goods_purchases.id',
+        'goods_purchases.user_id',
+        'goods_purchases.supplier_id',
+        'goods_purchases.number',
+        'goods_purchases.currency',
+        'goods_purchases.from_company',
+        'goods_purchases.from_email',
+        'goods_purchases.to_company_number',
+        'goods_purchases.to_address',
+        'goods_purchases.to_company',
+        'goods_purchases.to_email',
+        'goods_purchases.to_phone',
+        'goods_purchases.status',
+        'goods_purchases.date',
+        'goods_purchases.updated_at',
+        'goods_purchases.created_at',
     ];
 
     protected $withs = [
@@ -56,7 +56,7 @@ class PurchaseController extends Controller
     public function post(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'supplier.id' => 'required|string|exists:supplier,id',
+            'supplier.id' => 'required|string|exists:suppliers,id',
             'date' => 'required|string',
             'to_company' => 'required|string',
             'to_contact' => 'required|string',
@@ -144,25 +144,25 @@ class PurchaseController extends Controller
         $query = Purchase::with($this->withs)
             ->when($request->filled(['supplier_id']), function ($query) {
                 $supplier_id = trim(request('supplier_id'));
-                return $query->whereHas('suppliers', function ($query) use ($supplier_id) {
+                return $query->whereHas('supplier', function ($query) use ($supplier_id) {
                     $query->where('id', $supplier_id);
                 });
             })
             ->when($request->filled(['search']), function ($query) {
                 $keyword = trim(request('search'));
                 return $query->where(function ($query) use ($keyword) {
-                    $query->where('goods_purchase.id', 'like', '%' . $keyword . '%')
+                    $query->where('goods_purchases.id', 'like', '%' . $keyword . '%')
                         ->orWhere('from_company', 'like', '%' . $keyword . '%')
-                        ->orWhere('supplier.id', 'like', '%' . $keyword . '%')
-                        ->orWhere('supplier.number', 'like', '%' . $keyword . '%')
-                        ->orWhere('supplier.name', 'like', '%' . $keyword . '%')
+                        ->orWhere('suppliers.id', 'like', '%' . $keyword . '%')
+                        ->orWhere('suppliers.number', 'like', '%' . $keyword . '%')
+                        ->orWhere('suppliers.name', 'like', '%' . $keyword . '%')
                         ->orWhere('users.name', 'like', '%' . $keyword . '%')
                         ->orWhere('users.email', 'like', '%' . $keyword . '%');
                 });
             })
             ->select($this->select)
-            ->join('supplier', 'supplier.id', '=', 'goods_purchase.supplier_id')
-            ->join('users', 'users.id', '=', 'goods_purchase.user_id');
+            ->join('suppliers', 'suppliers.id', '=', 'goods_purchases.supplier_id')
+            ->join('users', 'users.id', '=', 'goods_purchases.user_id');
 
         if ($request->filled(['sort_by', 'sort_desc'])) {
             $sortBys = request('sort_by');
@@ -272,7 +272,7 @@ class PurchaseController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id' => 'required|string|exists:goods_purchase,id',
+            'id' => 'required|string|exists:goods_purchases,id',
             'status' => 'required|in:' . implode(',', config('purchase.status')),
         ]);
 
@@ -307,25 +307,25 @@ class PurchaseController extends Controller
         $query = Purchase::with($this->withs)
             ->when($request->filled(['supplier_id']), function ($query) {
                 $supplier_id = trim(request('supplier_id'));
-                return $query->whereHas('suppliers', function ($query) use ($supplier_id) {
+                return $query->whereHas('supplier', function ($query) use ($supplier_id) {
                     $query->where('id', $supplier_id);
                 });
             })
             ->when($request->filled(['search']), function ($query) {
                 $keyword = trim(request('search'));
                 return $query->where(function ($query) use ($keyword) {
-                    $query->where('goods_purchase.id', 'like', '%' . $keyword . '%')
+                    $query->where('goods_purchases.id', 'like', '%' . $keyword . '%')
                         ->orWhere('from_company', 'like', '%' . $keyword . '%')
-                        ->orWhere('supplier.id', 'like', '%' . $keyword . '%')
-                        ->orWhere('supplier.number', 'like', '%' . $keyword . '%')
-                        ->orWhere('supplier.name', 'like', '%' . $keyword . '%')
+                        ->orWhere('suppliers.id', 'like', '%' . $keyword . '%')
+                        ->orWhere('suppliers.number', 'like', '%' . $keyword . '%')
+                        ->orWhere('suppliers.name', 'like', '%' . $keyword . '%')
                         ->orWhere('users.name', 'like', '%' . $keyword . '%')
                         ->orWhere('users.email', 'like', '%' . $keyword . '%');
                 });
             })
             ->select($this->select)
-            ->join('supplier', 'supplier.id', '=', 'goods_purchase.supplier_id')
-            ->join('users', 'users.id', '=', 'goods_purchase.user_id');
+            ->join('suppliers', 'suppliers.id', '=', 'goods_purchases.supplier_id')
+            ->join('users', 'users.id', '=', 'goods_purchases.user_id');
 
         if ($request->filled(['sort_by', 'sort_desc'])) {
             $sortBys = request('sort_by');

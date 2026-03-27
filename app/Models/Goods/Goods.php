@@ -35,7 +35,9 @@ class Goods extends Model
      * @var array
      */
     protected $fillable = [
+        'no',
         'name',
+        'code',
         'cost_price',
         'wholesale_price',
         'retail_price',

@@ -18,29 +18,43 @@ class AvailableShippingItems extends ResourceCollection
     public function toArray($request)
     {
         // return parent::toArray($request);
-        return $this->collection->transform(function ($item) use ($request) {
-            $sizes = config('constant.goods.sizes');
+        $sizes = config('constant.goods.sizes');
+
+        // Batch-load all items for every goods_id in this page — avoids N×sizes queries
+        $goodsIds = $this->collection->pluck('goods_id')->unique()->values()->toArray();
+        $allItems = Item::whereIn('goods_id', $goodsIds)->get();
+
+        // Batch-load all stock sums in one query
+        $allItemIds = $allItems->pluck('id')->toArray();
+        $stockSumMap = [];
+        if (!empty($allItemIds)) {
+            Stock::whereIn('goods_item_id', $allItemIds)
+                ->selectRaw('goods_item_id, COALESCE(SUM(unit), 0) as unit')
+                ->groupBy('goods_item_id')
+                ->get()
+                ->each(function ($row) use (&$stockSumMap) {
+                    $stockSumMap[$row->goods_item_id] = $row->unit * 1;
+                });
+        }
+
+        return $this->collection->transform(function ($item) use ($sizes, $allItems, $stockSumMap) {
             $item->total_unit = 0;
             foreach ($sizes as $size) {
-                $_item = Item::where(['goods_id' => $item->goods_id, 'size' => $size])
-                    ->when($item->color, function ($query) use ($item) {
-                        return $query->where('color', $item->color);
-                    })
-                    ->when($item->cup, function ($query) use ($item) {
-                        return $query->where('cup', $item->cup);
-                    })
-                    ->first();
+                $_item = $allItems->first(function ($i) use ($item, $size) {
+                    return $i->goods_id === $item->goods_id
+                        && $i->size === $size
+                        && (!$item->color || $i->color === $item->color)
+                        && (!$item->cup || $i->cup === $item->cup);
+                });
 
                 if ($_item) {
-                    $stock = Stock::goodsItemSum($_item->id);
-                    if ($stock) {
-                        $item->total_unit += $stock->unit;
-                    }
+                    $stockUnit = $stockSumMap[$_item->id] ?? 0;
+                    $item->total_unit += $stockUnit;
                     $item->{$size} = [
                         'goods_item_id' => $_item->id,
                         'barcode' => $_item->barcode,
                         'unit' => 0,
-                        'stock_unit' => $stock ? $stock->unit * 1 : 0,
+                        'stock_unit' => $stockUnit,
                     ];
                 }
             }

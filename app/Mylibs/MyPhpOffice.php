@@ -8,6 +8,7 @@ use PhpOffice\PhpWord\ComplexType\TblWidth as TblWidthComplexType;
 use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class MyPhpOffice
 {
@@ -19,6 +20,14 @@ class MyPhpOffice
     protected static $tableVerticalWidth = 10500;
 
     protected static $tempPath = 'app/public/temp/';
+
+    protected static function createTmpPath(): void
+    {
+        $dir = storage_path(self::$tempPath);
+        if (!is_dir($dir)) {
+            mkdir($dir, 0775, true);
+        }
+    }
 
     public static function setArrayValue($templateProcessor, $key, $array, $count)
     {
@@ -41,6 +50,7 @@ class MyPhpOffice
 
     public static function exportTableWithPath($name, $rows, $headers, $extension = 'pdf')
     {
+        self::createTmpPath();
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
         $section = $phpWord->addSection();
         $header = ['size' => 16, 'bold' => true];
@@ -90,7 +100,8 @@ class MyPhpOffice
 
     public static function exportPackingWithPath($name, $data = [], $extension = 'pdf')
     {
-        $template = 'ship_mailer.docx';
+        self::createTmpPath();
+        $template = 'shipping_mailer.docx';
         $domPdfPath = base_path('vendor/dompdf/dompdf');
 
         Settings::setPdfRendererName('DomPDF');
@@ -105,7 +116,7 @@ class MyPhpOffice
 
         $now = Carbon::now()->format('Y-m-d_H:i:s');
 
-        $docname = 'ship_mailer_' . $name . '_' . $now;
+        $docname = 'shipping_mailer_' . $name . '_' . $now;
         $path = storage_path(self::$tempPath . $docname . '.docx');
         $templateProcessor->saveAs($path);
         // dd($path);
@@ -113,7 +124,7 @@ class MyPhpOffice
             $outdir = storage_path(self::$tempPath);
             // $command = "libreoffice --headless --convert-to pdf $path --outdir $outdir";
             // $process = new Process(['libreoffice', '--headless', "--convert-to pdf $path", "--outdir $outdir"]);
-            $process = new Process(["libreoffice", '--headless', '--convert-to', request('extension'), $path, '--outdir', $outdir]);
+            $process = new Process(["libreoffice", '--headless', '--convert-to', $extension, $path, '--outdir', $outdir]);
             // $process->run();
             try {
                 $process->mustRun();
@@ -121,7 +132,7 @@ class MyPhpOffice
                 Log::error($exception->getMessage());
             }
             unlink($path); // delete the docx file manually
-            $path = storage_path(self::$tempPath . $docname . '.' . request('extension'));
+            $path = storage_path(self::$tempPath . $docname . '.' . $extension);
         }
 
         return $path;
@@ -130,6 +141,7 @@ class MyPhpOffice
 
     public static function exportMailerWithPath($name, $data, $extension = 'pdf')
     {
+        self::createTmpPath();
         $repeat = 4;
         $fontStyle = ['size' => 20];
 

@@ -13,7 +13,7 @@ class Content extends Model
 
     // use \Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
-    protected $table = 'goods_content';
+    protected $table = 'goods_contents';
 
     protected $keyType = 'string';
 
