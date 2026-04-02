@@ -9,13 +9,10 @@ import Vuetify, {
     VNavigationDrawer,
     VParallax,
     VSnackbar,
-    VToolbar
+    VToolbar,
 } from "vuetify/lib";
 
 Vue.use(Vuetify, {
-    icons: {
-        iconfont: "md"
-    },
     component: {
         VApp,
         VAppBar,
@@ -25,14 +22,17 @@ Vue.use(Vuetify, {
         VNavigationDrawer,
         VParallax,
         VSnackbar,
-        VToolbar
-    }
+        VToolbar,
+    },
 });
 
 const opts = {
+    icons: {
+        iconfont: "mdi",
+    },
     theme: {
-        dark: false
-    }
+        dark: false,
+    },
 };
 
 export default new Vuetify(opts);

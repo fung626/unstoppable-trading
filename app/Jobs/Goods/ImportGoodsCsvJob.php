@@ -31,7 +31,7 @@ class ImportGoodsCsvJob implements ShouldQueue
     }
 
     private const HEADER_INDEX = [
-        'no' => 0,
+        'number' => 0,
         'supplier_number' => 1,
         'code' => 2,
     ];
@@ -209,11 +209,11 @@ class ImportGoodsCsvJob implements ShouldQueue
 
     private function isImportableRow(array $row): bool
     {
-        $no = $this->cell($row, 'no');
+        $number = $this->cell($row, 'number');
         $supplier = $this->cell($row, 'supplier_number');
         $code = $this->cell($row, 'code');
 
-        if ($no === '' || !is_numeric($no)) {
+        if ($number === '' || !is_numeric($number)) {
             return false;
         }
 

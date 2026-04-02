@@ -300,11 +300,11 @@ class GoodsController extends Controller
                 $keyword = trim(request('search'));
                 return $query->where(function ($query) use ($keyword) {
                     // $query->where('id', 'like', '%' . $keyword . '%')
-                    //     ->orWhere('no', 'like', '%' . $keyword . '%')
+                    //     ->orWhere('number', 'like', '%' . $keyword . '%')
                     //     ->orWhere('name', 'like', '%' . $keyword . '%')
                     //     ->orWhere('code', 'like', '%' . $keyword . '%')
                     //     ->orWhere('type', 'like', '%' . $keyword . '%');
-                    $query->where('code', 'like', '%' . $keyword . '%');
+                    $query->where('code', '=', $keyword);
                 });
             });
 

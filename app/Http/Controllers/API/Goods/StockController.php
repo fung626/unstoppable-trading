@@ -46,7 +46,7 @@ class StockController extends Controller
                 //         ->orWhere('goods_items.barcode', 'like', '%' . $keyword . '%');
                 // })->orWhereHas('goods', function ($query) use ($keyword) {
                 //     $query->where('goods.id', 'like', '%' . $keyword . '%')
-                //         ->orWhere('goods.no', 'like', '%' . $keyword . '%')
+                //         ->orWhere('goods.number', 'like', '%' . $keyword . '%')
                 //         ->orWhere('goods.name', 'like', '%' . $keyword . '%')
                 //         ->orWhere('goods.code', 'like', '%' . $keyword . '%')
                 //         ->orWhere('goods.type', 'like', '%' . $keyword . '%');

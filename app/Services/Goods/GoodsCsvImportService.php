@@ -21,7 +21,7 @@ class GoodsCsvImportService
     }
 
     private const HEADER_INDEX = [
-        'no' => 0,
+        'number' => 0,
         'supplier_number' => 1,
         'code' => 2,
         'type' => 3,
@@ -146,7 +146,7 @@ class GoodsCsvImportService
 
                 $summary['rows_valid']++;
                 $supplierNumber = $this->cell($row, 'supplier_number');
-                $no = $this->cell($row, 'no');
+                $number = $this->cell($row, 'number');
                 $code = $this->cell($row, 'code');
 
                 if ($supplierNumber !== '') {
@@ -222,13 +222,13 @@ class GoodsCsvImportService
             if (!empty($goodsCodeList)) {
                 foreach (array_chunk($goodsCodeList, 1000) as $codeChunk) {
                     $existingGoods = Goods::whereIn('code', $codeChunk)
-                        ->select('id', 'no', 'code')
+                        ->select('id', 'number', 'code')
                         ->get();
 
                     foreach ($existingGoods as $existingGood) {
-                        $existingNo = (string) ($existingGood->no ?? '');
+                        $existingNumber = (string) ($existingGood->number ?? '');
                         $existingCode = (string) $existingGood->code;
-                        $goodsKeyToId[$this->goodsUniqueKey($existingNo, $existingCode)] = (string) $existingGood->id;
+                        $goodsKeyToId[$this->goodsUniqueKey($existingNumber, $existingCode)] = (string) $existingGood->id;
                     }
                 }
 
@@ -257,9 +257,9 @@ class GoodsCsvImportService
                         break;
                     }
 
-                    $no = $this->cell($row, 'no');
+                    $number = $this->cell($row, 'number');
                     $code = $this->cell($row, 'code');
-                    $goodsKey = $this->goodsUniqueKey($no, $code);
+                    $goodsKey = $this->goodsUniqueKey($number, $code);
                     if ($code === '' || isset($goodsKeyToId[$goodsKey])) {
                         continue;
                     }
@@ -363,8 +363,8 @@ class GoodsCsvImportService
                 }
 
                 $code = $this->cell($row, 'code');
-                $no = $this->cell($row, 'no');
-                $goodsKey = $this->goodsUniqueKey($no, $code);
+                $number = $this->cell($row, 'number');
+                $goodsKey = $this->goodsUniqueKey($number, $code);
 
                 if (!isset($goodsIdByKey[$goodsKey])) {
                     $summary['rows_skipped']++;
@@ -532,9 +532,9 @@ class GoodsCsvImportService
                 $delta['suppliers_created']++;
             }
 
-            $no = $this->cell($row, 'no');
+            $number = $this->cell($row, 'number');
             $code = $this->cell($row, 'code');
-            $goods = Goods::where('no', $no)
+            $goods = Goods::where('number', $number)
                 ->where('code', $code)
                 ->select('id')
                 ->first();
@@ -642,11 +642,11 @@ class GoodsCsvImportService
 
     private function isImportableRow(array $row): bool
     {
-        $no = $this->cell($row, 'no');
+        $number = $this->cell($row, 'number');
         $supplier = $this->cell($row, 'supplier_number');
         $code = $this->cell($row, 'code');
 
-        if ($no === '' || !is_numeric($no)) {
+        if ($number === '' || !is_numeric($number)) {
             return false;
         }
 
@@ -656,7 +656,7 @@ class GoodsCsvImportService
     private function parseGoodsAttributes(array $row, string $supplierId, $userId): array
     {
         return [
-            'no' => $this->cell($row, 'no'),
+            'number' => $this->cell($row, 'number'),
             'code' => $this->cell($row, 'code'),
             'name' => $this->cell($row, 'code'),
             'cost_price' => $this->toNumber($this->cell($row, 'cost_twd')),
@@ -675,9 +675,9 @@ class GoodsCsvImportService
         ];
     }
 
-    private function goodsUniqueKey(string $no, string $code): string
+    private function goodsUniqueKey(string $number, string $code): string
     {
-        return $no . '|' . $code;
+        return $number . '|' . $code;
     }
 
     private function buildItemPayload(array $row, string $goodsId, string $sizeLabel, $userId): array

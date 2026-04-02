@@ -3,7 +3,7 @@
         fixed
         :minimize="minimize"
         :show="show"
-        @update:show="value => $store.dispatch('toggleSidebarMobile')"
+        @update:show="(value) => $store.dispatch('toggleSidebarMobile')"
     >
         <CSidebarBrand class="d-md-down-none" to="/">
             <!-- <CIcon
@@ -13,7 +13,7 @@
                 :height="35"
                 :viewBox="`0 0 ${minimize ? 110 : 556} 134`"
             /> -->
-            <img
+            <!-- <img
                 v-if="minimize"
                 src="/images/logo.png"
                 width="52"
@@ -26,6 +26,12 @@
                 width="256"
                 height="42"
                 style="object-fit: contain;"
+            /> -->
+            <img
+                src="/images/header-logo.png"
+                width="256"
+                height="42"
+                style="object-fit: contain"
             />
         </CSidebarBrand>
         <CRenderFunction flat :content-to-render="nav" />
@@ -47,7 +53,7 @@ export default {
     data() {
         return {
             nav: [],
-            buffor: []
+            buffor: [],
         };
     },
     computed: {
@@ -57,7 +63,7 @@ export default {
         },
         minimize() {
             return this.uisidebar.sidebarMinimize;
-        }
+        },
     },
     methods: {
         dropdown(data) {
@@ -66,7 +72,7 @@ export default {
                 name: $t(data["name"]),
                 route: data["href"],
                 icon: data["icon"],
-                _children: []
+                _children: [],
             };
             for (let i = 0; i < data["elements"].length; i++) {
                 if (data["elements"][i]["slug"] == "dropdown") {
@@ -76,7 +82,7 @@ export default {
                         _name: "CSidebarNavItem",
                         name: $t(data["elements"][i]["name"]),
                         to: data["elements"][i]["href"],
-                        icon: data["elements"][i]["icon"]
+                        icon: data["elements"][i]["icon"],
                     });
                 }
             }
@@ -86,8 +92,8 @@ export default {
             this.buffor = [
                 {
                     _name: "CSidebarNav",
-                    _children: []
-                }
+                    _children: [],
+                },
             ];
             for (let k = 0; k < data.length; k++) {
                 switch (data[k]["slug"]) {
@@ -98,21 +104,21 @@ export default {
                                 name: data[k]["name"],
                                 href: data[k]["href"],
                                 icon: data[k]["icon"],
-                                target: "_blank"
+                                target: "_blank",
                             });
                         } else {
                             this.buffor[0]._children.push({
                                 _name: "CSidebarNavItem",
                                 name: data[k]["name"],
                                 to: data[k]["href"],
-                                icon: data[k]["icon"]
+                                icon: data[k]["icon"],
                             });
                         }
                         break;
                     case "title":
                         this.buffor[0]._children.push({
                             _name: "CSidebarNavTitle",
-                            _children: [data[k]["name"]]
+                            _children: [data[k]["name"]],
                         });
                         break;
                     case "dropdown":
@@ -121,7 +127,7 @@ export default {
                 }
             }
             return this.buffor;
-        }
+        },
     },
     mounted() {
         if (this.$store.getters.isAdmin) {
@@ -129,6 +135,6 @@ export default {
         } else {
             this.nav = _employeeNav;
         }
-    }
+    },
 };
 </script>
