@@ -1,5 +1,4 @@
 // import axios from "axios";
-import moment from "moment";
 import { i18n } from "../../plugins";
 import router from "../../router";
 import axios from "../../utils/myAxios";
@@ -14,9 +13,9 @@ export default {
                 url: `${endpoint}export`,
                 method: "POST",
                 data: payload,
-                responseType: "blob"
+                responseType: "blob",
             })
-                .then(response => {
+                .then((response) => {
                     let fileURL = window.URL.createObjectURL(
                         new Blob([response.data])
                     );
@@ -24,15 +23,13 @@ export default {
                     fileLink.href = fileURL;
                     fileLink.setAttribute(
                         "download",
-                        `${i18n.t("shipping")}-${i18n.t(
-                            "invoice"
-                        )}-${moment().format("dddd, Do MMMM YYYY")}.pdf`
+                        `${payload.filename}.${payload.extension}`
                     );
                     document.body.appendChild(fileLink);
                     fileLink.click();
                     resolve();
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     if (!error.response) {
                         reject(error);
                         return;
@@ -42,7 +39,7 @@ export default {
                         case 401:
                             dispatch("snackbar/show", {
                                 color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                text: i18n.t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -51,5 +48,5 @@ export default {
                     reject(error);
                 });
         });
-    }
+    },
 };

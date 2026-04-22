@@ -115,6 +115,12 @@ class ShippingController extends Controller
                     $query->where('id', $id);
                 });
             })
+            ->when($request->filled(['client_id']), function ($query) {
+                $client_id = trim(request('client_id'));
+                return $query->where(function ($query) use ($client_id) {
+                    $query->where('client_id', $client_id);
+                });
+            })
             ->when($request->filled(['search']), function ($query) {
                 $keyword = trim(request('search'));
                 return $query->where(function ($query) use ($keyword) {
@@ -126,7 +132,7 @@ class ShippingController extends Controller
                         ->orWhere('client_email', 'like', '%' . $keyword . '%')
                         ->orWhere('client_address', 'like', '%' . $keyword . '%');
                 });
-            });
+            })->where('status', '!=', 'DELETED');
 
         if ($request->filled(['sort_by', 'sort_desc'])) {
             $sortBys = request('sort_by');
@@ -134,7 +140,11 @@ class ShippingController extends Controller
             $index = 0;
             foreach ($sortBys as $sortBy) {
                 $sortDesc = $sortDescs[$index];
-                if ($sortBy !== "actions") {
+                if ($sortBy === 'generated_id') {
+                    // Sort by the underlying columns that make up generated_id
+                    $query->orderBy('client_number', $sortDesc ? 'DESC' : 'ASC')
+                          ->orderBy('number', $sortDesc ? 'DESC' : 'ASC');
+                } elseif ($sortBy !== "actions") {
                     $query->orderBy($sortBy, $sortDesc ? 'DESC' : 'ASC');
                 }
                 $index++;
@@ -369,7 +379,11 @@ class ShippingController extends Controller
             $index = 0;
             foreach ($sortBys as $sortBy) {
                 $sortDesc = $sortDescs[$index];
-                if ($sortBy !== "actions") {
+                if ($sortBy === 'generated_id') {
+                    // Sort by the underlying columns that make up generated_id
+                    $query->orderBy('client_number', $sortDesc ? 'DESC' : 'ASC')
+                          ->orderBy('number', $sortDesc ? 'DESC' : 'ASC');
+                } elseif ($sortBy !== "actions") {
                     $query->orderBy($sortBy, $sortDesc ? 'DESC' : 'ASC');
                 }
                 $index++;

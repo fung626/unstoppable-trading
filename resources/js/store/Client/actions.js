@@ -226,7 +226,7 @@ export default {
                     fileLink.setAttribute(
                         "download",
                         `${i18n.t("client")}-${moment().format(
-                            "dddd, Do MMMM YYYY"
+                            "L"
                         )}.pdf`
                     );
                     document.body.appendChild(fileLink);

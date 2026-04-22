@@ -220,7 +220,7 @@ export default {
                     fileLink.setAttribute(
                         "download",
                         `${i18n.t("goodsitem")}-${moment().format(
-                            "dddd, Do MMMM YYYY"
+                            "L"
                         )}.pdf`
                     );
                     document.body.appendChild(fileLink);

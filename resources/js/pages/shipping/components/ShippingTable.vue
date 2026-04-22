@@ -55,7 +55,7 @@
                 disablePagination: disablePagination,
                 showFirstLastPage: true,
                 showCurrentPage: true,
-                itemsPerPageOptions: [10, 20, 50, 100]
+                itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
             <template v-slot:[`item.status`]="{ item }">
@@ -104,10 +104,10 @@ import { Dialog } from "@/components";
 export default {
     name: "ShippingTable",
     props: {
-        clientId: null
+        clientId: null,
     },
     components: {
-        Dialog
+        Dialog,
     },
     data() {
         return {
@@ -118,74 +118,75 @@ export default {
             items: [],
             loading: false,
             options: {},
-            sortBy: "client_name",
-            sortDesc: false,
+            sortBy: "generated_id",
+            sortDesc: true,
             disableItemsPerPage: false,
             disablePagination: false,
             headers: [
                 {
                     text: this.$t("number"),
-                    value: "generated_id"
+                    value: "generated_id",
                 },
                 {
                     text: `${this.$t("client")}${this.$t("number")}`,
-                    value: "client_number"
+                    value: "client_number",
                 },
                 {
                     text: `${this.$t("client")}${this.$t("name")}`,
-                    value: "client_name"
+                    value: "client_name",
                 },
                 {
                     text: `${this.$t("client")}${this.$t("contact")}`,
-                    value: "client_contact"
+                    value: "client_contact",
                 },
                 {
                     text: `${this.$t("client")}${this.$t("phone")}`,
                     value: "formated_phone",
-                    sortable: false
+                    sortable: false,
                 },
                 {
                     text: `${this.$t("client")}${this.$t("address")}`,
-                    value: "client_address"
+                    value: "client_address",
                 },
                 {
                     text: `${this.$t("totalunit")}`,
                     value: "total_unit",
-                    sortable: false
+                    sortable: false,
                 },
                 {
                     text: `${this.$t("subtotal")}`,
                     value: "subtotal",
-                    sortable: false
+                    sortable: false,
                 },
                 {
                     text: `${this.$t("status")}`,
                     value: "status",
-                    sortable: false
+                    sortable: false,
                 },
                 { text: this.$t("updatedat"), value: "updated_at" },
                 {
                     text: `${this.$t("status")}${this.$t("actions")}`,
                     value: "status_actions",
-                    sortable: false
+                    sortable: false,
                 },
-                { text: this.$t("actions"), value: "actions", sortable: false }
-            ]
+                { text: this.$t("actions"), value: "actions", sortable: false },
+            ],
         };
     },
     watch: {
         options: {
             handler() {
                 this.fetch();
-            }
+            },
         },
         loading() {
             this.disableItemsPerPage = this.loading;
             this.disablePagination = this.loading;
-        }
+        },
     },
     methods: {
         fetch(reset = false) {
+            // console.log(`[DEBUG] fetching ${this.$props.clientId}`);
             let self = this;
             self.loading = true;
             const { page, itemsPerPage, sortBy, sortDesc } = self.options;
@@ -195,11 +196,11 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                keyword: self.searchText
+                keyword: self.searchText,
             };
             this.$store
                 .dispatch("goods/shipping/get", data)
-                .then(response => {
+                .then((response) => {
                     let res = JSON.parse(JSON.stringify(response.data));
                     self.items = res.data;
                     self.serverItemsLength = res.total;
@@ -207,7 +208,7 @@ export default {
                     self.page = res.current_page;
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -224,14 +225,14 @@ export default {
                 sort_by: sortBy,
                 sort_desc: sortDesc,
                 search: self.searchText,
-                extension: "pdf"
+                extension: "pdf",
             };
             this.$store
                 .dispatch("goods/shipping/export", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -257,13 +258,13 @@ export default {
                             .dispatch("goods/shipping/update", {
                                 id: item.id,
                                 status: action.status,
-                                type: "UPDATE"
+                                type: "UPDATE",
                             })
-                            .then(response => {
+                            .then((response) => {
                                 self.loading = false;
                                 self.fetch();
                             })
-                            .catch(error => {
+                            .catch((error) => {
                                 self.loading = false;
                             });
                     }
@@ -271,13 +272,13 @@ export default {
                 case "RouterPush":
                     this.$router.push({
                         name: "ShippingDetails",
-                        params: { id: item.id }
+                        params: { id: item.id },
                     });
                     break;
             }
             // console.log(id, key);
-        }
-    }
+        },
+    },
 };
 </script>
 

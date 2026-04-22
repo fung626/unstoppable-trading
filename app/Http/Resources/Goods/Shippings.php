@@ -48,7 +48,7 @@ class Shippings extends ResourceCollection
                     'color' => "info",
                     'type' => "UpdateStatus",
                     'status' => "PROCESSING",
-                    'disabled' => $item->status === 'PROCESSING' || $item->status === 'DELIVERED' ? true : false,
+                    'disabled' => $item->status === 'PROCESSING' || $item->status === 'DELIVERED' || $item->status === 'DELETED' ? true : false,
                 ],
                 [
                     'key' => Str::random(16),
@@ -56,6 +56,14 @@ class Shippings extends ResourceCollection
                     'color' => "success",
                     'type' => "UpdateStatus",
                     'status' => "DELIVERED",
+                    'disabled' => $item->status === 'DELIVERED' || $item->status === 'DELETED' ? true : false,
+                ],
+                [
+                    'key' => Str::random(16),
+                    'title' => __('Delete'),
+                    'color' => "danger",
+                    'type' => "UpdateStatus",
+                    'status' => "DELETED",
                     'disabled' => $item->status === 'DELIVERED' ? true : false,
                 ],
             ];

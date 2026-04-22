@@ -333,6 +333,7 @@ export default {
             self.loading = true;
             let data = {
                 id: self.$props.id,
+                filename: `${self.data.client_name}_${self.data.header_items[0].X2}`,
                 extension: "pdf",
             };
             this.$store
@@ -349,6 +350,7 @@ export default {
             self.loading = true;
             let data = {
                 shipping_id: self.$props.id,
+                filename: `${self.data.client_name}_${self.data.header_items[0].X2}`,
                 extension: "pdf",
             };
             this.$store
@@ -365,6 +367,7 @@ export default {
             self.loading = true;
             let data = {
                 id: self.$props.id,
+                filename: `${self.data.client_name}_${self.data.header_items[0].X2}`,
                 extension: "pdf",
             };
             this.$store

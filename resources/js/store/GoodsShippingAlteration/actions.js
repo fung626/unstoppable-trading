@@ -59,7 +59,7 @@ export default {
                     fileLink.setAttribute(
                         "download",
                         `${i18n.t("alteration")}-${moment().format(
-                            "dddd, Do MMMM YYYY"
+                            "L"
                         )}.pdf`
                     );
                     document.body.appendChild(fileLink);

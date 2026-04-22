@@ -58,7 +58,7 @@ import { StreamBarcodeReader } from "vue-barcode-reader";
 export default {
     name: "StockTakeDialog",
     components: {
-        StreamBarcodeReader
+        StreamBarcodeReader,
     },
     data() {
         return {
@@ -71,7 +71,7 @@ export default {
             unit: 0,
             error: false,
             loading: false,
-            data: null
+            data: null,
         };
     },
     methods: {
@@ -82,16 +82,16 @@ export default {
             }
             self.loading = true;
             let data = {
-                barcode: self.barcode
+                barcode: self.barcode,
             };
             this.$store
                 .dispatch("goods/item/details", data)
-                .then(response => {
+                .then((response) => {
                     let res = JSON.parse(JSON.stringify(response.data));
                     self.data = res.data;
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -110,7 +110,7 @@ export default {
             this.resolve({
                 confirmed: true,
                 barcode: this.barcode,
-                unit: this.unit
+                unit: this.unit,
             });
             this.item = null;
             this.unit = 0;
@@ -125,8 +125,8 @@ export default {
             // console.log(a, b, c);
             if (a) {
                 this.barcode = a;
-                this.items.forEach(item => {
-                    goodsSizes.forEach(size => {
+                this.items.forEach((item) => {
+                    goodsSizes.forEach((size) => {
                         if (item[size.name]) {
                             if (item[size.name].barcode === a) {
                                 this.unit = item[size.name].unit;
@@ -147,7 +147,7 @@ export default {
             this.unit = 0;
             this.barcode = null;
             this.data = null;
-        }
-    }
+        },
+    },
 };
 </script>

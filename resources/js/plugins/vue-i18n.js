@@ -90,6 +90,7 @@ const i18n = new VueI18n({
                 wholesale: "Wholesale Price",
             },
             subtotal: "Sub Total",
+            amount: "Amount",
             name: "Name",
             email: "Email",
             contact: "Contact",
@@ -117,6 +118,12 @@ const i18n = new VueI18n({
             stockalert: "Stock Alert",
             stocktake: "Stock Take",
             shipping: "Shipping",
+            monthlystatement: "Monthly Statement",
+            shipments: "Shipments",
+            totalunits: "Total Units",
+            totalamount: "Total Amount",
+            noshippingrecordsforclient:
+                "No shipping records found for this client.",
             mailerinfo: "Mailer Info",
             packing: "Packing",
             update: "Update",
@@ -173,6 +180,7 @@ const i18n = new VueI18n({
                 PROCESSING: "Processing",
                 delivered: "Delivered",
                 DELIVERED: "Delivered",
+                DELETED: "Deleted",
             },
             currencies: {
                 HKD: "HKD",
@@ -194,6 +202,7 @@ const i18n = new VueI18n({
                 cancel: "Cancel",
                 clear: "Clear",
                 close: "Close",
+                refresh: "Refresh",
                 export: "Export",
                 import: "Import",
             },
@@ -223,6 +232,11 @@ const i18n = new VueI18n({
             error: {
                 exceedstockunit: "Exceed stock unit",
                 camera: "Device not compatible",
+                barcode_not_found:
+                    "Scanned barcode was not found in the system.",
+                barcode_no_stock: "Scanned barcode has no stock available.",
+                barcode_load_failed:
+                    "Unable to load barcode details. Please try again.",
             },
             hint: {
                 duty: {
@@ -306,6 +320,7 @@ const i18n = new VueI18n({
                 wholesale: "批發價",
             },
             subtotal: "總金額",
+            amount: "金額",
             name: "名稱",
             email: "電郵",
             contact: "聯絡",
@@ -333,6 +348,11 @@ const i18n = new VueI18n({
             stockalert: "庫存提示",
             stocktake: "點貨",
             shipping: "出貨",
+            monthlystatement: "每月報表",
+            shipments: "出貨單數",
+            totalunits: "總數量",
+            totalamount: "總金額",
+            noshippingrecordsforclient: "此客戶沒有出貨記錄。",
             mailerinfo: "信封資料",
             packing: "包裝",
             update: "更新",
@@ -389,6 +409,7 @@ const i18n = new VueI18n({
                 PROCESSING: "處理中",
                 delivered: "已交付",
                 DELIVERED: "已交付",
+                DELETED: "已刪除",
             },
             currencies: {
                 HKD: "港幣",
@@ -410,6 +431,7 @@ const i18n = new VueI18n({
                 cancel: "取消",
                 clear: "清除",
                 close: "關閉",
+                refresh: "重新整理",
                 export: "匯出",
                 import: "匯入",
             },
@@ -437,6 +459,9 @@ const i18n = new VueI18n({
             error: {
                 exceedstockunit: "超出庫存數量",
                 camera: "設備不兼容",
+                barcode_not_found: "系統找不到掃描的條碼。",
+                barcode_no_stock: "掃描的條碼沒有可用庫存。",
+                barcode_load_failed: "無法載入條碼資料，請重試。",
             },
             hint: {
                 duty: {

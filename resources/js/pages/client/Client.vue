@@ -43,7 +43,7 @@
                 disablePagination: disablePagination,
                 showFirstLastPage: true,
                 showCurrentPage: true,
-                itemsPerPageOptions: [10, 20, 50, 100]
+                itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
             <template v-slot:[`item.created_at`]="{ item }">
@@ -77,7 +77,7 @@ import { mapState } from "vuex";
 export default {
     name: "Client",
     components: {
-        Dialog
+        Dialog,
     },
     computed: {
         ...mapState(["client"]),
@@ -92,14 +92,14 @@ export default {
         },
         items() {
             return this.client.data?.data;
-        }
+        },
     },
     data() {
         return {
             searchText: null,
             loading: false,
             options: {},
-            sortBy: "name",
+            sortBy: "number",
             sortDesc: false,
             disableItemsPerPage: false,
             disablePagination: false,
@@ -110,24 +110,24 @@ export default {
                 {
                     text: this.$t("phone"),
                     value: "formated_phone",
-                    sortable: false
+                    sortable: false,
                 },
                 { text: this.$t("email"), value: "email" },
                 { text: this.$t("updatedat"), value: "updated_at" },
-                { text: this.$t("actions"), value: "actions", sortable: false }
-            ]
+                { text: this.$t("actions"), value: "actions", sortable: false },
+            ],
         };
     },
     watch: {
         options: {
             handler() {
                 this.fetch();
-            }
+            },
         },
         loading() {
             this.disableItemsPerPage = this.loading;
             this.disablePagination = this.loading;
-        }
+        },
     },
     methods: {
         fetch(reset = false) {
@@ -139,14 +139,14 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                search: self.searchText
+                search: self.searchText,
             };
             this.$store
                 .dispatch("client/get", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -165,14 +165,14 @@ export default {
                 sort_by: sortBy,
                 sort_desc: sortDesc,
                 search: self.searchText,
-                extension: "pdf"
+                extension: "pdf",
             };
             this.$store
                 .dispatch("client/export", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -184,7 +184,7 @@ export default {
                 case "RouterPush":
                     this.$router.push({
                         name: "ClientDetails",
-                        params: { id: id }
+                        params: { id: id },
                     });
                     break;
                 case "Delete":
@@ -197,18 +197,18 @@ export default {
                         let self = this;
                         this.$store
                             .dispatch("client/delete", { id: id })
-                            .then(response => {
+                            .then((response) => {
                                 self.loading = false;
                                 self.fetch();
                             })
-                            .catch(error => {
+                            .catch((error) => {
                                 self.loading = false;
                             });
                     }
                     break;
             }
             // console.log(id, key);
-        }
-    }
+        },
+    },
 };
 </script>

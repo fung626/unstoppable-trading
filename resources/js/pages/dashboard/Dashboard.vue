@@ -14,7 +14,7 @@
                     </CButton>
                 </CWidgetIcon>
             </CCol>
-            <CCol v-if="isPermissionGranted('shipping')" sm="12" lg="3">
+            <CCol v-if="isPermissionGranted('shippings')" sm="12" lg="3">
                 <CWidgetIcon
                     :header="`${$t('barcode')}${$t('scanner')}`"
                     :text="`${$t('goods')}${$t('shipping')}`"
@@ -25,7 +25,7 @@
                     </CButton>
                 </CWidgetIcon>
             </CCol>
-            <CCol v-if="isPermissionGranted('stocktake')" sm="12" lg="3">
+            <CCol v-if="isPermissionGranted('stocks')" sm="12" lg="3">
                 <CWidgetIcon
                     :header="`${$t('barcode')}${$t('scanner')}`"
                     :text="`${$t('stocktake')}`"

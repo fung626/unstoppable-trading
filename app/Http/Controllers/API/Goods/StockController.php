@@ -37,7 +37,8 @@ class StockController extends Controller
         $query = Item::with($this->withs)
             ->when($request->filled(['search']), function ($query) {
                 $keyword = trim(request('search'));
-                return $query->where('goods.code', 'like', '%' . $keyword . '%');
+                return $query->where('goods.code', $keyword);
+                // return $query->where('goods.code', 'like', '%' . $keyword . '%');
                 // return $query->where(function ($query) use ($keyword) {
                 //     $query->where('goods_items.id', 'like', '%' . $keyword . '%')
                 //         ->orWhere('goods_items.cup', 'like', '%' . $keyword . '%')

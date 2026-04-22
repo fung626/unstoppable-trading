@@ -198,6 +198,11 @@ Route::group(['namespace' => 'API\Goods', 'middleware' => ['auth:api', 'scopes:s
     Route::post('format', ['uses' => 'ShippingController@format']);
 });
 
+Route::group(['namespace' => 'API\Goods\Shipping', 'middleware' => ['auth:api', 'scopes:shipping', 'localization'], 'prefix' => 'goods/shipping/monthly/statement'], function () {
+    Route::post('get', ['uses' => 'MonthlyStatementController@get']);
+    Route::post('export', ['uses' => 'MonthlyStatementController@export']);
+});
+
 Route::group(['namespace' => 'API\Goods\Shipping', 'middleware' => ['auth:api', 'scopes:shipping', 'localization'], 'prefix' => 'goods/shipping/alteration'], function () {
     Route::post('get', ['uses' => 'AlterationController@get']);
     Route::post('export', ['uses' => 'ShippingAlterationController@export']);

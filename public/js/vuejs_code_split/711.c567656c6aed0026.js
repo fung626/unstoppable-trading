@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[711],{58711:(e,n,t)=>{t.r(n),t.d(n,{default:()=>l});const a={name:"ExchangeRate",components:{ExchangeRateTable:t(57267).Z}};const l=(0,t(51900).Z)(a,(function(){return(0,this._self._c)("ExchangeRateTable")}),[],!1,null,null,null).exports}}]);
+//# sourceMappingURL=711.c567656c6aed0026.js.map

@@ -97,7 +97,7 @@ export default {
                     fileLink.setAttribute(
                         "download",
                         `${i18n.t("purchase")}-${moment().format(
-                            "dddd, Do MMMM YYYY"
+                            "L"
                         )}.pdf`
                     );
                     document.body.appendChild(fileLink);
