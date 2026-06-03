@@ -104,5 +104,10 @@
     "Updated at": "Updated at",
     "Created at": "Created at",
     "Actions": "Actions",
-    "Client not found": "Client not found"
+    "Client not found": "Client not found",
+    "Choose Import Mode": "Choose how to import data:",
+    "Erase and Import": "Erase All & Import",
+    "Append Import": "Append Data",
+    "Select Import File": "Select a CSV file to import:",
+    "Monthly Statement": "Monthly Statement"
 }

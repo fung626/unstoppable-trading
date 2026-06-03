@@ -175,9 +175,10 @@ Route::group(['namespace' => 'API\Goods\Purchase', 'middleware' => ['auth:api', 
 
 Route::group(['namespace' => 'API\Goods\Import', 'middleware' => ['auth:api', 'localization'], 'prefix' => 'goods/import'], function () {
     Route::post('', ['uses' => 'ImportController@post']);
+    Route::delete('{jobId}', ['uses' => 'ImportController@delete']);
     // Route::post('create', ['uses' => 'ImportController@post']);
-    Route::get('status/{jobId}', ['uses' => 'StatusController@get']);
-    Route::get('jobs', ['uses' => 'JobsController@get']);
+    Route::get('status/get', ['uses' => 'StatusController@get']);
+    Route::get('status/details/{jobId}', ['uses' => 'StatusController@details']);
 });
 
 // Route::get('goods/purchase/invoice/details', ['uses' => 'API\Goods\Purchase\InvoiceController@details']);

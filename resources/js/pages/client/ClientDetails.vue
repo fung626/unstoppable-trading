@@ -8,7 +8,7 @@
                         @update:activeTab="(index) => activeTabUpdated(index)"
                     >
                         <CTab
-                            :title="tab.values[0].toUpperCase()"
+                            :title="$t(tab.values[0]).toUpperCase()"
                             :active="tab.index === 0 ? true : false"
                         >
                             <hr />
@@ -17,14 +17,14 @@
                             ></ClientForm>
                         </CTab>
                         <CTab
-                            :title="tab.values[1].toUpperCase()"
+                            :title="$t(tab.values[1]).toUpperCase()"
                             :active="tab.index === 1 ? true : false"
                         >
                             <hr />
                             <ShippingTable :clientId="this.$route.params.id" />
                         </CTab>
                         <CTab
-                            :title="tab.values[2].toUpperCase()"
+                            :title="$t(tab.values[2]).toUpperCase()"
                             :active="tab.index === 2 ? true : false"
                         >
                             <hr />
@@ -54,18 +54,50 @@ export default {
     data() {
         return {
             tab: {
-                values: [
-                    this.$t("info"),
-                    this.$t("shipping"),
-                    this.$t("monthlystatement"),
-                ],
+                values: ["info", "shipping", "monthlystatement"],
                 index: 0,
             },
         };
     },
+    created() {
+        this.syncTabFromRoute(this.$route.query.tab);
+    },
+    watch: {
+        "$route.query.tab"(value) {
+            this.syncTabFromRoute(value);
+        },
+    },
     methods: {
         activeTabUpdated(index) {
-            this.tab.index = index;
+            this.tab.index = Number(index) || 0;
+            this.syncRouteFromTab();
+        },
+        syncTabFromRoute(tabKey) {
+            const index = this.tab.values.indexOf(tabKey);
+            if (index >= 0) {
+                this.tab.index = index;
+                return;
+            }
+
+            this.tab.index = 0;
+            this.syncRouteFromTab();
+        },
+        syncRouteFromTab() {
+            const selectedTab =
+                this.tab.values[this.tab.index] || this.tab.values[0];
+
+            if (this.$route.query.tab === selectedTab) {
+                return;
+            }
+
+            this.$router
+                .replace({
+                    query: {
+                        ...this.$route.query,
+                        tab: selectedTab,
+                    },
+                })
+                .catch(() => {});
         },
     },
 };

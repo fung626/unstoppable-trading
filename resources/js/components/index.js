@@ -3,6 +3,7 @@ import Dialog from "./Dialog";
 import DutyCalendar from "./DutyCalendar";
 import ExchangeRate from "./ExchangeRate";
 import ExchangeRateTable from "./ExchangeRateTable";
+import ImportGoodsDialog from "./ImportGoodsDialog";
 import ScannerDialog from "./ScannerDialog";
 import ShippingPurchaseQuickSearch from "./ShippingPurchaseQuickSearch";
 import Snackbar from "./Snackbar";
@@ -15,9 +16,10 @@ export {
     DutyCalendar,
     ExchangeRate,
     ExchangeRateTable,
+    ImportGoodsDialog,
     ScannerDialog,
     ShippingPurchaseQuickSearch,
     Snackbar,
     StockCalendar,
-    TextFieldColorPicker
+    TextFieldColorPicker,
 };

@@ -28,6 +28,7 @@ const i18n = new VueI18n({
                     success: "Successfully reset password",
                 },
             },
+            all: "All",
             login: "Login",
             logout: "Logout",
             prev: "Prev",
@@ -84,6 +85,7 @@ const i18n = new VueI18n({
             details: "Details",
             info: "Info",
             description: "Description",
+            chooseinportmode: "Choose Import Mode",
             price: {
                 cost: "Cost",
                 retail: "Retail Price",
@@ -144,6 +146,22 @@ const i18n = new VueI18n({
             duty: "Duty",
             dutylist: "Duty List",
             resetpassword: "Reset Password",
+            currentimportstatus: "Current Import Status",
+            import: {
+                append: "Append and Import",
+                replace: "Erase and Import",
+                msg: {
+                    dropfile: "Drag and drop your file here",
+                    clickupload: "or click to upload",
+                },
+                status: {
+                    queued: "Queued",
+                    pending: "Pending",
+                    processing: "Processing",
+                    completed: "Completed",
+                    failed: "Failed",
+                },
+            },
             calendar: {
                 title: "Calendar",
                 month: "Month",
@@ -205,6 +223,8 @@ const i18n = new VueI18n({
                 refresh: "Refresh",
                 export: "Export",
                 import: "Import",
+                eraseandimport: "Erase and Import",
+                appendimport: "Append and Import",
             },
             alert: {
                 title: "Alert",
@@ -257,6 +277,7 @@ const i18n = new VueI18n({
                     success: "成功重置密碼",
                 },
             },
+            all: "全部",
             login: "登入",
             logout: "登出",
             prev: "上一個",
@@ -314,6 +335,7 @@ const i18n = new VueI18n({
             details: "詳細",
             info: "詳細",
             description: "描述",
+            chooseinportmode: "選擇匯入模式",
             price: {
                 cost: "成本價",
                 retail: "零售價",
@@ -373,6 +395,22 @@ const i18n = new VueI18n({
             duty: "更",
             dutylist: "更表",
             resetpassword: "重置密碼",
+            currentimportstatus: "目前匯入狀態",
+            import: {
+                append: "追加匯入",
+                replace: "清除並匯入",
+                msg: {
+                    dropfile: "將檔案拖放到此處",
+                    clickupload: "或點擊上傳",
+                },
+                status: {
+                    queued: "排隊中",
+                    pending: "待確定",
+                    processing: "處理中",
+                    completed: "已完成",
+                    failed: "失敗",
+                },
+            },
             calendar: {
                 title: "日曆",
                 month: "月",
@@ -434,6 +472,8 @@ const i18n = new VueI18n({
                 refresh: "重新整理",
                 export: "匯出",
                 import: "匯入",
+                eraseandimport: "清除並匯入",
+                appendimport: "追加匯入",
             },
             alert: {
                 title: "提示",
@@ -454,6 +494,7 @@ const i18n = new VueI18n({
                     updated: "成功更新記錄",
                     created: "成功新增記錄",
                     deleted: "成功刪除記錄",
+                    imported: "成功匯入記錄",
                 },
             },
             error: {

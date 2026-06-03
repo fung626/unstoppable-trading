@@ -11,31 +11,31 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}login`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error && "data" in response.data) {
                         let res = response.data;
                         commit(types.LOGIN_SUCCESS, res);
                         dispatch("snackbar/show", {
                             color: "success",
-                            text: i18n.t("snackbar.success.login")
+                            text: i18n.t("snackbar.success.login"),
                         });
                         resolve(res);
                     } else {
                         dispatch("snackbar/show", {
-                            color: "success",
-                            text: i18n.t("snackbar.fail.login")
+                            color: "error",
+                            text: i18n.t("snackbar.fail.login"),
                         });
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     if (!error.response) {
                         reject(error);
                         return;
                     }
                     dispatch("snackbar/show", {
-                        color: "success",
-                        text: i18n.t("snackbar.fail.login")
+                        color: "error",
+                        text: i18n.t("snackbar.fail.login"),
                     });
                     reject(error);
                 });
@@ -48,18 +48,18 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}forgot/password/email`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         dispatch("snackbar/show", {
                             color: "success",
-                            text: i18n.t("auth.forgotpassword.mailsent")
+                            text: i18n.t("auth.forgotpassword.mailsent"),
                         });
                         resolve(response);
                     } else {
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     if (!error.response) {
                         reject(error);
                         return;
@@ -68,8 +68,8 @@ export default {
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
-                                color: "success",
-                                text: i18n.t("snackbar.fail.token")
+                                color: "error",
+                                text: i18n.t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
                             router.push({ name: "Login" });
@@ -83,7 +83,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}forgot/password/find`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         resolve(response);
                     } else {
@@ -91,7 +91,7 @@ export default {
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     if (!error.response) {
                         reject(error);
                         return;
@@ -110,18 +110,18 @@ export default {
         return new Promise((resolve, reject) => {
             axios
                 .post(`${endpoint}forgot/password/reset`, payload)
-                .then(function(response) {
+                .then(function (response) {
                     if (!response.data.error) {
                         dispatch("snackbar/show", {
                             color: "success",
-                            text: i18n.t("auth.resetpassword.success")
+                            text: i18n.t("auth.resetpassword.success"),
                         });
                         resolve(response);
                     } else {
                         reject(response);
                     }
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     if (!error.response) {
                         reject(error);
                         return;
@@ -135,5 +135,5 @@ export default {
                     reject(error);
                 });
         });
-    }
+    },
 };

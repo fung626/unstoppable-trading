@@ -104,5 +104,10 @@
     "Updated at": "更新日期",
     "Created at": "新增日期",
     "Actions": "功能",
-    "Client not found": "找不到客戶"
+    "Client not found": "找不到客戶",
+    "Choose Import Mode": "選擇如何匯入數據:",
+    "Erase and Import": "清空全部 & 匯入",
+    "Append Import": "附加數據",
+    "Select Import File": "選擇要匯入的CSV文件:",
+    "Monthly Statement": "每月報表"
 }

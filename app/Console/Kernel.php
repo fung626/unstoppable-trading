@@ -26,8 +26,11 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('telescope:prune --hours=12')->everyFiveMinutes();
-        $schedule->command('stock:alert')->weekly();
-        $schedule->command('queue:work --once --tries=3 --timeout=120 --sleep=1')->everyMinute()->withoutOverlapping();
+        $schedule->command('goods:import:reconcile-jobs')->everyFiveMinutes()->withoutOverlapping();
+        $schedule->command('backup:clean')->weeklyOn(0, '01:00');
+        $schedule->command('backup:run --only-db')->weeklyOn(0, '02:00');
+        // $schedule->command('stock:alert')->weekly();
+        // $schedule->command('queue:work --once --tries=3 --timeout=120 --sleep=1')->everyMinute()->withoutOverlapping();
     }
 
     /**

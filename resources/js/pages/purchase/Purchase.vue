@@ -56,7 +56,7 @@
                 disablePagination: disablePagination,
                 showFirstLastPage: true,
                 showCurrentPage: true,
-                itemsPerPageOptions: [10, 20, 50, 100]
+                itemsPerPageOptions: [10, 20, 50, 100],
             }"
         >
             <template v-slot:[`item.status`]="{ item }">
@@ -115,7 +115,7 @@ export default {
     name: "Purchase",
     components: {
         Dialog,
-        StockCalendar
+        StockCalendar,
     },
     computed: {
         ...mapState(["goods/purchase"]),
@@ -130,7 +130,7 @@ export default {
         },
         items() {
             return this["goods/purchase"].data?.data;
-        }
+        },
     },
     data() {
         return {
@@ -143,7 +143,11 @@ export default {
             disablePagination: false,
             headers: [
                 { text: this.$t("number"), value: "generated_id" },
-                { text: this.$t("supplier"), value: "supplier.name" },
+                {
+                    text: this.$t("supplier"),
+                    value: "supplier.name",
+                    sortable: false,
+                },
                 { text: this.$t("creator"), value: "users.name" },
                 { text: this.$t("subtotal"), value: "subtotal" },
                 { text: this.$t("status"), value: "status" },
@@ -151,22 +155,22 @@ export default {
                 { text: this.$t("updatedat"), value: "updated_at" },
                 {
                     text: `${this.$t("status")}${this.$t("actions")}`,
-                    value: "status_actions"
+                    value: "status_actions",
                 },
-                { text: this.$t("actions"), value: "actions", sortable: false }
-            ]
+                { text: this.$t("actions"), value: "actions", sortable: false },
+            ],
         };
     },
     watch: {
         options: {
             handler() {
                 this.fetch();
-            }
+            },
         },
         loading() {
             this.disableItemsPerPage = this.loading;
             this.disablePagination = this.loading;
-        }
+        },
     },
     methods: {
         fetch(reset = false) {
@@ -181,14 +185,14 @@ export default {
                 per_page: itemsPerPage,
                 sort_by: sortBy,
                 sort_desc: sortDesc,
-                search: self.searchText
+                search: self.searchText,
             };
             this.$store
                 .dispatch("goods/purchase/get", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -207,14 +211,14 @@ export default {
                 sort_by: sortBy,
                 sort_desc: sortDesc,
                 search: self.searchText,
-                extension: "pdf"
+                extension: "pdf",
             };
             this.$store
                 .dispatch("goods/purchase/export", data)
-                .then(response => {
+                .then((response) => {
                     self.loading = false;
                 })
-                .catch(error => {
+                .catch((error) => {
                     self.loading = false;
                 });
         },
@@ -239,13 +243,13 @@ export default {
                         this.$store
                             .dispatch("goods/purchase/update", {
                                 id: item.id,
-                                status: action.status
+                                status: action.status,
                             })
-                            .then(response => {
+                            .then((response) => {
                                 self.loading = false;
                                 self.fetch();
                             })
-                            .catch(error => {
+                            .catch((error) => {
                                 self.loading = false;
                             });
                     }
@@ -254,7 +258,7 @@ export default {
                     let route = action.route;
                     this.$router.push({
                         name: route,
-                        params: { id: item.id }
+                        params: { id: item.id },
                     });
                     break;
                 case "Delete":
@@ -271,18 +275,18 @@ export default {
                         self.loading = true;
                         this.$store
                             .dispatch("goods/purchase/delete", { id: item.id })
-                            .then(response => {
+                            .then((response) => {
                                 self.loading = false;
                                 self.fetch();
                             })
-                            .catch(error => {
+                            .catch((error) => {
                                 self.loading = false;
                             });
                     }
                     break;
             }
             // console.log(id, key);
-        }
-    }
+        },
+    },
 };
 </script>

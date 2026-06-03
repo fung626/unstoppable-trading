@@ -10,6 +10,7 @@ import Dashboard from "./Dashboard";
 import ExchangeRate from "./ExchangeRate";
 import Goods from "./Goods";
 import GoodsContent from "./GoodsContent";
+import GoodsImportStatus from "./GoodsImportStatus";
 import GoodsItem from "./GoodsItem";
 import GoodsShipping from "./GoodsShipping";
 import GoodsShippingAlteration from "./GoodsShippingAlteration";
@@ -63,6 +64,7 @@ export default new Vuex.Store({
         ["user/event"]: UserEvent,
         ["user/permission"]: UserPermission,
         goods: Goods,
+        ["goods/import/status"]: GoodsImportStatus,
         ["goods/content"]: GoodsContent,
         ["goods/item"]: GoodsItem,
         ["goods/shipping"]: GoodsShipping,

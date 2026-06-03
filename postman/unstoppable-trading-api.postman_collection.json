@@ -2039,6 +2039,46 @@
                                     "raw": "{{base_url}}/api/goods/import",
                                     "host": ["{{base_url}}"],
                                     "path": ["api", "goods", "import"]
+                                },
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "key": "file",
+                                            "type": "file",
+                                            "src": ""
+                                        },
+                                        {
+                                            "key": "mode",
+                                            "value": "replace",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "dry_run",
+                                            "value": "false",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "async",
+                                            "value": "true",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "retry_missing_file",
+                                            "value": "true",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "missing_file_max_retries",
+                                            "value": "3",
+                                            "type": "text"
+                                        },
+                                        {
+                                            "key": "missing_file_retry_delay_seconds",
+                                            "value": "20",
+                                            "type": "text"
+                                        }
+                                    ]
                                 }
                             },
                             "response": []

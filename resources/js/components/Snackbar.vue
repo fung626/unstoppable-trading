@@ -4,7 +4,6 @@
         :color="color"
         :timeout="timeout"
         :vertical="true"
-        multi-line
     >
         {{ text }}
         <template>
@@ -22,7 +21,7 @@ export default {
     name: "Snackbar",
     data() {
         return {
-            timeout: 60000
+            timeout: 60000,
         };
     },
     computed: {
@@ -35,19 +34,26 @@ export default {
                 if (!value) {
                     this.$store.dispatch("snackbar/close");
                 }
-            }
+            },
         },
         color() {
             return this.uisnackbar.color;
         },
         text() {
             return this.uisnackbar.text;
-        }
+        },
     },
     methods: {
         close() {
             this.$store.dispatch("snackbar/close");
-        }
-    }
+        },
+    },
 };
 </script>
+
+<style>
+.v-snack__content {
+    padding: 0px 12px !important;
+    padding-top: 8px !important;
+}
+</style>

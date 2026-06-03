@@ -2,6 +2,7 @@
     <CContainer lg>
         <!-- <WidgetsDropdown /> -->
         <ScannerDialog ref="scannerDialog" />
+        <ImportGoodsDialog ref="importGoodsDialog" />
         <CRow>
             <CCol v-if="isPermissionGranted('goods')" sm="12" lg="3">
                 <CWidgetIcon
@@ -42,19 +43,11 @@
                     :text="`${$t('goods')}`"
                     color="primary"
                 >
-                    <input
-                        ref="importInput"
-                        type="file"
-                        accept=".csv,text/csv"
-                        style="display: none"
-                        @change="importGoods"
-                    />
-
                     <CButton
                         class="text-white"
                         size="lg"
                         :disabled="loading.import"
-                        @click="openImportPicker"
+                        @click="openImportGoodsDialog"
                     >
                         <CSpinner v-if="loading.import" size="sm" />
                         <CIcon v-else name="cil-cloud-upload" size="lg" />
@@ -64,7 +57,10 @@
         </CRow>
         <CRow>
             <CCol>
-                <ShippingPurchaseQuickSearch />
+                <ImportStatusSection
+                    v-if="$store.getters.isAdmin"
+                    ref="importStatusSection"
+                />
             </CCol>
         </CRow>
         <DashboardSummaryLineChart v-if="$store.getters.isAdmin" />
@@ -124,11 +120,13 @@
 import {
     DutyCalendar,
     ExchangeRate,
+    ImportGoodsDialog,
     ScannerDialog,
     ShippingPurchaseQuickSearch,
 } from "@/components";
 import { mapState } from "vuex";
 import DashboardSummaryLineChart from "./components/DashboardSummaryLineChart";
+import ImportStatusSection from "./components/ImportStatusSection";
 import PurchaseTable from "./components/PurchaseTable";
 
 export default {
@@ -136,9 +134,11 @@ export default {
     components: {
         DutyCalendar,
         ExchangeRate,
+        ImportGoodsDialog,
         ScannerDialog,
         ShippingPurchaseQuickSearch,
         DashboardSummaryLineChart,
+        ImportStatusSection,
         PurchaseTable,
     },
     computed: {
@@ -190,30 +190,38 @@ export default {
         async stocktake() {
             await this.$refs.scannerDialog.open("StockTake");
         },
-        openImportPicker() {
+        async openImportGoodsDialog() {
             if (this.loading.import) {
                 return;
             }
-            this.$refs.importInput?.click();
+            const result = await this.$refs.importGoodsDialog.open();
+            if (!result) {
+                return;
+            }
+            await this.importGoods(result);
         },
-        importGoods(event) {
+        async importGoods(result) {
             let self = this;
-            const file = event.target.files[0];
+            const file = result.file;
+            const mode = result.mode;
+
             if (!file || self.loading.import) {
                 return;
             }
+
             self.loading.import = true;
             const data = new FormData();
             data.append("file", file);
+            data.append("mode", mode); // 'replace' or 'append'
+
             this.$store
                 .dispatch("goods/import", data)
                 .then(() => {
-                    // self.fetch();
+                    this.$refs.importStatusSection?.fetch();
                     self.loading.import = false;
                 })
                 .finally(() => {
                     self.loading.import = false;
-                    event.target.value = "";
                 });
         },
     },

@@ -33,7 +33,7 @@ export default {
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
-                                color: "success",
+                                color: "error",
                                 text: i18n.t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
@@ -68,7 +68,7 @@ export default {
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
-                                color: "success",
+                                color: "error",
                                 text: i18n.t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
@@ -107,7 +107,7 @@ export default {
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
-                                color: "success",
+                                color: "error",
                                 text: i18n.t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
@@ -151,7 +151,7 @@ export default {
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
-                                color: "success",
+                                color: "error",
                                 text: i18n.t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
@@ -194,7 +194,7 @@ export default {
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
-                                color: "success",
+                                color: "error",
                                 text: i18n.t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
@@ -225,9 +225,7 @@ export default {
                     fileLink.href = fileURL;
                     fileLink.setAttribute(
                         "download",
-                        `${i18n.t("goods")}-${moment().format(
-                            "L"
-                        )}.pdf`
+                        `${i18n.t("goods")}-${moment().format("L")}.pdf`
                     );
                     document.body.appendChild(fileLink);
                     fileLink.click();
@@ -242,7 +240,7 @@ export default {
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
-                                color: "success",
+                                color: "error",
                                 text: i18n.t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");
@@ -285,7 +283,7 @@ export default {
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
-                                color: "success",
+                                color: "error",
                                 text: i18n.t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");

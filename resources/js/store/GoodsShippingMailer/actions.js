@@ -42,7 +42,7 @@ export default {
                     switch (status) {
                         case 401:
                             dispatch("snackbar/show", {
-                                color: "success",
+                                color: "error",
                                 text: i18n.t("snackbar.fail.token"),
                             });
                             dispatch("auth/logout");

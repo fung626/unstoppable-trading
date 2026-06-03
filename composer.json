@@ -23,6 +23,7 @@
         "lcobucci/jwt": "^4.0",
         "phpoffice/phpword": "dev-master",
         "picqer/php-barcode-generator": "^2.2",
+        "spatie/laravel-backup": "^6.16",
         "spatie/laravel-welcome-notification": "^2.0",
         "staudenmeir/eloquent-json-relations": "^1.1"
     },

@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Console\Commands\Json\Form;
+
+use App\Models\Goods\Supplier as SupplierModel;
+use File;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
+
+class Supplier extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'json:supplier';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description';
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
+    {
+        try {
+            $suppliers = SupplierModel::get();
+            File::put(env('REACT_PATH') . 'src/json/form/supplier.json', $suppliers);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+        }
+        return 0;
+    }
+}
