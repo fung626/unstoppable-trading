@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\API\Goods;
 
 use App\Http\Controllers\Controller;
@@ -52,7 +51,6 @@ class PurchaseController extends Controller
         'PROCCESSING',
         'DELIVERED',
     ];
-
 
     protected $sortableColumns = [
         'generated_id' => 'goods_purchases.id',

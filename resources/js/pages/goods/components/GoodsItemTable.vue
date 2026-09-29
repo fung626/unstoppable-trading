@@ -119,6 +119,63 @@
                     </template>
                 </v-edit-dialog>
             </template>
+            <template v-slot:[`item.cost_price`]="{ item }">
+                <v-edit-dialog
+                    :return-value.sync="item.cost_price"
+                    :save-text="$t('button.confirm')"
+                    :cancel-text="$t('button.cancel')"
+                    large
+                >
+                    {{ item.cost_price }}
+                    <template v-slot:input>
+                        <v-text-field
+                            v-model="item.cost_price"
+                            :label="$t('button.edit')"
+                            type="number"
+                            step="0.01"
+                            single-line
+                        ></v-text-field>
+                    </template>
+                </v-edit-dialog>
+            </template>
+            <template v-slot:[`item.retail_price`]="{ item }">
+                <v-edit-dialog
+                    :return-value.sync="item.retail_price"
+                    :save-text="$t('button.confirm')"
+                    :cancel-text="$t('button.cancel')"
+                    large
+                >
+                    {{ item.retail_price }}
+                    <template v-slot:input>
+                        <v-text-field
+                            v-model="item.retail_price"
+                            :label="$t('button.edit')"
+                            type="number"
+                            step="0.01"
+                            single-line
+                        ></v-text-field>
+                    </template>
+                </v-edit-dialog>
+            </template>
+            <template v-slot:[`item.wholesale_price`]="{ item }">
+                <v-edit-dialog
+                    :return-value.sync="item.wholesale_price"
+                    :save-text="$t('button.confirm')"
+                    :cancel-text="$t('button.cancel')"
+                    large
+                >
+                    {{ item.wholesale_price }}
+                    <template v-slot:input>
+                        <v-text-field
+                            v-model="item.wholesale_price"
+                            :label="$t('button.edit')"
+                            type="number"
+                            step="0.01"
+                            single-line
+                        ></v-text-field>
+                    </template>
+                </v-edit-dialog>
+            </template>
             <template v-slot:[`item.updated_at`]="{ item }">
                 <div v-if="item.updated_at">
                     {{ formatDate(item.updated_at, "dddd, Do MMMM YYYY") }}
@@ -175,6 +232,18 @@ export default {
                 { text: this.$t("color"), value: "color" },
                 { text: this.$t("size"), value: "size" },
                 { text: this.$t("barcode"), value: "barcode" },
+                {
+                    text: this.$t("price.cost") || "Cost Price",
+                    value: "cost_price",
+                },
+                {
+                    text: this.$t("price.retail") || "Retail Price",
+                    value: "retail_price",
+                },
+                {
+                    text: this.$t("price.wholesale") || "Wholesale Price",
+                    value: "wholesale_price",
+                },
                 {
                     text: this.$t("stockunit"),
                     value: "stock_unit",
@@ -332,7 +401,6 @@ export default {
                     }
                     break;
             }
-            // console.log(id, key);
         },
     },
 };

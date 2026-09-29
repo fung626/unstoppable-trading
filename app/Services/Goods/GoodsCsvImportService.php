@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services\Goods;
 
 use App\Models\Goods\Goods;
@@ -9,16 +8,10 @@ use App\Models\Goods\Supplier;
 use App\Mylibs\ColorHelper;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
 
 class GoodsCsvImportService
 {
     private ColorHelper $colorHelper;
-
-    public function __construct(?ColorHelper $colorHelper = null)
-    {
-        $this->colorHelper = $colorHelper ?? new ColorHelper();
-    }
 
     private const HEADER_INDEX = [
         'number' => 0,
@@ -53,6 +46,11 @@ class GoodsCsvImportService
         'size_44' => '44-Free',
     ];
 
+    public function __construct(?ColorHelper $colorHelper = null)
+    {
+        $this->colorHelper = $colorHelper ?? new ColorHelper();
+    }
+
     public function import(string $csvPath, array $options = []): array
     {
         @ini_set('max_execution_time', '0');
@@ -67,6 +65,10 @@ class GoodsCsvImportService
         $filename = (string) ($options['filename'] ?? basename($csvPath));
         $onProgress = $options['on_progress'] ?? null;
         $progressEvery = isset($options['progress_every']) ? max(1, (int) $options['progress_every']) : 100;
+
+        if (is_dir($csvPath)) {
+            throw new \InvalidArgumentException("The provided path is a directory, not a CSV file: " . $csvPath);
+        }
 
         if (!is_file($csvPath) || !is_readable($csvPath)) {
             throw new \RuntimeException('csv file not found or unreadable');
@@ -85,7 +87,7 @@ class GoodsCsvImportService
             'sample_skips' => [],
         ];
 
-        $goodsIdByKey = [];
+        $goodsIdByCode = [];
         $supplierIdByNumber = [];
         $itemKeysByGoodsId = [];
         $supplierNumbers = [];
@@ -104,7 +106,6 @@ class GoodsCsvImportService
         if ($dryRun) {
             DB::beginTransaction();
         } else if ($mode === 'replace') {
-            // For replace mode, start transaction and delete existing goods
             DB::beginTransaction();
             try {
                 GoodsStock::truncate();
@@ -159,7 +160,6 @@ class GoodsCsvImportService
 
                 $summary['rows_valid']++;
                 $supplierNumber = $this->cell($row, 'supplier_number');
-                $number = $this->cell($row, 'number');
                 $code = $this->cell($row, 'code');
 
                 if ($supplierNumber !== '') {
@@ -169,7 +169,6 @@ class GoodsCsvImportService
                 if ($code !== '') {
                     $goodsCodes[$code] = true;
                 }
-
             }
 
             fclose($handle);
@@ -230,18 +229,15 @@ class GoodsCsvImportService
                 }
             }
 
-            $goodsKeyToId = [];
             $goodsCodeList = array_keys($goodsCodes);
             if (!empty($goodsCodeList)) {
                 foreach (array_chunk($goodsCodeList, 1000) as $codeChunk) {
                     $existingGoods = Goods::whereIn('code', $codeChunk)
-                        ->select('id', 'number', 'code')
+                        ->select('id', 'code')
                         ->get();
 
                     foreach ($existingGoods as $existingGood) {
-                        $existingNumber = (string) ($existingGood->number ?? '');
-                        $existingCode = (string) $existingGood->code;
-                        $goodsKeyToId[$this->goodsUniqueKey($existingNumber, $existingCode)] = (string) $existingGood->id;
+                        $goodsIdByCode[(string) $existingGood->code] = (string) $existingGood->id;
                     }
                 }
 
@@ -270,10 +266,8 @@ class GoodsCsvImportService
                         break;
                     }
 
-                    $number = $this->cell($row, 'number');
                     $code = $this->cell($row, 'code');
-                    $goodsKey = $this->goodsUniqueKey($number, $code);
-                    if ($code === '' || isset($goodsKeyToId[$goodsKey])) {
+                    if ($code === '' || isset($goodsIdByCode[$code])) {
                         continue;
                     }
 
@@ -289,7 +283,7 @@ class GoodsCsvImportService
                     $goodsData['created_at'] = now();
                     $goodsData['updated_at'] = now();
 
-                    $goodsKeyToId[$goodsKey] = $goodsId;
+                    $goodsIdByCode[$code] = $goodsId;
                     $newGoodsRows[] = $goodsData;
                     $summary['goods_created']++;
 
@@ -306,12 +300,8 @@ class GoodsCsvImportService
                 }
             }
 
-            foreach ($goodsKeyToId as $goodsKey => $goodsId) {
-                $goodsIdByKey[$goodsKey] = $goodsId;
-            }
-
-            if (!empty($goodsKeyToId)) {
-                $allGoodsIds = array_values($goodsKeyToId);
+            if (!empty($goodsIdByCode)) {
+                $allGoodsIds = array_values($goodsIdByCode);
                 foreach (array_chunk($allGoodsIds, 1000) as $goodsIdChunk) {
                     $existingItems = GoodsItem::whereIn('goods_id', $goodsIdChunk)
                         ->select('id', 'goods_id', 'size', 'color', 'cup')
@@ -376,10 +366,7 @@ class GoodsCsvImportService
                 }
 
                 $code = $this->cell($row, 'code');
-                $number = $this->cell($row, 'number');
-                $goodsKey = $this->goodsUniqueKey($number, $code);
-
-                if (!isset($goodsIdByKey[$goodsKey])) {
+                if (!isset($goodsIdByCode[$code])) {
                     $summary['rows_skipped']++;
                     if (count($summary['sample_skips']) < 20) {
                         $summary['sample_skips'][] = [
@@ -390,7 +377,7 @@ class GoodsCsvImportService
                     continue;
                 }
 
-                $goodsId = $goodsIdByKey[$goodsKey];
+                $goodsId = $goodsIdByCode[$code];
                 if (!isset($itemKeysByGoodsId[$goodsId])) {
                     $itemKeysByGoodsId[$goodsId] = [];
                 }
@@ -506,9 +493,10 @@ class GoodsCsvImportService
         ];
 
         $row = $this->normalizeRow($rawRow);
-        if (!$this->isImportableRow($row)) {
+        $skipReason = $this->getRowSkipReason($row);
+        if ($skipReason !== null) {
             $delta['rows_skipped'] = 1;
-            $delta['sample_skip'] = 'missing required values';
+            $delta['sample_skip'] = $skipReason;
             return $delta;
         }
 
@@ -546,10 +534,8 @@ class GoodsCsvImportService
                 $delta['suppliers_created']++;
             }
 
-            $number = $this->cell($row, 'number');
             $code = $this->cell($row, 'code');
-            $goods = Goods::where('number', $number)
-                ->where('code', $code)
+            $goods = Goods::where('code', $code)
                 ->select('id')
                 ->first();
 
@@ -656,6 +642,28 @@ class GoodsCsvImportService
         }, $row);
     }
 
+    private function getRowSkipReason(array $row): ?string
+    {
+        $number = $this->cell($row, 'number');
+        $supplier = $this->cell($row, 'supplier_number');
+        $code = $this->cell($row, 'code');
+
+        if ($number === '') {
+            return 'missing number';
+        }
+        if (!is_numeric($number)) {
+            return "number is not numeric (value: '{$number}')";
+        }
+        if ($supplier === '') {
+            return 'missing supplier_number';
+        }
+        if ($code === '') {
+            return 'missing code';
+        }
+
+        return null;
+    }
+
     private function isImportableRow(array $row): bool
     {
         $number = $this->cell($row, 'number');
@@ -691,11 +699,6 @@ class GoodsCsvImportService
         ];
     }
 
-    private function goodsUniqueKey(string $number, string $code): string
-    {
-        return $number . '|' . $code;
-    }
-
     private function buildItemPayload(array $row, string $goodsId, string $sizeLabel, $userId): array
     {
         return [
@@ -710,8 +713,6 @@ class GoodsCsvImportService
             'created_by' => $userId,
         ];
     }
-
-
 
     private function itemUniqueKey(string $size, ?string $color, ?string $cup): string
     {
@@ -729,6 +730,7 @@ class GoodsCsvImportService
             'unit' => $qty,
             'unit_price' => $unitPrice,
             'type' => $type,
+            'synced_to_shopify' => false,
         ];
     }
 

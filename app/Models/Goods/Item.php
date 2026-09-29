@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Models\Goods;
 
 use App\Models\Goods\Goods;
+use App\Models\Goods\Stock\Stock;
 use App\Models\User\Users;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
 use Illuminate\Database\Eloquent\Model;
@@ -29,11 +29,14 @@ class Item extends Model
      */
     protected $fillable = [
         'goods_id',
+        'shopify_variant_id',
+        'shopify_inventory_item_id',
         'size',
         'cup',
         'color',
         'barcode',
         'created_by',
+        'last_shopify_push_at',
     ];
 
     public function goods()
@@ -44,6 +47,11 @@ class Item extends Model
     public function creator()
     {
         return $this->hasOne(Users::class, 'id', 'created_by');
+    }
+
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class, 'goods_item_id');
     }
 
     public static function withSizes($goods_id = false, $goods_item_id = false)

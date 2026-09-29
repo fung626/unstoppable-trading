@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Jobs\Goods;
 
 use App\Mylibs\ImportJobCacheHelper;
@@ -19,7 +18,7 @@ class ImportGoodsCsvRowJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public $tries = 5;
+    public $tries   = 5;
     public $backoff = [10, 30, 60, 120];
     public $timeout = 120;
 
@@ -30,20 +29,20 @@ class ImportGoodsCsvRowJob implements ShouldQueue
 
     public function __construct(string $jobId, int $lineNo, array $row, array $options = [])
     {
-        $this->jobId = $jobId;
-        $this->lineNo = $lineNo;
-        $this->row = $row;
+        $this->jobId   = $jobId;
+        $this->lineNo  = $lineNo;
+        $this->row     = $row;
         $this->options = $options;
     }
 
     public function handle(GoodsCsvImportService $service, ImportJobCacheHelper $jobCache): void
     {
         $delta = [
-            'rows_skipped' => 0,
-            'goods_created' => 0,
-            'items_created' => 0,
+            'rows_skipped'      => 0,
+            'goods_created'     => 0,
+            'items_created'     => 0,
             'suppliers_created' => 0,
-            'sample_skip' => null,
+            'sample_skip'       => null,
         ];
 
         try {
@@ -51,11 +50,11 @@ class ImportGoodsCsvRowJob implements ShouldQueue
         } catch (\Throwable $e) {
             Log::error('goods import row failed: ' . $e->getMessage(), [
                 'job_id' => $this->jobId,
-                'line' => $this->lineNo,
+                'line'   => $this->lineNo,
             ]);
 
             $delta['rows_skipped'] = 1;
-            $delta['sample_skip'] = 'row processing failed: ' . $e->getMessage();
+            $delta['sample_skip']  = 'row processing failed: ' . $e->getMessage();
         }
 
         $this->applyDelta($delta, $jobCache);
@@ -65,15 +64,15 @@ class ImportGoodsCsvRowJob implements ShouldQueue
     {
         Log::error('goods import row terminal failure: ' . $e->getMessage(), [
             'job_id' => $this->jobId,
-            'line' => $this->lineNo,
+            'line'   => $this->lineNo,
         ]);
 
         $this->applyDelta([
-            'rows_skipped' => 1,
-            'goods_created' => 0,
-            'items_created' => 0,
+            'rows_skipped'      => 1,
+            'goods_created'     => 0,
+            'items_created'     => 0,
             'suppliers_created' => 0,
-            'sample_skip' => 'row failed permanently: ' . $e->getMessage(),
+            'sample_skip'       => 'row failed permanently: ' . $e->getMessage(),
         ], app(ImportJobCacheHelper::class));
     }
 
@@ -88,7 +87,7 @@ class ImportGoodsCsvRowJob implements ShouldQueue
         } catch (\Throwable $e) {
             Log::warning('goods import row lock failed, fallback to unlocked update: ' . $e->getMessage(), [
                 'job_id' => $this->jobId,
-                'line' => $this->lineNo,
+                'line'   => $this->lineNo,
             ]);
         }
 
@@ -99,7 +98,7 @@ class ImportGoodsCsvRowJob implements ShouldQueue
     {
         // De-duplicate row accounting for at-least-once queue delivery/retries.
         $isFirstFinalization = $jobCache->safeAdd($jobCache->rowProcessedKey($this->jobId, $this->lineNo), 1, now()->addDay());
-        if (!$isFirstFinalization) {
+        if (! $isFirstFinalization) {
             return;
         }
 
@@ -109,38 +108,38 @@ class ImportGoodsCsvRowJob implements ShouldQueue
         }
 
         $summary = $payload['summary'] ?? [
-            'rows_read' => 0,
-            'rows_valid' => 0,
-            'rows_skipped' => 0,
-            'goods_created' => 0,
-            'items_created' => 0,
+            'rows_read'         => 0,
+            'rows_valid'        => 0,
+            'rows_skipped'      => 0,
+            'goods_created'     => 0,
+            'items_created'     => 0,
             'suppliers_created' => 0,
-            'sample_skips' => [],
+            'sample_skips'      => [],
         ];
 
-        $summary['rows_skipped'] = (int) ($summary['rows_skipped'] ?? 0) + (int) ($delta['rows_skipped'] ?? 0);
-        $summary['goods_created'] = (int) ($summary['goods_created'] ?? 0) + (int) ($delta['goods_created'] ?? 0);
-        $summary['items_created'] = (int) ($summary['items_created'] ?? 0) + (int) ($delta['items_created'] ?? 0);
+        $summary['rows_skipped']      = (int) ($summary['rows_skipped'] ?? 0) + (int) ($delta['rows_skipped'] ?? 0);
+        $summary['goods_created']     = (int) ($summary['goods_created'] ?? 0) + (int) ($delta['goods_created'] ?? 0);
+        $summary['items_created']     = (int) ($summary['items_created'] ?? 0) + (int) ($delta['items_created'] ?? 0);
         $summary['suppliers_created'] = (int) ($summary['suppliers_created'] ?? 0) + (int) ($delta['suppliers_created'] ?? 0);
 
-        if (!empty($delta['sample_skip']) && count($summary['sample_skips']) < 20) {
+        if (! empty($delta['sample_skip']) && count($summary['sample_skips']) < 20) {
             $summary['sample_skips'][] = [
-                'line' => $this->lineNo,
+                'line'   => $this->lineNo,
                 'reason' => (string) $delta['sample_skip'],
             ];
         }
 
         $progress = $payload['progress'] ?? [
-            'phase' => 'processing',
-            'rows_read' => $summary['rows_read'] ?? 0,
-            'rows_valid' => $summary['rows_valid'] ?? 0,
+            'phase'          => 'processing',
+            'rows_read'      => $summary['rows_read'] ?? 0,
+            'rows_valid'     => $summary['rows_valid'] ?? 0,
             'rows_processed' => 0,
-            'percent' => 0,
+            'percent'        => 0,
         ];
 
-        $progress['phase'] = 'processing';
-        $progress['rows_read'] = (int) ($summary['rows_read'] ?? 0);
-        $progress['rows_valid'] = (int) ($summary['rows_valid'] ?? 0);
+        $progress['phase']          = 'processing';
+        $progress['rows_read']      = (int) ($summary['rows_read'] ?? 0);
+        $progress['rows_valid']     = (int) ($summary['rows_valid'] ?? 0);
         $progress['rows_processed'] = (int) ($progress['rows_processed'] ?? 0) + 1;
 
         $rowsValid = max(0, (int) ($summary['rows_valid'] ?? 0));
@@ -152,22 +151,22 @@ class ImportGoodsCsvRowJob implements ShouldQueue
             ? round(($progress['rows_processed'] / $rowsValid) * 100, 2)
             : 100;
 
-        $status = 'processing';
+        $status     = 'processing';
         $finishedAt = null;
 
         if ($rowsValid > 0 && $progress['rows_processed'] >= $rowsValid) {
-            $status = 'completed';
-            $finishedAt = now()->toDateTimeString();
-            $progress['phase'] = 'completed';
+            $status              = 'completed';
+            $finishedAt          = now()->toDateTimeString();
+            $progress['phase']   = 'completed';
             $progress['percent'] = 100;
         }
 
-        $payload['status'] = $status;
-        $payload['summary'] = $summary;
-        $payload['progress'] = $progress;
-        $payload['error'] = null;
+        $payload['status']      = $status;
+        $payload['summary']     = $summary;
+        $payload['progress']    = $progress;
+        $payload['error']       = null;
         $payload['finished_at'] = $finishedAt;
-        $payload['updated_at'] = now()->toDateTimeString();
+        $payload['updated_at']  = now()->toDateTimeString();
 
         $jobCache->safePut($jobCache->cacheKey($this->jobId), $payload, now()->addDay());
         $this->updateJobsIndex($payload, $jobCache);
@@ -178,12 +177,12 @@ class ImportGoodsCsvRowJob implements ShouldQueue
         $index = $jobCache->safeGet($jobCache->jobsIndexKey(), []);
 
         $index[$this->jobId] = [
-            'job_id' => $payload['job_id'] ?? $this->jobId,
-            'status' => $payload['status'] ?? 'processing',
-            'user_id' => $payload['user_id'] ?? null,
-            'filename' => $payload['filename'] ?? null,
-            'created_at' => $payload['created_at'] ?? null,
-            'updated_at' => $payload['updated_at'] ?? null,
+            'job_id'      => $payload['job_id'] ?? $this->jobId,
+            'status'      => $payload['status'] ?? 'processing',
+            'user_id'     => $payload['user_id'] ?? null,
+            'filename'    => $payload['filename'] ?? null,
+            'created_at'  => $payload['created_at'] ?? null,
+            'updated_at'  => $payload['updated_at'] ?? null,
             'finished_at' => $payload['finished_at'] ?? null,
         ];
 

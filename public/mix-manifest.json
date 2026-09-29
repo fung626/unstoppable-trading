@@ -1,9 +1,9 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/images/favicon.ico": "/images/favicon.ico",
-    "/images/header-logo.png": "/images/header-logo.png",
-    "/images/logo-named.png": "/images/logo-named.png",
-    "/images/logo.png": "/images/logo.png",
-    "/images/vendor/vue-phone-number-input/dist/flags.9c96e0ed.png": "/images/vendor/vue-phone-number-input/dist/flags.9c96e0ed.png"
+    "/js/app.js": "/js/app.js?id=830bbe780419e9f3af940cf3bc2a316c",
+    "/css/app.css": "/css/app.css?id=5b4364700347a7fcef60cd2788de9bdc",
+    "/images/favicon.ico": "/images/favicon.ico?id=33675531d8f3fe3de813265b02bbcb1f",
+    "/images/header-logo.png": "/images/header-logo.png?id=a561cd4b723196e6a68ed9aaab4fd28a",
+    "/images/logo-named.png": "/images/logo-named.png?id=751d99af91d25d1e2e0790fa0c099043",
+    "/images/logo.png": "/images/logo.png?id=99ae0a4e016f3b21c44603243e2dfd17",
+    "/images/vendor/vue-phone-number-input/dist/flags.9c96e0ed.png": "/images/vendor/vue-phone-number-input/dist/flags.9c96e0ed.png?id=5348175e0eef57700a1a79ab9d5e8524"
 }

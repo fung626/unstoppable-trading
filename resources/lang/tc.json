@@ -109,5 +109,8 @@
     "Erase and Import": "清空全部 & 匯入",
     "Append Import": "附加數據",
     "Select Import File": "選擇要匯入的CSV文件:",
-    "Monthly Statement": "每月報表"
+    "Monthly Statement": "每月報表",
+    "Cost Price": "成本價",
+    "Retail Price": "零售價",
+    "Wholesale Price": "批發價"
 }

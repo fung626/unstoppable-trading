@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\API\Goods;
 
 use App\Http\Controllers\Controller;
@@ -12,12 +11,13 @@ use App\Mylibs\MyPhpOffice;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class GoodsController extends Controller
 {
@@ -263,6 +263,10 @@ class GoodsController extends Controller
         //     $goods->categories = Category::whereIn('id', $goods->categories)->get();
         // }
 
+        dispatch(function () use ($goods) {
+            Artisan::call('shopify:push-goods', ['--code' => $goods->code]);
+        })->afterResponse();
+
         $response = config('response.common.success');
         $response['data'] = $goods;
         return response()->json($response, 200);
@@ -402,6 +406,10 @@ class GoodsController extends Controller
 
     public function export(Request $request)
     {
+        @ini_set('max_execution_time', '0');
+        @ini_set('memory_limit', '512M');
+        @set_time_limit(0);
+        DB::disableQueryLog();
         $query = Goods::with($this->withs)
             ->when($request->filled(['id']), function ($query) {
                 $id = trim(request('id'));
@@ -486,11 +494,26 @@ class GoodsController extends Controller
             $rows[] = $row;
         }
 
-        $path = MyPhpOffice::exportTableWithPath(__('Goods'), $rows, $headers, 'pdf');
-
-        return response()
-            ->download($path)
-            ->deleteFileAfterSend(true);
+        // $path = MyPhpOffice::exportTableWithPath(__('Goods'), $rows, $headers, 'pdf');
+        // return response()
+        //     ->download($path)
+        //     ->deleteFileAfterSend(true);
+        try {
+            $path = MyPhpOffice::exportTableWithPath(__('Goods'), $rows, $headers, 'pdf');
+            return response()
+                ->download($path)
+                ->deleteFileAfterSend(true);
+        } catch (\Symfony\Component\Process\Exception\ProcessTimedOutException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'PDF generation timed out. The file may be too large or the server is too slow.',
+            ], 500);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Export failed: ' . $e->getMessage(),
+            ], 500);
+        }
     }
 
 }

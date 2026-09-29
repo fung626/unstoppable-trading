@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\API\Goods;
 
 use App\Http\Controllers\Controller;
@@ -13,6 +12,7 @@ use App\Mylibs\Goods as GoodsLib;
 use App\Mylibs\MyPhpOffice;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -39,6 +39,7 @@ class ItemController extends Controller
         $goods = Goods::where(['id' => request('goods_id')])->first();
 
         $item = null;
+        $found = false;
 
         try {
 
@@ -127,6 +128,9 @@ class ItemController extends Controller
                     ->update([
                         // 'goods_id' => request('goods_id'),
                         'cup' => $goods->type === 'BR' ? request('cup') : null,
+                        'cost_price' => request('cost_price'),
+                        'retail_price' => request('retail_price'),
+                        'wholesale_price' => request('wholesale_price'),
                         'size' => request('size'),
                         'color' => request('color'),
                         'barcode' => request('barcode'),
@@ -143,6 +147,9 @@ class ItemController extends Controller
                     'cup' => $goods->type === 'BR' ? request('cup') : null,
                     'size' => request('size'),
                     'color' => request('color'),
+                    'cost_price' => request('cost_price'),
+                    'retail_price' => request('retail_price'),
+                    'wholesale_price' => request('wholesale_price'),
                     'barcode' => $request->filled(['barcode']) ? request('barcode') : GoodsLib::barcode(),
                     'created_by' => $user->id,
                 ]);
@@ -151,6 +158,10 @@ class ItemController extends Controller
                 // $response['data'] = $resource->resolve();
                 // return response()->json($response, 200);
             }
+
+            dispatch(function () use ($goods) {
+                Artisan::call('shopify:push-goods', ['--code' => $goods->code]);
+            })->afterResponse();
         } catch (\Illuminate\Database\QueryException $e) {
             Log::error($e->getMessage());
             // $errorInfo = $e->errorInfo;
@@ -359,6 +370,9 @@ class ItemController extends Controller
             __('Cup'),
             __('Size'),
             __('Color'),
+            __('Cost Price'),
+            __('Retail Price'),
+            __('Wholesale Price'),
             __('Barcode'),
             __('Updated at'),
         ];
@@ -368,6 +382,9 @@ class ItemController extends Controller
                 $item['cup'],
                 $item['size'],
                 $item['color'],
+                $item['cost_price'],
+                $item['retail_price'],
+                $item['wholesale_price'],
                 $item['barcode'],
                 Carbon::parse($item['updated_at'])->format('Y-m-d H:i:s'),
             ];

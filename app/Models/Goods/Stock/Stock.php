@@ -33,6 +33,7 @@ class Stock extends Model
         'unit',
         'unit_price',
         'type',
+        'synced_to_shopify',
     ];
 
     public static function goodsSum($id)

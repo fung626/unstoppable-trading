@@ -109,5 +109,8 @@
     "Erase and Import": "Erase All & Import",
     "Append Import": "Append Data",
     "Select Import File": "Select a CSV file to import:",
-    "Monthly Statement": "Monthly Statement"
+    "Monthly Statement": "Monthly Statement",
+    "Cost Price": "Cost Price",
+    "Retail Price": "Retail Price",
+    "Wholesale Price": "Wholesale Price"
 }

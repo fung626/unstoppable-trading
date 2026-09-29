@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models\Goods;
 
 use App\Models\Goods\Category;
@@ -36,6 +35,7 @@ class Goods extends Model
      */
     protected $fillable = [
         'number',
+        'shopify_product_id',
         'name',
         'code',
         'cost_price',
@@ -51,6 +51,7 @@ class Goods extends Model
         'contents',
         'description',
         'created_by',
+        'last_shopify_push_at',
     ];
 
     protected $casts = [
